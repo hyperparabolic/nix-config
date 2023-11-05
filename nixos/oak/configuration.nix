@@ -63,11 +63,13 @@
     "/persist" = {
       directories = [
         "/etc/nixos"
-	"/etc/shadow"
         "/var/lib/systemd"
         "/var/lib/nixos"
         "/var/log"
         "/srv"
+      ];
+      files = [
+        "/etc/shadow"
       ];
     };
   };
