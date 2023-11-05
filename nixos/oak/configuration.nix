@@ -74,10 +74,10 @@
     };
   };
 
-  programs = {
-    git.enable = true;
-    neovim.enable = true;
-  };
+  # programs = {
+  #   git.enable = true;
+  #   neovim.enable = true;
+  # };
 
   users.users = {
     spencer = {
