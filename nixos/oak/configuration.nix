@@ -69,9 +69,6 @@
         "/var/log"
         "/srv"
       ];
-      files = [
-        "/etc/shadow"
-      ];
     };
   };
 
