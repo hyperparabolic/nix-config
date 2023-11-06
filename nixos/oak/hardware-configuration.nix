@@ -28,11 +28,6 @@
       fsType = "zfs";
     };
 
-  fileSystems."/home" =
-    { device = "rpool/crypt/safe/home";
-      fsType = "zfs";
-    };
-
   fileSystems."/persist" =
     { device = "rpool/crypt/safe/persist";
       fsType = "zfs";

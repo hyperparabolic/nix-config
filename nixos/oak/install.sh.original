@@ -31,7 +31,6 @@ function info {
 # consistent zfs imports when mirroring is introduced later
 export BOOT_DISK=$1
 export ROOT_DISK=$2
-export AUTHORIZED_SSH_KEY=$3
 
 if ! [[ -b "$BOOT_DISK" ]]; then
     err "Invalid argument: '${DISK_PATH}' is not a block special file"
@@ -40,11 +39,6 @@ fi
 
 if ! [[ -b "$ROOT_DISK" ]]; then
     err "Invalid argument: '${DISK_PATH}' is not a block special file"
-    exit 1
-fi
-
-if ! [[ -v AUTHORIZED_SSH_KEY ]]; then
-    err "Missing argument. Expected public SSH key, e.g. 'ssh-rsa AAAAB...'"
     exit 1
 fi
 
@@ -66,16 +60,11 @@ export ZFS_DS_NIX="${ZFS_LOCAL}/nix"
 
 # persistent datasets
 export ZFS_SAFE="${ZFS_CRYPT}/safe"
-export ZFS_DS_HOME="${ZFS_SAFE}/home"
 export ZFS_DS_PERSIST="${ZFS_SAFE}/persist"
 
 export ZFS_BLANK_SNAPSHOT="${ZFS_DS_ROOT}@blank"
 
 export MNT=$(mktemp -d)
-
-# ensure install tools are present
-if ! command -v git; then nix-env -f '<nixpkgs>' -iA git; fi
-if ! command -v partprobe;  then nix-env -f '<nixpkgs>' -iA parted; fi
 
 # Installation start
 
@@ -153,13 +142,6 @@ info "Mounting '$ZFS_DS_NIX' to '$MNT'/nix ..."
 mkdir "$MNT"/nix
 mount -t zfs "$ZFS_DS_NIX" "$MNT"/nix
 
-info "Creating '$ZFS_DS_HOME' ZFS dataset ..."
-zfs create -p -o mountpoint=legacy "$ZFS_DS_HOME"
-
-info "Mounting '$ZFS_DS_HOME' to '$MNT'/home ..."
-mkdir "$MNT"/home
-mount -t zfs "$ZFS_DS_HOME" "$MNT"/home
-
 info "Creating '$ZFS_DS_PERSIST' ZFS dataset ..."
 zfs create -p -o mountpoint=legacy "$ZFS_DS_PERSIST"
 
@@ -173,18 +155,10 @@ mkdir -p "$MNT"/persist/etc/ssh
 info "Generating NixOS configuration ('$MNT'/etc/nixos/*.nix) ..."
 nixos-generate-config --root "$MNT"
 
-info "Moving generated hardware-configuration.nix to /persist/etc/nixos/ ..."
-mkdir -p "$MNT"/persist/etc/nixos
-mv "$MNT"/etc/nixos/hardware-configuration.nix "$MNT"/persist/etc/nixos/
+# enable flakes
+mkdir -p ~/.config/nix
+echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
 
-info "Backing up the originally generated configuration.nix to /persist/etc/nixos/configuration.nix.original ..."
-mv "$MNT"/etc/nixos/configuration.nix "$MNT"/persist/etc/nixos/configuration.nix.original
-
-info "Backing up the this installer script to /persist/etc/nixos/install.sh.original ..."
-cp "$0" "$MNT"/persist/etc/nixos/install.sh.original
-
-info "Linking persisted config to ephemeral dir"
-ln -s "$MNT"/persist/etc/nixos/configuration.nix "$MNT"/etc/nixos/configuration.nix
-
-info "System is not yet installed, nixos-install after configuring"
-# flakes based config use git, run that workflow manually
+info "System is not yet installed, reconcile hardware config, then"
+info "nixos-install --root $MNT --no-root-passwd --flake .#host"
+info "and then zpool export"

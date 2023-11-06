@@ -1,5 +1,6 @@
 {
   inputs,
+  outputs,
   lib,
   config,
   pkgs,
@@ -7,6 +8,7 @@
 }: {
   imports = [
     ./hardware-configuration.nix
+    inputs.home-manager.nixosModules.home-manager
     inputs.impermanence.nixosModules.impermanence
   ];
 
@@ -62,7 +64,6 @@
   environment.persistence = {
     "/persist" = {
       directories = [
-        "/etc/nixos"
         "/var/lib/systemd"
         "/var/lib/nixos"
         "/var/log"
@@ -110,6 +111,13 @@
         bits = 4096;
       }
     ];
+  };
+
+  home-manager = {
+    extraSpecialArgs = { inherit inputs outputs; };
+    users = {
+      spencer = import ../../home/oak/home.nix;
+    };
   };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
