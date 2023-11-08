@@ -73,10 +73,9 @@
   };
   programs.fuse.userAllowOther = true;
 
-  # programs = {
-  #   git.enable = true;
-  #   neovim.enable = true;
-  # };
+  programs = {
+    zsh.enable = true;
+  };
 
   users.users = {
     spencer = {
@@ -87,6 +86,7 @@
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICuxIDOWjjLv2g/Pnr0/V+NtlvFfGadJq5Cxsb06lQ1X spencer@sloth"
       ];
       extraGroups = ["wheel"];
+      shell = pkgs.zsh;
     };
   };
 

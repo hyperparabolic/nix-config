@@ -1,0 +1,36 @@
+{ config, ... }: {
+  programs.zsh = {
+    enable = true;
+
+    enableAutosuggestions = true;
+    enableCompletion = true;
+    enableSyntaxHighlighting = true;
+
+    shellAliases = {
+      ll = "ls -al";
+      vi = "nvim";
+      vim = "nvim";
+
+      # grep colors
+      egrep = "egrep --color=auto";
+      fgrep = "fgrep --color=auto";
+      grep = "grep --color=auto";
+    };
+
+    history = {
+      expireDuplicatesFirst = true;
+      ignoreSpace = true;
+      path = "${config.xdg.dataHome}/zsh/zsh_history";
+    };
+
+    oh-my-zsh = {
+      enable = true;
+      plugins = [
+        "ag"
+        "command-not-found"
+        "git"
+        "sudo"
+      ];
+    };
+  };
+}

@@ -1,6 +1,8 @@
 { pkgs, ... }: {
   imports = [
+    ./bash.nix
     ./ssh.nix
+    ./zsh.nix
   ];
   # zero config packages
   home.packages = with pkgs; [
