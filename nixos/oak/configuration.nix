@@ -60,7 +60,7 @@
     autoSnapshot.enable = true;
   };
 
-  # opt-in persistence - disabled for bootstrapping
+  # opt-in persistence
   environment.persistence = {
     "/persist" = {
       directories = [
@@ -71,6 +71,7 @@
       ];
     };
   };
+  programs.fuse.userAllowOther = true;
 
   # programs = {
   #   git.enable = true;
@@ -113,7 +114,7 @@
   home-manager = {
     extraSpecialArgs = { inherit inputs outputs; };
     users = {
-      spencer = import ../../home/oak/home.nix;
+      spencer = import ../../home/oak.nix;
     };
   };
 

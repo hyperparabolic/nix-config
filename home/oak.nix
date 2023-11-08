@@ -8,6 +8,7 @@
   ...
 }: {
   imports = [
+    inputs.impermanence.nixosModules.home-manager.impermanence
   ];
 
   nixpkgs = {
@@ -22,6 +23,15 @@
   home = {
     username = "spencer";
     homeDirectory = "/home/spencer";
+
+    persistence = {
+      "/persist/home/spencer" = {
+        directories = [
+          ".ssh"
+	];
+	allowOther = true;
+      };
+    };
   };
 
   programs.home-manager.enable = true;
