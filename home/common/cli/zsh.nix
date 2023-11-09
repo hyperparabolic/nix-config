@@ -20,7 +20,7 @@
     history = {
       expireDuplicatesFirst = true;
       ignoreSpace = true;
-      path = "${config.xdg.dataHome}/zsh/zsh_history";
+      path = "~/.local/share/zsh/zsh_history";
     };
 
     oh-my-zsh = {
@@ -35,6 +35,6 @@
   };
 
   home.persistence = {
-    "/persist/home/spencer".directories = [ "${config.xdg.dataHome}/zsh" ];
+    "/persist/home/spencer".directories = [ ".local/share/zsh" ];
   };
 }
