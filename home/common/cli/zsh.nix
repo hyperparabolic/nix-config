@@ -20,7 +20,7 @@
     history = {
       expireDuplicatesFirst = true;
       ignoreSpace = true;
-      path = "~/.local/share/zsh/zsh_history";
+      path = "${config.home.homeDirectory}/.local/share/zsh/zsh_history";
     };
 
     oh-my-zsh = {
