@@ -33,4 +33,8 @@
       ];
     };
   };
+
+  home.persistence = {
+    "/persist/home/spencer".directories = [ "${config.xdg.dataHome}/zsh" ];
+  };
 }
