@@ -11,6 +11,7 @@
     inputs.impermanence.nixosModules.impermanence
     ./hardware-configuration.nix
     ../common/optional/nvidia
+    ../common/optional/pantheon.nix
   ];
 
   nixpkgs = {
