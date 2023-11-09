@@ -76,6 +76,7 @@
   programs.fuse.userAllowOther = true;
 
   programs = {
+    dconf.enable = true;
     zsh.enable = true;
   };
 
