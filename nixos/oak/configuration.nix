@@ -7,9 +7,10 @@
   ...
 }: {
   imports = [
-    ./hardware-configuration.nix
     inputs.home-manager.nixosModules.home-manager
     inputs.impermanence.nixosModules.impermanence
+    ./hardware-configuration.nix
+    ../common/optional/nvidia
   ];
 
   nixpkgs = {
