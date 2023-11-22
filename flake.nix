@@ -19,6 +19,8 @@
     ...
   } @ inputs: let
     inherit (self) outputs;
+    system = "x86_64-linux";
+    pkgs = nixpkgs.legacyPackages.${system};
   in {
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#oak'
@@ -33,7 +35,7 @@
     # Available through 'home-manager --flake .#spencer@oak'
     homeConfigurations = {
       "spencer@oak" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+        inherit pkgs;
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [./home/oak.nix];
       };
