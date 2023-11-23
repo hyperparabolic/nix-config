@@ -1,6 +1,8 @@
 { pkgs, ... }: {
   imports = [
     ./bash.nix
+    ./git.nix
+    ./gpg.nix
     ./ssh.nix
     ./zsh.nix
   ];

@@ -39,11 +39,11 @@
     persistence = {
       "/persist/home/spencer" = {
         directories = [
-	  "Documents"
+	        "Documents"
           "Downloads"
           "Pictures"
           "Videos"
-	  ".local/bin"
+	        ".local/bin"
 	];
 	allowOther = true;
       };
@@ -54,11 +54,4 @@
   systemd.user.startServices = "sd-switch";
 
   programs.home-manager.enable = true;
-  programs.neovim.enable = true;
-
-  programs.git = {
-    enable = true;
-    userName = "Spencer Balogh";
-    userEmail = "spbalogh@gmail.com";
-  };
 }
