@@ -1,0 +1,14 @@
+keys:
+  # users
+  - &spencer E2E7C16A57C8F7794F0EFDA16A3F9D0EB5A1B8D8
+  # hosts
+  - &oak age1hsmsx3jpmlw56e638l0wx62lhtaz7kanr9az4yq7mzv074x8cayqwrgxe3
+
+creation_rules:
+  - path_regex: hosts/common/secrets.ya?ml$
+    key_groups:
+    - age:
+      - *oak
+      pgp:
+      - *spencer
+

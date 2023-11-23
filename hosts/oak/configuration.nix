@@ -10,8 +10,10 @@
     inputs.home-manager.nixosModules.home-manager
     inputs.impermanence.nixosModules.impermanence
     ./hardware-configuration.nix
+    ../common/global
     ../common/optional/nvidia
     ../common/optional/pantheon.nix
+    ../common/users/spencer.nix
   ];
 
   nixpkgs = {
@@ -78,19 +80,6 @@
   programs = {
     dconf.enable = true;
     zsh.enable = true;
-  };
-
-  users.users = {
-    spencer = {
-      # replace on startup
-      initialPassword = "correcthorsebatterystaple";
-      isNormalUser = true;
-      openssh.authorizedKeys.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICuxIDOWjjLv2g/Pnr0/V+NtlvFfGadJq5Cxsb06lQ1X spencer@sloth"
-      ];
-      extraGroups = ["wheel"];
-      shell = pkgs.zsh;
-    };
   };
 
   # This setups a SSH server. Very important if you're setting up a headless system.

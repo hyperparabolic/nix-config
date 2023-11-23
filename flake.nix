@@ -5,9 +5,11 @@
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
 
-    # Home manager
     home-manager.url = "github:nix-community/home-manager/release-23.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
     impermanence.url = "github:nix-community/impermanence";
   };
