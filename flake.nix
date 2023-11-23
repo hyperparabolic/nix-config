@@ -52,7 +52,7 @@
     nixosConfigurations = {
       oak = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
-        modules = [./nixos/oak/configuration.nix];
+        modules = [./hosts/oak/configuration.nix];
       };
     };
 
