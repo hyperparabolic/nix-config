@@ -11,8 +11,8 @@
     inputs.impermanence.nixosModules.impermanence
     ./hardware-configuration.nix
     ../common/global
+    ../common/optional/gnome.nix
     ../common/optional/nvidia
-    ../common/optional/pantheon.nix
     ../common/users/spencer.nix
   ];
 
@@ -82,14 +82,14 @@
     zsh.enable = true;
   };
 
-  # This setups a SSH server. Very important if you're setting up a headless system.
-  # Feel free to remove if you don't need it.
   services.openssh = {
     enable = true;
     settings = {
       PermitRootLogin = "no";
       PasswordAuthentication = false;
     };
+    # Keys are used here by sops-nix before impermanence can make
+    # links. Must just use `/persist/` directory.
     hostKeys = [
       {
         path = "/persist/etc/ssh/ssh_host_ed25519_key";
