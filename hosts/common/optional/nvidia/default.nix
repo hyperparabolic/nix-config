@@ -51,8 +51,9 @@
   };
 
   environment.variables = {
-    # re-enable if firefox bugs are fixed
-    # GBM_BACKEND = "nvidia";
+    # use hardware acceleration in firefox
+    # disable if it starts crashing again
+    GBM_BACKEND = "nvidia";
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
     LIBVA_DRIVER_NAME = "nvidia";
     MOZ_ENABLE_WAYLAND = "1";

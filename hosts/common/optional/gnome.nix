@@ -27,7 +27,7 @@
     cheese
     gnome-music
     gedit
-    epiphany
+    # epiphany
     geary
     gnome-characters
     yelp
