@@ -15,6 +15,11 @@
   };
   networking.networkmanager.enable = true;
 
+  environment.variables = {
+    # firefox wayland support
+    MOZ_ENABLE_WAYLAND = "1";
+  };
+
   environment.gnome.excludePackages = (with pkgs; [
     gnome-photos
     gnome-tour
