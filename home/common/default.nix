@@ -11,7 +11,9 @@
   ];
 
   nixpkgs = {
-    overlays = [];
+    overlays = [
+      (import ../../overlays/electron-wayland.nix)
+    ];
     config = {
       allowUnfree = true;
       # Workaround for https://github.com/nix-community/home-manager/issues/2942
