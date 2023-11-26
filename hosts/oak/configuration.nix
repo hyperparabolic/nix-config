@@ -59,6 +59,9 @@
     '';
   };
 
+  # use latest kernel packages that are compatible with ZFS
+  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+
   services.zfs = {
     autoScrub.enable = true;
     autoSnapshot.enable = true;
