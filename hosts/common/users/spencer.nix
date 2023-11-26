@@ -9,7 +9,7 @@
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICuxIDOWjjLv2g/Pnr0/V+NtlvFfGadJq5Cxsb06lQ1X spencer@sloth"
       ];
-      passwordFile = config.sops.secrets.spencer-password.path;
+      hashedPasswordFile = config.sops.secrets.spencer-password.path;
     };
   };
 
