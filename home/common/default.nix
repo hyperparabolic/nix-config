@@ -12,7 +12,7 @@
 
   nixpkgs = {
     overlays = [
-      (import ../../overlays/electron-wayland.nix)
+     # (import ../../overlays/electron-wayland.nix)
     ];
     config = {
       allowUnfree = true;
