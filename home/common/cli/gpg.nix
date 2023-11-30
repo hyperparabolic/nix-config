@@ -22,10 +22,11 @@ in
   let
     launchGpg = /* bash */ ''
       gpgconf --launch gpg-agent
+      gpg --card-status
     '';
   in 
   {
-    # ensure gpg is running in bashrc / zshrc, sometimes it isn't on ssh or boot.
+    # ensure gpg is running and card aware in .bashrc / .zlogin, sometimes it isn't on ssh or boot.
     bash.profileExtra = launchGpg;
     zsh.loginExtra = launchGpg;
 
