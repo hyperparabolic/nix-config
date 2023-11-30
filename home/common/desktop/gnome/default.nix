@@ -35,9 +35,15 @@
     # keybinds
     "org/gnome/mutter/keybindings" = {
       maximize = [ "<Control><Super>Up" ];
-      unmaximize = [ "<Control><Super>Down" ];
+      minimize = [ "<Control><Super>Down" ];
+      # unmaximize = [ "<Control><Super>Down" ];
       toggle-tiled-left = [ "<Control><Super>Left" ];
       toggle-tiled-right = [ "<Control><Super>Right" ];
+      toggle-message-tray = [];
+    };
+
+    "org/gnome/settings-daemon/plugins/media-keys" = {
+      screensaver = [ "<Control><Alt>l" ];
     };
   };
 

@@ -5,6 +5,7 @@
 
       enabled-extensions = [
         "dash-to-dock@micxgx.gmail.com"
+        "tilingnome@rliang.github.com" #forge
         "sound-output-device-chooser@kgshank.net"
         "space-bar@luchrioh"
         "trayIconsReloaded@selfmade.pl"
@@ -23,6 +24,7 @@
 
   home.packages = with pkgs; [
     gnomeExtensions.dash-to-dock
+    gnomeExtensions.forge
     gnomeExtensions.sound-output-device-chooser
     gnomeExtensions.space-bar
     gnomeExtensions.tray-icons-reloaded
