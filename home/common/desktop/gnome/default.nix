@@ -40,4 +40,14 @@
       toggle-tiled-right = [ "<Control><Super>Right" ];
     };
   };
+
+  home = {
+    persistence = {
+      "/persist/home/spencer" = {
+        files = [
+          ".config/monitors.xml"
+        ];
+      };
+    };
+  };
 }
