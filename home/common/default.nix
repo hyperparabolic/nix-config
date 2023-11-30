@@ -46,8 +46,8 @@
           "Pictures"
           "Videos"
 	        ".local/bin"
-	];
-	allowOther = true;
+	      ];
+	      allowOther = true;
       };
     };
   };
