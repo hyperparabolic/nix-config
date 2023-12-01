@@ -1,6 +1,11 @@
-{ pkgs, ... }: {
+{ pkgs, config, ... }: {
   gtk = {
     enable = true;
+
+    font = {
+      name = config.fontProfiles.regular.family;
+      size = 12;
+    };
 
     iconTheme = {
       name = "Papirus-Dark";
