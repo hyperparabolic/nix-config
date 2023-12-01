@@ -5,7 +5,7 @@
 
       enabled-extensions = [
         "dash-to-dock@micxgx.gmail.com"
-        "tilingnome@rliang.github.com" #forge
+        "forge@jmmaranan.com"
         "sound-output-device-chooser@kgshank.net"
         "space-bar@luchrioh"
         "trayIconsReloaded@selfmade.pl"
