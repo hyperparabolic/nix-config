@@ -31,6 +31,8 @@
 
     forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
   in {
+    homeManagerModules = import ./modules/home-manager;
+
     # bootstrapping and repo tooling
     devShells = forAllSystems (system:
       let

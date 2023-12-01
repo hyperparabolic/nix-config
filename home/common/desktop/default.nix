@@ -2,6 +2,7 @@
   imports = [
     ./discord.nix
     ./firefox.nix
+    ./font.nix
     ./slack.nix
     ./vscode.nix
   ];

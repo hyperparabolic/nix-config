@@ -1,5 +1,6 @@
 {
   inputs,
+  outputs,
   lib,
   pkgs,
   ...
@@ -8,7 +9,7 @@
     inputs.impermanence.nixosModules.home-manager.impermanence
     ./cli
     ./nvim
-  ];
+  ] ++ (builtins.attrValues outputs.homeManagerModules);
 
   nixpkgs = {
     overlays = [
