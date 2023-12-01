@@ -3,6 +3,7 @@
     ./discord.nix
     ./firefox.nix
     ./font.nix
+    ./kitty.nix
     ./slack.nix
     ./vscode.nix
   ];
