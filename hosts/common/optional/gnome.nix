@@ -37,4 +37,13 @@
   environment.systemPackages = with pkgs; [
     gnome.gnome-tweaks
   ];
+
+  # gdm monitors config
+  environment.persistence = {
+    "/persist" = {
+      files = [
+        "/run/gdm/.config/monitors.xml"
+      ];
+    };
+  };
 }
