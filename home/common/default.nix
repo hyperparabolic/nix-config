@@ -42,13 +42,13 @@
     persistence = {
       "/persist/home/spencer" = {
         directories = [
-	        "Documents"
+          "Documents"
           "Downloads"
           "Pictures"
           "Videos"
-	        ".local/bin"
-	      ];
-	      allowOther = true;
+          ".local/bin"
+        ];
+        allowOther = true;
       };
     };
   };
