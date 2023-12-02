@@ -27,7 +27,7 @@ cmp.setup({
   mapping = {
     ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
     ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-    ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+    ["<C-,>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
     ["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
     ["<C-e>"] = cmp.mapping({
       i = cmp.mapping.abort(),
@@ -92,4 +92,22 @@ cmp.setup.cmdline(":", {
     },
   }),
 })
+
+cmp.setup{
+  formatting = {
+    format = require('lspkind').cmp_format({
+      symbol_map = {
+        Copilot = "",
+      },
+    })
+  },
+  -- Same keybinds as vim's vanilla completion
+  mapping = cmp.mapping.preset.insert({
+  }),
+  sources = {
+    { name='buffer', option = { get_bufnrs = vim.api.nvim_list_bufs } },
+    { name='nvim_lsp' },
+    { name = 'copilot' },
+  },
+}
 

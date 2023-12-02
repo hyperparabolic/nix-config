@@ -15,17 +15,17 @@
       vim-illuminate
 
       # completion
-      {
-        plugin = cmp-nvim-lsp;
-        type = "lua";
-        config = builtins.readFile ./config/plugin/lsp-config.lua;
-      }
+      cmp-nvim-lsp
       cmp-buffer
       cmp-path
       cmp-cmdline
       cmp-nvim-lsp-signature-help
-      nvim-cmp
       lspkind-nvim
+      {
+        plugin = nvim-cmp;
+        type = "lua";
+        config = builtins.readFile ./config/plugin/lsp-config.lua;
+      }
     ];
 
     extraPackages = with pkgs; [

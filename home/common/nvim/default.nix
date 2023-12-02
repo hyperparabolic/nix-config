@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   imports = [
     # TODO: debugger adapter protocol integration
+    ./copilot.nix
     ./lsp.nix
     ./syntax.nix
     ./ui.nix
