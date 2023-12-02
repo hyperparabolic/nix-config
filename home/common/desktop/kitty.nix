@@ -1,10 +1,16 @@
 { config, pkgs, ... }: {
   programs.kitty = {
     enable = true;
+
     font = {
       name = config.fontProfiles.monospace.family;
       size = 12;
     };
+
+    keybindings = {
+      "ctrl+shift+t" = "new_tab_with_cwd";
+    };
+
     settings = {
       # configure manually in rc files
       shell_integration = "no-rc";
