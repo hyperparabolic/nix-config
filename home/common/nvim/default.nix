@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   imports = [
     # TODO: debugger adapter protocol integration
+    ./lsp.nix
     ./syntax.nix
     ./ui.nix
   ];
@@ -41,3 +42,4 @@
     ];
   };
 }
+
