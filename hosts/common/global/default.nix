@@ -1,7 +1,16 @@
-{
+{ inputs, config, lib, ... }: {
   imports = [
+    ./nix.nix
     ./sops.nix
   ];
 
-  time.timeZone = "America/Chicago";
+  nixpkgs = {
+    # only global overlays
+    overlays = [];
+    config = {
+      allowUnfree = true;
+    };
+  };
+
+  time.timeZone = lib.mkDefault "America/Chicago";
 }
