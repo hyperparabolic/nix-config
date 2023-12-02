@@ -28,6 +28,10 @@
   # required for ZFS
   networking.hostId = "d86c4730";
 
+  programs = {
+    dconf.enable = true;
+  };
+
   # I have no intent to ever try to hibernate this host for now (nvidia, bleh).
   # It also should never run out of RAM, but I still want swap for OS optimization.
   # zram (https://wiki.archlinux.org/title/Zram) creates a RAM block device with
@@ -74,17 +78,6 @@
     };
   };
   programs.fuse.userAllowOther = true;
-
-  programs = {
-    dconf.enable = true;
-  };
-
-  home-manager = {
-    extraSpecialArgs = { inherit inputs outputs; };
-    users = {
-      spencer = import ../../home/oak.nix;
-    };
-  };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.05";

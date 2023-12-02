@@ -1,4 +1,4 @@
-{ inputs, config, lib, ... }: {
+{ inputs, outputs, config, lib, ... }: {
   imports = [
     ./nix.nix
     ./openssh.nix
@@ -12,6 +12,10 @@
     config = {
       allowUnfree = true;
     };
+  };
+
+  home-manager = {
+    extraSpecialArgs = { inherit inputs outputs; };
   };
 
   time.timeZone = lib.mkDefault "America/Chicago";
