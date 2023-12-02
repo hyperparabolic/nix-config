@@ -15,7 +15,7 @@
       #   type = "lua";
       #   config = builtins.readFile ./config/plugin/nvim-tree.lua;
       # }
-      # nvim-web-devicons
+      nvim-web-devicons
 
       # status line
       {
