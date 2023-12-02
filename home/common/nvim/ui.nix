@@ -10,12 +10,12 @@
       }
 
       # file tree
-      {
-        plugin = nvim-tree-lua;
-        type = "lua";
-        config = builtins.readFile ./config/plugin/nvim-tree.lua;
-      }
-      nvim-web-devicons
+      # {
+      #   plugin = nvim-tree-lua;
+      #   type = "lua";
+      #   config = builtins.readFile ./config/plugin/nvim-tree.lua;
+      # }
+      # nvim-web-devicons
 
       # status line
       {
