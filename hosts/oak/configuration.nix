@@ -28,6 +28,17 @@
   # required for ZFS
   networking.hostId = "d86c4730";
 
+  # I have no intent to ever try to hibernate this host for now (nvidia, bleh).
+  # It also should never run out of RAM, but I still want swap for OS optimization.
+  # zram (https://wiki.archlinux.org/title/Zram) creates a RAM block device with
+  # zstd compression so the OS can still have swap for memory management purposes.
+  zramSwap = {
+    enable = true;
+    # May grow up to 50% of RAM capacity if something insane is happening (increasing
+    # capacity by the compression ratio), but doesn't start there.
+    memoryPercent = 50;
+  };
+
   boot = {
     # no swap, disable hibernate
     kernelParams = ["nohibernate"];
