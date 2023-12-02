@@ -79,27 +79,6 @@
     dconf.enable = true;
   };
 
-  services.openssh = {
-    enable = true;
-    settings = {
-      PermitRootLogin = "no";
-      PasswordAuthentication = false;
-    };
-    # Keys are used here by sops-nix before impermanence can make
-    # links. Must just use `/persist/` directory.
-    hostKeys = [
-      {
-        path = "/persist/etc/ssh/ssh_host_ed25519_key";
-        type = "ed25519";
-      }
-      {
-        path = "/persist/etc/ssh/ssh_host_rsa_key";
-        type = "rsa";
-        bits = 4096;
-      }
-    ];
-  };
-
   home-manager = {
     extraSpecialArgs = { inherit inputs outputs; };
     users = {
