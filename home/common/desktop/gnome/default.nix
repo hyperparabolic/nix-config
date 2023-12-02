@@ -8,7 +8,7 @@
     "org/gnome/shell" = {
       favorite-apps = [
         "org.gnome.Nautilus.desktop"
-        "org.gnome.Console.desktop"
+        "kitty.desktop"
         "firefox.desktop"
         "slack.desktop"
         "discord.desktop"
