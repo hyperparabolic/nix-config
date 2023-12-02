@@ -77,7 +77,6 @@
 
   programs = {
     dconf.enable = true;
-    zsh.enable = true;
   };
 
   services.openssh = {

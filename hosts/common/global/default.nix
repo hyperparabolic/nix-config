@@ -2,6 +2,7 @@
   imports = [
     ./nix.nix
     ./sops.nix
+    ./zsh.nix
   ];
 
   nixpkgs = {
