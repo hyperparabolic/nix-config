@@ -100,6 +100,13 @@
 
       # notifications
       {
+        plugin = nvim-notify;
+        type = "lua";
+        config = /* lua */ ''
+          require("notify").setup({})
+        '';
+      }
+      {
         plugin = fidget-nvim;
         type = "lua";
         config = /* lua */ ''
