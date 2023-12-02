@@ -34,6 +34,16 @@
       neededForBoot = true;
     };
 
+  fileSystems."/tank" =
+    { device = "tank";
+      fsType = "zfs";
+    };
+
+  fileSystems."/home/spencer/src" =
+    { device = "tank/crypt/src";
+      fsType = "zfs";
+    };
+
   swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
