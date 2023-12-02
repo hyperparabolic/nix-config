@@ -20,6 +20,18 @@
       scroll-action = "cycle-windows";
       show-show-apps-button = false;
     };
+
+    # system monitor
+    "org/gnome/shell/extensions/vitals" = {
+      alphabetize = false;
+      hot-sensors = [
+        "_system_load_1m_"
+        "__network-rx_max__"
+        "_memory_usage_"
+        "_memory_swap_"
+        "__temperature_max__"
+      ];
+    };
   };
 
   home.packages = with pkgs; [
