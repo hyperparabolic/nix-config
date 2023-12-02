@@ -13,6 +13,7 @@
     ../common/global
     ../common/optional/gnome.nix
     ../common/optional/nvidia
+    ../common/optional/pipewire.nix
     ../common/users/spencer.nix
   ];
 
