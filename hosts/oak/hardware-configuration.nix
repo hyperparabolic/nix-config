@@ -39,7 +39,7 @@
       fsType = "zfs";
     };
 
-  fileSystems."/home/spencer/src" =
+  fileSystems."/tank/src" =
     { device = "tank/crypt/src";
       fsType = "zfs";
     };
