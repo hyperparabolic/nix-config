@@ -1,42 +1,43 @@
 { pkgs, ... }: {
   imports = [
+    # TODO: debugger adapter protocol integration
     ./syntax.nix
+    ./ui.nix
   ];
 
   home.sessionVariables.EDITOR = "nvim";
 
   programs.neovim = {
     enable = true;
-    defaultEditor = true;
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
 
-    extraConfig = ''
-      set mouse=a " mouse support
-      set clipboard=unnamedplus " use system clipboard
-      set hidden " hide buffers instead of closing
-
-      " hybrid line numbers (absolute for current and relative otherwise)
-      set number relativenumber
-      
-      " indentation settings
-      set expandtab " spaces
-      set autoindent
-      set smartindent " language specific indents
-      set tabstop=4 " 4 character wide tabs
-      set softtabstop=0 " use tabstop value
-      set shiftwidth=0 " use tabstop value
-      " overrides to 2 spaces
-      augroup two_space_tab
-        autocmd!
-        autocmd FileType json,html,nix,typescript,terraform setlocal tabstop=2
-      augroup END
+    extraLuaConfig = ''
+      ${builtins.readFile ./config/options.lua}
     '';
 
     plugins = with pkgs.vimPlugins; [
+      vim-sensible
       editorconfig-nvim
       vim-surround
+      {
+        plugin = nvim-autopairs;
+        type = "lua";
+        config = /* lua */ ''
+          require('nvim-autopairs').setup({})
+        '';
+      }
+    ];
+
+    extraPackages = with pkgs; [
+      # clipboards for any windowing system
+      wl-clipboard
+      xclip
+
+      # tools for telescope
+      ripgrep
+      fd
     ];
   };
 }
