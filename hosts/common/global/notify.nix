@@ -4,6 +4,9 @@
     providers are specifed in the sops secrets file. Usage:
 
     notify -bulk -provider-config /run/secrets/notify-provider-config
+
+    TODO: make this a module so nix can validate it is present. It's
+    just held together by convention for now.
   */
   environment.systemPackages = [
     pkgs.notify
