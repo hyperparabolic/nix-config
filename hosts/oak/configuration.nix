@@ -44,6 +44,19 @@
   };
 
   # TODO: move everything below exepcet state external
+
+  # zfs notifications stuff
+  environment.systemPackages = [
+    pkgs.notify
+  ];
+
+  sops.secrets.notify-provider-config = {
+    sopsFile = ../common/secrets.yaml;
+    mode = "0440";
+    owner = config.users.users.spencer.name;
+    group = config.users.users.spencer.group;
+  };
+
   boot = {
     # no swap, disable hibernate
     kernelParams = ["nohibernate"];
@@ -65,6 +78,23 @@
   services.zfs = {
     autoScrub.enable = true;
     autoSnapshot.enable = true;
+    zed = {
+      # requires recompilation
+      enableMail = false;
+      # but these still sending messages for simple stdin cli tools
+      settings = {
+        ZED_DEBUG_LOG = "/tmp/zed.debug.log";
+        ZED_EMAIL_ADDR = [ "root" ];
+        ZED_EMAIL_PROG = "${pkgs.notify}/bin/notify";
+        ZED_EMAIL_OPTS = "-bulk -provider-config /run/secrets/notify-provider-config";
+
+        ZED_NOTIFY_INTERVAL_SECS = 3600;
+        ZED_NOTIFY_VERBOSE = true;
+
+        ZED_USE_ENCLOSURE_LEDS = true;
+        ZED_SCRUB_AFTER_RESILVER = true;
+      };
+    };
   };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
