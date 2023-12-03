@@ -20,6 +20,19 @@
 
   time.timeZone = lib.mkDefault "America/Chicago";
 
+  # global persistence
+  environment.persistence = {
+    "/persist" = {
+      directories = [
+        "/var/lib/systemd"
+        "/var/lib/nixos"
+        "/var/log"
+        "/srv"
+      ];
+    };
+  };
+  programs.fuse.userAllowOther = true;
+
   # increase file handle limits for sudoers
   security.pam.loginLimits = [
     {

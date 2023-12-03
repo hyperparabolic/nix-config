@@ -43,6 +43,7 @@
     memoryPercent = 50;
   };
 
+  # TODO: move everything below exepcet state external
   boot = {
     # no swap, disable hibernate
     kernelParams = ["nohibernate"];
@@ -65,19 +66,6 @@
     autoScrub.enable = true;
     autoSnapshot.enable = true;
   };
-
-  # opt-in persistence
-  environment.persistence = {
-    "/persist" = {
-      directories = [
-        "/var/lib/systemd"
-        "/var/lib/nixos"
-        "/var/log"
-        "/srv"
-      ];
-    };
-  };
-  programs.fuse.userAllowOther = true;
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.05";
