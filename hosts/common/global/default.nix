@@ -1,6 +1,7 @@
 { inputs, outputs, config, lib, ... }: {
   imports = [
     ./nix.nix
+    ./notify.nix
     ./openssh.nix
     ./sops.nix
     ./zsh.nix

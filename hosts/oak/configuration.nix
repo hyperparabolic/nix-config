@@ -44,19 +44,6 @@
   };
 
   # TODO: move everything below exepcet state external
-
-  # zfs notifications stuff
-  environment.systemPackages = [
-    pkgs.notify
-  ];
-
-  sops.secrets.notify-provider-config = {
-    sopsFile = ../common/secrets.yaml;
-    mode = "0440";
-    owner = config.users.users.spencer.name;
-    group = config.users.users.spencer.group;
-  };
-
   boot = {
     # no swap, disable hibernate
     kernelParams = ["nohibernate"];
