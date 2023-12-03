@@ -1,0 +1,3 @@
+{
+  zfs = import ./zfs.nix;
+}

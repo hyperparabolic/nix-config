@@ -5,7 +5,7 @@
     ./openssh.nix
     ./sops.nix
     ./zsh.nix
-  ];
+  ] ++ (builtins.attrValues outputs.nixosModules);
 
   nixpkgs = {
     # only global overlays

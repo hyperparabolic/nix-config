@@ -31,6 +31,7 @@
 
     forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
   in {
+    nixosModules = import ./modules/nixos;
     homeManagerModules = import ./modules/home-manager;
 
     # bootstrapping and repo tooling

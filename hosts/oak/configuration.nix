@@ -43,45 +43,22 @@
     memoryPercent = 50;
   };
 
-  # TODO: move everything below exepcet state external
   boot = {
     # no swap, disable hibernate
     kernelParams = ["nohibernate"];
-    supportedFilesystems = ["zfs"];
-    zfs.forceImportRoot = false;
     loader = {
       efi.canTouchEfiVariables = true;
       systemd-boot.enable = true;
     };
-    # rollback root fs to blank snapshot
-    initrd.postDeviceCommands = lib.mkAfter ''
-      zfs rollback -r rpool/crypt/local/root@blank
-    '';
   };
 
-  # use latest kernel packages that are compatible with ZFS
-  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
-
-  services.zfs = {
-    autoScrub.enable = true;
-    autoSnapshot.enable = true;
-    zed = {
-      # requires recompilation
-      enableMail = false;
-      # but these still sending messages for simple stdin cli tools
-      settings = {
-        ZED_DEBUG_LOG = "/tmp/zed.debug.log";
-        ZED_EMAIL_ADDR = [ "root" ];
-        ZED_EMAIL_PROG = "${pkgs.notify}/bin/notify";
-        ZED_EMAIL_OPTS = "-bulk -provider-config /run/secrets/notify-provider-config";
-
-        ZED_NOTIFY_INTERVAL_SECS = 3600;
-        ZED_NOTIFY_VERBOSE = true;
-
-        ZED_USE_ENCLOSURE_LEDS = true;
-        ZED_SCRUB_AFTER_RESILVER = true;
-      };
-    };
+  hyperparabolic.base.zfs = {
+    enable = true;
+    autoSnapshot = true;
+    rollbackSnapshot = "rpool/crypt/local/root@blank";
+    zedMailTo = "root"; # value doesn't matter, not using email, just needs to not be null;
+    zedMailCommand = "${pkgs.notify}/bin/notify";
+    zedMailCommandOptions = "-bulk -provider-config /run/secrets/notify-provider-config";
   };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
