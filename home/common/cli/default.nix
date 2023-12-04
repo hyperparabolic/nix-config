@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   imports = [
     ./bash.nix
+    ./direnv.nix
     ./git.nix
     ./gpg.nix
     ./ssh.nix
