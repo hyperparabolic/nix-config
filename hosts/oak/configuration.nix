@@ -12,7 +12,6 @@
     ./hardware-configuration.nix
     ../common/global
     ../common/optional/gnome.nix
-    ../common/optional/nvidia
     ../common/optional/pipewire.nix
     ../common/users/spencer.nix
   ];
@@ -59,6 +58,22 @@
     zedMailTo = "root"; # value doesn't matter, not using email, just needs to not be null;
     zedMailCommand = "${pkgs.notify}/bin/notify";
     zedMailCommandOptions = "-bulk -provider-config /run/secrets/notify-provider-config";
+  };
+
+  # intel discrete graphics with hardware acceleration tweaks
+  nixpkgs.config.packageOverrides = pkgs: {
+    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+  };
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+    extraPackages = with pkgs; [
+      intel-media-driver # LIBVA_DRIVER_NAME=iHD
+      vaapiIntel         # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+      vaapiVdpau
+      libvdpau-va-gl
+    ];
   };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
