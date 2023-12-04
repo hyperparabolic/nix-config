@@ -21,8 +21,8 @@ in
   programs = 
   let
     launchGpg = /* bash */ ''
-      gpgconf --launch gpg-agent
-      gpg --card-status
+      gpgconf --launch gpg-agent > /dev/null
+      gpg --card-status > /dev/null
     '';
   in 
   {
