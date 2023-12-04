@@ -10,6 +10,7 @@
     inputs.home-manager.nixosModules.home-manager
     inputs.impermanence.nixosModules.impermanence
     ./hardware-configuration.nix
+    ./virtualization
     ../common/global
     ../common/optional/gnome.nix
     ../common/optional/pipewire.nix
