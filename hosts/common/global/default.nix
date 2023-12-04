@@ -3,6 +3,7 @@
     ./nix.nix
     ./notify.nix
     ./openssh.nix
+    ./podman.nix
     ./sops.nix
     ./zsh.nix
   ] ++ (builtins.attrValues outputs.nixosModules);
