@@ -47,6 +47,11 @@
           "Pictures"
           "Videos"
           ".local/bin"
+          # js caches / config
+          ".yarn"
+        ];
+        files = [
+          ".yarnrc.yml"
         ];
         allowOther = true;
       };
