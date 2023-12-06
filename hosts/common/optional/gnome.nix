@@ -38,12 +38,13 @@
     gnome.gnome-tweaks
   ];
 
+  # TODO: revisit this, it's not right after changing video cards
   # gdm monitors config
-  environment.persistence = {
-    "/persist" = {
-      files = [
-        "/run/gdm/.config/monitors.xml"
-      ];
-    };
-  };
+  # environment.persistence = {
+  #   "/persist" = {
+  #     files = [
+  #       "/run/gdm/.config/monitors.xml"
+  #     ];
+  #   };
+  # };
 }
