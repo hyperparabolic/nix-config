@@ -5,6 +5,7 @@
 
       enabled-extensions = [
         "dash-to-dock@micxgx.gmail.com"
+        "espresso@coadmunkee.github.com"
         "forge@jmmaranan.com"
         "sound-output-device-chooser@kgshank.net"
         "space-bar@luchrioh"
@@ -45,6 +46,7 @@
 
   home.packages = with pkgs; [
     gnomeExtensions.dash-to-dock
+    gnomeExtensions.espresso
     gnomeExtensions.forge
     gnomeExtensions.sound-output-device-chooser
     gnomeExtensions.space-bar
