@@ -16,6 +16,7 @@ in
   */
   environment.systemPackages = with pkgs; [
     pciutils # pci querying tooling
+    usbutils # usb querying tooling
   ];
 
   boot = {
