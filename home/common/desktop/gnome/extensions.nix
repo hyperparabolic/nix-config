@@ -21,6 +21,15 @@
       show-show-apps-button = false;
     };
 
+    "org/gnome/shell/extensions/forge/keybindings" = {
+      # disable annoying 1/3 snaps
+      window-snap-center = [];
+      window-snap-one-third-left = [];
+      window-snap-one-third-right = [];
+      window-snap-two-third-left = [];
+      window-snap-two-third-right = [];
+    };
+
     # system monitor
     "org/gnome/shell/extensions/vitals" = {
       alphabetize = false;
