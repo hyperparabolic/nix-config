@@ -44,8 +44,12 @@
   };
 
   boot = {
-    # no swap, disable hibernate
-    kernelParams = ["nohibernate"];
+    kernelParams = [
+      # no swap, disable hibernate
+      "nohibernate"
+      # load graphics driver earlier on wake from suspend
+      "i915.force_probe=56a5"
+    ];
     loader = {
       efi.canTouchEfiVariables = true;
       systemd-boot.enable = true;
