@@ -31,6 +31,10 @@
       window-snap-two-third-right = [];
     };
 
+    "org/gnome/shell/extensions/dash-to-dock" = {
+      hot-keys = false;
+    };
+
     # system monitor
     "org/gnome/shell/extensions/vitals" = {
       alphabetize = false;
