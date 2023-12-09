@@ -19,6 +19,7 @@ OPTS="$OPTS -drive if=pflash,format=raw,readonly=on,file=/run/libvirt/nix-ovmf/O
 OPTS="$OPTS -drive if=pflash,format=raw,file=$(pwd)/OVMF_VARS.fd"
 
 # pass through zvol as virtio device (this requires drivers iso at install time!)
+# OS drive
 OPTS="$OPTS -drive file=/dev/zvol/rpool/crypt/virt/win10,index=0,format=raw,if=virtio"
 
 # VFIO GPU and GPU sound passthrough.
@@ -26,14 +27,8 @@ OPTS="$OPTS -device vfio-pci,host=21:00.0,multifunction=on"
 OPTS="$OPTS -device vfio-pci,host=21:00.1"
 
 # audio routing
-# might be albe to use pipewire directly, I think this isn't possible because running with sudo?
-# TODO: try once hardening / running as regular user is done
-# OPTS="$OPTS -audiodev pipewire,id=snd1,in.name=win10-in,out.name=win10-out"
-
-# use alsa for now
-OPTS="$OPTS -audiodev alsa,id=snd1"
+OPTS="$OPTS -audiodev pipewire,id=snd1,in.name=win10-in,out.name=win10-out"
 OPTS="$OPTS -device intel-hda -device hda-duplex,audiodev=snd1"
-
 
 # evdev mouse and keyboard passthrough
 # left + right ctrl to swap between host and guest control.
@@ -58,5 +53,5 @@ OPTS="$OPTS -display none"
 # Redirect QEMU's console input and output.
 OPTS="$OPTS -monitor stdio"
 
-sudo qemu-system-x86_64 $OPTS
+sudo -Hu qemu_user bash -c "qemu-system-x86_64 $OPTS"
 

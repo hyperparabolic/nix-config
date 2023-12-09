@@ -6,6 +6,7 @@
   virtualisation.libvirtd = {
     enable = true;
     qemu = {
+      runAsRoot = false;
       # UEFI support for guests
       ovmf.enable = true;
       # software TPM for guests

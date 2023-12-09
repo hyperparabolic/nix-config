@@ -1,11 +1,20 @@
-{ pkgs, config, ... }: {
+{ pkgs, config, ... }:
+let
+  ifGroupExists = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
+in
+{
   users.mutableUsers = false;
 
     users.users = {
     spencer = {
+      uid = 1000;
       isNormalUser = true;
       shell = pkgs.zsh;
-      extraGroups = ["wheel"];
+      extraGroups = [
+        "wheel"
+      ] ++ ifGroupExists[
+        "pipewire"
+      ];
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICuxIDOWjjLv2g/Pnr0/V+NtlvFfGadJq5Cxsb06lQ1X spencer@sloth"
         "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBHbkshQXiKpkxbyYe+H6duIbCblGSws5jwP//g8zhq7bWCVQSPWo8I7lJbmqlaqUINnjQWTZXMlKuH6g7NihsUY= spencer@dugong"
