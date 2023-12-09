@@ -40,6 +40,7 @@
       toggle-tiled-left = [ "<Control><Super>Left" ];
       toggle-tiled-right = [ "<Control><Super>Right" ];
       toggle-message-tray = [];
+      switch-monitor = [];
     };
 
     "org/gnome/settings-daemon/plugins/media-keys" = {
