@@ -37,6 +37,10 @@ OPTS="$OPTS -device virtio-keyboard,id=kbd1"
 OPTS="$OPTS -object input-linux,id=mouse1,evdev=/dev/input/by-id/usb-Wings_Tech_Xtrfy_M4-event-mouse"
 OPTS="$OPTS -object input-linux,id=kbd1,evdev=/dev/input/by-id/usb-04d9_USB-HID_Keyboard-event-kbd,grab_all=on,repeat=on"
 
+# bluetooth passthrough
+OPTS="$OPTS -device qemu-xhci,id=xhci"
+OPTS="$OPTS -device usb-host,bus=xhci.0,vendorid=0x8087,productid=0x0029"
+
 # Installation disk
 # OPTS="$OPTS -drive file=$(pwd)/Win10_22H2_English_x64v1.iso,index=2,media=cdrom"
 # virtio drivers

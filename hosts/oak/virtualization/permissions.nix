@@ -29,12 +29,14 @@
   # change owner of vfio subsystem, mouse and keyboard to kvm group
   # mouse: 2ea8:2203
   # keyboard: 04d9:0171
+  # bluetooth: 8087:0029
   # usb rules area maybe unnecessary with input group? These are not working, as is, end result is all of the usb
   # devices in input are owned by the "input" group rather than kvm
   #  SUBSYSTEM=="input", SUBSYSTEMS=="usb", ATTR{idVendor}=="2ea8", ATTR{idProduct}=="2203" OWNER="root", GROUP="kvm"
   #  SUBSYSTEM=="input", SUBSYSTEMS=="usb", ATTR{idVendor}=="04d9", ATTR{idProduct}=="0171" OWNER="root", GROUP="kvm"
   services.udev.extraRules = ''
     SUBSYSTEM=="vfio", OWNER="root", GROUP="kvm"
+    SUBSYSTEM=="usb", ATTR{idVendor}=="8087", ATTR{idProduct}=="0029" OWNER="root", GROUP="kvm"
   '';
 
   # use system level pipewire service to share audio devices between users
