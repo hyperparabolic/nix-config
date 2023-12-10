@@ -4,6 +4,7 @@
     ./firefox.nix
     ./font.nix
     ./kitty.nix
+    ./lutris.nix
     ./slack.nix
     ./vscode.nix
   ];
