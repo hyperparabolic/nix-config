@@ -9,7 +9,7 @@
     ];
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
+  boot.initrd.kernelModules = [ "dm-snapshot" ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
@@ -35,12 +35,17 @@
     };
 
   fileSystems."/tank" =
-    { device = "tank";
+    { device = "tank/crypt/root";
       fsType = "zfs";
     };
 
   fileSystems."/tank/src" =
     { device = "tank/crypt/src";
+      fsType = "zfs";
+    };
+
+  fileSystems."/tank/net" =
+    { device = "tank/net";
       fsType = "zfs";
     };
 
