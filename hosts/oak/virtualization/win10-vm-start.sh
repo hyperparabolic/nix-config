@@ -21,6 +21,8 @@ OPTS="$OPTS -drive if=pflash,format=raw,file=$(pwd)/OVMF_VARS.fd"
 # pass through zvol as virtio device (this requires drivers iso at install time!)
 # OS drive
 OPTS="$OPTS -drive file=/dev/zvol/rpool/crypt/virt/win10,index=0,format=raw,if=virtio"
+# Storage drive
+OPTS="$OPTS -drive file=/dev/zvol/tank/crypt/virt/storage,index=1,format=raw,if=virtio"
 
 # VFIO GPU and GPU sound passthrough.
 OPTS="$OPTS -device vfio-pci,host=21:00.0,multifunction=on"
