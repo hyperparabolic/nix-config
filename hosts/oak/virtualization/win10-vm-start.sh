@@ -22,11 +22,15 @@ OPTS="$OPTS -drive if=pflash,format=raw,file=$(pwd)/OVMF_VARS.fd"
 # OS drive
 OPTS="$OPTS -drive file=/dev/zvol/rpool/crypt/virt/win10,index=0,format=raw,if=virtio"
 # Storage drive
-OPTS="$OPTS -drive file=/dev/zvol/tank/crypt/virt/storage,index=1,format=raw,if=virtio"
+# OPTS="$OPTS -drive file=/dev/zvol/tank/crypt/virt/storage,index=1,format=raw,if=virtio"
 
 # VFIO GPU and GPU sound passthrough.
 OPTS="$OPTS -device vfio-pci,host=21:00.0,multifunction=on"
 OPTS="$OPTS -device vfio-pci,host=21:00.1"
+
+# VFIO nvme drive (not necessary for driver management, I just don't ever want
+# it accidentally mounted on the host, and this was an easy way to do it)
+OPTS="$OPTS -device vfio-pci,host=02:00.0"
 
 # audio routing
 OPTS="$OPTS -audiodev pipewire,id=snd1,in.name=win10-in,out.name=win10-out"
