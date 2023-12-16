@@ -61,7 +61,7 @@
       };
       redbud = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs outputs; };
-        modules = [ ./hosts/oak/configuration.nix ];
+        modules = [ ./hosts/redbud/configuration.nix ];
       };
     };
 
