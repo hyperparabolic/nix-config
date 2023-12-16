@@ -13,6 +13,7 @@
     ./virtualization
     ../common/global
     ../common/optional/gnome.nix
+    ../common/optional/jellyfin.nix
     ../common/optional/libvirt.nix
     ../common/optional/pipewire.nix
     ../common/users/spencer.nix
