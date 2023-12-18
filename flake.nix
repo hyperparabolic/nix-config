@@ -56,8 +56,12 @@
     # Available through 'nixos-rebuild --flake .#oak'
     nixosConfigurations = {
       oak = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-        modules = [./hosts/oak/configuration.nix];
+        specialArgs = { inherit inputs outputs; };
+        modules = [ ./hosts/oak/configuration.nix ];
+      };
+      redbud = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs outputs; };
+        modules = [ ./hosts/redbud/configuration.nix ];
       };
     };
 

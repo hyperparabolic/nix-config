@@ -16,7 +16,8 @@ in
         "pipewire"
       ];
       openssh.authorizedKeys.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICuxIDOWjjLv2g/Pnr0/V+NtlvFfGadJq5Cxsb06lQ1X spencer@sloth"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBE1BVKz4604DdLKAb1DWcA8di6chBKSyE3qhpzoAdIE spencer@oak"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE6q623pi7aSoWEWSrSUsbmSm/2wI9Ec1h1WkyXwJFrI spencer@redbud"
         "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBHbkshQXiKpkxbyYe+H6duIbCblGSws5jwP//g8zhq7bWCVQSPWo8I7lJbmqlaqUINnjQWTZXMlKuH6g7NihsUY= spencer@dugong"
       ];
       hashedPasswordFile = config.sops.secrets.spencer-password.path;
