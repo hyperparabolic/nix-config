@@ -12,7 +12,9 @@
       key = "E393262B7CD2FD5F";
       signByDefault = true;
     };
-    ignores = [];
+    ignores = [
+      ".direnv"
+    ];
     extraConfig = {
       init.defaultBranch = "main";
     };
