@@ -45,12 +45,11 @@
     memoryPercent = 50;
   };
 
+  # disable gdm suspend
+  services.xserver.displayManager.gdm.autoSuspend = false;
   boot = {
     kernelParams = [
-      # no swap, disable hibernate
       "nohibernate"
-      # load graphics driver earlier on wake from suspend
-      "i915.force_probe=56a5"
     ];
     loader = {
       efi.canTouchEfiVariables = true;
