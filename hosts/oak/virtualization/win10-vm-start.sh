@@ -3,16 +3,25 @@
 # ensure pipewire sinks are created and linked
 ./pw-setup.sh
 
+# ideally this should be executed by libvirt hooks, but I can't
+# get that working. just call manually how libvirt should be
+# for script development
+sudo ./hooks/cpupin.sh win10 started begin -
+
 # configure VM options
 OPTS=""
 
+# name must match name of hooks files
+OPTS="$OPTS -name win10"
+
 # Basic CPU settings, kvm=off is vm spoofing for nvidia
-OPTS="$OPTS -cpu host,kvm=off"
-OPTS="$OPTS -smp 16,sockets=1,cores=16,threads=1"
+OPTS="$OPTS -cpu host,kvm=off,topoext=on"
+OPTS="$OPTS -smp 16,sockets=1,cores=8,threads=2"
 # Enable KVM full virtualization support.
 OPTS="$OPTS -enable-kvm"
-# Assign memory to the vm.
+# Assign memory to the vm, and preallocate
 OPTS="$OPTS -m 16000"
+OPTS="$OPTS -mem-prealloc"
 
 # Supply OVMF (general UEFI bios, needed for EFI boot support with GPT disks).
 OPTS="$OPTS -drive if=pflash,format=raw,readonly=on,file=/run/libvirt/nix-ovmf/OVMF_CODE.fd"
@@ -63,5 +72,12 @@ OPTS="$OPTS -display none"
 # Redirect QEMU's console input and output.
 OPTS="$OPTS -monitor stdio"
 
-sudo -Hu qemu_user bash -c "qemu-system-x86_64 $OPTS"
+# taskset to prefer specific cores with shared cache
+# maybe use `chrt -r 1` here too if permissions can be sorted?
+sudo -Hu qemu_user bash -c "taskset -c 0-7,32-39 qemu-system-x86_64 $OPTS"
+
+# ideally this should be executed by libvirt hooks, but I can't
+# get that working. just call manually how libvirt should be
+# for script development
+sudo ./hooks/cpupin.sh win10 release end -
 
