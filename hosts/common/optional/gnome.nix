@@ -1,13 +1,13 @@
 { pkgs, ... }: {
+  imports = [
+    ./gdm.nix
+  ];
+
   services = {
     xserver = {
       enable = true;
       desktopManager.gnome = {
         enable = true;
-      };
-      displayManager.gdm = {
-        enable = true;
-        wayland = true;
       };
     };
     geoclue2.enable = true;
