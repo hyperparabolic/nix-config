@@ -33,12 +33,6 @@ in
     ];
   };
 
-  # I have no idea why this isn't working. Keeping it around to debug later,
-  # but just manually executing hook scripts for now.
-  # virtualisation.libvirtd.hooks.qemu = {
-  #   cpupin = ./hooks/cpupin.sh;
-  # };
-
   # usb hotplugging, not strictly related but I probably only want it here.
   virtualisation.spiceUSBRedirection.enable = true;
 }

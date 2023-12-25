@@ -3,11 +3,6 @@
 # ensure pipewire sinks are created and linked
 ./pw-setup.sh
 
-# ideally this should be executed by libvirt hooks, but I can't
-# get that working. just call manually how libvirt should be
-# for script development
-sudo ./hooks/cpupin.sh win10 started begin -
-
 # configure VM options
 OPTS=""
 
@@ -74,10 +69,5 @@ OPTS="$OPTS -monitor stdio"
 
 # taskset to prefer specific cores with shared cache
 # maybe use `chrt -r 1` here too if permissions can be sorted?
-sudo -Hu qemu_user bash -c "taskset -c 0-7,32-39 qemu-system-x86_64 $OPTS"
-
-# ideally this should be executed by libvirt hooks, but I can't
-# get that working. just call manually how libvirt should be
-# for script development
-sudo ./hooks/cpupin.sh win10 release end -
+sudo -Hu qemu_user bash -c "qemu-system-x86_64 $OPTS"
 
