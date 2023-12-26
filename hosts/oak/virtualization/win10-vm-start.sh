@@ -5,18 +5,27 @@
 
 # configure VM options
 OPTS=""
+OPTS="$OPTS -name guest=win10,debug-threads=on"
 
-# name must match name of hooks files
-OPTS="$OPTS -name win10"
-
-# Basic CPU settings, kvm=off is vm spoofing for nvidia
-OPTS="$OPTS -cpu host,kvm=off,topoext=on"
+# CPU settings
+OPTS="$OPTS -cpu host,kvm=off,topoext=on,hv-time=on,hv-relaxed=on,hv-vapic=on,hv-spinlocks=0x1fff"
+# 8 cores with hyperthreading
 OPTS="$OPTS -smp 16,sockets=1,cores=8,threads=2"
 # Enable KVM full virtualization support.
 OPTS="$OPTS -enable-kvm"
-# Assign memory to the vm, and preallocate
-OPTS="$OPTS -m 16000"
-OPTS="$OPTS -mem-prealloc"
+# RAM and vm architecture setup
+OPTS="$OPTS -machine pc-q35-8.1,usb=off,vmport=off,dump-guest-core=off,hpet=off,acpi=on,accel=kvm"
+OPTS="$OPTS -m size=16G"
+
+
+# set system time to local instead of system time (utc)
+OPTS="$OPTS -rtc base=localtime,driftfix=slew"
+
+# restrict bootindex tampering
+OPTS="$OPTS -boot strict=on"
+
+# watchdog, power off machine if completely frozen
+OPTS="$OPTS -device i6300esb -watchdog-action poweroff"
 
 # Supply OVMF (general UEFI bios, needed for EFI boot support with GPT disks).
 OPTS="$OPTS -drive if=pflash,format=raw,readonly=on,file=/run/libvirt/nix-ovmf/OVMF_CODE.fd"
@@ -50,6 +59,9 @@ OPTS="$OPTS -object input-linux,id=kbd1,evdev=/dev/input/by-id/usb-04d9_USB-HID_
 # bluetooth passthrough
 OPTS="$OPTS -device qemu-xhci,id=xhci"
 OPTS="$OPTS -device usb-host,bus=xhci.0,vendorid=0x8087,productid=0x0029"
+
+# sandboxing, filter subset of syscalls
+OPTS="$OPTS -sandbox on,obsolete=deny,elevateprivileges=deny,spawn=deny"
 
 # Installation disk
 # OPTS="$OPTS -drive file=$(pwd)/Win10_22H2_English_x64v1.iso,index=2,media=cdrom"
