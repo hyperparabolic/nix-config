@@ -13,5 +13,7 @@
     # wayland xrandr tools
     gnome-randr
     wlr-randr
+
+    vlc
   ];
 }
