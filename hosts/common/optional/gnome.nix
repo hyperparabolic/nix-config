@@ -21,13 +21,13 @@
   };
 
   environment.gnome.excludePackages = (with pkgs; [
+    gedit
     gnome-photos
     gnome-tour
   ]) ++ (with pkgs.gnome; [
     cheese
     gnome-music
-    gedit
-    # epiphany
+    epiphany
     geary
     gnome-characters
     yelp
