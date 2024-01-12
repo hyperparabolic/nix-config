@@ -1,5 +1,6 @@
 { pkgs, ... }: {
   imports = [
+    ./chromium.nix
     ./discord.nix
     ./firefox.nix
     ./font.nix
@@ -13,5 +14,7 @@
     # wayland xrandr tools
     gnome-randr
     wlr-randr
+
+    vlc
   ];
 }

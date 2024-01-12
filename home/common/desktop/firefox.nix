@@ -8,6 +8,11 @@
     "/persist/home/spencer".directories = [ ".mozilla/firefox" ];
   };
 
+  # also add unconfigured developer edition
+  home.packages = with pkgs; [
+    firefox-devedition-bin
+  ];
+
   xdg.mimeApps.defaultApplications = {
     "text/html" = [ "firefox.desktop" ];
     "text/xml" = [ "firefox.desktop" ];
