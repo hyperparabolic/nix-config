@@ -2,6 +2,7 @@
   imports = [
     inputs.anyrun.homeManagerModules.default
     ./anyrun.nix
+    ./dunst.nix
     ./hyprland.nix
   ];
 
