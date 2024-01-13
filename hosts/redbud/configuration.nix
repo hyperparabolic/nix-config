@@ -11,7 +11,6 @@
     inputs.impermanence.nixosModules.impermanence
     ./hardware-configuration.nix
     ../common/global
-    ../common/optional/gnome.nix
     ../common/optional/hyprland.nix
     ../common/optional/pipewire.nix
     ../common/users/spencer.nix
