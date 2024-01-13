@@ -4,6 +4,9 @@
     ./anyrun.nix
     ./dunst.nix
     ./hyprland.nix
+    ./swayidle.nix
+    ./swaylock.nix
+    ./swayosd.nix
   ];
 
   home.packages = with pkgs; [
