@@ -20,7 +20,6 @@
 
       ];
       general = {
-        # TODO: system specific monitor configs
         border_size = 1;
         # TODO: border colors
         gaps_in = 5;
@@ -28,6 +27,19 @@
         layout = "dwindle";
         no_cursor_warps = true;
       };
+      monitor =
+      if builtins.length config.monitors > 0
+        # if monitors are configured, map to exact config
+        then map (m: let
+          resolution = "${toString m.width}x${toString m.height}@${toString m.refreshRate}";
+          position = "${toString m.x}x${toString m.y}";
+          transform = "transform,${toString m.transform}";
+        in
+          "${m.name},${if m.enabled then "${resolution},${position},1" else "disable"},${if m.enabled then "${transform}" else ""}"
+        ) (config.monitors)
+        # if monitors are not configured, do your best prioritizing resolution
+        else [ ",highres,auto,1" ];
+
       # TODO: decoration, animation
       input = {
         # rebind caps lock to hyper
