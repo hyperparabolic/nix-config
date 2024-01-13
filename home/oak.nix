@@ -2,6 +2,6 @@
   imports = [
     ./common
     ./common/desktop
-    ./common/desktop/gnome
+    ./common/desktop/hyprland
   ];
 }

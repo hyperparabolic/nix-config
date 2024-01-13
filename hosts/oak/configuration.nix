@@ -12,7 +12,7 @@
     ./hardware-configuration.nix
     ./virtualization
     ../common/global
-    ../common/optional/gnome.nix
+    ../common/optional/hyprland.nix
     ../common/optional/jellyfin.nix
     ../common/optional/libvirt.nix
     ../common/optional/pipewire.nix
