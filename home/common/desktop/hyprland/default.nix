@@ -8,6 +8,7 @@
     ./swaylock.nix
     ./swayosd.nix
     ./theme.nix
+    ./wlsunset.nix
   ];
 
   home.packages = with pkgs; [
@@ -15,7 +16,6 @@
     wl-clipboard
     wl-screenrec
     wlogout
-    wlsunset
   ];
 
   # wayland compat
