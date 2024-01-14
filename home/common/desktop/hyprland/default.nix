@@ -1,11 +1,13 @@
 { inputs, pkgs, ... }: {
   imports = [
+    ./ags.nix
     ./anyrun.nix
     ./dunst.nix
     ./hyprland.nix
     ./swayidle.nix
     ./swaylock.nix
     ./swayosd.nix
+    ./theme.nix
   ];
 
   home.packages = with pkgs; [

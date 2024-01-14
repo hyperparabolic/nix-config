@@ -17,7 +17,7 @@
       '';
       # startup programs
       exec-once = [
-
+        "ags -b hypr"
       ];
       general = {
         border_size = 1;
