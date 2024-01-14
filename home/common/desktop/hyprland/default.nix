@@ -12,6 +12,7 @@
   ];
 
   home.packages = with pkgs; [
+    cliphist
     hyprpicker
     wl-clipboard
     wl-screenrec

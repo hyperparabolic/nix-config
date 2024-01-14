@@ -18,6 +18,8 @@
       # startup programs
       exec-once = [
         "ags -b hypr"
+        "wl-paste --type text --watch cliphist store"
+        "wl-paste --type image --watch cliphist store"
       ];
       general = {
         border_size = 1;
