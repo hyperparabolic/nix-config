@@ -31,7 +31,14 @@ in
   services.swayidle = {
     events = [
       {
+        # this gets triggered after sleep
         event = "after-resume";
+        command = "${getExe' config.wayland.windowManager.hyprland.package "hyprctl"} dispatch dpms on";
+      }
+      {
+        # this system usually doesn't suspend
+        # also turn on monitors on unlock
+        event = "unlock";
         command = "${getExe' config.wayland.windowManager.hyprland.package "hyprctl"} dispatch dpms on";
       }
     ];
