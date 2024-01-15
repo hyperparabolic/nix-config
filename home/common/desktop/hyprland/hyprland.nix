@@ -49,18 +49,18 @@
         # mouse settings
         accel_profile = "flat";
         sensitivity = 0.0;
-        follow_mouse = 1;
+        follow_mouse = 2;
         touchpad = {
           natural_scroll = true;
         };
       };
       misc = {
         animate_mouse_windowdragging = true;
+        disable_splash_rendering = true;
         # `hyprctl reload` to reload
         disable_autoreload = true;
         vrr = 1;
       };
-      # TODO: multiple monitor keybinds on desktop
       bind = [
         "$MOD, Escape, exec, wlogout -p layer-shell"
 
@@ -104,7 +104,6 @@
           10)}"
       ];
       bindm = ["$MOD, mouse:272, movewindow" "$MOD, mouse:273, resizewindow"];
-      # TODO: layers
       xwayland.force_zero_scaling = true;
     };
 
