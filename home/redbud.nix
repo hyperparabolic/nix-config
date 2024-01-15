@@ -1,8 +1,4 @@
-{ config, lib, ... }:
-let
-  inherit (lib) getExe';
-in
-{
+{ pkgs, ... }: {
   imports = [
     ./common
     ./common/desktop
@@ -14,7 +10,7 @@ in
     timeouts = [
       {
         timeout = 360;
-        command = "${getExe' config.systemd.package "systemctl"} suspend";
+        command = "${pkgs.systemd}/bin/systemctl suspend";
       }
     ];
   };
