@@ -1,14 +1,24 @@
-{ pkgs, ... }: {
+{ config, lib, ... }:
+let
+  inherit (lib) getExe;
+in
+{
   services.swayidle = {
     enable = true;
     events = [
       {
         event = "before-sleep";
-        command = "${pkgs.systemd}/bin/loginctl lock-session";
+        command = "${getExe config.programs.swaylock.package} -defF";
       }
       {
         event = "lock";
-        command = "${pkgs.swaylock-effects}/bin/swaylock";
+        command = "${getExe config.programs.swaylock.package} -defF";
+      }
+    ];
+    timeouts = [
+      {
+        timeout = 300;
+        command = "${getExe config.programs.swaylock.package} -defF";
       }
     ];
   };

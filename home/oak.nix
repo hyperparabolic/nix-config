@@ -1,3 +1,7 @@
+{ config, lib, ... }:
+let
+  inherit (lib) getExe';
+in
 {
   imports = [
     ./common
@@ -22,4 +26,20 @@
       transform = 3;
     }
   ];
+
+  # turn off monitors after 15 minutes of inactivity
+  services.swayidle = {
+    events = [
+      {
+        event = "after-resume";
+        command = "${getExe' config.wayland.windowManager.hyprland.package "hyprctl"} dispatch dpms on";
+      }
+    ];
+    timeouts = [
+      {
+        timeout = 900;
+        command = "${getExe' config.wayland.windowManager.hyprland.package "hyprctl"} dispatch dpms off";
+      }
+    ];
+  };
 }
