@@ -4,9 +4,11 @@
     package = pkgs.swaylock-effects;
     settings = {
       clock = true;
-      font = config.fontProfiles.regular.family;
+      color = "#000000df";
+      effect-pixelate = "15";
       fade-in = 5;
-      color = "#000000ff";
+      font = config.fontProfiles.regular.family;
+      screenshots = true;
     };
   };
 }
