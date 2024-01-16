@@ -8,6 +8,7 @@
   imports = [
     inputs.impermanence.nixosModules.home-manager.impermanence
     ./cli
+    ./dev
     ./nvim
   ] ++ (builtins.attrValues outputs.homeManagerModules);
 
@@ -47,11 +48,6 @@
           "Pictures"
           "Videos"
           ".local/bin"
-          # js caches / config
-          ".yarn"
-        ];
-        files = [
-          ".yarnrc.yml"
         ];
         allowOther = true;
       };
