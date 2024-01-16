@@ -12,10 +12,20 @@
   ];
 
   home.packages = with pkgs; [
-    cliphist
+    # screenshot, screen recording, color picker
+    grim
+    grimblast
+    slurp
+    gpick
     hyprpicker
-    wl-clipboard
     wl-screenrec
+
+    # clipboard and utils
+    cliphist
+    wl-clipboard
+
+    # utils
+    xwaylandvideobridge
     wlogout
   ];
 

@@ -63,6 +63,9 @@
       };
       bind = [
         "$MOD, Escape, exec, wlogout -p layer-shell"
+        ", Print, exec, grimblast --notify copysave screen"
+        "ALT, Print, exec, grimblast --notify copysave output"
+        "$MODSHIFT, S, exec, grimblast --notify copysave area"
 
         "$MOD, R, exec, anyrun"
 
