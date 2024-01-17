@@ -6,13 +6,25 @@ import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
+const workspaceIdToIconProps = {
+  1: { icon: 'firefox-symbolic' },
+  2: { icon: 'github', size: 16 },
+  3: { icon: 'youtube-music-tray' },
+  4: { icon: 'discord-tray' },
+  5: { icon: 'distribute-randomize' },
+  6: { icon: 'vlc-panel' },
+  7: { icon: 'notes-panel' },
+  8: { icon: 'utilities-system-monitor-symbolic' },
+};
+
 const Workspaces = () => Widget.Box({
   class_name: 'workspaces',
   vertical: true,
   children: Hyprland.bind('workspaces').transform(ws => {
-    return ws.map(({ id }) => Widget.Button({
+    return ws.sort((a,b) => a.id - b.id)
+    .map(({ id }) => Widget.Button({
       on_clicked: () => Hyprland.sendMessage(`dispatch workspace ${id}`),
-      child: Widget.Label(`${id}`),
+      child: Widget.Icon(workspaceIdToIconProps[id]),
       class_name: Hyprland.active.workspace.bind('id')
         .transform(i => `${i === id ? 'focused' : ''}`),
     }));
