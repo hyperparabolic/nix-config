@@ -10,6 +10,7 @@
         applications
         rink
         shell
+        symbols
         websearch
       ];
       closeOnClick = true;
