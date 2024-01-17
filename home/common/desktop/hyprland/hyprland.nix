@@ -59,6 +59,7 @@
         disable_splash_rendering = true;
         # `hyprctl reload` to reload
         disable_autoreload = true;
+        key_press_enables_dpms = true;
         vrr = 1;
       };
       bind = [
