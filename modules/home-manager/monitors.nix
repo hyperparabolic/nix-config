@@ -53,6 +53,14 @@ in
             flipped + 270 degrees -> 7
           '';
         };
+        workspaces = mkOption {
+          type = types.listOf types.str;
+          default = [];
+          description = ''
+            Names of workspaces to initialize on the monitor
+            on login.
+          '';
+        };
       };
     });
     default = [ ];

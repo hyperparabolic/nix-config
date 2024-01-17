@@ -1,4 +1,4 @@
-{ config, ... }: {
+{ config, lib, ... }: {
   wayland.windowManager.hyprland = {
     enable = true;
     settings = {
@@ -41,6 +41,24 @@
         ) (config.monitors)
         # if monitors are not configured, do your best prioritizing resolution
         else [ ",highres,auto,1" ];
+
+      workspace =
+      if builtins.length config.monitors > 0
+        then lib.flatten (map (m:
+          map (mw:
+              "${mw}, monitor:${m.name}, persistent: true"
+            ) (m.workspaces)
+          ) (config.monitors))
+        else [
+          "1, persistent: true"
+          "2, persistent: true"
+          "3, persistent: true"
+          "4, persistent: true"
+          "5, persistent: true"
+          "6, persistent: true"
+          "7, persistent: true"
+          "8, persistent: true"
+        ];
 
       # TODO: decoration, animation
       input = {

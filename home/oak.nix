@@ -16,6 +16,12 @@ in
       height = 2160;
       x = 0;
       primary = true;
+      workspaces = [
+        "1"
+        "2"
+        "5"
+        "6"
+      ];
     }
     {
       name = "DP-1";
@@ -24,6 +30,12 @@ in
       x = 3840;
       # vertical orientation
       transform = 3;
+      workspaces = [
+        "3"
+        "4"
+        "7"
+        "8"
+      ];
     }
   ];
 
