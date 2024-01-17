@@ -25,6 +25,7 @@
     wl-clipboard
 
     # utils
+    swaybg
     xwaylandvideobridge
     wlogout
   ];
