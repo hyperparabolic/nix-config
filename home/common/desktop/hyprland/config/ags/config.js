@@ -32,7 +32,7 @@ const Workspaces = () => Widget.Box({
 });
 
 const Clock = () => Widget.Label({
-  class_name: 'clock logical-grouping',
+  class_name: 'clock',
   justification: 'center',
   setup: self => self
     .poll(1000, self => execAsync(['date', '+%H\n%M'])

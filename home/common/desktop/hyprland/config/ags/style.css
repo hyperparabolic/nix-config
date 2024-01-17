@@ -25,17 +25,8 @@ button {
   padding-top: 0;
   padding-bottom: 0;
   background-color: transparent;
+  border-radius: 25px;
 }
-
-button:active {
-  background-color: @theme_selected_bg_color;
-}
-
-/*
- * currently not needed
-button:hover {
-}
-*/
 
 label {
   font-weight: bold;
@@ -45,12 +36,13 @@ label {
   min-height: 120px;
 }
 
-.workspaces button.focused {
+button.focused {
+  /*
+  I prefer this, but only `symbolic` icons get recolored
+  switch if I can find a better icon set where all support this.
   color: @theme_selected_bg_color;
-}
-
-.client-title {
-  color: @theme_selected_bg_color;
+  */
+  background-color: @theme_selected_bg_color;
 }
 
 progress,
