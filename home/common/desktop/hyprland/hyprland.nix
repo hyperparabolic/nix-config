@@ -146,6 +146,13 @@
           10)}"
       ];
       bindm = ["$MOD, mouse:272, movewindow" "$MOD, mouse:273, resizewindow"];
+
+      windowrulev2 = [
+        "idleinhibit always, class:^(kitty)$, title:^(./win10-vm-start.sh)$"
+        "idleinhibit focus, class:^(firefox)$, title:^(.*YouTube.*)$"
+        "idleinhibit fullscreen, class:^(firefox)$"
+      ];
+
       xwayland.force_zero_scaling = true;
     };
 
