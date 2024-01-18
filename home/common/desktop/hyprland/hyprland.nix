@@ -62,7 +62,6 @@
           "8, persistent: true"
         ];
 
-      # TODO: decoration, animation
       input = {
         # rebind caps lock to hyper
         kb_options = "caps:hyper";
@@ -74,14 +73,22 @@
           natural_scroll = true;
         };
       };
+
+      gestures = {
+        workspace_swipe = true;
+        workspace_swipe_fingers = 3;
+      };
+
       misc = {
         animate_mouse_windowdragging = true;
+        disable_hyprland_logo = true;
         disable_splash_rendering = true;
         # `hyprctl reload` to reload
         disable_autoreload = true;
         key_press_enables_dpms = true;
         vrr = 1;
       };
+
       bind = [
         "$MOD, Escape, exec, wlogout -p layer-shell"
         ", Print, exec, grimblast --notify copysave screen"
