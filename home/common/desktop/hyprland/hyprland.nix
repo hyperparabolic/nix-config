@@ -3,6 +3,7 @@
     enable = true;
     settings = {
       "$MOD" = "SUPER";
+
       # mostly wayland compat environment variables
       env = ''
         XDG_SESSION_TYPE,wayland
@@ -15,6 +16,7 @@
 
         OZONE_PLATFORM,wayland
       '';
+
       # startup programs
       exec-once = [
         "ags -b hypr"
@@ -23,14 +25,16 @@
         "wl-paste --type text --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
       ];
+
       general = {
         border_size = 1;
-        # TODO: border colors
-        gaps_in = 5;
-        gaps_out = 5;
+        gaps_in = 10;
+        gaps_out = 15;
+        "col.active_border" = "0xffa9763b";
         layout = "dwindle";
         no_cursor_warps = true;
       };
+
       monitor =
       if builtins.length config.monitors > 0
         # if monitors are configured, map to exact config
@@ -61,6 +65,13 @@
           "7, persistent: true"
           "8, persistent: true"
         ];
+
+      decoration = {
+        active_opacity = 0.95; 
+        inactive_opacity = 0.8;
+        fullscreen_opacity = 1.0;
+        rounding = 10;
+      };
 
       input = {
         # rebind caps lock to hyper
