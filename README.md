@@ -66,7 +66,7 @@ zfs diff rpool/crypt/local/root@tmp1
 
 ### Automatic maintenance and reporting
 
-`zpool scrub` and `zpool trim` performed on all zpools weekly.
+`zpool scrub` performed on all zpools weekly. Automatic trim runs continuously.
 
 Auto-snapshotting can be configured on a dataset by dataset basis. The `local` and `safe` datasets primarily act as policy containers for these changes. `local` generally doesn't get automatically persisted (only manual snapshots on `.../local/nix` if performing operations that change the nix db in ways that can't be reversed), where `safe` datasets generally automatically keeps a set of rolling snapshots that automatically rotate and may occasionally `zfs send` to perform remote backups. ZFS performs copy on write operations, so these snapshots generally consume little disk space unless you are modifying files regularly.
 
