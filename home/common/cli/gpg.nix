@@ -14,8 +14,12 @@ in
 
   services.gpg-agent = {
     enable = true;
-    pinentryFlavor = pinentry.name;
+    enableExtraSocket = true;
+    enableSshSupport = true;
     enableZshIntegration = true;
+    maxCacheTtl = 120;
+    sshKeys = [ "ECC99E92F470C3A4F4EF5B607FF4AC76E4D4D25E" ];
+    pinentryFlavor = pinentry.name;
   };
 
   programs = 
@@ -23,6 +27,7 @@ in
     launchGpg = /* bash */ ''
       gpgconf --launch gpg-agent > /dev/null
       gpg --card-status > /dev/null
+      export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
     '';
   in 
   {
@@ -31,7 +36,7 @@ in
     zsh.loginExtra = launchGpg;
 
     gpg = {
-        enable = true;
+      enable = true;
       publicKeys = [{
         source = ../../gpg-0xA6C19D1C082670FD-2023-11-21.asc;
         trust = 5;
@@ -82,6 +87,23 @@ in
         # Disable recipient key ID in messages
         throw-keyids = true;
       };
+    };
+  };
+
+  # link gpg socket to predictable location at ~/.gpupg-sockets
+  # this makes ssh hosts config more resilient to user changes
+  systemd.user.services = {
+    link-gnupg-sockets = {
+      Unit = {
+        Description = "link gnupg sockets from /run to /home";
+      };
+      Service = {
+        Type = "oneshot";
+        ExecStart = "${pkgs.coreutils}/bin/ln -Tfs /run/user/%U/gnupg %h/.gnupg-sockets";
+        ExecStop = "${pkgs.coreutils}/bin/rm $HOME/.gnupg-sockets";
+        RemainAfterExit = true;
+      };
+      Install.WantedBy = [ "default.target" ];
     };
   };
 }

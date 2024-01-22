@@ -1,5 +1,9 @@
-{ lib, config, ... }:
+{ outputs, lib, config, ... }:
 let
+  inherit (config.networking) hostName;
+  hosts = outputs.nixosConfigurations;
+  pubKey = host: ../../${host}/ssh_host_ed25519_key.pub;
+
   # Keys are used here by sops-nix before impermanence can make
   # links. Must just use `/persist` keys directly if impermanence.
   hasPersistDir = config.environment.persistence ? "/persist";
@@ -10,6 +14,11 @@ in
     settings = {
       PermitRootLogin = "no";
       PasswordAuthentication = false;
+      # agent forwarding management
+      # remove stale sockets
+      StreamLocalBindUnlink = "yes";
+      # Allow forwarding ports to everywhere
+      GatewayPorts = "clientspecified";
     };
 
     hostKeys = [
@@ -25,6 +34,14 @@ in
     ];
   };
 
-  # TODO: preconfigure known hosts with programs.ssh from outputs
-  # once I get around to adding more hosts and remote admin
+  programs.ssh = {
+    # iterate hosts to generate knownHosts
+    knownHosts = builtins.mapAttrs
+      (name: _: {
+        publicKeyFile = pubKey name;
+        # Alias for localhost if it's the same host
+        extraHostNames = (lib.optional (name == hostName) "localhost");
+      })
+      hosts;
+  };
 }
