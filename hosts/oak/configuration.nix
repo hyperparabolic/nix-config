@@ -9,6 +9,11 @@
   imports = [
     inputs.home-manager.nixosModules.home-manager
     inputs.impermanence.nixosModules.impermanence
+    inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
+    inputs.nixos-hardware.nixosModules.common-gpu-intel
+    inputs.nixos-hardware.nixosModules.common-hidpi
+    inputs.nixos-hardware.nixosModules.common-pc-ssd
+    inputs.nixos-hardware.nixosModules.system76
     ./hardware-configuration.nix
     ./virtualization
     ../common/global
@@ -25,7 +30,6 @@
   };
 
   networking.hostName = "oak";
-  hardware.system76.enableAll = true;
 
   # required for ZFS
   networking.hostId = "d86c4730";
@@ -67,18 +71,12 @@
   };
 
   # intel discrete graphics with hardware acceleration tweaks
-  nixpkgs.config.packageOverrides = pkgs: {
-    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
-  };
   hardware.opengl = {
     enable = true;
     driSupport = true;
     driSupport32Bit = true;
     extraPackages = with pkgs; [
-      intel-media-driver # LIBVA_DRIVER_NAME=iHD
-      vaapiIntel         # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
       vaapiVdpau
-      libvdpau-va-gl
     ];
   };
 
