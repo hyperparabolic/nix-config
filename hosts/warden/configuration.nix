@@ -35,23 +35,31 @@
     kernelParams = [
       "nohibernate"
     ];
+    kernelModules = [ "igb" ];
     loader = {
       efi.canTouchEfiVariables = true;
       systemd-boot.enable = true;
     };
     # remote unlock via ssh
     initrd = {
+      kernelModules = [ "igb" ];
       secrets = {
-        "/etc/boot/ssh/ssh_host_ed25519_key" = /persist/boot/etc/ssh/ssh_host_ed25519_key; 
+        "/persist/boot/ssh/ssh_host_ed25519_key" = "/persist/boot/ssh/ssh_host_ed25519_key";
       };
       network = {
         enable = true;
         ssh = {
           enable = true;
           port = 2222;
-          hostKeys = [ /etc/boot/ssh/ssh_host_ed25519_key ];
+          hostKeys = [ /persist/boot/ssh/ssh_host_ed25519_key ];
           authorizedKeys = config.users.users.spencer.openssh.authorizedKeys.keys;
         };
+        postCommands = ''
+          # ensure pools are being imported
+          zpool import -a
+          # load key and kill pending password prompt on ssh
+          echo "zfs load-key rpool/crypt; killall zfs" >> /root/.profile
+        '';
       };
     };
   };
