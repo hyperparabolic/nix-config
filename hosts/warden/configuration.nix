@@ -14,6 +14,7 @@
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     ./hardware-configuration.nix
     ../common/global
+    ../common/optional/home-assistant.nix
     ../common/users/spencer.nix
   ];
 
