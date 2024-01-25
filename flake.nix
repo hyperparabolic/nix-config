@@ -70,6 +70,10 @@
         specialArgs = { inherit inputs outputs; };
         modules = [ ./hosts/redbud/configuration.nix ];
       };
+      warden = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs outputs; };
+        modules = [ ./hosts/warden/configuration.nix ];
+      };
     };
 
     # standalone home-manager is kinda borked with my config?
