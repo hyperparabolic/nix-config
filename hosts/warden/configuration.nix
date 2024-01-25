@@ -42,7 +42,7 @@
     # remote unlock via ssh
     initrd = {
       secrets = {
-        "/etc/boot/ssh/ssh_host_ed25519_key" = /persist/boot/etc/ssh/persist/boot/ssh;
+        "/etc/boot/ssh/ssh_host_ed25519_key" = /persist/boot/etc/ssh/ssh_host_ed25519_key; 
       };
       network = {
         enable = true;
