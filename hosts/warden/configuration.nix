@@ -39,6 +39,21 @@
       efi.canTouchEfiVariables = true;
       systemd-boot.enable = true;
     };
+    # remote unlock via ssh
+    initrd = {
+      secrets = {
+        "/etc/boot/ssh/ssh_host_ed25519_key" = /persist/boot/etc/ssh/persist/boot/ssh;
+      };
+      network = {
+        enable = true;
+        ssh = {
+          enable = true;
+          port = 2222;
+          hostKeys = [ /etc/boot/ssh/ssh_host_ed25519_key ];
+          authorizedKeys = config.users.users.spencer.openssh.authorizedKeys.keys;
+        };
+      };
+    };
   };
 
   hyperparabolic.base.zfs = {
