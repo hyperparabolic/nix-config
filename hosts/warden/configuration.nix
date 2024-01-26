@@ -15,6 +15,7 @@
     ./hardware-configuration.nix
     ../common/global
     ../common/optional/home-assistant.nix
+    ../common/optional/tailscale-exit-node.nix
     ../common/users/spencer.nix
   ];
 
