@@ -4,6 +4,7 @@
     ./direnv.nix
     ./git.nix
     ./gpg.nix
+    ./ranger.nix
     ./ssh.nix
     ./zsh.nix
   ];
@@ -11,7 +12,6 @@
   home.packages = with pkgs; [
     glances # system monitor
     jq # json parsing
-    ranger
     silver-searcher # ag
 
     nil # nix lsp
