@@ -22,7 +22,7 @@ High level overview:
   - `%hostname%`: System specific config. Anything referencing specific hardware or hardware ids will be nested in these folders.
   - `oak`: Desktop workstation, native ZFS encryption, extensive KVM / QEMU config with hardware passthrough.
   - `redbud`: Laptop, ZFS on encrypted LUKS.
-  - `warden`: Intel NUC mini-pc, native ZFS encryption, home-assistant.
+  - `warden`: Intel NUC mini-pc, headless, native ZFS encryption, home-assistant, tailscale exit node.
 - `home`: Home-manager configuration. Not currently deployed directly, but imported via the primary NixOS config.
   - Generally, I try to keep as much of my system as possible in user space. User space programs and configurations are managed here.
 - `modules`: My own derivations. Most of these are just containers for re-usable config. However some (zfs) implement more complex parameterized config behavior.
