@@ -5,6 +5,7 @@
     ./openssh.nix
     ./podman.nix
     ./sops.nix
+    ./tailscale.nix
     ./zsh.nix
   ] ++ (builtins.attrValues outputs.nixosModules);
 

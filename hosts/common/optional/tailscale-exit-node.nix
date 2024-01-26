@@ -1,0 +1,5 @@
+{
+  services.tailscale = {
+    useRoutingFeatures = "both";
+  };
+}
