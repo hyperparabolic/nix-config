@@ -4,6 +4,7 @@
     ./discord.nix
     ./firefox.nix
     ./font.nix
+    ./krita.nix
     ./kitty.nix
     ./lutris.nix
     ./slack.nix

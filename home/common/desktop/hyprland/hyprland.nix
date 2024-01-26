@@ -149,6 +149,8 @@
       bindm = ["$MOD, mouse:272, movewindow" "$MOD, mouse:273, resizewindow"];
 
       windowrulev2 = [
+        "opaque,class:^(krita)$"
+
         "idleinhibit always, class:^(kitty)$, title:^(./win10-vm-start.sh)$"
         "idleinhibit focus, class:^(firefox)$, title:^(.*YouTube.*)$"
         "idleinhibit fullscreen, class:^(firefox)$"
