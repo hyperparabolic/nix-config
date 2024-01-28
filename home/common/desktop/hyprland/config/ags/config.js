@@ -1,4 +1,5 @@
 import App from 'resource:///com/github/Aylur/ags/app.js';
+import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 import Mpris from 'resource:///com/github/Aylur/ags/service/mpris.js';
 import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
@@ -29,15 +30,6 @@ const Workspaces = () => Widget.Box({
         .transform(i => `${i === id ? 'focused' : ''}`),
     }));
   }),
-});
-
-const Clock = () => Widget.Label({
-  class_name: 'clock',
-  justification: 'center',
-  setup: self => self
-    .poll(1000, self => execAsync(['date', '+%H\n%M'])
-    // .poll(1000, self => execAsync(['date', '+%H\n%M\n%a\n%m\n%d'])
-      .then(date => self.label = date)),
 });
 
 const Media = () => Widget.Button({
@@ -104,6 +96,34 @@ const Volume = () => Widget.EventBox({
   }),
 });
 
+const BatteryIndicator = () => Widget.Box({
+  class_name: 'battery',
+  visible: Battery.bind('available'),
+  children: [
+    Widget.Icon({
+      icon: Battery.bind('percent').transform(p => {
+        return `battery-level-${Math.floor(p / 10) * 10}-symbolic`;
+      }),
+    }),
+    Widget.ProgressBar({
+      vpack: 'center',
+      fraction: Battery.bind('percent').transform(p => {
+        return p > 0 ? p / 100 : 0;
+      }),
+    }),
+  ],
+});
+
+const Clock = () => Widget.Label({
+  class_name: 'clock',
+  justification: 'center',
+  setup: self => self
+    .poll(1000, self => execAsync(['date', '+%H\n%M'])
+    // .poll(1000, self => execAsync(['date', '+%H\n%M\n%a\n%m\n%d'])
+      .then(date => self.label = date)),
+});
+
+
 const Power = () => Widget.Button({
   class_name: 'power',
   // just a placeholder for now, expand to power menu on click
@@ -139,6 +159,7 @@ const Bottom = () => Widget.Box({
   spacing: 8,
   children: [
     Volume(),
+    BatteryIndicator(),
     Clock(),
     Power(),
   ],
