@@ -138,7 +138,7 @@ const Bottom = () => Widget.Box({
   vpack: 'end',
   spacing: 8,
   children: [
-    Volume(openVolumeSlider),
+    Volume(),
     Clock(),
     Power(),
   ],

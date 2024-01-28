@@ -20,7 +20,6 @@
 
       # startup programs
       exec-once = [
-        "ags -b hypr"
         # TODO: persist this in the nix store?
         "swaybg -i ~/Pictures/wallpapers/wallpaper.jpg -m fill"
         "wl-paste --type text --watch cliphist store"
