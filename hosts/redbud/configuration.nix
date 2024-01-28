@@ -59,10 +59,11 @@
     driSupport32Bit = true;
   };
 
-  # battery management
+  # laptop hardware management
   services.upower.enable = true;
   environment.systemPackages = with pkgs; [
     acpi
+    brightnessctl
   ];
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
