@@ -98,18 +98,11 @@ const Volume = () => Widget.EventBox({
 
 const BatteryIndicator = () => Widget.Box({
   class_name: 'battery',
+  vertical: true,
   visible: Battery.bind('available'),
   children: [
     Widget.Icon({
-      icon: Battery.bind('percent').transform(p => {
-        return `battery-level-${Math.floor(p / 10) * 10}-symbolic`;
-      }),
-    }),
-    Widget.ProgressBar({
-      vpack: 'center',
-      fraction: Battery.bind('percent').transform(p => {
-        return p > 0 ? p / 100 : 0;
-      }),
+      icon: Battery.bind('icon-name'),
     }),
   ],
 });
