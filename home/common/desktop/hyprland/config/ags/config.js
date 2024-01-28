@@ -7,6 +7,9 @@ import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
+// import Brightness from './services/brightness.js';
+import WLSunsetStatus from './services/wlsunset-status.js';
+
 const workspaceIdToIconProps = {
   1: { icon: 'firefox-symbolic' },
   2: { icon: 'github', size: 16 },
@@ -45,6 +48,29 @@ const Media = () => Widget.Button({
       self.label = 'Nothing is playing';
     }
   }, 'player-changed'),
+});
+
+const openBrightnessSlider = Variable(false);
+const ScreenControls = () => Widget.EventBox({
+  on_hover: () => openBrightnessSlider.value = true,
+  on_hover_lost: () => openBrightnessSlider.value = false,
+  child: Widget.Box({
+    class_name: 'screen-controls',
+    vertical: true,
+    children: [
+      // TODO: brightness slider
+      // Widget.Revealer({
+      //   
+      // }),
+      Widget.Button({
+        on_primary_click: () => WLSunsetStatus['status'] = !WLSunsetStatus['status'],
+        child: Widget.Icon({
+          icon: WLSunsetStatus.bind('status')
+            .transform(s => s ? 'display-brightness-high-symbolic' : 'display-brightness-off-symbolic'),
+        }),
+      }),
+    ],
+  }),
 });
 
 const openVolumeSlider = Variable(false);
@@ -151,6 +177,7 @@ const Bottom = () => Widget.Box({
   vpack: 'end',
   spacing: 8,
   children: [
+    ScreenControls(),
     Volume(),
     BatteryIndicator(),
     Clock(),

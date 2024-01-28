@@ -16,7 +16,10 @@
         Wants = [ "swayidle-status.service" "wlsunset-status.service" ];
       };
       Service = {
-        Environment = "PATH=/run/current-system/sw/bin/";
+        Environment = [
+          "PATH=/run/current-system/sw/bin/"
+          "HOME=%h"
+        ];
         ExecStart = "${config.programs.ags.package}/bin/ags -b hypr";
       };
       Install.WantedBy = [ "hyprland-session.target" ];
