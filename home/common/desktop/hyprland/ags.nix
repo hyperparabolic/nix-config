@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }: {
+{ inputs, config, pkgs, ... }: {
   imports = [
     inputs.ags.homeManagerModules.default
   ];
@@ -6,7 +6,6 @@
   programs.ags = {
     enable = true;
     configDir = ./config/ags;
-    package = inputs.ags.packages.x86_64-linux.agsWithTypes;
   };
 
   systemd.user.services = {
@@ -18,7 +17,7 @@
       };
       Service = {
         Environment = "PATH=/run/current-system/sw/bin/";
-        ExecStart = "${inputs.ags.packages.x86_64-linux.agsWithTypes}/bin/ags -b hypr";
+        ExecStart = "${config.programs.ags.package}/bin/ags -b hypr";
       };
       Install.WantedBy = [ "hyprland-session.target" ];
     };
