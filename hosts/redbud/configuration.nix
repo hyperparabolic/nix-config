@@ -59,6 +59,12 @@
     driSupport32Bit = true;
   };
 
+  # battery management
+  services.upower.enable = true;
+  environment.systemPackages = with pkgs; [
+    acpi
+  ];
+
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.05";
 }
