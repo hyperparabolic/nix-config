@@ -36,6 +36,10 @@ label {
   min-height: 120px;
 }
 
+.brightness-slider {
+  min-height: 120px;
+}
+
 button.focused {
   /*
   I prefer this, but only `symbolic` icons get recolored

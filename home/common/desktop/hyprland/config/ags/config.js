@@ -7,7 +7,7 @@ import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
-// import Brightness from './services/brightness.js';
+import Brightness from './services/brightness.js';
 import WLSunsetStatus from './services/wlsunset-status.js';
 
 const workspaceIdToIconProps = {
@@ -58,10 +58,26 @@ const ScreenControls = () => Widget.EventBox({
     class_name: 'screen-controls',
     vertical: true,
     children: [
-      // TODO: brightness slider
-      // Widget.Revealer({
-      //   
-      // }),
+      Widget.Revealer({
+        reveal_child: false,
+        transition_duration: 500,
+        transition: 'slide_up',
+        child: Widget.Slider({
+          class_name: 'brightness-slider',
+          hexpand: true,
+          vertical: true,
+          inverted: true,
+          draw_value: false,
+          on_change: self => Brightness.screen_value = self.value,
+          value: Brightness.bind('screen-value'),
+        }),
+        setup: self => self.bind('label', openBrightnessSlider, 'value', v => {
+          if (!Brightness.available) {
+            return;
+          }
+          self.reveal_child = v
+        }),
+      }),
       Widget.Button({
         on_primary_click: () => WLSunsetStatus['status'] = !WLSunsetStatus['status'],
         child: Widget.Icon({
