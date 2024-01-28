@@ -33,8 +33,8 @@
       };
       Service = {
         Type = "oneshot";
-        ExecStart = "${pkgs.bash}/bin/bash -c '${pkgs.coreutils-full}/bin/echo 0 > /tmp/swayidle-status'";
-        ExecStop = "${pkgs.bash}/bin/bash -c '${pkgs.coreutils-full}/bin/echo 1 > /tmp/swayidle-status'";
+        ExecStart = "${pkgs.bash}/bin/bash -c '${pkgs.coreutils-full}/bin/echo 0 > ~/.local/share/swayidle-status'";
+        ExecStop = "${pkgs.bash}/bin/bash -c '${pkgs.coreutils-full}/bin/echo 1 > ~/.local/share/swayidle-status'";
         RemainAfterExit = true;
       };
       Install.WantedBy = [ "swayidle.service" ];
@@ -46,8 +46,8 @@
       };
       Service = {
         Type = "oneshot";
-        ExecStart = "${pkgs.bash}/bin/bash -c '${pkgs.coreutils-full}/bin/echo 0 > /tmp/wlsunset-status'";
-        ExecStop = "${pkgs.bash}/bin/bash -c '${pkgs.coreutils-full}/bin/echo 1 > /tmp/wlsunset-status'";
+        ExecStart = "${pkgs.bash}/bin/bash -c '${pkgs.coreutils-full}/bin/echo 0 > ~/.local/share/wlsunset-status'";
+        ExecStop = "${pkgs.bash}/bin/bash -c '${pkgs.coreutils-full}/bin/echo 1 > ~/.local/share/wlsunset-status'";
         RemainAfterExit = true;
       };
       Install.WantedBy = [ "wlsunset.service" ];
