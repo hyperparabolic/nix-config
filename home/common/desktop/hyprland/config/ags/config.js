@@ -68,6 +68,7 @@ const ScreenControls = () => Widget.EventBox({
           vertical: true,
           inverted: true,
           draw_value: false,
+          min: 0.05,
           on_change: self => Brightness.screen_value = self.value,
           value: Brightness.bind('screen-value'),
         }),
