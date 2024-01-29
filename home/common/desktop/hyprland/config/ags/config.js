@@ -8,6 +8,7 @@ import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
 import Brightness from './services/brightness.js';
+import SwayidleStatus from './services/swayidle-status.js';
 import WLSunsetStatus from './services/wlsunset-status.js';
 
 const workspaceIdToIconProps = {
@@ -139,6 +140,14 @@ const Volume = () => Widget.EventBox({
   }),
 });
 
+const IdleInhibit = () => Widget.Button({
+  on_primary_click: () => SwayidleStatus['status'] = !SwayidleStatus['status'],
+  child: Widget.Icon({
+    icon: SwayidleStatus.bind('status')
+      .transform(s => s ? 'my-caffeine-off-symbolic' : 'my-caffeine-on-symbolic'),
+  }),
+});
+
 const BatteryIndicator = () => Widget.Box({
   class_name: 'battery',
   vertical: true,
@@ -196,6 +205,7 @@ const Bottom = () => Widget.Box({
   children: [
     Volume(),
     ScreenControls(),
+    IdleInhibit(),
     BatteryIndicator(),
     Clock(),
     Power(),
