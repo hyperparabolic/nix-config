@@ -59,12 +59,20 @@
     driSupport32Bit = true;
   };
 
-  # laptop hardware management
+  # laptop specific stuff, move somewhere common when I get another laptop
+  # power management
   services.upower.enable = true;
   environment.systemPackages = with pkgs; [
     acpi
     brightnessctl
   ];
+
+  # persist wifi connections
+  environment.persistence = {
+    "/persist".directories = [
+      "/etc/NetworkManager/system-connections"
+    ];
+  };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.05";
