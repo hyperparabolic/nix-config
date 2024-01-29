@@ -194,8 +194,8 @@ const Bottom = () => Widget.Box({
   vpack: 'end',
   spacing: 8,
   children: [
-    ScreenControls(),
     Volume(),
+    ScreenControls(),
     BatteryIndicator(),
     Clock(),
     Power(),
