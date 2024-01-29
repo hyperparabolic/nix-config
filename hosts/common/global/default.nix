@@ -1,5 +1,6 @@
 { inputs, outputs, config, lib, ... }: {
   imports = [
+    ./bluetooth.nix
     ./nix.nix
     ./notify.nix
     ./openssh.nix
