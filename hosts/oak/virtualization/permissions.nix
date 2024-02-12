@@ -39,9 +39,6 @@
     SUBSYSTEM=="usb", ATTR{idVendor}=="8087", ATTR{idProduct}=="0029" OWNER="root", GROUP="kvm"
   '';
 
-  # use system level pipewire service to share audio devices between users
-  services.pipewire.systemWide = true;
-
   security = {
     pam.loginLimits = [
       {

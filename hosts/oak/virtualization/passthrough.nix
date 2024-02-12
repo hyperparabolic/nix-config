@@ -22,7 +22,7 @@ in
   ];
 
   boot = {
-    initrd.kernelModules =[
+    initrd.kernelModules = [
       "vfio_pci"
       "vfio"
       "vfio_iommu_type1"
@@ -33,6 +33,54 @@ in
     ];
   };
 
-  # usb hotplugging, not strictly related but I probably only want it here.
-  virtualisation.spiceUSBRedirection.enable = true;
+  # vm utilizes pipewire to share system audio, initialize dummy sink / source
+  services.pipewire = {
+    # use system level pipewire service to share audio devices between users
+    systemWide = true;
+    extraConfig.pipewire = {
+      "10-vm-shared-audio" = {
+        "context.objects" = [
+          # initialize null sources / sinks
+          {
+            "factory" = "adapter";
+            "args" = {
+              "factory.name" = "support.null-audio-sink";
+              "node.name" = "win10-out";
+              "media.class" = "Audio/Sink";
+              "linger" = true;
+              "audio.position" = [ "FL" "FR" ];
+            };
+          }
+          {
+            "factory" = "adapter";
+            "args" = {
+              "factory.name" = "support.null-audio-sink";
+              "node.name" = "win10-in";
+              "media.class" = "Audio/Source/Virtual";
+              "linger" = true;
+              "audio.position" = [ "FL" "FR" ];
+            };
+          }
+        ];
+      };
+    };
+  };
+
+  # links cannot be created directly, create using oneshot service
+  systemd.services.pipewire-link-vm-audio = {
+    description = "Create pipewire links between null devices and hardware";
+    enable = true;
+    wantedBy = [ "multi-user.target" ];
+    partOf = [ "pipewire.service" ];
+    after = [ "pipewire.service" ];
+    serviceConfig = {
+      type = "oneshot";
+    };
+    script = ''
+      ${config.services.pipewire.package}/bin/pw-link "win10-out:monitor_FL" "alsa_output.usb-Focusrite_Scarlett_2i2_USB_Y86BTH519C4572-00.analog-stereo:playback_FL"
+      ${config.services.pipewire.package}/bin/pw-link "win10-out:monitor_FR" "alsa_output.usb-Focusrite_Scarlett_2i2_USB_Y86BTH519C4572-00.analog-stereo:playback_FR"
+      ${config.services.pipewire.package}/bin/pw-link "alsa_input.usb-Focusrite_Scarlett_2i2_USB_Y86BTH519C4572-00.analog-stereo:capture_FL" "win10-in:input_FL"
+      ${config.services.pipewire.package}/bin/pw-link "alsa_input.usb-Focusrite_Scarlett_2i2_USB_Y86BTH519C4572-00.analog-stereo:capture_FR" "win10-in:input_FR"
+    '';
+  };
 }

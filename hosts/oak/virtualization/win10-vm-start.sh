@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# ensure pipewire sinks are created and linked
-./pw-setup.sh
-
 # configure VM options
 OPTS=""
 OPTS="$OPTS -name guest=win10,debug-threads=on"
