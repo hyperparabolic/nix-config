@@ -74,13 +74,24 @@ in
     partOf = [ "pipewire.service" ];
     after = [ "pipewire.service" ];
     serviceConfig = {
-      type = "oneshot";
+      Type = "oneshot";
+      ExecCondition = lib.getExe (
+        # ensure links are not already created
+        pkgs.writeShellScriptBin "pw-check-win-links" ''
+          ! ${config.services.pipewire.package}/bin/pw-link -l | grep 'win'
+        ''
+      );
+      ExecStart = lib.getExe (
+        pkgs.writeShellScriptBin "pw-create-win-links" ''
+          ${config.services.pipewire.package}/bin/pw-link "win10-out:monitor_FL" "alsa_output.usb-Focusrite_Scarlett_2i2_USB_Y86BTH519C4572-00.analog-stereo:playback_FL"
+          ${config.services.pipewire.package}/bin/pw-link "win10-out:monitor_FR" "alsa_output.usb-Focusrite_Scarlett_2i2_USB_Y86BTH519C4572-00.analog-stereo:playback_FR"
+          ${config.services.pipewire.package}/bin/pw-link "alsa_input.usb-Focusrite_Scarlett_2i2_USB_Y86BTH519C4572-00.analog-stereo:capture_FL" "win10-in:input_FL"
+          ${config.services.pipewire.package}/bin/pw-link "alsa_input.usb-Focusrite_Scarlett_2i2_USB_Y86BTH519C4572-00.analog-stereo:capture_FR" "win10-in:input_FR"
+        ''
+      );
+      # alsa devices take a moment to settle, retry until success
+      Restart = "on-failure";
+      RestartSec = "5";
     };
-    script = ''
-      ${config.services.pipewire.package}/bin/pw-link "win10-out:monitor_FL" "alsa_output.usb-Focusrite_Scarlett_2i2_USB_Y86BTH519C4572-00.analog-stereo:playback_FL"
-      ${config.services.pipewire.package}/bin/pw-link "win10-out:monitor_FR" "alsa_output.usb-Focusrite_Scarlett_2i2_USB_Y86BTH519C4572-00.analog-stereo:playback_FR"
-      ${config.services.pipewire.package}/bin/pw-link "alsa_input.usb-Focusrite_Scarlett_2i2_USB_Y86BTH519C4572-00.analog-stereo:capture_FL" "win10-in:input_FL"
-      ${config.services.pipewire.package}/bin/pw-link "alsa_input.usb-Focusrite_Scarlett_2i2_USB_Y86BTH519C4572-00.analog-stereo:capture_FR" "win10-in:input_FR"
-    '';
   };
 }
