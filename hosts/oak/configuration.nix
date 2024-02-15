@@ -21,6 +21,7 @@
     ../common/optional/jellyfin.nix
     ../common/optional/libvirt.nix
     ../common/optional/pipewire.nix
+    ../common/optional/pipewire-raop.nix
     ../common/users/spencer.nix
   ];
 
