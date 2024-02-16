@@ -35,11 +35,6 @@
       fsType = "zfs";
     };
 
-  fileSystems."/safe" =
-    { device = "rpool/safe";
-      fsType = "zfs";
-    };
-
   fileSystems."/persist" =
     { device = "rpool/safe/persist";
       fsType = "zfs";
