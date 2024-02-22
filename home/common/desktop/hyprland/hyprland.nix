@@ -1,4 +1,8 @@
-{ config, lib, ... }: {
+{
+  config,
+  lib,
+  ...
+}: {
   wayland.windowManager.hyprland = {
     enable = true;
     settings = {
@@ -36,24 +40,35 @@
       };
 
       monitor =
-      if builtins.length config.monitors > 0
+        if builtins.length config.monitors > 0
         # if monitors are configured, map to exact config
-        then map (m: let
-          resolution = "${toString m.width}x${toString m.height}@${toString m.refreshRate}";
-          position = "${toString m.x}x${toString m.y}";
-          transform = "transform,${toString m.transform}";
-        in
-          "${m.name},${if m.enabled then "${resolution},${position},1" else "disable"},${if m.enabled then "${transform}" else ""}"
-        ) (config.monitors)
+        then
+          map (
+            m: let
+              resolution = "${toString m.width}x${toString m.height}@${toString m.refreshRate}";
+              position = "${toString m.x}x${toString m.y}";
+              transform = "transform,${toString m.transform}";
+            in "${m.name},${
+              if m.enabled
+              then "${resolution},${position},1"
+              else "disable"
+            },${
+              if m.enabled
+              then "${transform}"
+              else ""
+            }"
+          ) (config.monitors)
         # if monitors are not configured, do your best prioritizing resolution
-        else [ ",highres,auto,1" ];
+        else [",highres,auto,1"];
 
       workspace =
-      if builtins.length config.monitors > 0
-        then lib.flatten (map (m:
-          map (mw:
-              "${mw}, monitor:${m.name}, persistent: true"
-            ) (m.workspaces)
+        if builtins.length config.monitors > 0
+        then
+          lib.flatten (map (
+            m:
+              map (
+                mw: "${mw}, monitor:${m.name}, persistent: true"
+              ) (m.workspaces)
           ) (config.monitors))
         else [
           "1, persistent: true"
@@ -67,7 +82,7 @@
         ];
 
       decoration = {
-        active_opacity = 0.95; 
+        active_opacity = 0.95;
         inactive_opacity = 0.8;
         fullscreen_opacity = 1.0;
         rounding = 10;
@@ -157,7 +172,5 @@
 
       xwayland.force_zero_scaling = true;
     };
-
-
   };
 }

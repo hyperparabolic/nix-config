@@ -38,14 +38,14 @@
     kernelParams = [
       "nohibernate"
     ];
-    kernelModules = [ "igb" ];
+    kernelModules = ["igb"];
     loader = {
       efi.canTouchEfiVariables = true;
       systemd-boot.enable = true;
     };
     # remote unlock via ssh
     initrd = {
-      kernelModules = [ "igb" ];
+      kernelModules = ["igb"];
       secrets = {
         "/persist/boot/ssh/ssh_host_ed25519_key" = "/persist/boot/ssh/ssh_host_ed25519_key";
       };
@@ -54,7 +54,7 @@
         ssh = {
           enable = true;
           port = 2222;
-          hostKeys = [ /persist/boot/ssh/ssh_host_ed25519_key ];
+          hostKeys = [/persist/boot/ssh/ssh_host_ed25519_key];
           authorizedKeys = config.users.users.spencer.openssh.authorizedKeys.keys;
         };
         postCommands = ''

@@ -1,5 +1,9 @@
-{ outputs, lib, config, ... }:
-let
+{
+  outputs,
+  lib,
+  config,
+  ...
+}: let
   inherit (config.networking) hostName;
   hosts = outputs.nixosConfigurations;
   pubKey = host: ../../${host}/ssh_host_ed25519_key.pub;
@@ -7,8 +11,7 @@ let
   # Keys are used here by sops-nix before impermanence can make
   # links. Must just use `/persist` keys directly if impermanence.
   hasPersistDir = config.environment.persistence ? "/persist";
-in
-{
+in {
   services.openssh = {
     enable = true;
     settings = {
@@ -36,11 +39,12 @@ in
 
   programs.ssh = {
     # iterate hosts to generate knownHosts
-    knownHosts = builtins.mapAttrs
+    knownHosts =
+      builtins.mapAttrs
       (name: _: {
         publicKeyFile = pubKey name;
         # Alias for localhost if it's the same host
-        extraHostNames = (lib.optional (name == hostName) "localhost");
+        extraHostNames = lib.optional (name == hostName) "localhost";
       })
       hosts;
   };

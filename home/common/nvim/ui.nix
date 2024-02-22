@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   # syntax highlighting specific configs and plugs
   programs.neovim = {
     plugins = with pkgs.vimPlugins; [
@@ -30,18 +30,26 @@
       {
         plugin = gitsigns-nvim;
         type = "lua";
-        config = /* lua */ ''
-          require("gitsigns").setup()
-        '';
+        config =
+          /*
+          lua
+          */
+          ''
+            require("gitsigns").setup()
+          '';
       }
 
       # show indent level
       {
         plugin = indent-blankline-nvim;
         type = "lua";
-        config = /* lua */ ''
-          require("ibl").setup()
-        '';
+        config =
+          /*
+          lua
+          */
+          ''
+            require("ibl").setup()
+          '';
       }
 
       # fuzzy finder window
@@ -62,9 +70,13 @@
       {
         plugin = dressing-nvim;
         type = "lua";
-        config = /* lua */ ''
-          require("dressing").setup({})
-        '';
+        config =
+          /*
+          lua
+          */
+          ''
+            require("dressing").setup({})
+          '';
       }
 
       # tabs
@@ -81,18 +93,26 @@
       {
         plugin = numb-nvim;
         type = "lua";
-        config = /* lua */ ''
-          require("numb").setup()
-        '';
+        config =
+          /*
+          lua
+          */
+          ''
+            require("numb").setup()
+          '';
       }
 
       # navigation
       {
         plugin = leap-nvim;
         type = "lua";
-        config = /* lua */ ''
-          require("leap").add_default_mappings()
-        '';
+        config =
+          /*
+          lua
+          */
+          ''
+            require("leap").add_default_mappings()
+          '';
       }
 
       # rainbow delimiters
@@ -102,29 +122,41 @@
       {
         plugin = nvim-notify;
         type = "lua";
-        config = /* lua */ ''
-          require("notify").setup({})
-        '';
+        config =
+          /*
+          lua
+          */
+          ''
+            require("notify").setup({})
+          '';
       }
       {
         plugin = fidget-nvim;
         type = "lua";
-        config = /* lua */ ''
-          require("fidget").setup({
-            text = {
-              spinner = "dots",
-            },
-          })
-        '';
+        config =
+          /*
+          lua
+          */
+          ''
+            require("fidget").setup({
+              text = {
+                spinner = "dots",
+              },
+            })
+          '';
       }
 
       # comment toggling
       {
         plugin = comment-nvim;
         type = "lua";
-        config = /* lua */ ''
-          require("Comment").setup()
-        '';
+        config =
+          /*
+          lua
+          */
+          ''
+            require("Comment").setup()
+          '';
       }
     ];
   };

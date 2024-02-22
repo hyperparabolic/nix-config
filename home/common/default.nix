@@ -5,17 +5,19 @@
   pkgs,
   ...
 }: {
-  imports = [
-    inputs.impermanence.nixosModules.home-manager.impermanence
-    ./cli
-    ./dev
-    ./helix
-    ./nvim
-  ] ++ (builtins.attrValues outputs.homeManagerModules);
+  imports =
+    [
+      inputs.impermanence.nixosModules.home-manager.impermanence
+      ./cli
+      ./dev
+      ./helix
+      ./nvim
+    ]
+    ++ (builtins.attrValues outputs.homeManagerModules);
 
   nixpkgs = {
     overlays = [
-     # (import ../../overlays/electron-wayland.nix)
+      # (import ../../overlays/electron-wayland.nix)
     ];
     config = {
       allowUnfree = true;
@@ -27,7 +29,7 @@
   nix = {
     package = lib.mkDefault pkgs.nix;
     settings = {
-      experimental-features = [ "nix-command" "flakes" "repl-flake" ];
+      experimental-features = ["nix-command" "flakes" "repl-flake"];
       warn-dirty = false;
     };
   };
@@ -36,7 +38,7 @@
     username = "spencer";
     homeDirectory = "/home/spencer";
     stateVersion = lib.mkDefault "22.05";
-    sessionPath = [ "$HOME/.local/bin" ];
+    sessionPath = ["$HOME/.local/bin"];
     sessionVariables = {
       FLAKE = "$HOME/Documents/NixConfig";
     };

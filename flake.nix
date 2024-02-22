@@ -29,12 +29,13 @@
   } @ inputs: let
     inherit (self) outputs;
 
-    supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
+    supportedSystems = ["x86_64-linux" "aarch64-linux"];
 
-    pkgsPlatform = nixpkgs.lib.genAttrs supportedSystems (system: import nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
-    });
+    pkgsPlatform = nixpkgs.lib.genAttrs supportedSystems (system:
+      import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      });
 
     forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
   in {
@@ -42,37 +43,36 @@
     homeManagerModules = import ./modules/home-manager;
 
     # bootstrapping and repo tooling
-    devShells = forAllSystems (system:
-      let
-        pkgs = pkgsPlatform.${system};
-      in {
-        default = pkgs.mkShell {
-          NIX_CONFIG = "extra-experimental-features = nix-command flakes repl-flake";
-          buildInputs = with pkgs; [
-            nix
-            git
-            sops
-            ssh-to-age
-            gnupg
-            age
-          ];
-        };
+    devShells = forAllSystems (system: let
+      pkgs = pkgsPlatform.${system};
+    in {
+      default = pkgs.mkShell {
+        NIX_CONFIG = "extra-experimental-features = nix-command flakes repl-flake";
+        buildInputs = with pkgs; [
+          nix
+          git
+          sops
+          ssh-to-age
+          gnupg
+          age
+        ];
+      };
     });
 
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#oak'
     nixosConfigurations = {
       oak = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs outputs; };
-        modules = [ ./hosts/oak/configuration.nix ];
+        specialArgs = {inherit inputs outputs;};
+        modules = [./hosts/oak/configuration.nix];
       };
       redbud = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs outputs; };
-        modules = [ ./hosts/redbud/configuration.nix ];
+        specialArgs = {inherit inputs outputs;};
+        modules = [./hosts/redbud/configuration.nix];
       };
       warden = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs outputs; };
-        modules = [ ./hosts/warden/configuration.nix ];
+        specialArgs = {inherit inputs outputs;};
+        modules = [./hosts/warden/configuration.nix];
       };
     };
 
@@ -91,4 +91,3 @@
     #};
   };
 }
-

@@ -1,4 +1,9 @@
-{ inputs, config, pkgs, ... }: {
+{
+  inputs,
+  config,
+  pkgs,
+  ...
+}: {
   imports = [
     inputs.ags.homeManagerModules.default
   ];
@@ -13,7 +18,7 @@
       Unit = {
         Description = "ags desktop widgets";
         PartOf = "graphical-session.target";
-        Wants = [ "swayidle-status.service" "wlsunset-status.service" ];
+        Wants = ["swayidle-status.service" "wlsunset-status.service"];
       };
       Service = {
         Environment = [
@@ -22,7 +27,7 @@
         ];
         ExecStart = "${config.programs.ags.package}/bin/ags -b hypr";
       };
-      Install.WantedBy = [ "hyprland-session.target" ];
+      Install.WantedBy = ["hyprland-session.target"];
     };
 
     # Integrating with dbus is hard, watching a file is easy and cheap.
@@ -40,7 +45,7 @@
         ExecStop = "${pkgs.bash}/bin/bash -c '${pkgs.coreutils-full}/bin/echo 1 > ~/.local/share/swayidle-status'";
         RemainAfterExit = true;
       };
-      Install.WantedBy = [ "swayidle.service" ];
+      Install.WantedBy = ["swayidle.service"];
     };
     wlsunset-status = {
       Unit = {
@@ -53,7 +58,7 @@
         ExecStop = "${pkgs.bash}/bin/bash -c '${pkgs.coreutils-full}/bin/echo 1 > ~/.local/share/wlsunset-status'";
         RemainAfterExit = true;
       };
-      Install.WantedBy = [ "wlsunset.service" ];
+      Install.WantedBy = ["wlsunset.service"];
     };
   };
 }

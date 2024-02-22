@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   # raop (airplay) discovery support for pipewire
   services = {
     avahi.enable = true;
@@ -11,7 +11,7 @@
           "context.modules" = [
             {
               name = "libpipewire-module-zeroconf-discover";
-              args = { };
+              args = {};
             }
             {
               name = "libpipewire-module-raop-discover";

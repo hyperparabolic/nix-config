@@ -1,23 +1,26 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  ...
+}:
 with lib; let
   cfg = config.hyperparabolic.base.zfs;
-in
-{
+in {
   /*
-    Base system configuration for zfs. I don't want to duplicate this config
-    for every machine, but I can already see places I will change it on other
-    machines (not every machine needs encryption, libnotify is enough for some
-    machines but some are too tucked away, some machines don't have enough state
-    to care about snapshots, etc.). 
+  Base system configuration for zfs. I don't want to duplicate this config
+  for every machine, but I can already see places I will change it on other
+  machines (not every machine needs encryption, libnotify is enough for some
+  machines but some are too tucked away, some machines don't have enough state
+  to care about snapshots, etc.).
 
-    This plays nicely with systemdboot, boot drives that are NOT zfs, but does
-    support a zfs root filesystem supporting ephemeral root.
+  This plays nicely with systemdboot, boot drives that are NOT zfs, but does
+  support a zfs root filesystem supporting ephemeral root.
 
-    This does not recompile zed with mail support, so the provided zedMailCommand
-    must be sufficient without that.
+  This does not recompile zed with mail support, so the provided zedMailCommand
+  must be sufficient without that.
   */
 
-  options.hyperparabolic.base.zfs =  {
+  options.hyperparabolic.base.zfs = {
     enable = mkEnableOption "Enable zfs";
     autoSnapshot = mkOption {
       type = types.bool;
@@ -107,7 +110,7 @@ in
 
           settings = {
             ZED_DEBUG_LOG = "/tmp/zed.debug.log";
-            ZED_EMAIL_ADDR = [ cfg.zedMailTo ];
+            ZED_EMAIL_ADDR = [cfg.zedMailTo];
             ZED_EMAIL_PROG = cfg.zedMailCommand;
             ZED_EMAIL_OPTS = cfg.zedMailCommandOptions;
 

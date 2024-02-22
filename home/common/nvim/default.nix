@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   imports = [
     # TODO: debugger adapter protocol integration
     ./copilot.nix
@@ -26,9 +26,13 @@
       {
         plugin = nvim-autopairs;
         type = "lua";
-        config = /* lua */ ''
-          require('nvim-autopairs').setup({})
-        '';
+        config =
+          /*
+          lua
+          */
+          ''
+            require('nvim-autopairs').setup({})
+          '';
       }
     ];
 
@@ -43,4 +47,3 @@
     ];
   };
 }
-

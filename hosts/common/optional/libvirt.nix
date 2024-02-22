@@ -1,7 +1,7 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   # This will have to be made a module if I start running VMs
   # on an intel host, too. Fine for now.
-  boot.kernelModules = [ "kvm-amd" ];
+  boot.kernelModules = ["kvm-amd"];
 
   virtualisation.libvirtd = {
     enable = true;

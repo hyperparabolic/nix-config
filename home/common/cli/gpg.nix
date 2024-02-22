@@ -1,15 +1,19 @@
-{ pkgs, config, ... }: 
-let
+{
+  pkgs,
+  config,
+  ...
+}: let
   pinentry =
-    if config.gtk.enable then {
-      packages = [ pkgs.pinentry-gnome pkgs.gcr ];
+    if config.gtk.enable
+    then {
+      packages = [pkgs.pinentry-gnome pkgs.gcr];
       name = "gnome3";
-    } else {
-      packages = [ pkgs.pinentry-curses ];
+    }
+    else {
+      packages = [pkgs.pinentry-curses];
       name = "curses";
     };
-in
-{
+in {
   home.packages = pinentry.packages;
 
   services.gpg-agent = {
@@ -18,35 +22,39 @@ in
     enableSshSupport = true;
     enableZshIntegration = true;
     maxCacheTtl = 120;
-    sshKeys = [ "ECC99E92F470C3A4F4EF5B607FF4AC76E4D4D25E" ];
+    sshKeys = ["ECC99E92F470C3A4F4EF5B607FF4AC76E4D4D25E"];
     pinentryFlavor = pinentry.name;
   };
 
-  programs = 
-  let
-    launchGpg = /* bash */ ''
-      gpgconf --launch gpg-agent > /dev/null
-      gpg --card-status > /dev/null
-      export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-    '';
-  in 
-  {
+  programs = let
+    launchGpg =
+      /*
+      bash
+      */
+      ''
+        gpgconf --launch gpg-agent > /dev/null
+        gpg --card-status > /dev/null
+        export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+      '';
+  in {
     # ensure gpg is running and card aware in .bashrc / .zlogin, sometimes it isn't on ssh or boot.
     bash.profileExtra = launchGpg;
     zsh.loginExtra = launchGpg;
 
     gpg = {
       enable = true;
-      publicKeys = [{
-        source = ../../gpg-0xA6C19D1C082670FD-2023-11-21.asc;
-        trust = 5;
-      }];
+      publicKeys = [
+        {
+          source = ../../gpg-0xA6C19D1C082670FD-2023-11-21.asc;
+          trust = 5;
+        }
+      ];
       settings = {
         # mostly lifted from:
         # https://github.com/drduh/config/blob/master/gpg.conf
         # https://www.gnupg.org/documentation/manuals/gnupg/GPG-Configuration-Options.html
         # https://www.gnupg.org/documentation/manuals/gnupg/GPG-Esoteric-Options.html
-        
+
         # Use AES256, 192, or 128 as cipher
         personal-cipher-preferences = "AES256 AES192 AES";
         # Use SHA512, 384, or 256 as digest
@@ -103,7 +111,7 @@ in
         ExecStop = "${pkgs.coreutils}/bin/rm $HOME/.gnupg-sockets";
         RemainAfterExit = true;
       };
-      Install.WantedBy = [ "default.target" ];
+      Install.WantedBy = ["default.target"];
     };
   };
 }

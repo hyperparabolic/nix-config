@@ -1,8 +1,10 @@
-{ config, lib, ... }:
-let
-  inherit (lib) getExe;
-in
 {
+  config,
+  lib,
+  ...
+}: let
+  inherit (lib) getExe;
+in {
   services.swayidle = {
     enable = true;
     events = [

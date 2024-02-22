@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   imports = [
     ./greetd.nix
   ];
@@ -33,6 +33,6 @@
       xdg-desktop-portal-hyprland
       xdg-desktop-portal-gtk
     ];
-    configPackages = [ pkgs.hyprland ];
+    configPackages = [pkgs.hyprland];
   };
 }

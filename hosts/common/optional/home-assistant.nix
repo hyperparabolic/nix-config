@@ -4,7 +4,7 @@
   virtualisation.oci-containers = {
     backend = "podman";
     containers.homeassistant = {
-      volumes = [ "/persist/home-assistant/config:/config" ];
+      volumes = ["/persist/home-assistant/config:/config"];
       environment.TZ = "America/Chicago";
       image = "ghcr.io/home-assistant/home-assistant:2024.1";
       extraOptions = [
@@ -15,7 +15,6 @@
   };
 
   networking.firewall = {
-    allowedTCPPorts = [ 8123 ];
+    allowedTCPPorts = [8123];
   };
 }
-

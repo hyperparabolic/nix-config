@@ -1,7 +1,12 @@
-{ inputs, config,  lib, ... }: {
+{
+  inputs,
+  config,
+  lib,
+  ...
+}: {
   nix = {
     settings = {
-      trusted-users = [ "root" "@wheel" ];
+      trusted-users = ["root" "@wheel"];
       experimental-features = "nix-command flakes";
       auto-optimise-store = true;
     };

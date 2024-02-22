@@ -1,6 +1,6 @@
 {
   /*
-    Permissions tweaks to enable vfio passthrough as a non-root user
+  Permissions tweaks to enable vfio passthrough as a non-root user
   */
   # provision additional user to run qemu as
   users = {
@@ -46,7 +46,8 @@
         type = "soft";
         item = "memlock";
         value = "20000000"; # 20GB
-      }{
+      }
+      {
         domain = "qemu_user";
         type = "hard";
         item = "memlock";
@@ -57,12 +58,12 @@
     sudo = {
       extraRules = [
         {
-          users = [ "spencer" ];
+          users = ["spencer"];
           runAs = "qemu_user";
           commands = [
             {
               command = "ALL";
-              options = [ "NOPASSWD" ];
+              options = ["NOPASSWD"];
             }
           ];
         }

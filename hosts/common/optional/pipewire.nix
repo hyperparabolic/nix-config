@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   security.rtkit.enable = true;
   hardware.pulseaudio.enable = false;
   services.pipewire = {
@@ -13,4 +13,3 @@
     qpwgraph
   ];
 }
-

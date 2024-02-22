@@ -1,5 +1,9 @@
-{ pkgs, lib, config, ... }:
-let
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: let
   pciIds = [
     # 3090 graphics
     "10de:2204"
@@ -8,13 +12,12 @@ let
     # nvme drive
     "144d:a804"
   ];
-in
-{
+in {
   /*
-    PCI devices specified in pciIds get stubbed with the vfio_pci driver,
-    preventing linux from loading its drivers. This ensures they are "clean"
-    when they get passed through to a VM and behave well there. This is
-    mostly only necessary for GPUs.
+  PCI devices specified in pciIds get stubbed with the vfio_pci driver,
+  preventing linux from loading its drivers. This ensures they are "clean"
+  when they get passed through to a VM and behave well there. This is
+  mostly only necessary for GPUs.
   */
   environment.systemPackages = with pkgs; [
     pciutils # pci querying tooling
@@ -48,7 +51,7 @@ in
               "node.name" = "win10-out";
               "media.class" = "Audio/Sink";
               "linger" = true;
-              "audio.position" = [ "FL" "FR" ];
+              "audio.position" = ["FL" "FR"];
             };
           }
           {
@@ -58,7 +61,7 @@ in
               "node.name" = "win10-in";
               "media.class" = "Audio/Source/Virtual";
               "linger" = true;
-              "audio.position" = [ "FL" "FR" ];
+              "audio.position" = ["FL" "FR"];
             };
           }
         ];
@@ -70,9 +73,9 @@ in
   systemd.services.pipewire-link-vm-audio = {
     description = "Create pipewire links between null devices and hardware";
     enable = true;
-    wantedBy = [ "multi-user.target" ];
-    partOf = [ "pipewire.service" ];
-    after = [ "pipewire.service" ];
+    wantedBy = ["multi-user.target"];
+    partOf = ["pipewire.service"];
+    after = ["pipewire.service"];
     serviceConfig = {
       Type = "oneshot";
       ExecCondition = lib.getExe (

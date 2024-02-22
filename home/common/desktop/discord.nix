@@ -1,7 +1,7 @@
-{ pkgs, ... }: {
-  home.packages = [ pkgs.discord ];
+{pkgs, ...}: {
+  home.packages = [pkgs.discord];
 
   home.persistence = {
-    "/persist/home/spencer".directories = [ ".config/discord" ];
+    "/persist/home/spencer".directories = [".config/discord"];
   };
 }

@@ -22,7 +22,7 @@
     "org/gnome/desktop/wm/preferences" = {
       button-layout = "appmenu:minimize,maximize,close";
     };
-    
+
     "org/gnome/mutter" = {
       edge-tiling = true;
     };
@@ -34,17 +34,17 @@
 
     # keybinds
     "org/gnome/mutter/keybindings" = {
-      maximize = [ "<Control><Super>Up" ];
-      minimize = [ "<Control><Super>Down" ];
+      maximize = ["<Control><Super>Up"];
+      minimize = ["<Control><Super>Down"];
       # unmaximize = [ "<Control><Super>Down" ];
-      toggle-tiled-left = [ "<Control><Super>Left" ];
-      toggle-tiled-right = [ "<Control><Super>Right" ];
+      toggle-tiled-left = ["<Control><Super>Left"];
+      toggle-tiled-right = ["<Control><Super>Right"];
       toggle-message-tray = [];
       switch-monitor = [];
     };
 
     "org/gnome/settings-daemon/plugins/media-keys" = {
-      screensaver = [ "<Control><Alt>l" ];
+      screensaver = ["<Control><Alt>l"];
     };
   };
 

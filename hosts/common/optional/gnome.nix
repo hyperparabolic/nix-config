@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   imports = [
     ./gdm.nix
   ];
@@ -20,20 +20,22 @@
     MOZ_ENABLE_WAYLAND = "1";
   };
 
-  environment.gnome.excludePackages = (with pkgs; [
-    gedit
-    gnome-photos
-    gnome-tour
-  ]) ++ (with pkgs.gnome; [
-    cheese
-    gnome-music
-    epiphany
-    geary
-    gnome-characters
-    yelp
-    gnome-contacts
-    gnome-initial-setup
-  ]);
+  environment.gnome.excludePackages =
+    (with pkgs; [
+      gedit
+      gnome-photos
+      gnome-tour
+    ])
+    ++ (with pkgs.gnome; [
+      cheese
+      gnome-music
+      epiphany
+      geary
+      gnome-characters
+      yelp
+      gnome-contacts
+      gnome-initial-setup
+    ]);
   environment.systemPackages = with pkgs; [
     gnome.gnome-tweaks
   ];

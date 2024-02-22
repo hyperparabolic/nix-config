@@ -1,14 +1,22 @@
-{ inputs, outputs, config, lib, ... }: {
-  imports = [
-    ./bluetooth.nix
-    ./nix.nix
-    ./notify.nix
-    ./openssh.nix
-    ./podman.nix
-    ./sops.nix
-    ./tailscale.nix
-    ./zsh.nix
-  ] ++ (builtins.attrValues outputs.nixosModules);
+{
+  inputs,
+  outputs,
+  config,
+  lib,
+  ...
+}: {
+  imports =
+    [
+      ./bluetooth.nix
+      ./nix.nix
+      ./notify.nix
+      ./openssh.nix
+      ./podman.nix
+      ./sops.nix
+      ./tailscale.nix
+      ./zsh.nix
+    ]
+    ++ (builtins.attrValues outputs.nixosModules);
 
   nixpkgs = {
     # only global overlays
@@ -19,7 +27,7 @@
   };
 
   home-manager = {
-    extraSpecialArgs = { inherit inputs outputs; };
+    extraSpecialArgs = {inherit inputs outputs;};
   };
 
   time.timeZone = lib.mkDefault "America/Chicago";

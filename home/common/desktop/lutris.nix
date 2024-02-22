@@ -1,8 +1,10 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   home.packages = with pkgs; [
-    (lutris.override { extraPkgs = p: [
-      p.wineWowPackages.wayland
-    ]; })
+    (lutris.override {
+      extraPkgs = p: [
+        p.wineWowPackages.wayland
+      ];
+    })
   ];
 
   home.persistence = {

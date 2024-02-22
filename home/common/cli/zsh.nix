@@ -1,4 +1,4 @@
-{ config, ... }: {
+{config, ...}: {
   programs.zsh = {
     enable = true;
 
@@ -46,6 +46,6 @@
   };
 
   home.persistence = {
-    "/persist/home/spencer".directories = [ ".local/share/zsh" ];
+    "/persist/home/spencer".directories = [".local/share/zsh"];
   };
 }
