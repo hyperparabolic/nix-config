@@ -9,6 +9,7 @@
     inputs.impermanence.nixosModules.home-manager.impermanence
     ./cli
     ./dev
+    ./helix
     ./nvim
   ] ++ (builtins.attrValues outputs.homeManagerModules);
 
