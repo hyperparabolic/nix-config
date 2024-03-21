@@ -1,30 +1,21 @@
 {
   pkgs,
   config,
+  lib,
   ...
-}: let
-  pinentry =
-    if config.gtk.enable
-    then {
-      packages = [pkgs.pinentry-gnome pkgs.gcr];
-      name = "gnome3";
-    }
-    else {
-      packages = [pkgs.pinentry-curses];
-      name = "curses";
-    };
-in {
-  home.packages = pinentry.packages;
-
+}: {
   services.gpg-agent = {
     enable = true;
     enableExtraSocket = true;
     enableSshSupport = true;
     enableZshIntegration = true;
     maxCacheTtl = 120;
+    pinentryPackage = if config.gtk.enable then pkgs.pinentry-gnome3 else pkgs.pinentry-curses;
     sshKeys = ["ECC99E92F470C3A4F4EF5B607FF4AC76E4D4D25E"];
-    pinentryFlavor = pinentry.name;
   };
+
+  # gnome pinentry also requires gcr
+  home.packages = lib.optional config.gtk.enable pkgs.gcr;
 
   programs = let
     launchGpg =
