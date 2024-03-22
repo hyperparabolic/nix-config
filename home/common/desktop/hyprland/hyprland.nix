@@ -3,24 +3,15 @@
   lib,
   ...
 }: {
+  # wayland compatibility environment variables
+  home.sessionVariables = {
+    MOZ_ENABLE_WAYLAND = 1;
+  };
+
   wayland.windowManager.hyprland = {
     enable = true;
     settings = {
       "$MOD" = "SUPER";
-
-      # mostly wayland compat environment variables
-      env = ''
-        BROWSER,firefox
-        XDG_SESSION_TYPE,wayland
-        XDG_SESSION_DESKTOP,Hyprland
-
-        GDK_BACKEND,wayland
-
-        MOZ_DISABLE_RDD_SANDBOX,1
-        MOZ_ENABLE_WAYLAND,1
-
-        OZONE_PLATFORM,wayland
-      '';
 
       # startup programs
       exec-once = [
