@@ -8,7 +8,7 @@
       forceSSL = true;
       useACMEHost = "warden.decent.id";
       locations."/" = {
-        proxyPass = "http://localhost:${toString config.services.adguardhome.settings.bind_port}";
+        proxyPass = "http://localhost:3000";
       };
     };
   };
