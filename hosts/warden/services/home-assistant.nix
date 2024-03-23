@@ -14,7 +14,13 @@
     };
   };
 
-  networking.firewall = {
-    allowedTCPPorts = [8123];
+  services = {
+    nginx.virtualHosts."ha.warden.decent.id" = {
+      forceSSL = true;
+      useACMEHost = "warden.decent.id";
+      locations."/" = {
+        proxyPass = "http://localhost:8123";
+      };
+    };
   };
 }

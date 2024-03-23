@@ -14,10 +14,9 @@
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     ./hardware-configuration.nix
     ../common/global
-    ../common/optional/adguard-home.nix
-    ../common/optional/home-assistant.nix
     ../common/optional/tailscale-exit-node.nix
     ../common/users/spencer.nix
+    ./services
   ];
 
   nixpkgs = {
