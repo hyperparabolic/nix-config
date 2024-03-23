@@ -20,6 +20,7 @@
       useACMEHost = "warden.decent.id";
       locations."/" = {
         proxyPass = "http://localhost:8123";
+        proxyWebsockets = true;
       };
     };
   };
