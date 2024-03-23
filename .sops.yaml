@@ -7,6 +7,13 @@ keys:
   - &warden age19qp3wj8v5zksrqygezcz9twk4dsgg27dnqyjlfskw7pd63akys7q26v0gs
 
 creation_rules:
+  - path_regex: hosts/oak/secrets.ya?ml$
+    key_groups:
+    - age:
+      - *oak
+      pgp:
+      - *spencer
+
   - path_regex: hosts/common/secrets.ya?ml$
     key_groups:
     - age:

@@ -7,6 +7,7 @@
 }: {
   imports =
     [
+      ./acme.nix
       ./bluetooth.nix
       ./nix.nix
       ./notify.nix

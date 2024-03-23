@@ -6,6 +6,12 @@
 }: {
   nix = {
     settings = {
+      substituters = [
+        "https://cache.oak.decent.id"
+      ];
+      trusted-public-keys = [
+        "cache.oak.decent.id:rf560rkaTPzpc8cg56bnPmmgqro8Lbn624jJSDF5YyY="
+      ];
       trusted-users = ["root" "@wheel"];
       experimental-features = "nix-command flakes";
       auto-optimise-store = true;
