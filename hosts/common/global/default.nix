@@ -3,6 +3,7 @@
   outputs,
   config,
   lib,
+  pkgs,
   ...
 }: {
   imports =
@@ -59,6 +60,15 @@
       item = "nofile";
       type = "hard";
       value = "1048576";
+    }
+  ];
+
+  # TODO: remove once fixed in zfs compatible upstream
+  # Temporary patch for backdoor in xz
+  system.replaceRuntimeDependencies = [
+    {
+      original = pkgs.xz;
+      replacement = inputs.nixpkgs-staging.legacyPackages.${pkgs.system}.xz;
     }
   ];
 }

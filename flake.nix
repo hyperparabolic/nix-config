@@ -9,6 +9,7 @@
   inputs = {
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-staging.url = "github:nixos/nixpkgs/staging-next";
 
     ags.url = "github:Aylur/ags";
 
