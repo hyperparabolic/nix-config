@@ -30,7 +30,7 @@ class BrightnessService extends Service {
 
   // # prefix means private in JS
   #screenValue = 0;
-  #available = Utils.exec('which brightnessctl') !== '';
+  #available = !Utils.exec('which brightnessctl').startsWith('which: no brightnessctl in');
   #max = this.#available ? Number(Utils.exec('brightnessctl max')) : 0;
 
   get available() {
