@@ -14,7 +14,7 @@
     jq # json parsing
     silver-searcher # ag
 
+    alejandra # nix formatter
     nil # nix lsp
-    nixfmt # nix formatter
   ];
 }
