@@ -1,4 +1,9 @@
 {
+  lib,
+  pkgs,
+  config,
+  ...
+}: {
   /*
   Permissions tweaks to enable vfio passthrough as a non-root user
   */
@@ -38,6 +43,23 @@
     SUBSYSTEM=="vfio", OWNER="root", GROUP="kvm"
     SUBSYSTEM=="usb", ATTR{idVendor}=="8087", ATTR{idProduct}=="0029" OWNER="root", GROUP="kvm"
   '';
+
+  systemd.services.zfs-file-owners = {
+    description = "change owner of zvols to kvm";
+    enable = true;
+    # early enough in boot, sidesteps issues with hardware being unavailable
+    wantedBy = ["multi-user.target"];
+    partOf = ["zfs-mount-tank.service"];
+    after = ["zfs-mount-tank.service"];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = lib.getExe (
+        pkgs.writeShellScriptBin "zfs-set-zvol-owners" ''
+          chown root:kvm /dev/zvol/rpool/crypt/virt/win10
+        ''
+      );
+    };
+  };
 
   security = {
     pam.loginLimits = [
