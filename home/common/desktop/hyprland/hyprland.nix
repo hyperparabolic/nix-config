@@ -19,6 +19,8 @@
         "swaybg -i ~/Pictures/wallpapers/wallpaper.jpg -m fill"
         "wl-paste --type text --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
+        "slack"
+        "discord"
       ];
 
       general = {
@@ -159,6 +161,9 @@
         "idleinhibit always, class:^(kitty)$, title:^(./win10-vm-start.sh)$"
         "idleinhibit focus, class:^(firefox)$, title:^(.*YouTube.*)$"
         "idleinhibit fullscreen, class:^(firefox)$"
+
+        "workspace 4, class:^(Slack)$"
+        "workspace 4, class:^(discord)$"
       ];
 
       xwayland.force_zero_scaling = true;
