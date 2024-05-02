@@ -163,7 +163,9 @@
         "idleinhibit fullscreen, class:^(firefox)$"
 
         "workspace 4, class:^(Slack)$"
+        "noinitialfocus, class:^(Slack)$"
         "workspace 4, class:^(discord)$"
+        "noinitialfocus, class:^(discord)$"
       ];
 
       xwayland.force_zero_scaling = true;
