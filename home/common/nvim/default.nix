@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{lib, pkgs, ...}: {
   imports = [
     # TODO: debugger adapter protocol integration
     ./copilot.nix
@@ -7,7 +7,7 @@
     ./ui.nix
   ];
 
-  home.sessionVariables.EDITOR = "nvim";
+  home.sessionVariables.EDITOR = lib.mkDefault "nvim";
 
   programs.neovim = {
     enable = true;

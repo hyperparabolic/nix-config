@@ -1,7 +1,9 @@
-{
+{lib, ...}: {
   imports = [
     ./languages.nix
   ];
+
+  home.sessionVariables.EDITOR = lib.mkForce "hx";
 
   programs.helix = {
     enable = true;
