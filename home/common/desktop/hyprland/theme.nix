@@ -6,6 +6,12 @@
   gtk = {
     enable = true;
 
+    cursorTheme = {
+      name = "macOS-Monterey";
+      package = pkgs.apple-cursor;
+      size = 20;
+    };
+
     font = {
       name = config.fontProfiles.regular.family;
       size = 12;
@@ -37,5 +43,13 @@
         gtk-application-prefer-dark-theme=1
       '';
     };
+  };
+
+  home.pointerCursor = {
+    gtk.enable = true;
+    x11.enable = true;
+    package = pkgs.apple-cursor;
+    name = "macOS-Monterey";
+    size = 20;
   };
 }
