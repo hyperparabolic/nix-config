@@ -32,69 +32,69 @@ in {
     ];
     kernelParams = [
       "amd_iommu=on"
+      # stub PCI devices
       ("vfio-pci.ids=" + lib.concatStringsSep "," pciIds)
     ];
   };
 
-  # vm utilizes pipewire to share system audio, initialize dummy sink / source
-  services.pipewire = {
-    # use system level pipewire service to share audio devices between users
-    systemWide = true;
-    extraConfig.pipewire = {
-      "10-vm-shared-audio" = {
-        "context.objects" = [
-          # initialize null sources / sinks
-          {
-            "factory" = "adapter";
-            "args" = {
-              "factory.name" = "support.null-audio-sink";
-              "node.name" = "win10-out";
-              "media.class" = "Audio/Sink";
-              "linger" = true;
-              "audio.position" = ["FL" "FR"];
-            };
-          }
-          {
-            "factory" = "adapter";
-            "args" = {
-              "factory.name" = "support.null-audio-sink";
-              "node.name" = "win10-in";
-              "media.class" = "Audio/Source/Virtual";
-              "linger" = true;
-              "audio.position" = ["FL" "FR"];
-            };
-          }
-        ];
-      };
+  # set up bridge so guests may have externally accessible ips
+  networking.bridges = {
+    "br0" = {
+      interfaces = ["enp68s0"];
     };
   };
 
-  # links cannot be created directly, create using oneshot service
-  systemd.services.pipewire-link-vm-audio = {
-    description = "Create pipewire links between null devices and hardware";
-    enable = true;
-    wantedBy = ["multi-user.target"];
-    partOf = ["pipewire.service"];
-    after = ["pipewire.service"];
-    serviceConfig = {
-      Type = "oneshot";
-      ExecCondition = lib.getExe (
-        # ensure links are not already created
-        pkgs.writeShellScriptBin "pw-check-win-links" ''
-          ! ${config.services.pipewire.package}/bin/pw-link -l | grep 'win'
-        ''
-      );
-      ExecStart = lib.getExe (
-        pkgs.writeShellScriptBin "pw-create-win-links" ''
-          ${config.services.pipewire.package}/bin/pw-link "win10-out:monitor_FL" "alsa_output.usb-Focusrite_Scarlett_2i2_USB_Y86BTH519C4572-00.HiFi__hw_USB__sink:playback_FL"
-          ${config.services.pipewire.package}/bin/pw-link "win10-out:monitor_FR" "alsa_output.usb-Focusrite_Scarlett_2i2_USB_Y86BTH519C4572-00.HiFi__hw_USB__sink:playback_FR"
-          ${config.services.pipewire.package}/bin/pw-link "alsa_input.usb-Focusrite_Scarlett_2i2_USB_Y86BTH519C4572-00.HiFi__scarlett2i_mono_in_USB_0_1__source:capture_MONO" "win10-in:input_FL"
-          ${config.services.pipewire.package}/bin/pw-link "alsa_input.usb-Focusrite_Scarlett_2i2_USB_Y86BTH519C4572-00.HiFi__scarlett2i_mono_in_USB_0_0__source:capture_MONO" "win10-in:input_FR"
-        ''
-      );
-      # alsa devices take a moment to settle, retry until success
-      Restart = "on-failure";
-      RestartSec = "5";
+  networking.interfaces."br0".useDHCP = true;
+
+  virtualisation.libvirtd.allowedBridges = ["br0"];
+
+  # persist /srv/win10, this directory is being used to store
+  # resources required by the win10 vm that may not be granted by polkit
+  # persisted because creation of this service may not be implemented in
+  # a systemd user service.
+  environment.persistence = {
+    "/persist" = {
+      directories = [
+        "/srv/win10"
+      ];
     };
   };
+
+  # share pipewire socket with qemu-libvirtd via bind mount
+  fileSystems."/srv/win10/pipewire-0" = {
+    device = "/run/user/1000/pipewire-0";
+    depends = [
+      # mounting this fails absolutely without root fs, still needs socket from service
+      "/"
+    ];
+    fsType = "none";
+    options = [
+      "bind"
+      "rw"
+      # regular users may mount this
+      "user"
+      # do not mount automatically
+      "noauto"
+    ];
+  };
+
+  # TODO: figure out what's wrong here:
+  # currently must be mounted with `mount /srv/win10/pipewire-0`
+  # this pipewire socket drop-in hypothetically can mount this, but mount is complaining
+  # of a non-root user despite not requiring root due to `user` mount option.
+  # modify pipewire.socket to mount bind mount
+  # systemd.user.sockets.pipewire = {
+  #   socketConfig = {
+  #     ExecStartPost = lib.getExe (
+  #       pkgs.writeShellScriptBin "start-share-pw-socket" ''
+  #         ${pkgs.util-linux}/bin/mount /srv/win10/pipewire-0
+  #       ''
+  #     );
+  #     ExecStopPre = lib.getExe (
+  #       pkgs.writeShellScriptBin "stop-share-pw-socket" ''
+  #         ${pkgs.util-linux}/bin/umount /srv/win10/pipewire-0
+  #       ''
+  #     );
+  #   };
+  # };
 }

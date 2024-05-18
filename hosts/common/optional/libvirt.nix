@@ -7,10 +7,17 @@
     enable = true;
     qemu = {
       runAsRoot = false;
-      # UEFI support for guests
-      ovmf.enable = true;
       # software TPM for guests
       swtpm.enable = true;
+      ovmf = {
+        enable = true;
+        packages = with pkgs; [
+          (OVMFFull.override {
+            secureBoot = true;
+            tpmSupport = true;
+          }).fd
+        ];
+      };
     };
   };
 
@@ -20,4 +27,13 @@
   environment.systemPackages = with pkgs; [
     virt-manager
   ];
+
+  # persist libvirt state management
+  environment.persistence = {
+    "/persist" = {
+      directories = [
+        "/var/lib/libvirt/qemu"
+      ];
+    };
+  };
 }
