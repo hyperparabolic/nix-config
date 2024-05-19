@@ -11,13 +11,6 @@ in {
     ./common/desktop/hyprland
   ];
 
-  # default audio device, and pipewire ids are not consistent, set defaults based on node.name
-  # TODO: make this a module with input devices, output devices and volume levels for each?
-  wayland.windowManager.hyprland.settings.exec-once = [
-    "wpctl set-default $(pw-dump | jq '.[] | select(.info.props.\"node.name\" == \"alsa_input.usb-Focusrite_Scarlett_2i2_USB_Y86BTH519C4572-00.HiFi__scarlett2i_mono_in_USB_0_0__source\") | .id')"
-    "wpctl set-volume $(pw-dump | jq '.[] | select(.info.props.\"node.name\" == \"alsa_output.usb-Focusrite_Scarlett_2i2_USB_Y86BTH519C4572-00.HiFi__hw_USB__sink\") | .id') 1.0"
-  ];
-
   monitors = [
     {
       name = "HDMI-A-2";
