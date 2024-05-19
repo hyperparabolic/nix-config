@@ -40,10 +40,9 @@
     dconf.enable = true;
   };
 
-  # I have no intent to ever try to hibernate this host for now (nvidia, bleh).
-  # It also should never run out of RAM, but I still want swap for OS optimization.
   # zram (https://wiki.archlinux.org/title/Zram) creates a RAM block device with
-  # zstd compression so the OS can still have swap for memory management purposes.
+  # zstd compression so the OS can still have swap for memory management purposes,
+  # and an extra buffer.
   zramSwap = {
     enable = true;
     # May grow up to 50% of RAM capacity if something insane is happening (increasing
@@ -51,8 +50,6 @@
     memoryPercent = 50;
   };
 
-  # disable gdm suspend
-  services.xserver.displayManager.gdm.autoSuspend = false;
   boot = {
     kernelParams = [
       "nohibernate"
