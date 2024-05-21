@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
   inherit (lib) getExe';
@@ -39,6 +40,26 @@ in {
         "8"
       ];
     }
+  ];
+
+  # Activate bind mount to share pipewire session with libvirt.
+  # Ideally this should be a systemd unit, but user session mounts
+  # are outside the beaten path and have permisssion issues I haven't
+  # found a solution for.
+  wayland.windowManager.hyprland.settings.exec-once = [
+    "${lib.getExe (
+      pkgs.writeShellScriptBin "share-pipewire-socket"
+      /*
+      bash
+      */
+      ''
+        until [ -S /run/user/1000/pipewire-0 ]
+        do
+          sleep 1
+        done
+        mount /srv/win10/pipewire-0
+      ''
+    )}"
   ];
 
   # turn off monitors after 15 minutes of inactivity

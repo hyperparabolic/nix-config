@@ -71,30 +71,10 @@ in {
     options = [
       "bind"
       "rw"
-      # regular users may mount this
+      # any user may mount this
       "user"
       # do not mount automatically
       "noauto"
     ];
   };
-
-  # TODO: figure out what's wrong here:
-  # currently must be mounted with `mount /srv/win10/pipewire-0`
-  # this pipewire socket drop-in hypothetically can mount this, but mount is complaining
-  # of a non-root user despite not requiring root due to `user` mount option.
-  # modify pipewire.socket to mount bind mount
-  # systemd.user.sockets.pipewire = {
-  #   socketConfig = {
-  #     ExecStartPost = lib.getExe (
-  #       pkgs.writeShellScriptBin "start-share-pw-socket" ''
-  #         ${pkgs.util-linux}/bin/mount /srv/win10/pipewire-0
-  #       ''
-  #     );
-  #     ExecStopPre = lib.getExe (
-  #       pkgs.writeShellScriptBin "stop-share-pw-socket" ''
-  #         ${pkgs.util-linux}/bin/umount /srv/win10/pipewire-0
-  #       ''
-  #     );
-  #   };
-  # };
 }
