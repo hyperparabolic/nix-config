@@ -7,6 +7,7 @@
     extraPackages = with pkgs; [
       dockerfile-language-server-nodejs
       docker-compose-language-service
+      lua-language-server
       vscode-langservers-extracted
       yaml-language-server
     ];
