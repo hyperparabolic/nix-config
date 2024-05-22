@@ -5,6 +5,7 @@
 }: {
   programs.helix = {
     extraPackages = with pkgs; [
+      vscode-langservers-extracted
       yaml-language-server
     ];
 
