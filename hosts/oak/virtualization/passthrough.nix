@@ -48,6 +48,11 @@ in {
 
   virtualisation.libvirtd.allowedBridges = ["br0"];
 
+  # manipulates systemd slices to isolate host cpu from win10
+  virtualisation.libvirtd.hooks.qemu = {
+    cpu-isolate-win10 = ./cpu-isolate-win10.sh;
+  };
+
   # persist /srv/win10, this directory is being used to store
   # resources required by the win10 vm that may not be granted by polkit
   # persisted because creation of this service may not be implemented in
