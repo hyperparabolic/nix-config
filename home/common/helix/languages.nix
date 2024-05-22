@@ -5,6 +5,10 @@
 }: {
   programs.helix.languages = {
     language-server = {
+      bash-language-server = {
+        command = "${pkgs.nodePackages.bash-language-server}/bin/bash-language-server";
+      };
+
       nil = {
         command = lib.getExe pkgs.nil;
         config.nil.formatting.command = ["${lib.getExe pkgs.alejandra}" "-q"];
