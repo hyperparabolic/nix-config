@@ -8,6 +8,7 @@
       dockerfile-language-server-nodejs
       docker-compose-language-service
       lua-language-server
+      marksman
       vscode-langservers-extracted
       yaml-language-server
     ];
