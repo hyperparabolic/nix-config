@@ -10,6 +10,7 @@
       lua-language-server
       marksman
       openscad-lsp
+      taplo
       vscode-langservers-extracted
       yaml-language-server
     ];
