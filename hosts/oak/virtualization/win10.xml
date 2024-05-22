@@ -184,13 +184,16 @@
     <input type='tablet' bus='usb'>
       <address type='usb' bus='0' port='1'/>
     </input>
-    <input type='mouse' bus='ps2'/>
-    <input type='keyboard' bus='ps2'/>
     <input type='evdev'>
       <source dev='/dev/input/by-id/usb-Wings_Tech_Xtrfy_M4-event-mouse'/>
     </input>
     <input type='evdev'>
       <source dev='/dev/input/by-id/usb-04d9_USB-HID_Keyboard-event-kbd' grab='all' repeat='on'/>
+    </input>
+    <input type='mouse' bus='ps2'/>
+    <input type='keyboard' bus='ps2'/>
+    <input type='mouse' bus='usb'>
+      <address type='usb' bus='0' port='6'/>
     </input>
     <tpm model='tpm-crb'>
       <backend type='emulator' version='2.0'/>
@@ -233,6 +236,13 @@
         <product id='0x0029'/>
       </source>
       <address type='usb' bus='0' port='4'/>
+    </hostdev>
+    <hostdev mode='subsystem' type='usb' managed='yes'>
+      <source>
+        <vendor id='0x045e'/>
+        <product id='0x028e'/>
+      </source>
+      <address type='usb' bus='0' port='5'/>
     </hostdev>
     <redirdev bus='usb' type='spicevmc'>
       <address type='usb' bus='0' port='2'/>
