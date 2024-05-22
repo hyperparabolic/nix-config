@@ -20,7 +20,7 @@ High level overview:
 - `hosts`: NixOS configurations.
   - `common`: Reusable config components.  Some apply to all hosts, some are optional and opt-in.
   - `%hostname%`: System specific config. Anything referencing specific hardware or hardware ids will be nested in these folders.
-  - `oak`: Desktop workstation, native ZFS encryption, extensive KVM / QEMU config with hardware passthrough.
+  - `oak`: Desktop workstation, native ZFS encryption, extensive libvirt / QEMU config with hardware passthrough.
   - `redbud`: Laptop, ZFS on encrypted LUKS.
   - `warden`: Intel NUC mini-pc, headless, native ZFS encryption, home-assistant, tailscale exit node.
 - `home`: Home-manager configuration. Not currently deployed directly, but imported via the primary NixOS config.
@@ -83,9 +83,9 @@ Secrets are stored encrypted in this repo. `sops` is used to encrypt secrets usi
 The host `oak` includes configuration to run VMs with the following features:
 
 - Hardware passthrough, including GPU passthrough via OVMF for near native graphics performance
-- Seamless host / vm audio device sharing via pipewire
+- Seamless host / vm audio device sharing via pipewire with user sessions
 - Evdev input device passthrough (left-ctrl + right-ctrl to transition mouse and keyboard between host and vm)
-- QEMU sandboxing
+- CPU pinning and process isolation for performance and security
 - All running as a non-root user
 
 ## Inspired by
