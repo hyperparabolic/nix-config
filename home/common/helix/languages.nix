@@ -5,6 +5,8 @@
 }: {
   programs.helix = {
     extraPackages = with pkgs; [
+      dockerfile-language-server-nodejs
+      docker-compose-language-service
       vscode-langservers-extracted
       yaml-language-server
     ];
