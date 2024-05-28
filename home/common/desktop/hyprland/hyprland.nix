@@ -109,7 +109,8 @@
       };
 
       bind = [
-        "$MOD, Escape, exec, wlogout -p layer-shell"
+        "$MODSHIFT, Escape, exec, wlogout -p layer-shell"
+        "$MOD, Escape, exec, swaylock"
         ", Print, exec, grimblast --notify copysave screen"
         "ALT, Print, exec, grimblast --notify copysave output"
         "$MODSHIFT, S, exec, grimblast --notify copysave area"
