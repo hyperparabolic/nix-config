@@ -67,6 +67,10 @@
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#oak'
     nixosConfigurations = {
+      magnolia = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+        modules = [./hosts/magnolia/configuration.nix];
+      };
       oak = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [./hosts/oak/configuration.nix];
