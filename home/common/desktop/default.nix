@@ -6,7 +6,6 @@
     ./font.nix
     ./krita.nix
     ./kitty.nix
-    ./lutris.nix
     ./slack.nix
     ./vscode.nix
     ./zathura.nix
