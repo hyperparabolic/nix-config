@@ -51,6 +51,7 @@
           "Pictures"
           "Videos"
           ".local/bin"
+          ".local/share/nix"
         ];
         allowOther = true;
       };
