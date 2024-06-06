@@ -66,7 +66,7 @@ blkdiscard -f "$ROOT_DISK"
 parted --script "$ROOT_DISK" -- \
 mklabel gpt \
 mkpart ESP fat32 1MiB 5GiB \
-mkpart cryptroot 5GiB -17GiB \
+mkpart cryptroot 5GiB 100\% \
 set 1 esp on
 partprobe "$ROOT_DISK"
 
@@ -97,6 +97,18 @@ zpool create -f \
   -O mountpoint=/ \
   "$ZFS_POOL" \
   "/dev/mapper/nixroot"
+
+info "Creating '$ZFS_LOCAL' ZFS dataset ..."
+zfs create \
+  -o canmount=off \
+  -o mountpoint=none \
+  "$ZFS_LOCAL"
+
+info "Creating '$ZFS_SAFE' ZFS dataset ..."
+zfs create \
+  -o canmount=off \
+  -o mountpoint=none \
+  "$ZFS_SAFE"
 
 info "Creating '$ZFS_DS_ROOT' ZFS dataset ..."
 zfs create -p -o mountpoint=legacy "$ZFS_DS_ROOT"
