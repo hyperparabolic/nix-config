@@ -1,8 +1,13 @@
 {
   config,
   lib,
+  pkgs,
   ...
-}: {
+}: let
+  brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
+  playerctl = "${pkgs.playerctl}/bin/playerctl";
+  wpctl = "${pkgs.wireplumber}/bin/wpctl";
+in {
   # wayland compatibility environment variables
   home.sessionVariables = {
     MOZ_ENABLE_WAYLAND = 1;
@@ -154,7 +159,25 @@
           '')
           10)}"
       ];
-      bindm = ["$MOD, mouse:272, movewindow" "$MOD, mouse:273, resizewindow"];
+
+      bindm = [
+        "$MOD, mouse:272, movewindow"
+        "$MOD, mouse:273, resizewindow"
+      ];
+
+      bindl = [
+        ",XF86AudioMute,          exec, ${wpctl} set-mute @DEFAULT_SINK@ toggle"
+        ",XF86AudioNext,          exec, ${playerctl} next"
+        ",XF86AudioPlay,          exec, ${playerctl} play-pause"
+        ",XF86AudioPrev,          exec, ${playerctl} previous"
+      ];
+
+      bindle = [
+        ",XF86MonBrightnessUp,    exec, ${brightnessctl} set 5%+"
+        ",XF86MonBrightnessDown,  exec, ${brightnessctl} set 5%-"
+        ",XF86AudioRaiseVolume,   exec, ${wpctl} set-volume @DEFAULT_SINK@ 5%+"
+        ",XF86AudioLowerVolume,   exec, ${wpctl} set-volume @DEFAULT_SINK@ 5%-"
+      ];
 
       windowrulev2 = [
         "opaque,class:^(krita)$"
