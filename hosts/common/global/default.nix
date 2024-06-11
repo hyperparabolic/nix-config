@@ -9,6 +9,7 @@
     [
       ./acme.nix
       ./bluetooth.nix
+      ./gamemode.nix
       ./nix.nix
       ./notify.nix
       ./openssh.nix
