@@ -8,4 +8,12 @@
       vscodevim.vim
     ];
   };
-}
+
+  home.persistence = {
+    "/persist/home/spencer" = {
+      directories = [
+        ".vscode"
+      ];
+    };
+  };
+ }
