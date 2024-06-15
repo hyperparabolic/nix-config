@@ -6,6 +6,7 @@
       package = pkgs.pipewire.override {
         raopSupport = true;
       };
+      raopOpenFirewall = true;
       extraConfig.pipewire = {
         "99-raop-discovery" = {
           "context.modules" = [
@@ -15,9 +16,7 @@
             }
             {
               name = "libpipewire-module-raop-discover";
-              args = {
-                "raop.latency.ms" = 1000;
-              };
+              args = {};
             }
           ];
         };
