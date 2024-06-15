@@ -13,7 +13,7 @@
   ];
 
   boot.initrd.availableKernelModules = ["xhci_pci" "nvme" "usbhid" "usb_storage" "sd_mod"];
-  boot.initrd.kernelModules = [];
+  boot.initrd.kernelModules = ["usb_storage"];
   boot.kernelModules = ["kvm-intel"];
   boot.extraModulePackages = [];
 
@@ -21,6 +21,9 @@
     root = {
       device = "/dev/disk/by-uuid/c2695c72-48c8-48fb-80eb-af15e7a06336";
       preLVM = true;
+      allowDiscards = true;
+      keyFileSize = 4096;
+      keyFile = "/dev/disk/by-id/usb-_USB_DISK_3.0_071C3A6A361FF104-0:0";
     };
   };
 
