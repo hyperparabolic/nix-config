@@ -16,6 +16,7 @@
     ../common/global
     ../common/optional/hyprland.nix
     ../common/optional/pipewire.nix
+    ../common/optional/pipewire-raop.nix
     ../common/users/spencer.nix
   ];
 
