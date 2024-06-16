@@ -13,6 +13,7 @@
       volumes = [
         "/persist/home-assistant/config:/config"
         "/run/dbus:/run/dbus:ro"
+        "/var/run/avahi-daemon/socket:/var/run/avahi-daemon/socket"
       ];
       environment.TZ = "America/Chicago";
       image = "ghcr.io/home-assistant/home-assistant:2024.6";
@@ -21,6 +22,11 @@
         "--device=/dev/ttyUSB0:/dev/ttyUSB0"
       ];
     };
+  };
+
+  services.avahi = {
+    enable = true;
+    reflector = true;
   };
 
   networking.firewall.allowedTCPPorts = [
