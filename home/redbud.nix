@@ -1,16 +1,29 @@
-{pkgs, ...}: {
+{config, lib, pkgs, ...}: {
   imports = [
     ./common
     ./common/desktop
     ./common/desktop/hyprland
   ];
 
-  # suspend after 6 minutes of inactivity
+  # disable monitor when idle
   services.swayidle = {
+    events = [
+      {
+        # this gets triggered after sleep
+        event = "after-resume";
+        command = "${lib.getExe' config.wayland.windowManager.hyprland.package "hyprctl"} dispatch dpms on";
+      }
+      {
+        # this system usually doesn't suspend
+        # also turn on monitors on unlock
+        event = "unlock";
+        command = "${lib.getExe' config.wayland.windowManager.hyprland.package "hyprctl"} dispatch dpms on";
+      }
+    ];
     timeouts = [
       {
-        timeout = 360;
-        command = "${pkgs.systemd}/bin/systemctl suspend";
+        timeout = 300;
+        command = "${lib.getExe' config.wayland.windowManager.hyprland.package "hyprctl"} dispatch dpms off";
       }
     ];
   };
