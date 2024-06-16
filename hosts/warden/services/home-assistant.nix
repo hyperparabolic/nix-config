@@ -9,6 +9,8 @@
         "8123:8123"
         # sonos change events
         "1400:1400"
+        # homekit bridge
+        "21063:21063"
       ];
       volumes = [
         "/persist/home-assistant/config:/config"
@@ -32,6 +34,8 @@
   networking.firewall.allowedTCPPorts = [
     # sonos change events
     1400
+    # homekit bridge
+    21063
   ];
 
   services = {
