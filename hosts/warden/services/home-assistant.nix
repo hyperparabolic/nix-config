@@ -5,7 +5,10 @@
     backend = "podman";
     containers.homeassistant = {
       ports = [
+        # web client
         "8123:8123"
+        # sonos change events
+        "1400:1400"
       ];
       volumes = [
         "/persist/home-assistant/config:/config"
@@ -19,6 +22,11 @@
       ];
     };
   };
+
+  networking.firewall.allowedTCPPorts = [
+    # sonos change events
+    1400
+  ];
 
   services = {
     nginx.virtualHosts."ha.warden.decent.id" = {
