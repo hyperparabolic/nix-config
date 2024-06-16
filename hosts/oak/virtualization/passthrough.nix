@@ -55,8 +55,9 @@ in {
           for o in "$@"; do
               case $o in
                   "1")
+                      # xbox controller
                       vendor_id="045e"
-                      product_id="02ea"
+                      product_id="028e"
                       ;;
                   *)
                       IFS=":" read -r vendor_id product_id <<< "$o"
@@ -69,7 +70,7 @@ in {
               echo "vendor_id=\"0x$vendor_id\""
               echo "product_id=\"0x$product_id\""
 
-              virsh -c "$connection" "$action" "$domain" --file "$tmpfile" --persistent
+              virsh -c "$connection" "$action" "$domain" --file "$tmpfile" --live
           done
         '';
       }
