@@ -4,14 +4,17 @@
   virtualisation.oci-containers = {
     backend = "podman";
     containers.homeassistant = {
+      ports = [
+        "8123:8123"
+      ];
       volumes = [
         "/persist/home-assistant/config:/config"
         "/run/dbus:/run/dbus:ro"
       ];
       environment.TZ = "America/Chicago";
-      image = "ghcr.io/home-assistant/home-assistant:2024.1";
+      image = "ghcr.io/home-assistant/home-assistant:2024.6";
       extraOptions = [
-        "--network=host"
+        "--cap-add=CAP_NET_RAW,CAP_NET_BIND_SERVICE"
         "--device=/dev/ttyUSB0:/dev/ttyUSB0"
       ];
     };
