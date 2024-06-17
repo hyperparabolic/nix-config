@@ -15,6 +15,7 @@
     ../common/global
     ../common/optional/fingerprint.nix
     ../common/optional/hyprland.nix
+    ../common/optional/laptop.nix
     ../common/optional/pipewire.nix
     ../common/optional/pipewire-raop.nix
     ../common/users/spencer.nix
@@ -56,21 +57,6 @@
 
   hardware.opengl = {
     enable = true;
-  };
-
-  # laptop specific stuff, move somewhere common when I get another laptop
-  # power management
-  services.upower.enable = true;
-  environment.systemPackages = with pkgs; [
-    acpi
-    brightnessctl
-  ];
-
-  # persist wifi connections
-  environment.persistence = {
-    "/persist".directories = [
-      "/etc/NetworkManager/system-connections"
-    ];
   };
 
   # firmware updates: `fwupdmgr update`
