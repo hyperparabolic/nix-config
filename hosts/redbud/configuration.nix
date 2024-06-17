@@ -61,6 +61,29 @@
     driSupport32Bit = true;
   };
 
+  services.pipewire = {
+    wireplumber.extraConfig = {
+      # using this machine as an audio receiver for airplay
+      # ensure zero potential for loopback feedback by disabling internal devices
+      "50-disable-internal-audio-device" = {
+        "monitor.alsa.rules" = [
+          {
+            matches = [
+              {
+                "device.name" = "alsa_card.pci-0000_00_1f.3";
+              }
+            ];
+            actions = {
+              update-props = {
+                "device.disabled" = true;
+              };
+            };
+          }
+        ];
+      };
+    };
+  };
+
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.05";
 }
