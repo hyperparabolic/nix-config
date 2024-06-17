@@ -14,7 +14,6 @@
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     ./hardware-configuration.nix
     ../common/global
-    ../common/optional/hyprland.nix
     ../common/optional/laptop.nix
     ../common/optional/pipewire.nix
     ../common/optional/pipewire-raop.nix
