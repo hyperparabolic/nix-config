@@ -25,6 +25,7 @@
     overlays = [];
   };
 
+  networking.networkmanager.enable = true;
   networking.hostName = "redbud";
 
   # required for ZFS
