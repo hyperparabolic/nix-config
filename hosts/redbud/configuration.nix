@@ -62,6 +62,7 @@
   };
 
   services.pipewire = {
+    systemWide = true;
     wireplumber.extraConfig = {
       # using this machine as an audio receiver for airplay
       # ensure zero potential for loopback feedback by disabling internal devices
