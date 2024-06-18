@@ -1,4 +1,11 @@
 {config, ...}: {
+  sops.secrets = {
+    grafana-spencer-password = {
+      sopsFile = ../../secrets.yaml;
+      owner = "grafana";
+    };
+  };
+
   services = {
     grafana = {
       enable = true;
@@ -8,12 +15,22 @@
           http_port = 3000;
           domain = "dash.redbud.decent.id";
         };
+        security = {
+          admin_user = "spencer";
+          admin_password = "$__file{${config.sops.secrets.grafana-spencer-password.path}}";
+          cookie_secure = true;
+        };
       };
       provision = {
         enable = true;
 
         datasources.settings = {
           apiVersion = 1;
+          dashboards.settings.providers = [
+            {
+              options.path = ./dashboards;
+            }
+          ];
           datasources = [
             {
               name = "Prometheus";
