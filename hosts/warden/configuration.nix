@@ -14,6 +14,7 @@
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     ./hardware-configuration.nix
     ../common/global
+    ../common/optional/smokeping-prometheus-exporter.nix
     ../common/optional/tailscale-exit-node.nix
     ../common/users/spencer.nix
     ./services

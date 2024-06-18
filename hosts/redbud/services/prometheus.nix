@@ -24,6 +24,11 @@ in {
           static_configs = [{targets = ["metrics.redbud.decent.id"];}];
         }
         {
+          job_name = "smokeping";
+          scheme = "http";
+          static_configs = [{targets = ["warden:${toString config.services.prometheus.exporters.smokeping.port}"];}];
+        }
+        {
           job_name = "hosts";
           scheme = "http";
           static_configs =
