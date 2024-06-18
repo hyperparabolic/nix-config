@@ -15,6 +15,13 @@ creation_rules:
       pgp:
       - *spencer
 
+  - path_regex: hosts/redbud/secrets.ya?ml$
+    key_groups:
+    - age:
+      - *redbud
+      pgp:
+      - *spencer
+
   - path_regex: hosts/warden/secrets.ya?ml$
     key_groups:
     - age:

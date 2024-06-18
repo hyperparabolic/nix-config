@@ -14,6 +14,7 @@
       ./notify.nix
       ./openssh.nix
       ./podman.nix
+      ./prometheus-node-exporter.nix
       ./sops.nix
       ./tailscale.nix
       ./zsh.nix
