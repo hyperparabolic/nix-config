@@ -15,6 +15,7 @@
       ./openssh.nix
       ./podman.nix
       ./prometheus-node-exporter.nix
+      ./promtail.nix
       ./sops.nix
       ./tailscale.nix
       ./zsh.nix
