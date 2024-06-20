@@ -38,6 +38,12 @@
               url = "https://metrics.redbud.decent.id";
               isDefault = true;
             }
+            {
+              name = "Loki";
+              type = "loki";
+              access = "proxy";
+              url = "https://logs.redbud.decent.id";
+            }
           ];
         };
       };
