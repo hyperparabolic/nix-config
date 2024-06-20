@@ -6,21 +6,15 @@
         server.http_listen_port = 3100;
         auth_enabled = false;
 
-        ingester = {
-          lifecycler = {
-            address = "127.0.0.1";
-            ring = {
-              kvstore = {
-                store = "inmemory";
-              };
-              replication_factor = 1;
+        common = {
+          ring = {
+            instance_addr = "127.0.0.1";
+            kvstore = {
+              store = "inmemory";
             };
           };
-          chunk_idle_period = "2h";
-          max_chunk_age = "2h";
-          # TODO tune, probably should be smaller
-          chunk_target_size = 999999;
-          chunk_retain_period = "30s";
+          replication_factor = 1;
+          path_prefix = "/var/lib/loki";
         };
 
         schema_config = {
@@ -46,15 +40,6 @@
 
           filesystem = {
             directory = "/var/lib/loki/chunks";
-          };
-        };
-
-        compactor = {
-          working_directory = "/var/lib/loki";
-          compactor_ring = {
-            kvstore = {
-              store = "inmemory";
-            };
           };
         };
       };
