@@ -27,6 +27,12 @@
               host = config.networking.hostName;
             };
           };
+          relabel_configs = [
+            {
+              source_labels = ["__journal__systemd_unit"];
+              target_label = "unit";
+            }
+          ];
         }
       ];
     };
