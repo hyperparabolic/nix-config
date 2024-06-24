@@ -1226,6 +1226,7 @@
         "type": "prometheus",
         "uid": "PBFA97CFB590B2093"
       },
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1287,7 +1288,7 @@
         "x": 12,
         "y": 40
       },
-      "id": 14,
+      "id": 16,
       "options": {
         "legend": {
           "calcs": [],
@@ -1308,8 +1309,8 @@
             "uid": "PBFA97CFB590B2093"
           },
           "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "sum by(instance) (node_memory_Cached_bytes)",
+          "editorMode": "code",
+          "expr": "sum by(instance) (node_memory_Cached_bytes + node_zfs_arc_size)",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -1319,7 +1320,7 @@
           "useBackend": false
         }
       ],
-      "title": "Cached Bytes",
+      "title": "Cache (OS + ZFS)",
       "type": "timeseries"
     }
   ],
@@ -1330,7 +1331,7 @@
     "list": []
   },
   "time": {
-    "from": "now-24h",
+    "from": "now-12h",
     "to": "now"
   },
   "timeRangeUpdatedDuringEditOrView": false,
@@ -1338,6 +1339,6 @@
   "timezone": "browser",
   "title": "Hosts",
   "uid": "ddp4tycsb74zka",
-  "version": 9,
+  "version": 1,
   "weekStart": ""
 }
