@@ -15,6 +15,11 @@
           http_port = 3000;
           domain = "dash.redbud.decent.id";
         };
+        analytics = {
+          check_for_updates = false;
+          check_for_plugin_updates = false;
+          reporting_enabled = false;
+        };
         security = {
           admin_user = "spencer";
           admin_password = "$__file{${config.sops.secrets.grafana-spencer-password.path}}";
