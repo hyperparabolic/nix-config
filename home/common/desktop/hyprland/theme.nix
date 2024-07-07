@@ -23,11 +23,11 @@
     };
 
     theme = {
-      name = "Colloid-Yellow-Dark-Compact-Catppuccin";
+      name = "Colloid-Orange-Dark-Compact-Catppuccin";
       package = pkgs.colloid-gtk-theme.override {
         colorVariants = ["dark"];
         sizeVariants = ["compact"];
-        themeVariants = ["yellow"];
+        themeVariants = ["orange"];
         tweaks = ["catppuccin" "rimless" "black"];
       };
     };
