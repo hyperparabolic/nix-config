@@ -29,7 +29,7 @@ in {
       ];
 
       general = {
-        border_size = 1;
+        border_size = 2;
         gaps_in = 10;
         gaps_out = 15;
         "col.active_border" = "0xffa9763b";
@@ -80,8 +80,8 @@ in {
         ];
 
       decoration = {
-        active_opacity = 0.95;
-        inactive_opacity = 0.8;
+        active_opacity = 1.0;
+        inactive_opacity = 0.95;
         fullscreen_opacity = 1.0;
         rounding = 10;
       };
