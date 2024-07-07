@@ -56,12 +56,6 @@
     zedMailCommandOptions = "-bulk -provider-config /run/secrets/notify-provider-config";
   };
 
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-  };
-
   # Remotely managed audio receiver, this is a bit hacky.
   # Audio devices are not initialized unless a local user is logged in.
   # These chagnes ensure a user is logged in on a lock screen.

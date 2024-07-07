@@ -55,8 +55,9 @@
     zedMailCommandOptions = "-bulk -provider-config /run/secrets/notify-provider-config";
   };
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
+    enable32Bit = true;
   };
 
   # firmware updates: `fwupdmgr update`

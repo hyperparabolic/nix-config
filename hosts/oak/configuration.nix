@@ -94,13 +94,12 @@
     };
   };
 
-  # intel discrete graphics with hardware acceleration tweaks
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-    extraPackages = with pkgs; [
-      vaapiVdpau
+    enable32Bit = true;
+    extraPackages = [
+      # hardware accelerated media conversion
+      pkgs.vpl-gpu-rt
     ];
   };
 
