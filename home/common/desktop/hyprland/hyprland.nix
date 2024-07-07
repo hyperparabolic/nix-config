@@ -34,7 +34,10 @@ in {
         gaps_out = 15;
         "col.active_border" = "0xffa9763b";
         layout = "dwindle";
-        no_cursor_warps = true;
+      };
+
+      cursor = {
+        no_warps = true;
       };
 
       monitor =

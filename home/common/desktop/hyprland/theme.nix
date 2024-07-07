@@ -23,12 +23,12 @@
     };
 
     theme = {
-      name = "Catppuccin-Macchiato-Compact-Yellow-Dark";
-      package = pkgs.catppuccin-gtk.override {
-        accents = ["yellow"];
-        size = "compact";
-        tweaks = ["rimless" "black"];
-        variant = "macchiato";
+      name = "Colloid-Yellow-Dark-Compact-Catppuccin";
+      package = pkgs.colloid-gtk-theme.override {
+        colorVariants = ["dark"];
+        sizeVariants = ["compact"];
+        themeVariants = ["yellow"];
+        tweaks = ["catppuccin" "rimless" "black"];
       };
     };
 
