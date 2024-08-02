@@ -3,6 +3,7 @@
   outputs,
   config,
   lib,
+  pkgs,
   ...
 }: {
   imports =
@@ -35,6 +36,12 @@
   };
 
   time.timeZone = lib.mkDefault "America/Chicago";
+
+  environment.systemPackages = with pkgs; [
+    helix
+    pciutils # pci querying tooling
+    usbutils # usb querying tooling
+  ];
 
   # global persistence
   environment.persistence = {
