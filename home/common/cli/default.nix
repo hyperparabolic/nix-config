@@ -15,6 +15,6 @@
     silver-searcher # ag
 
     alejandra # nix formatter
-    nil # nix lsp
+    nixd # nix lsp
   ];
 }

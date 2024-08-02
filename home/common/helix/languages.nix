@@ -21,9 +21,8 @@
           command = "${pkgs.nodePackages.bash-language-server}/bin/bash-language-server";
         };
 
-        nil = {
-          command = lib.getExe pkgs.nil;
-          config.nil.formatting.command = ["${lib.getExe pkgs.alejandra}" "-q"];
+        nixd = {
+          command = lib.getExe pkgs.nixd;
         };
 
         rust-analyzer = {
@@ -44,6 +43,18 @@
           command = "${pkgs.nodePackages.typescript-language-server}/bin/typescript-language-server";
         };
       };
+
+      language = [
+        {
+          name = "nix";
+          auto-format = true;
+          language-servers = ["nixd"];
+          formatter = {
+            command = "${lib.getExe pkgs.alejandra}";
+            args = ["-q"];
+          };
+        }
+      ];
     };
   };
 }
