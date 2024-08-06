@@ -25,7 +25,7 @@ in {
         "wl-paste --type text --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
         "slack"
-        "discord"
+        "vesktop"
       ];
 
       general = {
@@ -191,6 +191,8 @@ in {
         "noinitialfocus, class:^(Slack)$"
         "workspace 4, class:^(discord)$"
         "noinitialfocus, class:^(discord)$"
+        "workspace 4, class:^(vesktop)$"
+        "noinitialfocus, class:^(vesktop)$"
       ];
 
       xwayland.force_zero_scaling = true;
