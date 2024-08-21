@@ -16,9 +16,7 @@
     ++ (builtins.attrValues outputs.homeManagerModules);
 
   nixpkgs = {
-    overlays = [
-      # (import ../../overlays/electron-wayland.nix)
-    ];
+    overlays = [];
     config = {
       allowUnfree = true;
       # Workaround for https://github.com/nix-community/home-manager/issues/2942
@@ -67,7 +65,7 @@
   dconf.settings = {
     "org/virt-manager/virt-manager/connections" = {
       uris = ["qemu:///system"];
-      autoconnect =["qemu:///system"];
+      autoconnect = ["qemu:///system"];
     };
   };
 }
