@@ -25,7 +25,7 @@
 
   nixpkgs = {
     # only global overlays
-    overlays = [];
+    overlays = builtins.attrValues outputs.overlays;
     config = {
       allowUnfree = true;
     };

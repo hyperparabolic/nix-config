@@ -23,8 +23,8 @@ in {
     settings = {
       GTK = {
         application_prefer_dark_theme = true;
-        icon_theme_name = homeCfg.gtk.iconTheme.name;
-        theme_name = homeCfg.gtk.theme.name;
+        icon_theme_name = lib.mkForce homeCfg.gtk.iconTheme.name;
+        theme_name = lib.mkForce homeCfg.gtk.theme.name;
       };
       env = {
         XDG_DATA_DIRS = homeSharePath;
