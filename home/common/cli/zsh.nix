@@ -27,7 +27,6 @@
       enable = true;
       theme = "agnoster";
       plugins = [
-        "ag"
         "command-not-found"
         "git"
         "sudo"
