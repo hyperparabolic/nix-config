@@ -111,7 +111,7 @@
           {
             matches = [
               {
-                "node.name" = "alsa_input.usb-Focusrite_Scarlett_2i2_USB_Y86BTH519C4572-00.HiFi__scarlett2i_mono_in_USB_0_0__source";
+                "node.name" = "alsa_input.usb-Focusrite_Scarlett_2i2_USB_Y86BTH519C4572-00.HiFi__Mic1__source";
               }
             ];
             actions = {
