@@ -7,7 +7,7 @@
     enable = true;
 
     cursorTheme = {
-      name = "macOS-Monterey";
+      name = "macOS";
       package = pkgs.apple-cursor;
       size = 20;
     };
@@ -49,7 +49,7 @@
     gtk.enable = true;
     x11.enable = true;
     package = pkgs.apple-cursor;
-    name = "macOS-Monterey";
+    name = "macOS";
     size = 20;
   };
 }
