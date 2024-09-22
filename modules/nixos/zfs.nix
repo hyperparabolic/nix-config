@@ -1,10 +1,31 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 with lib; let
   cfg = config.hyperparabolic.base.zfs;
+
+  # get latest zfs compatible kernel
+  latestZfsCompatibleLinuxPackages = lib.pipe pkgs.linuxKernel.packages [
+    builtins.attrValues
+    (builtins.filter (
+      # fitler packages where
+      kPkgs:
+      # packages do not throw or assert errors
+        (builtins.tryEval kPkgs).success
+        # package is a kernel package
+        && kPkgs ? kernel
+        && kPkgs.kernel.pname == "linux"
+        # zfs metadata indicates kernel version is compatible with zfs
+        && !kPkgs.zfs.meta.broken
+    ))
+    # sort oldest -> newest
+    (builtins.sort (a: b: (lib.versionOlder a.kernel.version b.kernel.version)))
+    # get last element (newest)
+    lib.last
+  ];
 in {
   /*
   Base system configuration for zfs. I don't want to duplicate this config
@@ -72,15 +93,14 @@ in {
   config = mkIf cfg.enable (mkMerge [
     {
       boot = {
-        # use latest kernel packages that are compatible with ZFS
-        kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+        kernelPackages = latestZfsCompatibleLinuxPackages;
         supportedFilesystems = ["zfs"];
 
         # does not play nicely with old systems, may require zfs_force=1 kernel parameter
         zfs.forceImportRoot = false;
 
         # rollback root fs to blank snapshot
-        initrd.postDeviceCommands = mkIf (cfg.enable && cfg.rollbackSnapshot != null) (mkAfter ''
+        initrd.postResumeCommands = mkIf (cfg.enable && cfg.rollbackSnapshot != null) (mkAfter ''
           zfs rollback -r ${cfg.rollbackSnapshot}
         '');
       };
