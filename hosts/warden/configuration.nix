@@ -30,7 +30,7 @@
     hostId = "59a43ec6";
     hostName = "warden";
     nameservers = [
-      "192.168.1.1"
+      "127.0.0.1"
     ];
   };
 
