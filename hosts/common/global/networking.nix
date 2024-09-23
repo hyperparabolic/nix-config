@@ -1,7 +1,7 @@
 {lib, ...}: {
-  networking.networkmanager.enable = lib.mkDefault true;
+  networking.networkmanager.enable = true;
   services.resolved = {
-    enable = true;
+    enable = lib.mkDefault true;
     fallbackDns = [];
   };
 }
