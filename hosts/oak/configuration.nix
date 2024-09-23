@@ -31,10 +31,14 @@
     overlays = [];
   };
 
-  networking.hostName = "oak";
-
-  # required for ZFS
-  networking.hostId = "d86c4730";
+  networking = {
+    # required for ZFS
+    hostId = "d86c4730";
+    hostName = "oak";
+    nameservers = [
+      "192.168.1.1"
+    ];
+  };
 
   programs = {
     dconf.enable = true;

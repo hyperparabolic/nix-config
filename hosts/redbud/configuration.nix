@@ -26,11 +26,14 @@
     overlays = [];
   };
 
-  networking.networkmanager.enable = true;
-  networking.hostName = "redbud";
-
-  # required for ZFS
-  networking.hostId = "55fbb629";
+  networking = {
+    # required for ZFS
+    hostId = "55fbb629";
+    hostName = "redbud";
+    nameservers = [
+      "192.168.1.1"
+    ];
+  };
 
   programs = {
     dconf.enable = true;

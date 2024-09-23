@@ -1,7 +1,6 @@
 {
   inputs,
   outputs,
-  config,
   lib,
   pkgs,
   ...
@@ -11,6 +10,7 @@
       ./acme.nix
       ./bluetooth.nix
       ./gamemode.nix
+      ./networking.nix
       ./nix.nix
       ./notify.nix
       ./openssh.nix

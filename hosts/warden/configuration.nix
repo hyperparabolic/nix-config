@@ -25,10 +25,14 @@
     overlays = [];
   };
 
-  networking.hostName = "warden";
-
-  # required for ZFS
-  networking.hostId = "59a43ec6";
+  networking = {
+    # required for ZFS
+    hostId = "59a43ec6";
+    hostName = "warden";
+    nameservers = [
+      "192.168.1.1"
+    ];
+  };
 
   programs = {
     dconf.enable = true;

@@ -26,10 +26,15 @@
     overlays = [];
   };
 
-  networking.hostName = "magnolia";
-
-  # required for ZFS
-  networking.hostId = "15e99f7b";
+  networking = {
+    # required for ZFS
+    hostId = "15e99f7b";
+    hostName = "magnolia";
+    nameservers = [
+      "9.9.9.9"
+      "149.112.112.112"
+    ];
+  };
 
   programs = {
     dconf.enable = true;

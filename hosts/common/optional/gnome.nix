@@ -13,7 +13,6 @@
     geoclue2.enable = true;
     gnome.games.enable = true;
   };
-  networking.networkmanager.enable = true;
 
   environment.variables = {
     # firefox wayland support
