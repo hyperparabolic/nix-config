@@ -55,6 +55,7 @@
   };
 
   boot = {
+    initrd.systemd.enable = true;
     kernelParams = [
       "nohibernate"
     ];

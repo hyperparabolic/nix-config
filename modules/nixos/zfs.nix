@@ -100,9 +100,29 @@ in {
         zfs.forceImportRoot = false;
 
         # rollback root fs to blank snapshot
-        initrd.postResumeCommands = mkIf (cfg.enable && cfg.rollbackSnapshot != null) (mkAfter ''
-          zfs rollback -r ${cfg.rollbackSnapshot}
-        '');
+        # initrd.postResumeCommands = mkIf (cfg.enable && cfg.rollbackSnapshot != null) (mkAfter ''
+        #   zfs rollback -r ${cfg.rollbackSnapshot}
+        # '');
+        initrd.systemd.services.zfs-rollback = mkIf (cfg.enable && cfg.rollbackSnapshot != null) {
+          description = "Rollback ZFS root dataset to blank snapshot";
+          wantedBy = [
+            "initrd.target"
+          ];
+          after = [
+            "zfs-import-zroot.service"
+          ];
+          before = [
+            "sysroot.mount"
+          ];
+          path = with pkgs; [
+            zfs
+          ];
+          unitConfig.DefaultDependencies = "no";
+          serviceConfig.Type = "oneshot";
+          script = ''
+            zfs rollback -r ${cfg.rollbackSnapshot} && echo "zfs rollback complete"
+          '';
+        };
       };
 
       services.zfs = {
