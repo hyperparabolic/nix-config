@@ -10,9 +10,4 @@
   packages-stable = final: _: {
     stable = inputs.nixpkgs-stable.legacyPackages.${final.system};
   };
-
-  # adds pkgs.staging for newer than unstable packages
-  packages-staging = final: _: {
-    staging = inputs.nixpkgs-staging.legacyPackages.${final.system};
-  };
 }
