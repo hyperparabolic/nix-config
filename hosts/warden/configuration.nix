@@ -53,20 +53,39 @@
       secrets = {
         "/persist/boot/ssh/ssh_host_ed25519_key" = "/persist/boot/ssh/ssh_host_ed25519_key";
       };
-      network = {
+      systemd = {
         enable = true;
+        network = {
+          enable = true;
+          networks.enp2s0 = {
+            enable = true;
+            name = "enp2s0";
+            DHCP = "yes";
+          };
+        };
+        services.zfs-remote-unlock = {
+          description = "Prepare for ZFS remote unlock";
+          wantedBy = ["initrd.target"];
+          after = ["systemd-networkd.service"];
+          path = with pkgs; [
+            zfs
+          ];
+          serviceConfig.Type = "oneshot";
+          script = ''
+            # ensure pools are being imported
+            # zpool import -a
+            # load key and kill pending password prompt on ssh
+            echo "zfs load-key rpool/crypt; systemctl restart zfs-import-rpool.service" >> /var/empty/.profile
+          '';
+        };
+      };
+      network = {
         ssh = {
           enable = true;
           port = 2222;
           hostKeys = [/persist/boot/ssh/ssh_host_ed25519_key];
           authorizedKeys = config.users.users.spencer.openssh.authorizedKeys.keys;
         };
-        postCommands = ''
-          # ensure pools are being imported
-          zpool import -a
-          # load key and kill pending password prompt on ssh
-          echo "zfs load-key rpool/crypt; killall zfs" >> /root/.profile
-        '';
       };
     };
   };
