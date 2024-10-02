@@ -30,7 +30,6 @@
   outputs = {
     self,
     nixpkgs,
-    home-manager,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -87,19 +86,5 @@
         modules = [./hosts/warden/configuration.nix];
       };
     };
-
-    # standalone home-manager is kinda borked with my config?
-    # maybe dig at this later, but just gets invoked via nxios-rebuild
-    # for now
-
-    # Standalone home-manager configuration entrypoint
-    # Available through 'home-manager --flake .#spencer@oak'
-    #homeConfigurations = {
-    #  "spencer@oak" = home-manager.lib.homeManagerConfiguration {
-    #    pkgs = pkgsPlatform.x86_64-linux;
-    #    extraSpecialArgs = {inherit inputs outputs;};
-    #    modules = [./home/oak.nix];
-    #  };
-    #};
   };
 }
