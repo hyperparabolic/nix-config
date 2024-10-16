@@ -87,10 +87,7 @@
           ];
           serviceConfig.Type = "oneshot";
           script = ''
-            # ensure pools are being imported
-            # zpool import -a
-            # load key and kill pending password prompt on ssh
-            echo "zfs load-key rpool/crypt; systemctl restart zfs-import-rpool.service" >> /var/empty/.profile
+            echo "systemctl default" >> /var/empty/.profile
           '';
         };
       };
