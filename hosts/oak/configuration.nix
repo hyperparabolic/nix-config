@@ -169,6 +169,9 @@
     };
   };
 
+  # TODO: temporarily disabled due to build issues
+  hardware.system76.power-daemon.enable = false;
+
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.05";
 }
