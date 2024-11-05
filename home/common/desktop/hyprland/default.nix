@@ -22,7 +22,7 @@
     slurp
     gpick
     hyprpicker
-    wl-screenrec
+    stable.wl-screenrec
 
     # clipboard and utils
     cliphist
