@@ -10,7 +10,10 @@
     enableSshSupport = true;
     enableZshIntegration = true;
     maxCacheTtl = 120;
-    pinentryPackage = if config.gtk.enable then pkgs.pinentry-gnome3 else pkgs.pinentry-curses;
+    pinentryPackage =
+      if config.gtk.enable
+      then pkgs.pinentry-gnome3
+      else pkgs.pinentry-curses;
     sshKeys = ["ECC99E92F470C3A4F4EF5B607FF4AC76E4D4D25E"];
   };
 
@@ -36,7 +39,7 @@
       enable = true;
       publicKeys = [
         {
-          source = ../../gpg-0xA6C19D1C082670FD-2023-11-21.asc;
+          source = ../../gpg-0xA6C19D1C082670FD-2024-11-14.asc;
           trust = 5;
         }
       ];
