@@ -18,6 +18,7 @@
     ../common/optional/laptop.nix
     ../common/optional/pipewire.nix
     ../common/optional/pipewire-raop.nix
+    ../common/optional/steam.nix
     ../common/users/spencer.nix
   ];
 
@@ -68,6 +69,12 @@
 
   # firmware updates: `fwupdmgr update`
   services.fwupd.enable = true;
+
+  programs.steam.gamescopeSession.args = [
+    "--output-width 2256"
+    "--output-height 1504"
+    "--prefer-output eDP-1"
+  ];
 
   # an older version is needed specifically for downgrading the fingerprint sensor
   # all set up with fingers enrolled now, shouldn't be needed, but here for documentation

@@ -1,8 +1,4 @@
 {pkgs, ...}: {
-  imports = [
-    ./steam.nix
-  ];
-
   home = {
     packages = [
       pkgs.gamescope
@@ -11,6 +7,9 @@
       "/persist/home/spencer" = {
         directories = [
           "Games"
+          ".factorio"
+          ".local/share/Steam"
+          ".local/share/Tabletop Simulator"
         ];
       };
     };
