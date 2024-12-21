@@ -9,8 +9,10 @@
       docker-compose-language-service
       lua-language-server
       marksman
+      meson
       openscad-lsp
       taplo
+      vala-language-server
       vscode-langservers-extracted
       yaml-language-server
     ];
