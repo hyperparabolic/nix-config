@@ -10,7 +10,7 @@
     # 3090 audio
     "10de:1aef"
     # nvme drive
-    "144d:a804"
+    "144d:a80d"
   ];
 in {
   /*
