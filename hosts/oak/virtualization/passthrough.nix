@@ -4,6 +4,12 @@
   config,
   ...
 }: let
+  /*
+  PCI devices specified in pciIds get stubbed with the vfio_pci driver,
+  preventing linux from loading its drivers. This ensures they are "clean"
+  when they get passed through to a VM and behave well there. This is
+  mostly only necessary for GPUs.
+  */
   pciIds = [
     # 3090 graphics
     "10de:2204"
@@ -13,12 +19,6 @@
     "144d:a80d"
   ];
 in {
-  /*
-  PCI devices specified in pciIds get stubbed with the vfio_pci driver,
-  preventing linux from loading its drivers. This ensures they are "clean"
-  when they get passed through to a VM and behave well there. This is
-  mostly only necessary for GPUs.
-  */
   environment.systemPackages = with pkgs; [
     pciutils # pci querying tooling
     usbutils # usb querying tooling
@@ -43,15 +43,6 @@ in {
       ("vfio-pci.ids=" + lib.concatStringsSep "," pciIds)
     ];
   };
-
-  # set up bridge so guests may have externally accessible ips
-  networking.bridges = {
-    "br0" = {
-      interfaces = ["enp68s0"];
-    };
-  };
-
-  networking.interfaces."br0".useDHCP = true;
 
   virtualisation.libvirtd.allowedBridges = ["br0"];
 
