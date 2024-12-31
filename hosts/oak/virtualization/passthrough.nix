@@ -12,9 +12,9 @@
   */
   pciIds = [
     # 3090 graphics
-    "10de:2204"
+    # "10de:2204"
     # 3090 audio
-    "10de:1aef"
+    # "10de:1aef"
   ];
 in {
   environment.systemPackages = with pkgs; [
@@ -38,7 +38,7 @@ in {
     kernelParams = [
       "amd_iommu=on"
       # stub PCI devices
-      ("vfio-pci.ids=" + lib.concatStringsSep "," pciIds)
+      # ("vfio-pci.ids=" + lib.concatStringsSep "," pciIds)
     ];
   };
 
