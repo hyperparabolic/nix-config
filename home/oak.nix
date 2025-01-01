@@ -10,6 +10,7 @@ in {
     ./common
     ./common/desktop
     ./common/desktop/hyprland
+    ./common/games
   ];
 
   monitors = [
