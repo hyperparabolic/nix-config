@@ -14,9 +14,10 @@ in {
 
   monitors = [
     {
-      name = "HDMI-A-2";
+      name = "DP-1";
       width = 3840;
       height = 2160;
+      refreshRate = 120;
       x = 0;
       primary = true;
       workspaces = [
@@ -27,7 +28,7 @@ in {
       ];
     }
     {
-      name = "DP-1";
+      name = "HDMI-A-2";
       width = 1920;
       height = 1080;
       x = 3840;
