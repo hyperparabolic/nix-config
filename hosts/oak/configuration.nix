@@ -56,33 +56,6 @@
     memoryPercent = 50;
   };
 
-  systemd.network = {
-    enable = true;
-    # create bridge
-    netdevs."10-br0".netdevConfig = {
-      Kind = "bridge";
-      Name = "br0";
-      MACAddress = "none";
-    };
-    networks = {
-      # bind ethernet interface to bridge and configure
-      "10-br0-enp68s0" = {
-        matchConfig.Name = "enp68s0";
-        networkConfig.Bridge = "br0";
-      };
-      "10-br0" = {
-        matchConfig.Name = "br0";
-        linkConfig.RequiredForOnline = "routable";
-        networkConfig.DHCP = "yes";
-      };
-    };
-    # inherit hardware mac addresses
-    links."10-br0" = {
-      matchConfig.OriginalName = "br0";
-      linkConfig.MACAddressPolicy = "none";
-    };
-  };
-
   boot = {
     kernelParams = [
       "nohibernate"
