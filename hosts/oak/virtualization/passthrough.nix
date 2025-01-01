@@ -42,8 +42,6 @@ in {
     ];
   };
 
-  virtualisation.libvirtd.allowedBridges = ["br0"];
-
   # manipulates systemd slices to isolate host cpu from win10
   virtualisation.libvirtd.hooks.qemu = {
     cpu-isolate-win10 = ./cpu-isolate-win10.sh;
