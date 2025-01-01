@@ -21,8 +21,10 @@
     ../common/optional/hyprland.nix
     ../common/optional/jellyfin.nix
     ../common/optional/libvirt.nix
+    ../common/optional/nvidia.nix
     ../common/optional/pipewire.nix
     ../common/optional/pipewire-raop.nix
+    ../common/optional/steam.nix
     ../common/users/spencer.nix
   ];
 
@@ -82,7 +84,6 @@
   };
 
   boot = {
-    kernelModules = ["igb"];
     kernelParams = [
       "nohibernate"
     ];
@@ -91,7 +92,6 @@
       systemd-boot.enable = true;
     };
     initrd = {
-      kernelModules = ["igb"];
       secrets = {
         "/persist/boot/ssh/ssh_host_ed25519_key" = "/persist/boot/ssh/ssh_host_ed25519_key";
       };
@@ -166,10 +166,6 @@
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
-    extraPackages = [
-      # hardware accelerated media conversion
-      pkgs.vpl-gpu-rt
-    ];
   };
 
   # tweak default audio device priority
