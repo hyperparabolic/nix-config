@@ -42,9 +42,15 @@ in {
     ];
   };
 
-  # manipulates systemd slices to isolate host cpu from win10
   virtualisation.libvirtd.hooks.qemu = {
-    cpu-isolate-win10 = ./cpu-isolate-win10.sh;
+    # manipulates systemd slices to isolate host cpu from win10
+    "cpu-isolate-win10" = lib.getExe (
+      pkgs.writeShellApplication {
+        name = "cpu-isolate-win10-qemu-hook";
+        runtimeInputs = with pkgs; [systemd];
+        text = builtins.readFile ./cpu-isolate-win10.sh;
+      }
+    );
   };
 
   # persist /srv/win10, this directory is being used to store

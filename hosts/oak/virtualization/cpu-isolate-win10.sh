@@ -1,9 +1,9 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 guest=$1
 command=$2
 
-if [ $guest != "win10" ]; then
+if [ "$guest" != "win10" ]; then
   echo "cpu-isolate-win10.sh ignoring other guest"
   exit 0
 fi
