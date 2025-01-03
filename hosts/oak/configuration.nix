@@ -64,6 +64,7 @@
       efi.canTouchEfiVariables = true;
       systemd-boot.enable = true;
     };
+    supportedFilesystems = ["ntfs"];
     initrd = {
       secrets = {
         "/persist/boot/ssh/ssh_host_ed25519_key" = "/persist/boot/ssh/ssh_host_ed25519_key";

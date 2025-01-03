@@ -4,18 +4,6 @@
   config,
   ...
 }: let
-  /*
-  PCI devices specified in pciIds get stubbed with the vfio_pci driver,
-  preventing linux from loading its drivers. This ensures they are "clean"
-  when they get passed through to a VM and behave well there. This is
-  mostly only necessary for GPUs.
-  */
-  pciIds = [
-    # 3090 graphics
-    # "10de:2204"
-    # 3090 audio
-    # "10de:1aef"
-  ];
 in {
   environment.systemPackages = with pkgs; [
     pciutils # pci querying tooling
@@ -37,8 +25,9 @@ in {
     ];
     kernelParams = [
       "amd_iommu=on"
-      # stub PCI devices
-      # ("vfio-pci.ids=" + lib.concatStringsSep "," pciIds)
+      "video=efifb:off"
+      "video=vesafb:off"
+      "quiet"
     ];
   };
 
@@ -51,18 +40,19 @@ in {
         text = builtins.readFile ./cpu-isolate-win10.sh;
       }
     );
-  };
 
-  # persist /srv/win10, this directory is being used to store
-  # resources required by the win10 vm that may not be granted by polkit
-  # persisted because creation of this service may not be implemented in
-  # a systemd user service.
-  environment.persistence = {
-    "/persist" = {
-      directories = [
-        "/srv/win10"
-      ];
-    };
+    # single GPU passthrough. manages kernel modules and stops host display-manager
+    "gpu-passthrough-win10" = lib.getExe (
+      pkgs.writeShellApplication {
+        name = "gpu-passthrough-win10-qemu-hook";
+        runtimeInputs = with pkgs; [
+          kmod
+          libvirt
+          systemd
+        ];
+        text = builtins.readFile ./gpu-passthrough-win10.sh;
+      }
+    );
   };
 
   # share pipewire socket with qemu-libvirtd via bind mount
