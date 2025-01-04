@@ -5,6 +5,7 @@
 }: {
   programs.helix = {
     extraPackages = with pkgs; [
+      blueprint-compiler
       dockerfile-language-server-nodejs
       docker-compose-language-service
       lua-language-server
