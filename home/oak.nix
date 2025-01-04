@@ -14,7 +14,7 @@ in {
 
   monitors = [
     {
-      name = "HDMI-A-2";
+      name = "HDMI-A-1";
       width = 3840;
       height = 2160;
       x = 0;
@@ -27,7 +27,7 @@ in {
       ];
     }
     {
-      name = "DP-1";
+      name = "DVI-D-1";
       width = 1920;
       height = 1080;
       x = 3840;
