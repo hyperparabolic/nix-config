@@ -24,4 +24,14 @@ in {
       }
     ];
   };
+
+  systemd.user.timers.swayidle-night = {
+    Unit = {
+      Description = "Ensures swayidle is renabled at night";
+    };
+    Timer = {
+      OnCalendar = "*-*-* 02:00:00";
+      Unit = "swayidle.service";
+    };
+  };
 }
