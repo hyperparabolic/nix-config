@@ -14,6 +14,7 @@
       openscad-lsp
       taplo
       vala-language-server
+      vala-lint
       vscode-langservers-extracted
       yaml-language-server
     ];
@@ -55,6 +56,14 @@
           formatter = {
             command = "${lib.getExe pkgs.alejandra}";
             args = ["-q"];
+          };
+        }
+        {
+          name = "vala";
+          auto-format = true;
+          language-servers = ["vala-language-server"];
+          formatter = {
+            command = "${lib.getExe pkgs.vala-lint}";
           };
         }
       ];
