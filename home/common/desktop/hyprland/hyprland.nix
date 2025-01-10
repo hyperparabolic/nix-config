@@ -152,8 +152,8 @@ in {
         "$MODSHIFT, L, movewindow, r"
         "$MODSHIFT, H, movewindow, l"
 
-        "$MOD, mouse_down, workspace, e-1"
-        "$MOD, mouse_up, workspace, e+1"
+        "$MOD, mouse_down, workspace, m-1"
+        "$MOD, mouse_up, workspace, m+1"
         "${builtins.concatStringsSep "\n" (builtins.genList (x: let
             ws = let c = (x + 1) / 10; in builtins.toString (x + 1 - (c * 10));
           in ''
