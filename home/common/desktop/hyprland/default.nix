@@ -19,7 +19,6 @@
     grim
     grimblast
     slurp
-    gpick
     hyprpicker
     stable.wl-screenrec
 
