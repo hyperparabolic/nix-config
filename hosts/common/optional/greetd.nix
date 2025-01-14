@@ -18,7 +18,8 @@ in {
     enable = true;
     settings = {
       initial_session = {
-        command = "Hyprland";
+        # hiding startup logs
+        command = "Hyprland &> /dev/null";
         user = "spencer";
       };
     };
