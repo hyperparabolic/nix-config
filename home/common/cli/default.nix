@@ -4,7 +4,6 @@
     ./direnv.nix
     ./git.nix
     ./gpg.nix
-    ./ranger.nix
     ./ssh.nix
     ./yazi.nix
     ./zsh.nix
