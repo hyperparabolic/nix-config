@@ -10,7 +10,7 @@
     ./hyprland.nix
     ./swayidle.nix
     ./swaylock.nix
-    ./theme.nix
+    # ./theme.nix
     ./wlsunset.nix
   ];
 

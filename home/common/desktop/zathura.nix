@@ -3,7 +3,6 @@
     enable = true;
     options = {
       selection-clipboard = "clipboard";
-      font = "${config.fontProfiles.regular.family} 12";
     };
   };
 

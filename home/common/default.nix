@@ -12,6 +12,7 @@
       ./dev
       ./helix
       ./nvim
+      ./stylix.nix
     ]
     ++ (builtins.attrValues outputs.homeManagerModules);
 

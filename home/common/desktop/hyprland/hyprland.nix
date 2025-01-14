@@ -20,8 +20,6 @@ in {
 
       # startup programs
       exec-once = [
-        # TODO: persist this in the nix store?
-        "swaybg -i ~/Pictures/wallpapers/wallpaper.jpg -m fill"
         "wl-paste --type text --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
         "slack"
@@ -32,7 +30,6 @@ in {
         border_size = 2;
         gaps_in = 10;
         gaps_out = 15;
-        "col.active_border" = "0xffa9763b";
         layout = "dwindle";
       };
 

@@ -7,6 +7,7 @@
 }: {
   imports =
     [
+      inputs.stylix.nixosModules.stylix
       ./acme.nix
       ./bluetooth.nix
       ./gamemode.nix
@@ -18,6 +19,7 @@
       ./prometheus-node-exporter.nix
       ./promtail.nix
       ./sops.nix
+      ./stylix.nix
       ./tailscale.nix
       ./zsh.nix
     ]
