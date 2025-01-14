@@ -68,18 +68,18 @@ in {
           lib.flatten (map (
             m:
               map (
-                mw: "${mw}, monitor:${m.name}, persistent: true"
+                mw: "${mw},monitor:${m.name},persistent:true"
               ) (m.workspaces)
           ) (config.monitors))
         else [
-          "1, persistent: true"
-          "2, persistent: true"
-          "3, persistent: true"
-          "4, persistent: true"
-          "5, persistent: true"
-          "6, persistent: true"
-          "7, persistent: true"
-          "8, persistent: true"
+          "1,persistent:true"
+          "2,persistent:true"
+          "3,persistent:true"
+          "4,persistent:true"
+          "5,persistent:true"
+          "6,persistent:true"
+          "7,persistent:true"
+          "8,persistent:true"
         ];
 
       decoration = {
