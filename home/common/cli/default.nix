@@ -2,9 +2,11 @@
   imports = [
     ./bash.nix
     ./direnv.nix
+    ./fish.nix
     ./git.nix
     ./gpg.nix
     ./ssh.nix
+    ./starship.nix
     ./yazi.nix
     ./zsh.nix
   ];

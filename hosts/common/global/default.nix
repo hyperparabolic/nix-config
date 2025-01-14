@@ -10,6 +10,7 @@
       inputs.stylix.nixosModules.stylix
       ./acme.nix
       ./bluetooth.nix
+      ./fish.nix
       ./gamemode.nix
       ./networking.nix
       ./nix.nix
