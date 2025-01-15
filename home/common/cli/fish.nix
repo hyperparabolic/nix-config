@@ -11,4 +11,8 @@
       grep = "grep --color=auto";
     };
   };
+
+  home.persistence = {
+    "/persist/home/spencer".directories = [".local/share/fish"];
+  };
 }
