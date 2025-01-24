@@ -8,11 +8,13 @@
       blueprint-compiler
       dockerfile-language-server-nodejs
       docker-compose-language-service
+      git
       lua-language-server
       marksman
       meson
       openscad-lsp
       taplo
+      uncrustify
       vala-language-server
       vala-lint
       vscode-langservers-extracted
@@ -63,7 +65,7 @@
           auto-format = true;
           language-servers = ["vala-language-server"];
           formatter = {
-            command = "${lib.getExe pkgs.vala-lint}";
+            command = "${lib.getExe pkgs.uncrustify} -c $(${lib.getExe pkgs.git} rev-parse --show-toplevel)/uncrustify.cfg -l VALA";
           };
         }
       ];
