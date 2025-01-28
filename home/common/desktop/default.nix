@@ -3,6 +3,7 @@
     ./chromium.nix
     ./discord.nix
     ./firefox.nix
+    ./easyeffects
     ./ghostty.nix
     ./krita.nix
     ./kitty.nix
