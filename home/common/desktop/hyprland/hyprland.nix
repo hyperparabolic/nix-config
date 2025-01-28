@@ -34,6 +34,7 @@ in {
 
         "wl-paste --type text --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
+        "easyeffects -l input_filter"
         "slack"
         "vesktop"
       ];

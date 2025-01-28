@@ -58,6 +58,5 @@ in {
   };
   services.easyeffects = {
     enable = true;
-    preset = "input_filter";
   };
 }
