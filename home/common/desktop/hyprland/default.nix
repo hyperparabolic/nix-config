@@ -4,13 +4,12 @@
   ...
 }: {
   imports = [
-    ./ags.nix
     ./anyrun.nix
     ./dunst.nix
     ./hyprland.nix
     ./swayidle.nix
     ./swaylock.nix
-    # ./theme.nix
+    ./vanity.nix
     ./wlsunset.nix
   ];
 
