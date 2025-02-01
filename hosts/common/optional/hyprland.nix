@@ -50,5 +50,8 @@
       xdg-desktop-portal-gtk
     ];
     configPackages = [pkgs.hyprland];
+    config.hyprland = {
+      "org.freedesktop.impl.portal.ScreenCast" = "hyprland";
+    };
   };
 }

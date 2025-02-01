@@ -32,11 +32,13 @@ in {
         "hyprctl dispatch workspace 8"
         "hyprctl dispatch workspace 1"
 
+        "xwaylandvideobridge"
         "wl-paste --type text --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
         "easyeffects -l input_filter"
         "slack"
-        "vesktop"
+        "discord"
+        # "vesktop"
       ];
 
       general = {
@@ -203,6 +205,14 @@ in {
         "noinitialfocus, class:^(discord)$"
         "workspace 4, class:^(vesktop)$"
         "noinitialfocus, class:^(vesktop)$"
+
+        # hide xwaylandvideobridge
+        "opacity 0.0 override, class:^(xwaylandvideobridge)$"
+        "noanim, class:^(xwaylandvideobridge)$"
+        "noinitialfocus, class:^(xwaylandvideobridge)$"
+        "maxsize 1 1, class:^(xwaylandvideobridge)$"
+        "noblur, class:^(xwaylandvideobridge)$"
+        "nofocus, class:^(xwaylandvideobridge)$"
       ];
 
       xwayland.force_zero_scaling = true;

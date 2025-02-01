@@ -10,6 +10,7 @@
     ./slack.nix
     ./vscode.nix
     ./zathura.nix
+    ./zoom.nix
   ];
 
   home.packages = with pkgs; [
