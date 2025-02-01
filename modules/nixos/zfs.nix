@@ -19,7 +19,7 @@ with lib; let
         && kPkgs ? kernel
         && kPkgs.kernel.pname == "linux"
         # zfs metadata indicates kernel version is compatible with zfs
-        && !kPkgs.zfs.meta.broken
+        && !kPkgs.${pkgs.zfs.kernelModuleAttribute}.meta.broken
     ))
     # sort oldest -> newest
     (builtins.sort (a: b: (lib.versionOlder a.kernel.version b.kernel.version)))
