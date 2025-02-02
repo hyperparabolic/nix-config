@@ -11,6 +11,7 @@
     ./swaylock.nix
     ./vanity.nix
     ./wlsunset.nix
+    ./xdg-desktop-portal-termfilechooser.nix
   ];
 
   home.packages = with pkgs; [

@@ -46,12 +46,17 @@
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [
+      xdg-desktop-portal-termfilechooser
       xdg-desktop-portal-hyprland
       xdg-desktop-portal-gtk
     ];
-    configPackages = [pkgs.hyprland];
-    config.hyprland = {
-      "org.freedesktop.impl.portal.ScreenCast" = "hyprland";
+    # configPackages = [pkgs.hyprland];
+    config = {
+      hyprland.default = [
+        "termfilechooser"
+        "gtk"
+        "hyprland"
+      ];
     };
   };
 }
