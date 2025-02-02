@@ -10,4 +10,8 @@
   packages-stable = final: _: {
     stable = inputs.nixpkgs-stable.legacyPackages.${final.system};
   };
+
+  # adds packages in pkgs
+  my-pkgs = final: _:
+    import ../pkgs {pkgs = final;};
 }

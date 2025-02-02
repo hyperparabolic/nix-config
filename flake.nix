@@ -57,6 +57,7 @@
 
     overlays = import ./overlays {inherit inputs outputs;};
 
+    packages = forEachSystem (pkgs: import ./pkgs {inherit pkgs;});
     # bootstrapping and repo tooling
     devShells = forEachSystem (pkgs: {
       default = pkgs.mkShell {
