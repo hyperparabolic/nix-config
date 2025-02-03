@@ -37,8 +37,8 @@ in {
         "wl-paste --type image --watch cliphist store"
         "easyeffects -l input_filter"
         "slack"
-        "discord"
-        # "vesktop"
+        # "discord"
+        "vesktop"
       ];
 
       general = {
