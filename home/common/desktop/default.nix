@@ -6,7 +6,6 @@
     ./easyeffects
     ./ghostty.nix
     ./krita.nix
-    ./kitty.nix
     ./slack.nix
     ./vscode.nix
     ./zathura.nix
