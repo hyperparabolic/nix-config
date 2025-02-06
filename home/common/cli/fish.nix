@@ -5,7 +5,11 @@
       fish_greeting = "";
     };
     shellAbbrs = {
-      ll = "ls -al";
+      cat = "bat -pp";
+      less = "bat -p";
+      ls = "eza";
+      la = "eza -a";
+      ll = "eza -al";
       egrep = "egrep --color=auto";
       fgrep = "fgrep --color=auto";
       grep = "grep --color=auto";
