@@ -214,6 +214,7 @@ in {
         "maxsize 1 1, class:^(xwaylandvideobridge)$"
         "noblur, class:^(xwaylandvideobridge)$"
         "nofocus, class:^(xwaylandvideobridge)$"
+        "workspace 4, class:^(xwaylandvideobridge)$"
       ];
 
       xwayland.force_zero_scaling = true;
