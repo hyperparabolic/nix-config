@@ -40,6 +40,8 @@
 
   time.timeZone = lib.mkDefault "America/Chicago";
 
+  environment.wordlist.enable = true;
+
   environment.systemPackages = with pkgs; [
     helix
     pciutils # pci querying tooling
