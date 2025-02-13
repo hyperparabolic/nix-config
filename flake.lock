@@ -662,11 +662,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1739395835,
-        "narHash": "sha256-spuit+xfVh1RjPmIq4JmflShYPvztLK0WDGySN1MDo0=",
+        "lastModified": 1739471600,
+        "narHash": "sha256-n2vrs+Rn/ga3Elspoop9mUh5cleLat6gJdgZ8vsZ5gA=",
         "owner": "hyperparabolic",
         "repo": "vanity",
-        "rev": "fb71a2f64f03752505739f982f90b764a3f80efe",
+        "rev": "137fd9b2cb91d05dc8f28790dbb14a5c3953912d",
         "type": "github"
       },
       "original": {
