@@ -7,9 +7,15 @@
   agsPackages = inputs.ags.packages.${pkgs.system};
   vanityPackages = inputs.vanity.packages.${pkgs.system};
 in {
-  home.packages = [
+  home.packages = with pkgs; [
     agsPackages.default
     vanityPackages.default
+
+    # glycin deps
+    bubblewrap
+    glycin-loaders
+    lcms2
+    libseccomp
   ];
 
   systemd.user.services = {
