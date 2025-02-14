@@ -40,4 +40,16 @@ in {
       "$MOD, E, exec, ags request -i 'vanity' 'menu:toggle'"
     ];
   };
+
+  # desktop file needed for geoclue
+  xdg.desktopEntries = {
+    "com.github.hyperparabolic.vanity" = {
+      name = "Vanity Shell";
+      exec = "${lib.getExe vanityPackages.default}";
+      terminal = false;
+      type = "Application";
+      categories = ["Utility"];
+      noDisplay = true;
+    };
+  };
 }
