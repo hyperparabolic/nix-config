@@ -207,6 +207,9 @@ in {
         "workspace 4, class:^(vesktop)$"
         "noinitialfocus, class:^(vesktop)$"
 
+        # support zoom popups
+        "stayfocused, class:^(zoom)$, title:^(menu window)$"
+
         # hide xwaylandvideobridge
         "opacity 0.0 override, class:^(xwaylandvideobridge)$"
         "noanim, class:^(xwaylandvideobridge)$"

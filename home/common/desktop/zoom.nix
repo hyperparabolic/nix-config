@@ -6,4 +6,10 @@
   xdg.mimeApps.defaultApplications = {
     "x-scheme-handler/zoommtg" = "Zoom.desktop";
   };
+
+  home.persistence = {
+    "/persist/home/spencer".directories = [
+      ".zoom"
+    ];
+  };
 }
