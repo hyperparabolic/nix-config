@@ -3,7 +3,7 @@
     enable = true;
     enableFishIntegration = true;
     settings = {
-      "scrollback-limit" = 10000;
+      "scrollback-limit" = 4294967295;
       "window-decoration" = false;
       "window-padding-x" = 20;
       "window-padding-y" = 20;
