@@ -11,7 +11,13 @@ in {
           {
             # static socket locations set up in gpg.nix
             bind.address = ''/%d/.gnupg-sockets/S.gpg-agent'';
-            host.address = ''/%d/.gnupg-sockets/S.gpg-agent.extra'';
+            host.address = ''/%d/.gnupg-sockets/S.gpg-agent'';
+          }
+
+          {
+            # static socket locations set up in gpg.nix
+            bind.address = ''/%d/.gnupg-sockets/S.gpg-agent.ssh'';
+            host.address = ''/%d/.gnupg-sockets/S.gpg-agent.ssh'';
           }
         ];
       };
