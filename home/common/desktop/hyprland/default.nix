@@ -27,7 +27,7 @@
 
     # utils
     swaybg
-    xwaylandvideobridge
+    kdePackages.xwaylandvideobridge
     wlogout
   ];
 
