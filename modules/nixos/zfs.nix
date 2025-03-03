@@ -103,7 +103,7 @@ in {
       services.zfs = {
         autoScrub.enable = true;
         trim.enable = true;
-        autoSnapshot = mkIf (cfg.enable && cfg.autoSnapshot) {
+        autoSnapshot = mkIf (cfg.autoSnapshot) {
           enable = true;
           frequent = 12;
           hourly = 24;
@@ -139,7 +139,7 @@ in {
       };
     })
 
-    (mkIf (cfg.enable && cfg.zedMailTo != null) {
+    (mkIf (cfg.zedMailTo != null) {
       services.zfs = {
         zed = {
           # Bit of a misnomer I think? I believe this enables linux local mail
