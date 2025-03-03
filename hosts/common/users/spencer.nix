@@ -1,10 +1,15 @@
 {
+  inputs,
   pkgs,
   config,
   ...
 }: let
   ifGroupExists = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
 in {
+  imports = [
+    inputs.home-manager.nixosModules.home-manager
+  ];
+
   users.mutableUsers = false;
 
   users.users = {

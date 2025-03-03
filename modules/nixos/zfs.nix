@@ -5,7 +5,8 @@
   ...
 }:
 with lib; let
-  cfg = config.hyperparabolic.base.zfs;
+  cfg = config.hyperparabolic.zfs;
+  enableImpermanenceRollback = config.hyperparabolic.impermanence.enableRollback;
 
   # get latest zfs compatible kernel
   latestZfsCompatibleLinuxPackages = lib.pipe pkgs.linuxKernel.packages [
@@ -41,23 +42,22 @@ in {
   must be sufficient without that.
   */
 
-  options.hyperparabolic.base.zfs = {
+  options.hyperparabolic.zfs = {
     enable = mkEnableOption "Enable zfs";
     autoSnapshot = mkOption {
       type = types.bool;
       default = true;
       example = false;
     };
-    rollbackSnapshot = mkOption {
+    impermanenceRollbackSnapshot = mkOption {
       type = types.nullOr types.str;
       default = null;
       example = "rpool/local/root@empty";
       description = mdDoc ''
-        Empty zfs root filesystem dataset@snapshot. If provided, this will
-        rollback to that snapshot on boot.
-        See grahamc "Erase your darlings".
-        Leave this null if you aren't comfy with the idea of an ephemeral
-        filesystem from that.
+        Empty zfs root filesystem dataset@snapshot. If provided, and
+        hyperparabolic.impermanance.enableRoolback, then this will roll back
+        to the specified snapshot immediately after mounting the zfs pool
+        rpool.
       '';
     };
     zedMailTo = mkOption {
@@ -98,34 +98,12 @@ in {
 
         # does not play nicely with old systems, may require zfs_force=1 kernel parameter
         zfs.forceImportRoot = false;
-
-        # rollback root fs to blank snapshot
-        initrd.systemd.services.zfs-rollback = mkIf (cfg.enable && cfg.rollbackSnapshot != null) {
-          description = "Rollback ZFS root dataset to blank snapshot";
-          wantedBy = [
-            "initrd.target"
-          ];
-          after = [
-            "zfs-import-rpool.service"
-          ];
-          before = [
-            "sysroot.mount"
-          ];
-          path = with pkgs; [
-            zfs
-          ];
-          unitConfig.DefaultDependencies = "no";
-          serviceConfig.Type = "oneshot";
-          script = ''
-            zfs rollback -r ${cfg.rollbackSnapshot} && echo "zfs rollback complete"
-          '';
-        };
       };
 
       services.zfs = {
         autoScrub.enable = true;
         trim.enable = true;
-        autoSnapshot = mkIf (cfg.enable && cfg.autoSnapshot) {
+        autoSnapshot = mkIf (cfg.autoSnapshot) {
           enable = true;
           frequent = 12;
           hourly = 24;
@@ -137,7 +115,31 @@ in {
       };
     }
 
-    (mkIf (cfg.enable && cfg.zedMailTo != null) {
+    (mkIf (enableImpermanenceRollback && cfg.impermanenceRollbackSnapshot != null) {
+      # rollback root fs to blank snapshot
+      boot.initrd.systemd.services.zfs-rollback = {
+        description = "Rollback ZFS root dataset to blank snapshot";
+        wantedBy = [
+          "initrd.target"
+        ];
+        after = [
+          "zfs-import-rpool.service"
+        ];
+        before = [
+          "sysroot.mount"
+        ];
+        path = with pkgs; [
+          zfs
+        ];
+        unitConfig.DefaultDependencies = "no";
+        serviceConfig.Type = "oneshot";
+        script = ''
+          zfs rollback -r ${cfg.impermanenceRollbackSnapshot} && echo "zfs rollback complete"
+        '';
+      };
+    })
+
+    (mkIf (cfg.zedMailTo != null) {
       services.zfs = {
         zed = {
           # Bit of a misnomer I think? I believe this enables linux local mail

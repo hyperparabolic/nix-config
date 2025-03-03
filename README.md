@@ -54,7 +54,7 @@ All datasets that say "no mount" may not be mounted and instead are policy conta
 
 This idea is mostly taken from Graham Christensen's blog post "Erase your darlings".
 
-NixOS boots as long as it has access to `/boot` and `/nix`. If `hyperparabolic.base.zfs.rollbackSnapshot` is specified, `zfs rollback -r %snapshot%` is executed immediately after filesystems are mounted in initrd, in this case rolling back to a blank filesystem snapshot of `/rpool/crypt/local/root`.  By default there is zero config drift, and the system always boots with "new system smell."
+NixOS boots as long as it has access to `/boot` and `/nix`. If `hyperparabolic.zfs.rollbackSnapshot` is specified, `zfs rollback -r %snapshot%` is executed immediately after filesystems are mounted in initrd, in this case rolling back to a blank filesystem snapshot of `/rpool/crypt/local/root`.  By default there is zero config drift, and the system always boots with "new system smell."
 
 [Impermanence](https://nixos.wiki/wiki/Impermanence) allows opt-in persistence of specific files and directories between boots. `/persist` is a mirror of the root filesystem only containing directories and files to persist between boots, and the Impermanence config sets up links in the root filesystem pointing to their persisted counterparts.
 
