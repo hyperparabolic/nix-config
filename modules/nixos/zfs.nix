@@ -49,16 +49,15 @@ in {
       default = true;
       example = false;
     };
-    rollbackSnapshot = mkOption {
+    impermanenceRollbackSnapshot = mkOption {
       type = types.nullOr types.str;
       default = null;
       example = "rpool/local/root@empty";
       description = mdDoc ''
-        Empty zfs root filesystem dataset@snapshot. If provided, this will
-        rollback to that snapshot on boot.
-        See grahamc "Erase your darlings".
-        Leave this null if you aren't comfy with the idea of an ephemeral
-        filesystem from that.
+        Empty zfs root filesystem dataset@snapshot. If provided, and
+        hyperparabolic.impermanance.enableRoolback, then this will roll back
+        to the specified snapshot immediately after mounting the zfs pool
+        rpool.
       '';
     };
     zedMailTo = mkOption {
@@ -116,7 +115,7 @@ in {
       };
     }
 
-    (mkIf (enableImpermanenceRollback && cfg.rollbackSnapshot != null) {
+    (mkIf (enableImpermanenceRollback && cfg.impermanenceRollbackSnapshot != null) {
       # rollback root fs to blank snapshot
       boot.initrd.systemd.services.zfs-rollback = {
         description = "Rollback ZFS root dataset to blank snapshot";
@@ -135,7 +134,7 @@ in {
         unitConfig.DefaultDependencies = "no";
         serviceConfig.Type = "oneshot";
         script = ''
-          zfs rollback -r ${cfg.rollbackSnapshot} && echo "zfs rollback complete"
+          zfs rollback -r ${cfg.impermanenceRollbackSnapshot} && echo "zfs rollback complete"
         '';
       };
     })

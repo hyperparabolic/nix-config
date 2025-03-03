@@ -94,7 +94,7 @@
     zfs = {
       enable = true;
       autoSnapshot = false; # TODO: configure and enable later
-      rollbackSnapshot = "rpool/crypt/local/root@blank";
+      impermanenceRollbackSnapshot = "rpool/crypt/local/root@blank";
       zedMailTo = "root"; # value doesn't matter, not using email, just needs to not be null;
       zedMailCommand = "${pkgs.notify}/bin/notify";
       zedMailCommandOptions = "-bulk -provider-config /run/secrets/notify-provider-config";
