@@ -101,7 +101,7 @@
     };
   };
 
-  hyperparabolic.base.zfs = {
+  hyperparabolic.zfs = {
     enable = true;
     autoSnapshot = true;
     rollbackSnapshot = "rpool/crypt/local/root@blank";

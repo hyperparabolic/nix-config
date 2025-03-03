@@ -5,7 +5,7 @@
   ...
 }:
 with lib; let
-  cfg = config.hyperparabolic.base.zfs;
+  cfg = config.hyperparabolic.zfs;
 
   # get latest zfs compatible kernel
   latestZfsCompatibleLinuxPackages = lib.pipe pkgs.linuxKernel.packages [
@@ -41,7 +41,7 @@ in {
   must be sufficient without that.
   */
 
-  options.hyperparabolic.base.zfs = {
+  options.hyperparabolic.zfs = {
     enable = mkEnableOption "Enable zfs";
     autoSnapshot = mkOption {
       type = types.bool;

@@ -53,7 +53,7 @@
     };
   };
 
-  hyperparabolic.base.zfs = {
+  hyperparabolic.zfs = {
     enable = true;
     autoSnapshot = false; # TODO: configure and enable later
     rollbackSnapshot = "rpool/local/root@blank";
