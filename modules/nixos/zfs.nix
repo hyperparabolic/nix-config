@@ -6,6 +6,7 @@
 }:
 with lib; let
   cfg = config.hyperparabolic.zfs;
+  enableImpermanenceRollback = config.hyperparabolic.impermanence.enableRollback;
 
   # get latest zfs compatible kernel
   latestZfsCompatibleLinuxPackages = lib.pipe pkgs.linuxKernel.packages [
@@ -98,28 +99,6 @@ in {
 
         # does not play nicely with old systems, may require zfs_force=1 kernel parameter
         zfs.forceImportRoot = false;
-
-        # rollback root fs to blank snapshot
-        initrd.systemd.services.zfs-rollback = mkIf (cfg.enable && cfg.rollbackSnapshot != null) {
-          description = "Rollback ZFS root dataset to blank snapshot";
-          wantedBy = [
-            "initrd.target"
-          ];
-          after = [
-            "zfs-import-rpool.service"
-          ];
-          before = [
-            "sysroot.mount"
-          ];
-          path = with pkgs; [
-            zfs
-          ];
-          unitConfig.DefaultDependencies = "no";
-          serviceConfig.Type = "oneshot";
-          script = ''
-            zfs rollback -r ${cfg.rollbackSnapshot} && echo "zfs rollback complete"
-          '';
-        };
       };
 
       services.zfs = {
@@ -136,6 +115,30 @@ in {
         };
       };
     }
+
+    (mkIf (enableImpermanenceRollback && cfg.rollbackSnapshot != null) {
+      # rollback root fs to blank snapshot
+      boot.initrd.systemd.services.zfs-rollback = {
+        description = "Rollback ZFS root dataset to blank snapshot";
+        wantedBy = [
+          "initrd.target"
+        ];
+        after = [
+          "zfs-import-rpool.service"
+        ];
+        before = [
+          "sysroot.mount"
+        ];
+        path = with pkgs; [
+          zfs
+        ];
+        unitConfig.DefaultDependencies = "no";
+        serviceConfig.Type = "oneshot";
+        script = ''
+          zfs rollback -r ${cfg.rollbackSnapshot} && echo "zfs rollback complete"
+        '';
+      };
+    })
 
     (mkIf (cfg.enable && cfg.zedMailTo != null) {
       services.zfs = {
