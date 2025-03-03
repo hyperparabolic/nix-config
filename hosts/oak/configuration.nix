@@ -7,7 +7,6 @@
   ...
 }: {
   imports = [
-    inputs.home-manager.nixosModules.home-manager
     inputs.impermanence.nixosModules.impermanence
     inputs.nixos-hardware.nixosModules.common-gpu-intel
     inputs.nixos-hardware.nixosModules.common-hidpi

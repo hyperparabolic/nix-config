@@ -7,7 +7,6 @@
   ...
 }: {
   imports = [
-    inputs.home-manager.nixosModules.home-manager
     inputs.impermanence.nixosModules.impermanence
     # https://github.com/NixOS/nixos-hardware/tree/master/framework/13-inch/7040-amd
     inputs.nixos-hardware.nixosModules.framework-13-7040-amd
