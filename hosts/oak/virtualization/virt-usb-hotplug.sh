@@ -34,6 +34,10 @@ for o in "$@"; do
             vendor_id="057e"
             product_id="2009"
             ;;
+        "3")
+            vendor_id="054c"
+            product_id="09cc"
+            ;;
         *)
             IFS=":" read -r vendor_id product_id <<< "$o"
             ;;
