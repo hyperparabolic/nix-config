@@ -10,7 +10,7 @@
 
   # Keys are used here by sops-nix before impermanence can make
   # links. Must just use `/persist` keys directly if impermanence.
-  hasPersistDir = config.environment.persistence ? "/persist";
+  hasPersistDir = config.environment.persistence."/persist".enable ? "/persist";
 in {
   services.openssh = {
     enable = true;
