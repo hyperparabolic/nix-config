@@ -10,7 +10,9 @@
     };
 
     targets = {
+      firefox.enable = false;
       helix.enable = false;
+      vscode.enable = false;
     };
   };
 }
