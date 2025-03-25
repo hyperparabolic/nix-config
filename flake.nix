@@ -91,6 +91,15 @@
         specialArgs = {inherit inputs outputs;};
         modules = [./hosts/warden/configuration.nix];
       };
+
+      # iso debugging / bootstrapping
+      iso = lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+        modules = [
+          ./hosts/iso/configuration.nix
+          "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+        ];
+      };
     };
   };
 }
