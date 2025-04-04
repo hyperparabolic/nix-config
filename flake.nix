@@ -68,6 +68,7 @@
           ssh-to-age
           gnupg
           age
+          yq-go
         ];
       };
     });

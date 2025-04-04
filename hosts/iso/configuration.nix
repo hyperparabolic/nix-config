@@ -1,8 +1,27 @@
 {
   inputs,
   lib,
+  pkgs,
   ...
-}: {
+}: let
+  hyperparabolic-export = pkgs.writeShellApplication {
+    name = "hyperparabolic-export";
+    runtimeInputs = [];
+    text = builtins.readFile ../../scripts/hyperparabolic-export.sh;
+  };
+  hyperparabolic-import = pkgs.writeShellApplication {
+    name = "hyperparabolic-import";
+    runtimeInputs = [];
+    text = builtins.readFile ../../scripts/hyperparabolic-import.sh;
+  };
+  hyperparabolic-install = pkgs.writeShellApplication {
+    name = "hyperparabolic-install";
+    runtimeInputs = [
+      hyperparabolic-export
+    ];
+    text = builtins.readFile ../../scripts/hyperparabolic-install.sh;
+  };
+in {
   imports = [
     # disabled, but still required or config is invalid
     inputs.impermanence.nixosModules.impermanence
@@ -55,4 +74,22 @@
     wireless.enable = false;
   };
   services.resolved.fallbackDns = ["9.9.9.9" "2620:fe::fe"];
+
+  programs = {
+    dconf.enable = true;
+  };
+
+  environment.systemPackages = with pkgs; [
+    hyperparabolic-export
+    hyperparabolic-import
+    hyperparabolic-install
+
+    age
+    gnupg
+    sops
+    ssh-to-age
+    yq-go
+  ];
+
+  stylix.enable = lib.mkForce false;
 }
