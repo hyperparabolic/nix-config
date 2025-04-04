@@ -21,6 +21,7 @@
     jq # json parsing
     ouch # file compression / decompression
     ripgrep # grep alternative
+    yq-go # yaml parsing / editing
 
     alejandra # nix formatter
     nixd # nix lsp
