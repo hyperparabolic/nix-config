@@ -87,7 +87,7 @@ function main() {
   MNT=$ARG_MOUNT_DIR
 
   info "Importing ${ZFS_POOL_NAME}"
-  zpool import "${ZFS_POOL_NAME}"
+  zpool import -f "${ZFS_POOL_NAME}"
 
   info "Opening ${SECRETS_LVOL_LABEL} ..."
   cryptsetup luksOpen "$SECRETS_PART" "$SECRETS_LVOL_LABEL"

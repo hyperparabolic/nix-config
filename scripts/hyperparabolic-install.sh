@@ -245,6 +245,7 @@ function format_and_mount_drives() {
 
   info "Mounting ${DISK_PART_BOOT} to ${MNT}/boot ..."
   mkdir "${MNT}/boot"
+  chmod 700 "${MNT}/boot"
   mount -t vfat "$DISK_PART_BOOT" "${MNT}/boot"
 
   info "Creating ${ZFS_DS_NIX} ZFS dataset ..."
