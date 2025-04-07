@@ -4,7 +4,20 @@
   lib,
   pkgs,
   ...
-}: {
+}: let
+  hyperparabolic-bootstrap = pkgs.writeShellApplication {
+    name = "hyperparabolic-bootstrap";
+    runtimeInputs = with pkgs; [
+      rsync
+
+      age
+      ssh-to-age
+      sops
+      yq-go
+    ];
+    text = builtins.readFile ../../../scripts/hyperparabolic-bootstrap.sh;
+  };
+in {
   imports =
     [
       inputs.stylix.nixosModules.stylix
@@ -43,6 +56,8 @@
   environment.wordlist.enable = true;
 
   environment.systemPackages = with pkgs; [
+    hyperparabolic-bootstrap
+
     helix
     pciutils # pci querying tooling
     usbutils # usb querying tooling

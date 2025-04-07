@@ -37,9 +37,6 @@
     homeDirectory = "/home/spencer";
     stateVersion = lib.mkDefault "22.05";
     sessionPath = ["$HOME/.local/bin"];
-    sessionVariables = {
-      FLAKE = "$HOME/Documents/NixConfig";
-    };
 
     persistence = {
       "/persist/home/spencer" = {
@@ -50,6 +47,7 @@
           "Videos"
           ".local/bin"
           ".local/share/nix"
+          ".nix-config"
         ];
         allowOther = true;
       };

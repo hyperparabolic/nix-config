@@ -5,7 +5,8 @@
   ...
 }: let
   inherit (config.networking) hostName;
-  hosts = outputs.nixosConfigurations;
+  excludeHosts = ["iso"];
+  hosts = lib.attrsets.filterAttrs (n: v: !builtins.elem n excludeHosts) outputs.nixosConfigurations;
   pubKey = host: ../../${host}/ssh_host_ed25519_key.pub;
 
   # Keys are used here by sops-nix before impermanence can make
