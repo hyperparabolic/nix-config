@@ -12,36 +12,29 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  boot.initrd.availableKernelModules = ["xhci_pci" "nvme" "usbhid" "usb_storage" "sd_mod"];
+  boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "thunderbolt" "usb_storage" "sd_mod"];
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["kvm-amd"];
   boot.extraModulePackages = [];
 
-  boot.initrd.luks.devices = {
-    root = {
-      device = "/dev/disk/by-uuid/f4724a48-cbe1-431e-a9ef-aa4e62bf8997";
-      preLVM = true;
-    };
-  };
-
   fileSystems."/" = {
-    device = "rpool/local/root";
+    device = "rpool/crypt/local/root";
     fsType = "zfs";
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/4DA2-66F0";
+    device = "/dev/disk/by-uuid/90D6-4EE6";
     fsType = "vfat";
     options = ["fmask=0022" "dmask=0022"];
   };
 
   fileSystems."/nix" = {
-    device = "rpool/local/nix";
+    device = "rpool/crypt/local/nix";
     fsType = "zfs";
   };
 
   fileSystems."/persist" = {
-    device = "rpool/safe/persist";
+    device = "rpool/crypt/safe/persist";
     fsType = "zfs";
     neededForBoot = true;
   };
