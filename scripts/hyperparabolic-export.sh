@@ -57,7 +57,6 @@ Arguments:
 
     MOUNT_DIR           Temporary directory the filesystem is mounted in.
 "
-  exit 0
 }
 
 function main() {
@@ -70,12 +69,16 @@ function main() {
   eval set -- "$OPTIONS"
   while true; do
     case "$1" in
-      -h | --help )         print_help ;;
+      -h | --help )         print_help; exit 0 ;;
       -- )                  shift; break ;;
       * )                   break ;;
     esac
   done
   POS_ARGS=("${@:$OPTIND:1}")
+  if [[ ${#POS_ARGS[@]} -lt 1 ]]; then
+    print_help
+    exit 1
+  fi
   ARG_MOUNT_DIR="${POS_ARGS[0]}"
 
   if [[ ! -d "$ARG_MOUNT_DIR" ]]; then
