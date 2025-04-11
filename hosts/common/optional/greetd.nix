@@ -16,13 +16,6 @@ in {
 
   services.greetd = {
     enable = true;
-    settings = {
-      initial_session = {
-        # hiding startup logs
-        command = "Hyprland &> /dev/null";
-        user = "spencer";
-      };
-    };
   };
 
   # unlock gpg keyring on login

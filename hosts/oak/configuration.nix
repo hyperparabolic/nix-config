@@ -173,6 +173,11 @@
     };
   };
 
+  services.greetd.settings.initial_session = {
+    command = "Hyprland &> /dev/null";
+    user = "spencer";
+  };
+
   # TODO: temporarily disabled due to build issues
   hardware.system76.power-daemon.enable = false;
 
