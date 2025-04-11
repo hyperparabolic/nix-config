@@ -72,6 +72,7 @@
           gnupg
           age
           yq-go
+          sbctl
         ];
       };
     });
