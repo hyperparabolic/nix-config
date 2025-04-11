@@ -11,7 +11,6 @@
     # https://github.com/NixOS/nixos-hardware/tree/master/framework/13-inch/7040-amd
     inputs.nixos-hardware.nixosModules.framework-13-7040-amd
     ./hardware-configuration.nix
-    ./luks-zfs-proto.nix
     ../common/global
     ../common/optional/fingerprint.nix
     ../common/optional/hyprland.nix
@@ -62,6 +61,10 @@
       enable = true;
       autoSnapshot = false; # TODO: configure and enable later
       impermanenceRollbackSnapshot = "rpool/crypt/local/root@blank";
+      luksOnZfs = {
+        enable = true;
+        backingDevices = ["dev-nvme0n1p2.device"];
+      };
       zedMailTo = "root"; # value doesn't matter, not using email, just needs to not be null;
       zedMailCommand = "${pkgs.notify}/bin/notify";
       zedMailCommandOptions = "-bulk -provider-config /run/secrets/notify-provider-config";
