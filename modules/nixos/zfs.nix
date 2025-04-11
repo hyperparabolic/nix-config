@@ -6,7 +6,9 @@
 }:
 with lib; let
   cfg = config.hyperparabolic.zfs;
+  devNodes = config.boot.zfs.devNodes;
   enableImpermanenceRollback = config.hyperparabolic.impermanence.enableRollback;
+  zfsPkg = config.boot.zfs.package;
 
   # get latest zfs compatible kernel
   latestZfsCompatibleLinuxPackages = lib.pipe pkgs.linuxKernel.packages [
@@ -59,6 +61,29 @@ in {
         to the specified snapshot immediately after mounting the zfs pool
         rpool.
       '';
+    };
+    luksOnZfs = mkOption {
+      description = mdDoc ''
+        Options related to luks on zfs. This is an opinionated zpool structure
+        with support for impermanence and luks key management and unlock options,
+        installed via `hyperparabolic-install`.
+      '';
+      type = types.submodule {
+        options = {
+          enable = mkEnableOption "Enable services for luks on zfs";
+          backingDevices = mkOption {
+            type = types.listOf types.str;
+            default = [];
+            example = ["dev-nvme0n1p2.device"];
+            description = mdDoc ''
+              Names of the systemd .device units that back the rpool. These
+              units are automatically generated for devices based on their
+              names assigned by udev.
+            '';
+          };
+        };
+      };
+      default = {};
     };
     zedMailTo = mkOption {
       type = types.nullOr types.str;
@@ -158,6 +183,91 @@ in {
 
             ZED_USE_ENCLOSURE_LEDS = true;
             ZED_SCRUB_AFTER_RESILVER = true;
+          };
+        };
+      };
+    })
+
+    (mkIf cfg.luksOnZfs.enable {
+      boot.initrd = {
+        # /bootsecrets is an ext4 filesystem
+        supportedFilesystems = ["ext4"];
+
+        # creates systemd-cryptsetup@secretsroot
+        luks.devices.secretsroot.device = "/dev/zvol/rpool/volumes/bootsecrets-part1";
+        systemd = {
+          mounts = [
+            {
+              # fileSystems.<name> doesn't really support mounting files in initrd that aren't
+              # intended for the booted os, so creating this manually.
+              description = "Secrets storage for stage 1 boot";
+              where = "/bootsecrets";
+              what = "/dev/mapper/secretsroot";
+              options = "nofail,noauto,noexec,ro";
+              bindsTo = [
+                "systemd-cryptsetup@secretsroot.service"
+              ];
+              after = [
+                "systemd-cryptsetup@secretsroot.service"
+              ];
+              wantedBy = ["zfs-import-rpool.service"];
+              before = ["zfs-import-rpool.service"];
+            }
+          ];
+          services = {
+            zfs-import-rpool-volumes = {
+              # Import rpool before cryptsetup.target so its volumes are available.
+              # zfs-import-rpool.service tolerates this fine (it isn't aware of hardware
+              # and just repeatedly mounts and polls status).
+              description = "Import rpool before cryptsetup.target";
+              # device dependencies allow us to avoid systemd-udev-settle.service
+              wants = cfg.luksOnZfs.backingDevices;
+              after = cfg.luksOnZfs.backingDevices;
+              wantedBy = [
+                "cryptsetup.target"
+                ''dev-zvol-rpool-volumes-bootsecrets\x2dpart1.device''
+              ];
+              before = [
+                "cryptsetup.target"
+                "shutdown.target"
+              ];
+              conflicts = ["shutdown.target"];
+              unitConfig.DefaultDependencies = "no";
+              serviceConfig = {
+                Type = "oneshot";
+                RemainAfterExit = "true";
+              };
+              script = ''
+                ${lib.getExe' zfsPkg "zpool"} import -d ${devNodes} rpool
+              '';
+            };
+            mask-bootsecrets = {
+              description = "Clean up bootsecrets";
+              after = ["zfs-import-rpool.service"];
+              wantedBy = ["initrd-switch-root.target"];
+              before = ["initrd-switch-root.target"];
+              unitConfig.DefaultDependencies = "no";
+              serviceConfig.Type = "oneshot";
+              script = ''
+                systemctl disable --now bootsecrets.mount
+                systemctl mask bootsecrets.mount
+              '';
+            };
+            mask-secretsroot = {
+              description = "Clean up secretsroot";
+              after = [
+                "zfs-import-rpool.service"
+                "mask-bootsecrets.service"
+              ];
+              wantedBy = ["initrd-switch-root.target"];
+              before = ["initrd-switch-root.target"];
+              unitConfig.DefaultDependencies = "no";
+              serviceConfig.Type = "oneshot";
+              script = ''
+                systemctl disable --now systemd-cryptsetup@secretsroot.service
+                systemctl mask systemd-cryptsetup@secretsroot.service
+              '';
+            };
           };
         };
       };
