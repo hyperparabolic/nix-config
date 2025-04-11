@@ -22,6 +22,9 @@
 
     impermanence.url = "github:nix-community/impermanence";
 
+    lanzaboote.url = "github:nix-community/lanzaboote/v0.4.2";
+    lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
+
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     sops-nix.url = "github:Mic92/sops-nix";
@@ -69,6 +72,7 @@
           gnupg
           age
           yq-go
+          sbctl
         ];
       };
     });

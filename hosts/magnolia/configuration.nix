@@ -17,6 +17,7 @@
     ../common/optional/laptop.nix
     ../common/optional/pipewire.nix
     ../common/optional/pipewire-raop.nix
+    ../common/optional/secureboot.nix
     ../common/optional/steam.nix
     ../common/users/spencer.nix
   ];
