@@ -221,8 +221,6 @@ in {
               # and just repeatedly mounts and polls status).
               description = "Import rpool before cryptsetup.target";
               # device dependencies allow us to avoid systemd-udev-settle.service
-              # TODO: can I find a udev rule that creates a symlink based on `udevadm info --query env`?
-              # it would be nice to not be dependent on hardware slot, but I guess they don't shuffle often
               wants = cfg.luksOnZfs.backingDevices;
               after = cfg.luksOnZfs.backingDevices;
               wantedBy = [
