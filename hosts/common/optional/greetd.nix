@@ -5,19 +5,19 @@
   ...
 }: let
 in {
-  users.extraUsers.greeter = {
-    home = "/tmp/greeter-home";
-    createHome = true;
-  };
-
-  programs.regreet = {
-    enable = true;
-  };
-
   services.greetd = {
     enable = true;
+    settings = {
+      default_session = {
+        # tuigreet with selectable sessions
+        command = "${lib.getExe pkgs.greetd.tuigreet} --time --sessions ${config.services.displayManager.sessionData.desktops}/share/wayland-sessions --remember --remember-user-session";
+        user = "greeter";
+      };
+    };
   };
 
-  # unlock gpg keyring on login
-  security.pam.services.greetd.enableGnomeKeyring = true;
+  # persist tuigreet state
+  environment.persistence."/persist".directories = [
+    "/var/cache/tuigreet"
+  ];
 }

@@ -1,7 +1,6 @@
 {pkgs, ...}: {
   imports = [
     ./greetd.nix
-    ./plymouth.nix
   ];
 
   programs = {
