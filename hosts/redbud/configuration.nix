@@ -16,6 +16,7 @@
     ../common/optional/laptop.nix
     ../common/optional/pipewire.nix
     ../common/optional/pipewire-raop.nix
+    ../common/optional/secureboot.nix
     ../common/users/spencer.nix
     ./services
   ];
@@ -57,8 +58,12 @@
     };
     zfs = {
       enable = true;
-      autoSnapshot = false; # TODO: configure and enable later
-      impermanenceRollbackSnapshot = "rpool/local/root@blank";
+      autoSnapshot = true;
+      impermanenceRollbackSnapshot = "rpool/crypt/local/root@blank";
+      luksOnZfs = {
+        enable = true;
+        backingDevices = ["dev-nvme0n1p2.device"];
+      };
       zedMailTo = "root"; # value doesn't matter, not using email, just needs to not be null;
       zedMailCommand = "${pkgs.notify}/bin/notify";
       zedMailCommandOptions = "-bulk -provider-config /run/secrets/notify-provider-config";
