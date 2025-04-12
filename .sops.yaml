@@ -4,7 +4,7 @@ keys:
   # hosts
   - &magnolia age1mljt7tad3jkuju45m2np9vlq8qesy83403u49qm9pax4x5wwudjqvftuvy
   - &oak age1hsmsx3jpmlw56e638l0wx62lhtaz7kanr9az4yq7mzv074x8cayqwrgxe3
-  - &redbud age1d5flajxfrhulqvggeu3ldv9z38m5802jmee49efywadx9uhhku4qsk3rzy
+  - &redbud age14w3xdtk9008g35r6rgrnwk03wevu88e6tfn0qfur449avhynjeps3znnud
   - &warden age19qp3wj8v5zksrqygezcz9twk4dsgg27dnqyjlfskw7pd63akys7q26v0gs
 creation_rules:
   - path_regex: hosts/oak/secrets.ya?ml$

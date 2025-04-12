@@ -12,38 +12,29 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  boot.initrd.availableKernelModules = ["xhci_pci" "nvme" "usbhid" "usb_storage" "sd_mod"];
-  boot.initrd.kernelModules = ["usb_storage"];
+  boot.initrd.availableKernelModules = ["xhci_pci" "nvme" "usb_storage" "sd_mod"];
+  boot.initrd.kernelModules = [];
   boot.kernelModules = ["kvm-intel"];
   boot.extraModulePackages = [];
 
-  boot.initrd.luks.devices = {
-    root = {
-      device = "/dev/disk/by-uuid/c2695c72-48c8-48fb-80eb-af15e7a06336";
-      preLVM = true;
-      allowDiscards = true;
-      keyFileSize = 4096;
-      keyFile = "/dev/disk/by-id/usb-_USB_DISK_3.0_071C3A6A361FF104-0:0";
-    };
-  };
-
   fileSystems."/" = {
-    device = "rpool/local/root";
+    device = "rpool/crypt/local/root";
     fsType = "zfs";
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/35E7-0B7B";
+    device = "/dev/disk/by-uuid/BEC7-664B";
     fsType = "vfat";
+    options = ["umask=0077"];
   };
 
   fileSystems."/nix" = {
-    device = "rpool/local/nix";
+    device = "rpool/crypt/local/nix";
     fsType = "zfs";
   };
 
   fileSystems."/persist" = {
-    device = "rpool/safe/persist";
+    device = "rpool/crypt/safe/persist";
     fsType = "zfs";
     neededForBoot = true;
   };
