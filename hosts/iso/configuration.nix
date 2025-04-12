@@ -89,6 +89,7 @@ in {
     sops
     ssh-to-age
     yq-go
+    sbctl
   ];
 
   stylix.enable = lib.mkForce false;
