@@ -41,6 +41,11 @@
     dconf.enable = true;
   };
 
+  zramSwap = {
+    enable = true;
+    memoryPercent = 50;
+  };
+
   boot = {
     initrd.systemd.enable = true;
     kernelParams = [
