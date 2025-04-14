@@ -18,7 +18,7 @@
         "/var/run/avahi-daemon/socket:/var/run/avahi-daemon/socket"
       ];
       environment.TZ = "America/Chicago";
-      image = "ghcr.io/home-assistant/home-assistant:2024.6";
+      image = "ghcr.io/home-assistant/home-assistant:2025.4";
       extraOptions = [
         "--cap-add=CAP_NET_RAW,CAP_NET_BIND_SERVICE"
         "--device=/dev/ttyUSB0:/dev/ttyUSB0"
