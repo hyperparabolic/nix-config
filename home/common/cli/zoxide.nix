@@ -8,4 +8,6 @@
       "--cmd cd" #replace "cd"
     ];
   };
+
+  home.persistence."/persist/home/spencer".directories = [".local/share/zoxide"];
 }
