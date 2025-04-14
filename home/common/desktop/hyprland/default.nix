@@ -4,12 +4,12 @@
   ...
 }: {
   imports = [
-    ./anyrun.nix
     ./dunst.nix
     ./hyprland.nix
     ./swayidle.nix
     ./swaylock.nix
     ./vanity.nix
+    ./walker.nix
     ./wlsunset.nix
   ];
 

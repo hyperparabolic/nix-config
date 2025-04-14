@@ -136,7 +136,8 @@ in {
         "ALT, Print, exec, grimblast --notify copysave output"
         "$MODSHIFT, S, exec, grimblast --notify copysave area"
 
-        "$MOD, R, exec, anyrun"
+        "$MOD, R, exec, walker"
+        "$MOD, C, exec, walker -m clipboard"
 
         "$MOD, Q, killactive"
         "$MODSHIFT, Q, exit"

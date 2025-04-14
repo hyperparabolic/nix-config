@@ -14,9 +14,6 @@
 
     ags.url = "github:Aylur/ags";
 
-    anyrun.url = "github:Kirottu/anyrun";
-    anyrun.inputs.nixpkgs.follows = "nixpkgs";
-
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -34,6 +31,9 @@
     stylix.inputs.nixpkgs.follows = "nixpkgs";
 
     vanity.url = "github:hyperparabolic/vanity";
+
+    walker.url = "github:abenz1267/walker";
+    walker.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
