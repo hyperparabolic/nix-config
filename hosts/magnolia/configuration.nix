@@ -65,7 +65,7 @@
     };
     zfs = {
       enable = true;
-      autoSnapshot = false; # TODO: configure and enable later
+      autoSnapshot = true;
       impermanenceRollbackSnapshot = "rpool/crypt/local/root@blank";
       luksOnZfs = {
         enable = true;
