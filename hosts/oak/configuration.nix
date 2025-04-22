@@ -159,6 +159,9 @@
               {
                 "node.name" = "alsa_input.usb-Focusrite_Scarlett_2i2_USB_Y86BTH519C4572-00.HiFi__Mic1__source";
               }
+              {
+                "node.name" = "alsa_output.usb-Focusrite_Scarlett_2i2_USB_Y86BTH519C4572-00.HiFi__Line1__sink";
+              }
             ];
             actions = {
               update-props = {
