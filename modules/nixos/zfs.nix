@@ -117,6 +117,9 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     {
+      environment.systemPackages = with pkgs; [
+        sanoid
+      ];
       boot = {
         kernelPackages = latestZfsCompatibleLinuxPackages;
         supportedFilesystems = ["zfs"];

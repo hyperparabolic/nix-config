@@ -90,6 +90,7 @@ in {
     ssh-to-age
     yq-go
     sbctl
+    sanoid
   ];
 
   stylix.enable = lib.mkForce false;
