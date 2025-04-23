@@ -101,7 +101,7 @@ function main() {
     hx ~/.nix-config/.sops.yaml
   fi
   info "Updating sops secrets ..."
-  sops updatekeys ~/.nix-config/hosts/common/secrets.yaml
+  sops updatekeys ~/.nix-config/hosts/*/secrets.yaml
 
 
   # prepare stripped repo
