@@ -147,7 +147,7 @@ function partition_multi_drive() {
   info "Root partition: ${DISK_PART_ROOT}"
 
   partprobe "$ARG_BOOT_DISK"
-  partprobe "$DISK_PART_ROOT"
+  partprobe "$ARG_ROOT_DISK"
 }
 
 function format_and_mount_drives() {
@@ -365,7 +365,7 @@ function dump_settings() {
 }
 
 function coerce_args() {
-  if [[ -z $ARG_BOOT_DISK ]]; then
+  if [[ -z "${ARG_BOOT_DISK}" ]]; then
     ARG_BOOT_DISK=$ARG_ROOT_DISK;
   fi
 }
@@ -413,9 +413,8 @@ function validate() {
 }
 
 function main() {
-  # :  - required
-  # :: - optional
-  if ! OPTIONS=$(getopt -o h --long help,hostname:,ssh-key:,config:,boot-disk::,root-disk:,boot-size::,swap::,swap-size::,no-export,reboot,poweroff -n 'parse-options' -- "$@"); then
+  # : - option requires a following argument
+  if ! OPTIONS=$(getopt -o h --long help,hostname:,ssh-key:,config:,boot-disk:,root-disk:,boot-size:,swap,swap-size:,no-export,reboot,poweroff -n 'parse-options' -- "$@"); then
     err "Failed parsing options."
     exit 1
   fi
