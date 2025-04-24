@@ -112,14 +112,14 @@ function partition_single_drive() {
 
   if [[ "$ARG_ENABLE_SWAP" = true ]]; then
     SWAP_END_OFFSET=$(( "$ARG_BOOT_PART_SIZE_GIB" + "$ARG_SWAP_SIZE_GIB" ))
-    parted -a opt --script "$ARG_ROOT_DISK" -- mkpart primary linux-swap "${ARG_BOOT_PART_SIZE_GIB}GiB" "${SWAP_END_OFFSET}GiB"
+    parted -a opt --script "$ARG_ROOT_DISK" -- mkpart swap linux-swap "${ARG_BOOT_PART_SIZE_GIB}GiB" "${SWAP_END_OFFSET}GiB"
     (( ROOT_PARTITION_INDEX_OFFSET++ ))
     ROOT_PARTITION_SIZE_OFFSET=$SWAP_END_OFFSET
     DISK_PART_SWAP="${ARG_ROOT_DISK}-part2"
     info "Swap partition: ${DISK_PART_SWAP}"
   fi
 
-  parted -a opt --script "$ARG_ROOT_DISK" -- mkpart primary "${ROOT_PARTITION_SIZE_OFFSET}GiB" 100%
+  parted -a opt --script "$ARG_ROOT_DISK" -- mkpart primary-1 "${ROOT_PARTITION_SIZE_OFFSET}GiB" 100%
   DISK_PART_ROOT="${ARG_ROOT_DISK}-part${ROOT_PARTITION_INDEX_OFFSET}"
   info "Root partition: ${DISK_PART_ROOT}"
 
@@ -136,18 +136,18 @@ function partition_multi_drive() {
 
   if [[ "$ARG_ENABLE_SWAP" = true ]]; then
     SWAP_END_OFFSET=$(( "$ARG_BOOT_PART_SIZE_GIB" + "$ARG_SWAP_SIZE_GIB" ))
-    parted -a opt --script "$ARG_BOOT_DISK" -- mkpart primary linux-swap "${ARG_BOOT_PART_SIZE_GIB}GiB" "${SWAP_END_OFFSET}GiB"
+    parted -a opt --script "$ARG_BOOT_DISK" -- mkpart swap linux-swap "${ARG_BOOT_PART_SIZE_GIB}GiB" "${SWAP_END_OFFSET}GiB"
     DISK_PART_SWAP="${ARG_BOOT_DISK}-part2"
     info "Swap partition: ${DISK_PART_SWAP}"
   fi
 
   parted -a opt --script "$ARG_ROOT_DISK" -- mklabel gpt
-  parted -a opt --script "$ARG_ROOT_DISK" -- mkpart primary 1MiB 100%
+  parted -a opt --script "$ARG_ROOT_DISK" -- mkpart primary-1 1MiB 100%
   DISK_PART_ROOT="${ARG_ROOT_DISK}-part1"
   info "Root partition: ${DISK_PART_ROOT}"
 
   partprobe "$ARG_BOOT_DISK"
-  partprobe "$DISK_PART_ROOT"
+  partprobe "$ARG_ROOT_DISK"
 }
 
 function format_and_mount_drives() {
@@ -365,7 +365,7 @@ function dump_settings() {
 }
 
 function coerce_args() {
-  if [[ -z $ARG_BOOT_DISK ]]; then
+  if [[ -z "${ARG_BOOT_DISK}" ]]; then
     ARG_BOOT_DISK=$ARG_ROOT_DISK;
   fi
 }
@@ -413,9 +413,8 @@ function validate() {
 }
 
 function main() {
-  # :  - required
-  # :: - optional
-  if ! OPTIONS=$(getopt -o h --long help,hostname:,ssh-key:,config:,boot-disk::,root-disk:,boot-size::,swap::,swap-size::,no-export,reboot,poweroff -n 'parse-options' -- "$@"); then
+  # : - option requires a following argument
+  if ! OPTIONS=$(getopt -o h --long help,hostname:,ssh-key:,config:,boot-disk:,root-disk:,boot-size:,swap,swap-size:,no-export,reboot,poweroff -n 'parse-options' -- "$@"); then
     err "Failed parsing options."
     exit 1
   fi

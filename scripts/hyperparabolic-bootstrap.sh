@@ -55,12 +55,6 @@ Options:
   exit 0
 }
 
-function update_sops() {
-  # proto, insert real age key and host anchor
-  yq ".keys += (\"agenew\" | . anchor = \"new\") | (.creation_rules[] | select(.path_regex == \"hosts/common/secrets.*$\")).key_groups[0].age += ((.keys[-1] | anchor) | . alias |= .)" .sops.yaml > "$TEMPFILE" && mv "$TEMPFILE" .sops.yaml
-}
-
-
 function main() {
   # :  - required
   # :: - optional
@@ -107,7 +101,7 @@ function main() {
     hx ~/.nix-config/.sops.yaml
   fi
   info "Updating sops secrets ..."
-  sops updatekeys ~/.nix-config/hosts/common/secrets.yaml
+  sops updatekeys ~/.nix-config/hosts/*/secrets.yaml
 
 
   # prepare stripped repo

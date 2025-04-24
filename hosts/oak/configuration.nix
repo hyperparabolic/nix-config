@@ -42,16 +42,6 @@
     dconf.enable = true;
   };
 
-  # zram (https://wiki.archlinux.org/title/Zram) creates a RAM block device with
-  # zstd compression so the OS can still have swap for memory management purposes,
-  # and an extra buffer.
-  zramSwap = {
-    enable = true;
-    # May grow up to 50% of RAM capacity if something insane is happening (increasing
-    # capacity by the compression ratio), but doesn't start there.
-    memoryPercent = 50;
-  };
-
   boot = {
     kernelModules = ["igb"];
     kernelParams = [
@@ -109,6 +99,13 @@
       enable = true;
       autoSnapshot = true;
       impermanenceRollbackSnapshot = "rpool/crypt/local/root@blank";
+      luksOnZfs = {
+        enable = true;
+        backingDevices = [
+          "dev-nvme0n1p1.device"
+          "dev-nvme2n1p1.device"
+        ];
+      };
       zedMailTo = "root"; # value doesn't matter, not using email, just needs to not be null;
       zedMailCommand = "${pkgs.notify}/bin/notify";
       zedMailCommandOptions = "-bulk -provider-config /run/secrets/notify-provider-config";
