@@ -34,7 +34,7 @@
     };
 
     # appended to .zshrc
-    initExtra = ''
+    initContent = ''
       if test -n "$KITTY_INSTALLATION_DIR"; then
         export KITTY_SHELL_INTEGRATION="enabled"
         autoload -Uz -- "$KITTY_INSTALLATION_DIR"/shell-integration/zsh/kitty-integration
