@@ -5,8 +5,9 @@
     dockerSocket.enable = true;
   };
 
-  environment.systemPackages = [
-    pkgs.podman-compose
+  environment.systemPackages = with pkgs; [
+    distrobox
+    podman-compose
   ];
 
   environment.persistence = {
