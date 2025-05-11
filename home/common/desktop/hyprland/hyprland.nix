@@ -161,10 +161,10 @@ in {
         "$MODCTRL, L, swapwindow, r"
         "$MODCTRL, H, swapwindow, l"
 
-        "$MODSHIFT, K, movewindow, u"
-        "$MODSHIFT, J, movewindow, d"
-        "$MODSHIFT, L, movewindow, r"
-        "$MODSHIFT, H, movewindow, l"
+        "$MODSHIFT, K, movewindoworgroup, u"
+        "$MODSHIFT, J, movewindoworgroup, d"
+        "$MODSHIFT, L, movewindoworgroup, r"
+        "$MODSHIFT, H, movewindoworgroup, l"
 
         "$MOD, mouse_down, workspace, m-1"
         "$MOD, mouse_up, workspace, m+1"
@@ -223,5 +223,25 @@ in {
 
       xwayland.force_zero_scaling = true;
     };
+    # order matters for mod keybinds
+    extraConfig = ''
+      # group "tabbed" management
+      bind = $MOD, G, submap, group
+
+      submap = group
+      bind = $MOD, G, togglegroup
+      bind = $MOD, G, submap, reset
+      bind = $MOD, Tab, changegroupactive, f
+      bind = $MODSHIFT, Tab, changegroupactive, b
+      bind = $MOD, 1, changegroupactive, 1
+      bind = $MOD, 2, changegroupactive, 2
+      bind = $MOD, 3, changegroupactive, 3
+      bind = $MOD, 4, changegroupactive, 4
+      bind = $MOD, 5, changegroupactive, 5
+      bind = $MOD, 6, changegroupactive, 6
+      bind = $MOD, l, lockgroups, toggle
+      bind = , catchall, submap, reset
+      submap = reset
+    '';
   };
 }
