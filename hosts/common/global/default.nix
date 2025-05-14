@@ -63,6 +63,9 @@ in {
     usbutils # usb querying tooling
   ];
 
+  # firmware updates: `fwupdmgr update`
+  services.fwupd.enable = true;
+
   # global persistence
   environment.persistence = {
     "/persist" = {

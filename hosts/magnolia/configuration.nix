@@ -82,9 +82,6 @@
     enable32Bit = true;
   };
 
-  # firmware updates: `fwupdmgr update`
-  services.fwupd.enable = true;
-
   programs.steam.gamescopeSession.args = [
     "--output-width 2256"
     "--output-height 1504"
