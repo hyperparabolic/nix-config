@@ -52,6 +52,9 @@
           trust = 5;
         }
       ];
+      scdaemonSettings = {
+        disable-ccid = true;
+      };
       settings = {
         # mostly lifted from:
         # https://github.com/drduh/config/blob/master/gpg.conf
