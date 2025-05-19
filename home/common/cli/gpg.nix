@@ -15,7 +15,10 @@
       if config.gtk.enable
       then pkgs.pinentry-gnome3
       else pkgs.pinentry-curses;
-    sshKeys = ["ECC99E92F470C3A4F4EF5B607FF4AC76E4D4D25E"];
+    sshKeys = [
+      "ECC99E92F470C3A4F4EF5B607FF4AC76E4D4D25E"
+      "3E59A131928FD9DC54EA050B6B97EC8F3B199A2C"
+    ];
   };
 
   # gnome pinentry also requires gcr
@@ -40,6 +43,10 @@
     gpg = {
       enable = true;
       publicKeys = [
+        {
+          source = ../../gpg-0x37CE23CFC62D8A49-2025-05-19.asc;
+          trust = 5;
+        }
         {
           source = ../../gpg-0xA6C19D1C082670FD-2024-11-14.asc;
           trust = 5;

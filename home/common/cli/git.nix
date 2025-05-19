@@ -13,7 +13,7 @@
     };
     signing = {
       signer = "${config.programs.gpg.package}/bin/gpg2";
-      key = "E393262B7CD2FD5F";
+      key = "766F3DDF324B5355";
       signByDefault = true;
     };
     ignores = [
