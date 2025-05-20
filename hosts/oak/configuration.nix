@@ -22,7 +22,6 @@
     ../common/optional/pipewire.nix
     ../common/optional/pipewire-raop.nix
     ../common/optional/secureboot.nix
-    ../common/optional/yubikey.nix
     ../common/users/spencer.nix
   ];
 

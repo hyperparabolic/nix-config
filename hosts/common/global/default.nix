@@ -35,6 +35,7 @@ in {
       ./sops.nix
       ./stylix.nix
       ./tailscale.nix
+      ./yubikey.nix
       ./zsh.nix
     ]
     ++ (builtins.attrValues outputs.nixosModules);

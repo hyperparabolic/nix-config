@@ -8,6 +8,7 @@
     ./krita.nix
     ./slack.nix
     ./vscode.nix
+    ./yubikey-notify.nix
     ./zathura.nix
     ./zoom.nix
   ];
