@@ -21,6 +21,7 @@
     ../common/optional/libvirt.nix
     ../common/optional/pipewire.nix
     ../common/optional/pipewire-raop.nix
+    ../common/optional/secureboot.nix
     ../common/optional/yubikey.nix
     ../common/users/spencer.nix
   ];
@@ -172,11 +173,6 @@
         ];
       };
     };
-  };
-
-  services.greetd.settings.initial_session = {
-    command = "Hyprland &> /dev/null";
-    user = "spencer";
   };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
