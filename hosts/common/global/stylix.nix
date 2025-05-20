@@ -5,12 +5,19 @@
 }: {
   stylix = {
     enable = true;
+    autoEnable = false;
     image = ../../../wallpaper/leaves.png;
     polarity = "dark";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-macchiato.yaml";
     override = {
       base0A = "8aadf4";
       base0D = "eebb77";
+    };
+
+    targets = {
+      console.enable = true;
+      fish.enable = true;
+      nixos-icons.enable = true;
     };
 
     cursor = {

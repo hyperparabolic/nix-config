@@ -10,9 +10,18 @@
     };
 
     targets = {
-      firefox.enable = false;
-      helix.enable = false;
-      vscode.enable = false;
+      bat.enable = true;
+      dunst.enable = true;
+      ghostty.enable = true;
+      gtk.enable = true;
+      hyprland.enable = true;
+      hyprland.hyprpaper.enable = true;
+      qt.enable = true;
+      starship.enable = true;
+      swaylock.enable = true;
+      vesktop.enable = true;
+      yazi.enable = true;
+      zathura.enable = true;
     };
   };
 }
