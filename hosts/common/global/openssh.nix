@@ -49,7 +49,7 @@ in {
     rssh = {
       enable = true;
       settings = {
-        cue = true;
+        # loglevel = "info";
       };
     };
     services.sudo.rssh = true;
