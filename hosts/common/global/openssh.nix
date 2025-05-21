@@ -44,4 +44,14 @@ in {
       })
       hosts;
   };
+
+  security.pam = {
+    rssh = {
+      enable = true;
+      settings = {
+        cue = true;
+      };
+    };
+    services.sudo.rssh = true;
+  };
 }
