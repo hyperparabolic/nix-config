@@ -15,6 +15,8 @@ in {
 
   wayland.windowManager.hyprland = {
     enable = true;
+    # utilizing uwsm for systemd units
+    systemd.enable = false;
     settings = {
       "$MOD" = "SUPER";
 
@@ -32,13 +34,13 @@ in {
         "hyprctl dispatch workspace 8"
         "hyprctl dispatch workspace 1"
 
-        "xwaylandvideobridge"
-        "wl-paste --type text --watch cliphist store"
-        "wl-paste --type image --watch cliphist store"
-        "easyeffects -l input_filter"
-        "slack"
-        # "discord"
-        "vesktop"
+        # "uwsm app -- xwaylandvideobridge"
+        "uwsm app -s s -- wl-paste --type text --watch cliphist store"
+        "uwsm app -s s -- wl-paste --type image --watch cliphist store"
+        "uwsm app -s s -- walker --gapplication-service"
+        "uwsm app -- easyeffects -l input_filter"
+        "uwsm app -- slack"
+        "uwsm app -- vesktop"
       ];
 
       general = {

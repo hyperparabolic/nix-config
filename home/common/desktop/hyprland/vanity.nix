@@ -23,6 +23,7 @@ in {
       Unit = {
         Description = "vanity desktop shell";
         PartOf = "graphical-session.target";
+        After = "wayland-wm@Hyprland.service";
       };
       Service = {
         Environment = [
@@ -31,7 +32,7 @@ in {
         ];
         ExecStart = "${lib.getExe vanityPackages.default}";
       };
-      Install.WantedBy = ["hyprland-session.target"];
+      Install.WantedBy = ["graphical-session.target"];
     };
   };
 
