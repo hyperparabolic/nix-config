@@ -33,13 +33,11 @@
     };
   };
 
-  # suspend after 6 minutes of inactivity
-  services.swayidle = {
-    timeouts = [
-      {
-        timeout = 360;
-        command = "${pkgs.systemd}/bin/systemctl suspend";
-      }
-    ];
-  };
+  # suspend after 6 minutes
+  services.hypridle.settings.listener = [
+    {
+      timeout = 360;
+      on-timeout = "${pkgs.systemd}/bin/systemctl suspend";
+    }
+  ];
 }
