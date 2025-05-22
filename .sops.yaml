@@ -1,6 +1,6 @@
 keys:
   # users
-  - &spencer E2E7C16A57C8F7794F0EFDA16A3F9D0EB5A1B8D8
+  - &spencer C4DCAD1C91E50F606D1622F1C809ED22329061CE
   # hosts
   - &magnolia age1mljt7tad3jkuju45m2np9vlq8qesy83403u49qm9pax4x5wwudjqvftuvy
   - &oak age1rjdsmpycnvte7aw8s8v5z3y7qgpc0aujs350pr54yeq6d077qg3se4zs05
