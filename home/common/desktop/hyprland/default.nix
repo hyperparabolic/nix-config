@@ -5,9 +5,9 @@
 }: {
   imports = [
     ./dunst.nix
+    ./hypridle.nix
     ./hyprland.nix
-    ./swayidle.nix
-    ./swaylock.nix
+    ./hyprlock.nix
     ./vanity.nix
     ./walker.nix
     ./wlsunset.nix
