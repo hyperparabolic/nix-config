@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   imports = [
     ./greetd.nix
+    ./pam-u2f.nix
   ];
 
   programs = {
@@ -33,7 +34,6 @@
   };
 
   security = {
-    pam.services.swaylock.text = "auth include login";
     polkit.enable = true;
     rtkit.enable = true;
   };
