@@ -133,7 +133,7 @@ in {
       bind = [
         # Additional shell binds are in ./vanity.nix
         "$MODSHIFT, Escape, exec, wlogout -p layer-shell"
-        "$MOD, Escape, exec, swaylock"
+        "$MOD, Escape, exec, loginctl lock-session"
         ", Print, exec, grimblast --notify copysave screen"
         "ALT, Print, exec, grimblast --notify copysave output"
         "$MODSHIFT, S, exec, grimblast --notify copysave area"

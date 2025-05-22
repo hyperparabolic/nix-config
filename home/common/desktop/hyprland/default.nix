@@ -26,7 +26,6 @@
     wl-clipboard
 
     # utils
-    swaybg
     kdePackages.xwaylandvideobridge
     wlogout
   ];
