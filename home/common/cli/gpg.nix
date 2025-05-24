@@ -11,7 +11,7 @@
     enableZshIntegration = true;
     enableFishIntegration = true;
     maxCacheTtl = 120;
-    pinentryPackage =
+    pinentry.package =
       if config.gtk.enable
       then pkgs.pinentry-gnome3
       else pkgs.pinentry-curses;
