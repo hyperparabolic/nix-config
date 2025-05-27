@@ -133,7 +133,6 @@ in {
       bind = [
         # Additional shell binds are in ./vanity.nix
         "$MODSHIFT, Escape, exec, wlogout -p layer-shell"
-        "$MOD, Escape, exec, loginctl lock-session"
         ", Print, exec, grimblast --notify copysave screen"
         "ALT, Print, exec, grimblast --notify copysave output"
         "$MODSHIFT, S, exec, grimblast --notify copysave area"
@@ -185,17 +184,18 @@ in {
       ];
 
       bindl = [
-        ",XF86AudioMute,          exec, ${wpctl} set-mute @DEFAULT_SINK@ toggle"
-        ",XF86AudioNext,          exec, ${playerctl} next"
-        ",XF86AudioPlay,          exec, ${playerctl} play-pause"
-        ",XF86AudioPrev,          exec, ${playerctl} previous"
+        "$MOD, Escape, exec, loginctl lock-session"
+        ",XF86AudioMute, exec, ${wpctl} set-mute @DEFAULT_SINK@ toggle"
+        ",XF86AudioNext, exec, ${playerctl} next"
+        ",XF86AudioPlay, exec, ${playerctl} play-pause"
+        ",XF86AudioPrev, exec, ${playerctl} previous"
       ];
 
       bindle = [
-        ",XF86MonBrightnessUp,    exec, ${brightnessctl} set 5%+"
-        ",XF86MonBrightnessDown,  exec, ${brightnessctl} set 5%-"
-        ",XF86AudioRaiseVolume,   exec, ${wpctl} set-volume @DEFAULT_SINK@ 5%+"
-        ",XF86AudioLowerVolume,   exec, ${wpctl} set-volume @DEFAULT_SINK@ 5%-"
+        ",XF86MonBrightnessUp, exec, ${brightnessctl} set 5%+"
+        ",XF86MonBrightnessDown, exec, ${brightnessctl} set 5%-"
+        ",XF86AudioRaiseVolume, exec, ${wpctl} set-volume @DEFAULT_SINK@ 5%+"
+        ",XF86AudioLowerVolume, exec, ${wpctl} set-volume @DEFAULT_SINK@ 5%-"
       ];
 
       windowrulev2 = [

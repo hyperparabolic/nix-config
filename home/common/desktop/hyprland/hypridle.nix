@@ -8,7 +8,8 @@
     enable = true;
     settings = {
       general = {
-        lock_cmd = "${lib.getExe' pkgs.procps "pidof"} hyprlock || ${lib.getExe config.programs.hyprlock.package}";
+        # lock if hyprlock process doesn't exist, or turn off monitor if repeated
+        lock_cmd = "${lib.getExe' pkgs.procps "pidof"} -q hyprlock && ${lib.getExe' pkgs.coreutils-full "sleep"} 1 && ${lib.getExe' config.wayland.windowManager.hyprland.package "hyprctl"} dispatch dpms off || ${lib.getExe config.programs.hyprlock.package}";
         before_sleep_cmd = "${lib.getExe' pkgs.procps "pidof"} hyprlock || ${lib.getExe config.programs.hyprlock.package} --immediate --no-fade-in";
         after_sleep_cmd = "${lib.getExe' config.wayland.windowManager.hyprland.package "hyprctl"} dispatch dpms on";
       };
