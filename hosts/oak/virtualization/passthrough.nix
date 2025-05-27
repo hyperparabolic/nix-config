@@ -42,9 +42,9 @@ in {
     ];
   };
 
-  # manipulates systemd slices to isolate host cpu from win10
+  # manipulates systemd slices to isolate host cpu from win11
   virtualisation.libvirtd.hooks.qemu = {
-    cpu-isolate-win10 = ./cpu-isolate-win10.sh;
+    cpu-isolate-win11 = ./cpu-isolate-win11.sh;
   };
 
   # setup for pipewire user session sharing with qemu-libvirtd
