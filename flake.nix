@@ -70,6 +70,8 @@
 
     overlays = import ./overlays {inherit inputs outputs;};
 
+    formatter = forEachSystem (pkgs: pkgs.alejandra);
+
     # bootstrapping and repo tooling
     devShells = forEachSystem (pkgs: {
       default = pkgs.mkShell {

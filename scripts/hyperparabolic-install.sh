@@ -291,9 +291,9 @@ function prepare_config() {
   info "Generating ${HARDWARE_CONFIGURATION} ..."
   nixos-generate-config --root "$MNT" --show-hardware-config > "$HARDWARE_CONFIGURATION"
   # ensure /persist directories are available for boot
-  alejandra "$HARDWARE_CONFIGURATION"
+  nix fmt -- -q "$HARDWARE_CONFIGURATION"
   sed -i '/fileSystems\.\"\/persist/aneededForBoot=true;' "$HARDWARE_CONFIGURATION"
-  alejandra "$HARDWARE_CONFIGURATION"
+  nix fmt -- -q "$HARDWARE_CONFIGURATION"
   (cd "$ARG_NIX_CONFIG_DIR" && git diff "$HARDWARE_CONFIGURATION")
   info "Does this look right?"
   if ! ask_yn "Answer no to open this file for edits"; then

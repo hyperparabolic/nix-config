@@ -1,5 +1,4 @@
-{ config, ... }:
-{
+{config, ...}: {
   sops.secrets.cache-private-key = {
     sopsFile = ../secrets.yaml;
   };

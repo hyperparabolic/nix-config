@@ -1,4 +1,4 @@
-{ config, ... }: {
+{config, ...}: {
   sops.secrets.dns-token = {
     sopsFile = ../secrets.yaml;
   };
