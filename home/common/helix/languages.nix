@@ -4,27 +4,55 @@
   ...
 }: {
   programs.helix = {
-    extraPackages = with pkgs; [
-      blueprint-compiler
-      dockerfile-language-server-nodejs
-      docker-compose-language-service
-      git
-      lua-language-server
-      marksman
-      meson
-      openscad-lsp
-      taplo
-      uncrustify
-      vala-language-server
-      vala-lint
-      vscode-langservers-extracted
-      yaml-language-server
-    ];
+    extraPackages = with pkgs;
+    # delayed package realization for language servers
+      lib.map lazy-app.override [
+        # docker / docker compose
+        {
+          pkg = dockerfile-language-server-nodejs;
+          exe = "docker-langserver";
+        }
+        {
+          pkg = docker-compose-language-service;
+          exe = "docker-compose-langserver";
+        }
+
+        {pkg = lua-language-server;}
+
+        # markup and config
+        {pkg = marksman;} # markdown
+        {pkg = taplo;} # TOML
+        {
+          pkg = vscode-langservers-extracted;
+          exe = "vscode-css-language-server";
+        }
+        {
+          pkg = vscode-langservers-extracted;
+          exe = "vscode-html-language-server";
+        }
+        {
+          pkg = vscode-langservers-extracted;
+          exe = "vscode-json-language-server";
+        }
+        {pkg = yaml-language-server;}
+
+        # vala gui apps
+        {pkg = meson;}
+        {pkg = blueprint-compiler;}
+        {pkg = uncrustify;}
+        {pkg = vala-language-server;}
+        {
+          pkg = vala-lint;
+          exe = "io.elementary.vala-lint";
+        }
+
+        {pkg = openscad-lsp;}
+      ];
 
     languages = {
       language-server = {
         bash-language-server = {
-          command = "${pkgs.nodePackages.bash-language-server}/bin/bash-language-server";
+          command = "${lib.getExe (pkgs.lazy-app.override {pkg = pkgs.nodePackages.bash-language-server;})}";
         };
 
         nixd = {
@@ -46,7 +74,7 @@
         };
 
         typescript-language-server = {
-          command = "${pkgs.nodePackages.typescript-language-server}/bin/typescript-language-server";
+          command = "${lib.getExe (pkgs.lazy-app.override {pkg = pkgs.nodePackages.typescript-language-server;})}";
         };
       };
 
@@ -65,7 +93,7 @@
           auto-format = true;
           language-servers = ["vala-language-server"];
           formatter = {
-            command = "${lib.getExe pkgs.uncrustify} -c $(${lib.getExe pkgs.git} rev-parse --show-toplevel)/uncrustify.cfg -l VALA";
+            command = "${lib.getExe (pkgs.lazy-app.override {pkg = pkgs.uncrustify;})} -c $(${lib.getExe pkgs.git} rev-parse --show-toplevel)/uncrustify.cfg -l VALA";
           };
         }
       ];
