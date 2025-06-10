@@ -223,6 +223,11 @@ in {
         ",XF86AudioLowerVolume, exec, ${wpctl} set-volume @DEFAULT_SINK@ 5%-"
       ];
 
+      layerrule = [
+        "animation popin, (osd-.*)"
+        "abovelock, (osd-.*)"
+      ];
+
       windowrulev2 = [
         "opaque,class:^(krita)$"
 

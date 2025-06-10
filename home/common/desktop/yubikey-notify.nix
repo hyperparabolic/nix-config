@@ -14,7 +14,7 @@
         PartOf = "graphical-session.target";
       };
       Service = {
-        ExecStart = "${lib.getExe pkgs.yubikey-touch-detector} --libnotify --dbus";
+        ExecStart = "${lib.getExe pkgs.yubikey-touch-detector} --dbus --no-socket";
       };
       Install.WantedBy = ["graphical-session.target"];
     };
