@@ -20,7 +20,7 @@
       appConfig = {
         "com.github.hyperparabolic.vanity" = {
           isAllowed = true;
-          isSystem = true;
+          isSystem = false;
           users = ["1000"];
         };
       };
