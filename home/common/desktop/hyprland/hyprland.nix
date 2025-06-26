@@ -43,6 +43,20 @@ in {
         "uwsm app -- vesktop"
       ];
 
+      ecosystem = {
+        enforce_permissions = true;
+        no_donation_nag = true;
+        no_update_news = true;
+      };
+
+      permission = [
+        # screencopy asks for permission to capture the screen by default, allow expected programs
+        "${lib.getExe pkgs.grim}, screencopy, allow"
+        "${lib.getExe pkgs.hyprlock}, screencopy, allow"
+        "${lib.getExe pkgs.hyprpicker}, screencopy, allow"
+        "${pkgs.xdg-desktop-portal-hyprland}/libexec/.xdg-desktop-portal-hyprland-wrapped, screencopy, allow"
+      ];
+
       general = {
         border_size = 2;
         gaps_in = 10;
@@ -161,6 +175,7 @@ in {
         ", Print, exec, grimblast --notify copysave screen"
         "ALT, Print, exec, grimblast --notify copysave output"
         "$MODSHIFT, S, exec, grimblast --notify copysave area"
+        "$MODSHIFT, P, exec, hyprpicker -a"
 
         "$MOD, R, exec, walker"
         "$MOD, C, exec, walker -m clipboard"
@@ -169,10 +184,7 @@ in {
         "$MODSHIFT, Q, exit"
         "$MOD, F, fullscreen"
         "$MOD, Space, togglefloating"
-        "$MOD, P, pseudo"
-        "$MOD, G, togglesplit"
         "$MODSHIFT, Space, workspaceopt, allfloat"
-        "$MODSHIFT, P, workspaceopt, allpseudotile"
 
         "$MOD, Tab, swapnext"
         "$MODSHIFT, Tab, swapnext, prev"
