@@ -92,6 +92,4 @@ in {
     sbctl
     sanoid
   ];
-
-  stylix.enable = lib.mkForce false;
 }

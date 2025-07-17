@@ -8,6 +8,7 @@
   imports =
     [
       inputs.impermanence.nixosModules.home-manager.impermanence
+      inputs.stylix.homeModules.stylix
       ./cli
       ./dev
       ./helix

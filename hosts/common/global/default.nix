@@ -20,7 +20,6 @@
 in {
   imports =
     [
-      inputs.stylix.nixosModules.stylix
       ./acme.nix
       ./bluetooth.nix
       ./fish.nix
@@ -33,7 +32,6 @@ in {
       ./prometheus-node-exporter.nix
       ./promtail.nix
       ./sops.nix
-      ./stylix.nix
       ./tailscale.nix
       ./yubikey.nix
       ./zsh.nix
