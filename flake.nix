@@ -95,7 +95,7 @@
     });
 
     hydraJobs = {
-      hosts = lib.attrsets.filterAttrs (n: v: !builtins.elem n "iso") outputs.nixosConfigurations;
+      hosts = lib.attrsets.filterAttrs (n: v: !builtins.elem n ["iso"]) outputs.nixosConfigurations;
     };
 
     # NixOS configuration entrypoint
