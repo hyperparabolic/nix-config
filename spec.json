@@ -1,0 +1,13 @@
+{
+  "main": {
+    "enabled": 1,
+    "hidden": false,
+    "description": "Build hyperparabolic/nix-config main branch",
+    "flake": "github:hyperparabolic/nix-config/main",
+    "checkinterval": 300,
+    "schedulingshares": 100,
+    "enableemail": false,
+    "emailoverride": "",
+    "keepnr": 3
+  }
+}
