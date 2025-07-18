@@ -1,0 +1,17 @@
+name: "nix flake update"
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 10 * * 0' # Sundays at 10:00 UTC
+jobs:
+  nix-flake-update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v31
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      - run: nix flake update
+      - run: nix flake check
+      - run: cat flake.lock
