@@ -6,8 +6,7 @@
       notificationSender = "hydra@localhost";
       listenHost = "localhost";
       useSubstitutes = true;
-      # standalone for first swing, TODO: add local kvm build support, add redbud builder
-      buildMachinesFiles = [];
+      buildMachinesFiles = ["/etc/nix/machines"];
     };
     nginx.virtualHosts."hydra.oak.decent.id" = {
       forceSSL = true;
@@ -18,6 +17,17 @@
       };
     };
   };
+
+  # populates /etc/nix/machines, used above
+  nix.buildMachines = [
+    {
+      hostName = "localhost";
+      protocol = null;
+      systems = ["x86_64-linux" "aarch64-linux"];
+      supportedFeatures = ["kvm" "nixos-test" "big-parallel" "benchmark"];
+      maxJobs = 8;
+    }
+  ];
 
   environment.persistence = {
     "/persist".directories = [
