@@ -58,8 +58,6 @@ in {
     hyperparabolic-bootstrap
 
     helix
-    pciutils # pci querying tooling
-    usbutils # usb querying tooling
   ];
 
   # firmware updates: `fwupdmgr update`
