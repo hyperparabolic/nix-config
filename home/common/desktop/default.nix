@@ -7,6 +7,7 @@
     ./ghostty.nix
     ./krita.nix
     ./slack.nix
+    ./stylix.nix
     ./vscode.nix
     ./yubikey-notify.nix
     ./zathura.nix

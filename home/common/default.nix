@@ -12,7 +12,6 @@
       ./cli
       ./dev
       ./helix
-      ./stylix.nix
     ]
     ++ (builtins.attrValues outputs.homeManagerModules);
 
