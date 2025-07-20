@@ -74,6 +74,7 @@
     homeManagerModules = import ./modules/home-manager;
 
     overlays = import ./overlays {inherit inputs outputs;};
+    templates = import ./templates;
 
     formatter = forEachSystem (pkgs: pkgs.alejandra);
 
