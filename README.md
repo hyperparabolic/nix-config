@@ -15,6 +15,7 @@ High level overview:
 - ZFS root filesystems with native ZFS encryption and LUKS key management and decryption
 - Secure boot with [lanzaboote](https://github.com/nix-community/lanzaboote) and TPM LUKS unlocks
 - Ephemeral root file system with opt-in persistence via `impermanence`
+- Hydra CI/CD automatically pre-populates `nix-serve` binary cache.
 - VMs with PCI device passthrough via OVMF
 - `hyprland` wayland desktop environment
 - [vanity](https://github.com/hyperparabolic/vanity) custom desktop shell built with [astal](https://github.com/Aylur/astal)
@@ -24,12 +25,13 @@ High level overview:
 ## Repo structure
 
 - `flake.nix`: Flake entrypoint for hosts and dev shell.
-- `hosts`: NixOS configurations (`nixos-rebuild switch --flake .#<host> --use-remote-sudo`).
+- `hosts`: NixOS configurations (`nixos-rebuild switch --flake .#<host> --sudo`).
   - `common`: Reusable config components.  Some apply to all hosts, some are optional and opt-in.
   - `%hostname%`: System specific config. Anything referencing specific hardware or hardware ids will be nested in these folders.
   - `magnolia`: Laptop, runs no services, mobile work only.
   - `oak`: Desktop workstation, extensive libvirt / QEMU config with hardware passthrough.
     - `cache.oak.decent.id`: `nix-serve` binary cache for other less beefy machines.
+    - `hydra.oak.decent.id`: `hydra` continuous integration and continuous delivery.
     - `jellyfin.oak.decent.id`: `jellyfin` media server.
     - `rss.oak.decent.id`: `miniflux` rss feed reader and browser app.
   - `redbud`: Retired laptop. Headless server acting as a RAOP (AirPlay) audio receiver and metrics server.
@@ -59,7 +61,7 @@ NixOS boots as long as it has access to `/boot` and `/nix`. If `hyperparabolic.z
 
 [Impermanence](https://nixos.wiki/wiki/Impermanence) allows opt-in persistence of specific files and directories between boots. `/persist` is a mirror of the root filesystem only containing directories and files to persist between boots, and the Impermanence config sets up links in the root filesystem pointing to their persisted counterparts.
 
-#### Impermanence denefits
+#### Impermanence benefits
 
 This is huge for reproducibility. All state needs to be explicitly declared.
 
@@ -85,7 +87,7 @@ Auto-snapshotting can be configured on a dataset by dataset basis. The `local` a
 
 `zfs allow` enables non-root users to `zfs send` backups from systems without disk redundancy to systems with raidz or mirrored zpools for backups.
 
-Any degradation detected during these automatic operations is automatically reported to a centralized location via webhooks using ZED.
+Any degradation detected during these automatic operations is automatically reported to a centralized location via webhooks using ZED. Usage metrics are reported to Grafana dashbards.
 
 ## Secrets management
 
