@@ -30,6 +30,7 @@ High level overview:
   - `%hostname%`: System specific config. Anything referencing specific hardware or hardware ids will be nested in these folders.
   - `magnolia`: Laptop, runs no services, mobile work only.
   - `oak`: Desktop workstation, extensive libvirt / QEMU config with hardware passthrough.
+    - `books.oak.decent.id`: `kavita` ebook library.
     - `cache.oak.decent.id`: `nix-serve` binary cache for other less beefy machines.
     - `hydra.oak.decent.id`: `hydra` continuous integration and continuous delivery.
     - `jellyfin.oak.decent.id`: `jellyfin` media server.
