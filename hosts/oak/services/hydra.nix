@@ -12,7 +12,6 @@
       forceSSL = true;
       useACMEHost = "oak.decent.id";
       locations."/" = {
-        # port gets configured via web ui during setup
         proxyPass = "http://localhost:${toString config.services.hydra.port}";
       };
     };
