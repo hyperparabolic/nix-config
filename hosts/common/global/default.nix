@@ -60,8 +60,11 @@ in {
     helix
   ];
 
-  # firmware updates: `fwupdmgr update`
-  services.fwupd.enable = true;
+  services = {
+    dbus.implementation = "broker";
+    # firmware updates: `fwupdmgr update`
+    fwupd.enable = true;
+  };
 
   # global persistence
   environment.persistence = {
@@ -74,7 +77,11 @@ in {
       ];
     };
   };
-  programs.fuse.userAllowOther = true;
+
+  programs = {
+    dconf.enable = true;
+    fuse.userAllowOther = true;
+  };
 
   # increase file handle limits for sudoers
   security.pam.loginLimits = [

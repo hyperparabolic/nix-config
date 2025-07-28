@@ -35,10 +35,6 @@
     ];
   };
 
-  programs = {
-    dconf.enable = true;
-  };
-
   boot = {
     initrd.systemd.enable = true;
     kernelParams = [

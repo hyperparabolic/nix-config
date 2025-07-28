@@ -39,10 +39,6 @@
     ];
   };
 
-  programs = {
-    dconf.enable = true;
-  };
-
   boot = {
     kernelPackages = lib.mkForce pkgs.linuxKernel.packages.linux_6_12;
     kernelModules = ["igb"];

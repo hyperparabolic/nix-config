@@ -75,10 +75,6 @@ in {
   };
   services.resolved.fallbackDns = ["9.9.9.9" "2620:fe::fe"];
 
-  programs = {
-    dconf.enable = true;
-  };
-
   environment.systemPackages = with pkgs; [
     hyperparabolic-export
     hyperparabolic-import
