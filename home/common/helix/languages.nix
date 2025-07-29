@@ -55,6 +55,17 @@
           command = "${lib.getExe (pkgs.lazy-app.override {pkg = pkgs.nodePackages.bash-language-server;})}";
         };
 
+        deno-lsp = {
+          command = "${lib.getExe (pkgs.lazy-app.override {pkg = pkgs.deno;})}";
+          args = ["lsp"];
+          required-root-patterns = ["deno.*"];
+          config.deno.enable = true;
+          config.deno.suggest = {
+            completeFunctionCalls = false;
+            imports.hosts."https://deno.land" = true;
+          };
+        };
+
         nixd = {
           command = lib.getExe pkgs.nixd;
         };
@@ -75,10 +86,25 @@
 
         typescript-language-server = {
           command = "${lib.getExe (pkgs.lazy-app.override {pkg = pkgs.nodePackages.typescript-language-server;})}";
+          required-root-patterns = ["package.json" "tsconfig.json"];
         };
       };
 
       language = [
+        {
+          name = "javascript";
+          auto-format = true;
+          language-servers = ["deno-lsp" "typescript-language-server"];
+          file-types = ["js" "jsx"];
+          roots = ["deno.json" "deno.jsonc" "package.json" "tsconfig.json"];
+        }
+        {
+          name = "typescript";
+          auto-format = true;
+          language-servers = ["deno-lsp" "typescript-language-server"];
+          file-types = ["ts" "tsx"];
+          roots = ["deno.json" "deno.jsonc" "package.json" "tsconfig.json"];
+        }
         {
           name = "nix";
           auto-format = true;
