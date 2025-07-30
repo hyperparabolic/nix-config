@@ -20,12 +20,14 @@
 in {
   imports =
     [
+      inputs.nixos-hydra-upgrade.nixosModules.nixos-hydra-upgrade
       ./acme.nix
       ./bluetooth.nix
       ./fish.nix
       ./gamemode.nix
       ./networking.nix
       ./nix.nix
+      ./nixos-hydra-upgrade.nix
       ./notify.nix
       ./openssh.nix
       ./podman.nix

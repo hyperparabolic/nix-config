@@ -104,6 +104,12 @@
 
   services.thermald.enable = true;
 
+  system.autoUpgradeHydra = {
+    # backbone system, update late
+    dates = "*-*-* 04:00:00 America/Chicago";
+    allowReboot = true;
+  };
+
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.05";
 }

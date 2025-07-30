@@ -33,6 +33,11 @@
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
+    nixos-hydra-upgrade = {
+      url = "github:hyperparabolic/nixos-hydra-upgrade";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -112,6 +112,12 @@
     };
   };
 
+  system.autoUpgradeHydra = {
+    # canary system, update early and automatically reboot
+    dates = "*-*-* 00:00:00 America/Chicago";
+    allowReboot = true;
+  };
+
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.05";
 }
