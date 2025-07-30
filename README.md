@@ -1,6 +1,10 @@
 # nix-config
 
-My configs for nixos and continued exploration into linux reproducibility, security, virtualization and more.
+My configs for nixos and continued exploration into security conscious, low maintenance, higly reproducible, bare metal linux servers.
+
+This config can't really be deployed elsewhere or copied directly. Feel free to take whatever you want out of it, or to give me any feedback on it, but the default configs include references to services deployed by this config.
+
+This config is security conscious, but I wouldn't recommend this as any sort of reference for best practices. There's a lot of effort put into exploring high level ideas, enforcement of ephemeral systems, and access management, but these are still machines that I log into as a user and interact with physically, so there's a lot of room for improvement. There's very little effort put into physical security, and user space has a lot of privileges I wouldn't recommend in a production environment.
 
 High level overview:
 
@@ -16,6 +20,7 @@ High level overview:
 - Secure boot with [lanzaboote](https://github.com/nix-community/lanzaboote) and TPM LUKS unlocks
 - Ephemeral root file system with opt-in persistence via `impermanence`
 - Hydra CI/CD automatically pre-populates `nix-serve` binary cache.
+  - Automatic upgrades from CI / cache with [https://github.com/hyperparabolic/nixos-hydra-upgrade](https://github.com/hyperparabolic/nixos-hydra-upgrade)
 - VMs with PCI device passthrough via OVMF
 - `hyprland` wayland desktop environment
 - [vanity](https://github.com/hyperparabolic/vanity) custom desktop shell built with [astal](https://github.com/Aylur/astal)
@@ -111,5 +116,6 @@ Many ideas pulled from these awesome people:
 - https://grahamc.com/blog/erase-your-darlings/
 - https://github.com/drduh/YubiKey-Guide
 - https://github.com/Misterio77/nix-config
+- https://github.com/Swarsel/.dotfiles
 - https://github.com/Aylur/dotfiles
 
