@@ -20,6 +20,9 @@ in {
             host.address = ''/%d/.gnupg-sockets/S.gpg-agent.ssh'';
           }
         ];
+        setEnv = {
+          TERM = "xterm-256color";
+        };
       };
     };
   };
