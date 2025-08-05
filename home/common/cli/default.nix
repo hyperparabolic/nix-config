@@ -26,6 +26,8 @@
 
       alejandra # nix formatter
       nixd # nix lsp
+
+      mpc # mpd cli client
     ]
     ++ lib.map lazy-app.override [
       {pkg = dmidecode;}

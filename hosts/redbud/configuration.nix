@@ -66,52 +66,6 @@
     };
   };
 
-  # Remotely managed audio receiver, this is a bit hacky.
-  # Audio devices are not initialized unless a local user is logged in.
-  # These chagnes ensure a user is logged in on a lock screen.
-  # Probably not very secure, but good enough for data that lives on this box
-  services.greetd = {
-    enable = true;
-    vt = 1;
-    settings = {
-      default_session.command = "${lib.getExe' config.services.greetd.package "agreety"} --cmd $SHELL";
-      # auto-login tty1 and run bash
-      initial_session = {
-        command = "${lib.getExe' pkgs.bashInteractive "bash"}";
-        user = "spencer";
-      };
-    };
-  };
-
-  # but immediately lock bash sessions with vlock
-  environment.systemPackages = [pkgs.vlock];
-  programs.bash.shellInit = ''
-    ${lib.getExe pkgs.vlock}
-  '';
-
-  services.pipewire = {
-    wireplumber.extraConfig = {
-      # using this machine as an audio receiver for airplay
-      # ensure zero potential for loopback feedback by disabling internal devices
-      "50-disable-internal-audio-device" = {
-        "monitor.alsa.rules" = [
-          {
-            matches = [
-              {
-                "device.name" = "alsa_card.pci-0000_00_1f.3";
-              }
-            ];
-            actions = {
-              update-props = {
-                "device.disabled" = true;
-              };
-            };
-          }
-        ];
-      };
-    };
-  };
-
   system.autoUpgradeHydra = {
     # canary system, update early and automatically reboot
     dates = "*-*-* 00:00:00 America/Chicago";
