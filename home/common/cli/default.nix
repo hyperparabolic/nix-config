@@ -40,4 +40,8 @@
         exe = "lsusb";
       }
     ];
+
+  stylix.targets = {
+    bat.enable = true;
+  };
 }

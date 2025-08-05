@@ -37,21 +37,5 @@
       light = "Papirus-Light";
       package = pkgs.papirus-icon-theme;
     };
-
-    targets = {
-      bat.enable = true;
-      dunst.enable = true;
-      fish.enable = true;
-      ghostty.enable = true;
-      gtk.enable = true;
-      hyprland.enable = true;
-      hyprland.hyprpaper.enable = true;
-      nixos-icons.enable = true;
-      qt.enable = true;
-      starship.enable = true;
-      vesktop.enable = true;
-      yazi.enable = true;
-      zathura.enable = true;
-    };
   };
 }

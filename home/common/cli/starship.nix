@@ -6,4 +6,6 @@
     settings = {
     };
   };
+
+  stylix.targets.starship.enable = true;
 }

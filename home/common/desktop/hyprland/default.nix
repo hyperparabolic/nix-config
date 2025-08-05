@@ -37,6 +37,14 @@
     XDG_SESSION_TYPE = "wayland";
   };
 
+  stylix.targets = {
+    gtk.enable = true;
+    hyprland.enable = true;
+    hyprland.hyprpaper.enable = true;
+    nixos-icons.enable = true;
+    qt.enable = true;
+  };
+
   xdg.mimeApps.enable = true;
 
   # fake a tray to let apps start

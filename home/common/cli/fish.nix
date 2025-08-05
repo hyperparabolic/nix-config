@@ -17,6 +17,8 @@
     };
   };
 
+  stylix.targets.fish.enable = true;
+
   home.persistence = {
     "/persist/home/spencer".directories = [".local/share/fish"];
   };
