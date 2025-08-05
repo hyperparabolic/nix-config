@@ -7,8 +7,6 @@
 in {
   services.greetd = {
     enable = true;
-    # non default tty ensures systemd logs do not interfere with tuigreet
-    vt = 2;
     settings = {
       default_session = {
         # tuigreet with selectable sessions
