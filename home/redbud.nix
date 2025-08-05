@@ -14,5 +14,8 @@
     wpctl status > /dev/null
   '';
 
+  # mcp client kiosk styling
+  stylix.targets.gtk.enable = true;
+
   home.persistence."/persist/home/spencer".directories = [".local/state/wireplumber"];
 }
