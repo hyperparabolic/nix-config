@@ -69,7 +69,9 @@
   system.autoUpgradeHydra = {
     # canary system, update early and automatically reboot
     dates = "*-*-* 00:00:00 America/Chicago";
-    allowReboot = true;
+    settings = {
+      reboot = true;
+    };
   };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
