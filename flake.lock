@@ -451,11 +451,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1754960054,
-        "narHash": "sha256-uA3e751XrMQIlef/53CQoFMFeK/2vUUo3YYoo68vwfo=",
+        "lastModified": 1755015993,
+        "narHash": "sha256-R3eF55gVZQTQIe0RP82HN8UonIshdyjS7KAp9Ocpoxk=",
         "owner": "hyperparabolic",
         "repo": "nixos-hydra-upgrade",
-        "rev": "703d37e2fa9a9479f8f8abe7f2f5f7c9c7752c05",
+        "rev": "970c483319b4ab62d33e927e2d4f9c51ef5c1dbe",
         "type": "github"
       },
       "original": {
