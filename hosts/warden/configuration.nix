@@ -43,41 +43,17 @@
       efi.canTouchEfiVariables = true;
       systemd-boot.enable = true;
     };
-    # remote unlock via ssh
     initrd = {
       kernelModules = ["igb"];
-      secrets = {
-        "/persist/boot/ssh/ssh_host_ed25519_key" = "/persist/boot/ssh/ssh_host_ed25519_key";
-      };
       systemd = {
         enable = true;
         network = {
-          enable = true;
+          enable = false;
           networks.enp2s0 = {
             enable = true;
             name = "enp2s0";
             DHCP = "yes";
           };
-        };
-        services.zfs-remote-unlock = {
-          description = "Prepare for ZFS remote unlock";
-          wantedBy = ["initrd.target"];
-          after = ["systemd-networkd.service"];
-          path = with pkgs; [
-            zfs
-          ];
-          serviceConfig.Type = "oneshot";
-          script = ''
-            echo "systemctl default" >> /var/empty/.profile
-          '';
-        };
-      };
-      network = {
-        ssh = {
-          enable = true;
-          port = 2222;
-          hostKeys = ["/persist/boot/ssh/ssh_host_ed25519_key"];
-          authorizedKeys = config.users.users.spencer.openssh.authorizedKeys.keys;
         };
       };
     };
