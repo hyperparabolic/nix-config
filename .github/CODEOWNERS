@@ -1,0 +1,6 @@
+* @hyperparabolic
+
+/.github/ @hyperparabolic 
+
+# bot account may review `nix flake update`
+/flake.lock @hyperparabolic @hyperparabolic-bot
