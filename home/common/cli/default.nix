@@ -5,6 +5,7 @@
     ./fish.nix
     ./git.nix
     ./gpg.nix
+    ./pass.nix
     ./ssh.nix
     ./starship.nix
     ./yazi.nix

@@ -175,6 +175,7 @@ in {
         ", Print, exec, grimblast --notify copysave screen"
         "ALT, Print, exec, grimblast --notify copysave output"
         "$MODSHIFT, S, exec, grimblast --notify copysave area"
+        "$MOD, S, exec, grimblast --notify copy area"
         "$MODSHIFT, P, exec, hyprpicker -a"
 
         "$MOD, R, exec, walker"
