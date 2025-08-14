@@ -15,21 +15,4 @@
   packages-stable = final: _: {
     stable = inputs.nixpkgs-stable.legacyPackages.${final.system};
   };
-
-  # upstream version with dbus support
-  # TODO: remove once in nixpkgs-unstable
-  # https://github.com/NixOS/nixpkgs/pull/414115
-  yubikey-touch-detector-dbus = final: prev: {
-    yubikey-touch-detector = prev.yubikey-touch-detector.overrideAttrs (old: {
-      version = "1.13.0";
-
-      src = final.fetchFromGitHub {
-        owner = "maximbaz";
-        repo = "yubikey-touch-detector";
-        rev = "1.13.0";
-        hash = "sha256-aHR/y8rAKS+dMvRdB3oAmOiI7hTA6qlF4Z05OjwYOO4=";
-      };
-      vendorHash = "sha256-oHEcpu3QvcVC/YCtGtP7nNT9++BSU8BPT5pf8NdLrOo=";
-    });
-  };
 }
