@@ -913,15 +913,16 @@
         "systems": "systems_5"
       },
       "locked": {
-        "lastModified": 1754235019,
-        "narHash": "sha256-TYDf1XFukLf8Hufe3GM1eOyjIB/yMi00fCboRjstjac=",
+        "lastModified": 1755066824,
+        "narHash": "sha256-LslpfHXj31Lvq+26ZDzCTaGBbxmp7yXlgKT+uwUEEts=",
         "owner": "abenz1267",
         "repo": "walker",
-        "rev": "abc738f0b2478e69322eff34846215ee1f62c9d9",
+        "rev": "745d720fdb59965d6fe660fc835181619a179027",
         "type": "github"
       },
       "original": {
         "owner": "abenz1267",
+        "ref": "0.13.26",
         "repo": "walker",
         "type": "github"
       }
