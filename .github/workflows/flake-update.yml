@@ -55,7 +55,7 @@ jobs:
       - name: Approve pull request
         run: gh pr review --approve "$PR"
         env:
-          GH_TOKEN: ${{ secrets.BOT_PAT }}
+          GH_TOKEN: ${{ secrets.BOT2_PAT }}
           PR: ${{ needs.nix-flake-update.outputs.pr }}
 
       - name: Merge pull request
