@@ -38,7 +38,7 @@ jobs:
           gpg-fingerprint: ${{ secrets.BOT_GPG_FINGERPRINT }}
           gpg-passphrase: ${{ secrets.BOT_GPG_PASSPHRASE }}
 
-  nix-check-flake:
+  nix-flake-check:
     name: Check flake
     needs: nix-flake-update
 
