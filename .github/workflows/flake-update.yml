@@ -6,11 +6,60 @@ on:
     - cron: '0 10 * * 0' # Sundays at 10:00 UTC
 jobs:
   nix-flake-update:
+    name: Update flake
     runs-on: ubuntu-latest
+
+    outputs:
+      pr: ${{ steps.pr.outputs.pull-request-url }}
+      branch: ${{ steps.pr.outputs.pull-request-branch }}
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: cachix/install-nix-action@v31
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install nix
+        uses: cachix/install-nix-action@v31
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
-      - run: nix flake update
-      - run: cat flake.lock
+
+      - name: Nix flake update
+        uses: DeterminateSystems/update-flake-lock@v27
+        id: pr
+        with:
+          token: ${{ secrets.BOT_PAT }}
+          pr-title: "chore(dependencies) - update all flake inputs"
+          commit-msg: "chore(dependencies) - update all flake inputs"
+          git-author-name: hyperparabolic-bot
+          git-author-email: bot+github@decent.id
+          git-committer-name: hyperparabolic-bot
+          git-committer-email: bot+github@decent.id
+          sign-commits: true
+          gpg-private-key: ${{ secrets.BOT_GPG_PRIVATE_KEY }}
+          gpg-fingerprint: ${{ secrets.BOT_GPG_FINGERPRINT }}
+          gpg-passphrase: ${{ secrets.BOT_GPG_PASSPHRASE }}
+
+  nix-check-flake:
+    name: Check flake
+    needs: nix-flake-update
+
+    uses: ./.github/workflows/flake-check.yml
+    with:
+      ref: ${{ needs.nix-flake-update.outputs.branch }}
+
+  approve-and-merge:
+    name: Approve and merge pull request
+    needs: [nix-flake-update, nix-flake-check]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Approve pull request
+        run: gh pr review --approve "$PR"
+        env:
+          GH_TOKEN: ${{ secrets.BOT_PAT }}
+          PR: ${{ needs.nix-flake-update.outputs.pr }}
+
+      - name: Merge pull request
+        run: gh pr merge --merge --auto --delete-branch "$PR"
+        env:
+          GH_TOKEN: ${{ secrets.BOT_PAT }}
+          PR: ${{ needs.nix-flake-update.outputs.pr }}
