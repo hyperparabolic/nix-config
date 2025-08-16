@@ -55,6 +55,8 @@ jobs:
       - name: Approve pull request
         run: gh pr review --approve "$PR"
         env:
+          # If nix flake check is good, I don't need to review before
+          # CD, but self reviews are not permitted. Use separate PAT.
           GH_TOKEN: ${{ secrets.BOT2_PAT }}
           PR: ${{ needs.nix-flake-update.outputs.pr }}
 

@@ -20,7 +20,8 @@ High level overview:
 - Secure boot with [lanzaboote](https://github.com/nix-community/lanzaboote) and TPM LUKS unlocks
 - Ephemeral root file system with opt-in persistence via `impermanence`
 - Hydra CI/CD automatically pre-populates `nix-serve` binary cache.
-  - Automatic upgrades from CI / cache with [https://github.com/hyperparabolic/nixos-hydra-upgrade](https://github.com/hyperparabolic/nixos-hydra-upgrade)
+  - Automatic dependency update [workflows](./.github/workflows)
+  - Automatic upgrades from CI / cache with [nixos-hydra-upgrade](https://github.com/hyperparabolic/nixos-hydra-upgrade)
 - VMs with PCI device passthrough via OVMF
 - `hyprland` wayland desktop environment
 - [vanity](https://github.com/hyperparabolic/vanity) custom desktop shell built with [astal](https://github.com/Aylur/astal)

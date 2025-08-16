@@ -2,5 +2,8 @@
 
 /.github/ @hyperparabolic 
 
-# bot account may review `nix flake update`
+# Enforces that hyparparabolic-bot may only modify flake.lock to update dependencies,
+# but enforced code reviewers are required for this to do anything. You can't self
+# review, so hyperparabolic-bot-bot exists just to approve PRs that I don't want to
+# manually review.
 /flake.lock @hyperparabolic @hyperparabolic-bot @hyperparabolic-bot-bot
