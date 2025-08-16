@@ -1,13 +1,9 @@
-{
-  inputs,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
-    ./dunst.nix
     ./hypridle.nix
     ./hyprland.nix
     ./hyprlock.nix
+    ./mako.nix
     ./vanity.nix
     ./walker.nix
     ./wlsunset.nix
