@@ -10,7 +10,7 @@ in {
     settings = {
       default_session = {
         # tuigreet with selectable sessions
-        command = "${lib.getExe pkgs.greetd.tuigreet} --time --sessions ${config.services.displayManager.sessionData.desktops}/share/wayland-sessions --remember --remember-user-session";
+        command = "${lib.getExe pkgs.tuigreet} --time --sessions ${config.services.displayManager.sessionData.desktops}/share/wayland-sessions --remember --remember-user-session";
         user = "greeter";
       };
     };
