@@ -40,6 +40,8 @@ in {
     ];
   };
 
+  networking.firewall.trustedInterfaces = ["virbr0"];
+
   # manipulates systemd slices to isolate host cpu from win11
   virtualisation.libvirtd.hooks.qemu = {
     cpu-isolate-win11 = ./cpu-isolate-win11.sh;
