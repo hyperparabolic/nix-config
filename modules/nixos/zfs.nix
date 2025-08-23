@@ -124,8 +124,12 @@ in {
         kernelPackages = latestZfsCompatibleLinuxPackages;
         supportedFilesystems = ["zfs"];
 
-        # does not play nicely with old systems, may require zfs_force=1 kernel parameter
-        zfs.forceImportRoot = false;
+        zfs = {
+          # default, but keep even if default changes
+          allowHibernation = false;
+          # does not play nicely with old systems, may require zfs_force=1 kernel parameter
+          forceImportRoot = false;
+        };
       };
 
       services.zfs = {

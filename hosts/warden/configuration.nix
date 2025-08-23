@@ -35,9 +35,6 @@
   };
 
   boot = {
-    kernelParams = [
-      "nohibernate"
-    ];
     kernelModules = ["igb"];
     loader = {
       efi.canTouchEfiVariables = true;
