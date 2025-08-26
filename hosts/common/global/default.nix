@@ -54,13 +54,15 @@ in {
 
   time.timeZone = lib.mkDefault "America/Chicago";
 
-  environment.wordlist.enable = true;
+  environment = {
+    enableAllTerminfo = true;
+    wordlist.enable = true;
+    systemPackages = with pkgs; [
+      hyperparabolic-bootstrap
 
-  environment.systemPackages = with pkgs; [
-    hyperparabolic-bootstrap
-
-    helix
-  ];
+      helix
+    ];
+  };
 
   services = {
     dbus.implementation = "broker";
