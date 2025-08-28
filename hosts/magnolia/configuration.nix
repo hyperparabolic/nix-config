@@ -44,10 +44,6 @@
 
   boot = {
     initrd.systemd.enable = true;
-    kernelParams = [
-      # no swap, disable hibernate
-      "nohibernate"
-    ];
     loader = {
       efi.canTouchEfiVariables = true;
       systemd-boot.enable = true;

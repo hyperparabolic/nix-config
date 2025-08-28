@@ -9,6 +9,7 @@
       border-radius = 25;
       outer-margin = "30,0,0,0";
       padding = 15;
+      width = 800;
     };
   };
   stylix.targets.mako.enable = true;

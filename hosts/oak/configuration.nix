@@ -42,9 +42,6 @@
   boot = {
     kernelPackages = lib.mkForce pkgs.linuxKernel.packages.linux_6_12;
     kernelModules = ["igb"];
-    kernelParams = [
-      "nohibernate"
-    ];
     loader = {
       efi.canTouchEfiVariables = true;
       systemd-boot.enable = true;
