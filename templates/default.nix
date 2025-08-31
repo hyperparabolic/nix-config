@@ -7,4 +7,8 @@
     path = ./go;
     description = "Go flake template";
   };
+  rust = {
+    path = ./rust;
+    description = "Rust flake template";
+  };
 }

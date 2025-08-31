@@ -3,6 +3,7 @@
 in {
   programs.ssh = {
     enable = true;
+    enableDefaultConfig = false;
     matchBlocks = {
       net = {
         host = builtins.concatStringsSep " " hostnames;
@@ -20,6 +21,9 @@ in {
             host.address = ''/%d/.gnupg-sockets/S.gpg-agent.ssh'';
           }
         ];
+      };
+      "*" = {
+        addKeysToAgent = "no";
       };
     };
   };
