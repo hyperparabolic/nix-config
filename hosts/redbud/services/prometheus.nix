@@ -14,6 +14,26 @@ in {
       ];
       scrapeConfigs = [
         {
+          job_name = "hosts";
+          scheme = "http";
+          static_configs =
+            map (hostname: {
+              labels.instance = hostname;
+              targets = ["${hostname}:${toString config.services.prometheus.exporters.node.port}"];
+            })
+            hosts;
+        }
+        {
+          job_name = "hydra-notify";
+          scheme = "http";
+          static_configs = [{targets = ["oak:9199"];}];
+        }
+        {
+          job_name = "hydra-queue-runner";
+          scheme = "http";
+          static_configs = [{targets = ["oak:9198"];}];
+        }
+        {
           job_name = "grafana";
           scheme = "https";
           static_configs = [{targets = ["dash.redbud.decent.id"];}];
@@ -27,16 +47,6 @@ in {
           job_name = "smokeping";
           scheme = "http";
           static_configs = [{targets = ["warden:${toString config.services.prometheus.exporters.smokeping.port}"];}];
-        }
-        {
-          job_name = "hosts";
-          scheme = "http";
-          static_configs =
-            map (hostname: {
-              labels.instance = hostname;
-              targets = ["${hostname}:${toString config.services.prometheus.exporters.node.port}"];
-            })
-            hosts;
         }
       ];
     };
