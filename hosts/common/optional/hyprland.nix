@@ -28,9 +28,9 @@
 
     gnome.gnome-keyring.enable = true;
 
-    logind.extraConfig = ''
-      HandlePowerKey=suspend
-    '';
+    logind.settings.Login = {
+      HandlePowerKey = "suspend";
+    };
   };
 
   security = {
