@@ -1,8 +1,4 @@
 {
-  pkgs,
-  lib,
-  ...
-}: {
   imports = [
     ../../common/optional/nginx.nix
     ./acme.nix
@@ -14,7 +10,4 @@
     ./nix-serve.nix
     ./postgres.nix
   ];
-
-  # intentionally failing for metrics testing
-  boot.kernelPackages = lib.mkForce pkgs.linuxKernel.packages.linux_5_10;
 }
