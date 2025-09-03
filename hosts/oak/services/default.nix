@@ -8,6 +8,7 @@
     ./kavita.nix
     ./miniflux.nix
     ./nix-serve.nix
+    ./ntfy.nix
     ./postgres.nix
   ];
 }
