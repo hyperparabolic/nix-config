@@ -81,7 +81,12 @@
     # backbone system, update late
     dates = "*-*-* 04:00:00 America/Chicago";
     settings = {
-      reboot = true;
+      # reboot = true;
+      # DNS_MIGRATION - revert once complete
+      nixos-rebuild = {
+        operation = "switch";
+      };
+      reboot = false;
     };
   };
 
