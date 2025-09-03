@@ -1,8 +1,8 @@
 {pkgs, ...}: {
   services = {
     logind.settings.Login = {
-      LidSwitchExternalPower = "lock";
-      LidSwitchDocked = "ignore";
+      HandleLidSwitchExternalPower = "lock";
+      HandleLidSwitchDocked = "ignore";
     };
     upower.enable = true;
   };
