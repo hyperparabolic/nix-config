@@ -1,15 +1,15 @@
 {config, ...}: {
-  sops.secrets.dns-token = {
+  sops.secrets.cf-dns-token = {
     sopsFile = ../secrets.yaml;
   };
 
   security.acme.certs = {
     "oak.decent.id" = {
       domain = "oak.decent.id";
+      environmentFile = config.sops.secrets.cf-dns-token.path;
       extraDomainNames = ["*.oak.decent.id"];
-      dnsProvider = "digitalocean";
+      dnsProvider = "cloudflare";
       dnsPropagationCheck = true;
-      credentialsFile = config.sops.secrets.dns-token.path;
     };
   };
 

@@ -1,6 +1,6 @@
 {
   security.acme = {
-    defaults.email = "spbalogh@gmail.com";
+    defaults.email = "hi@decent.id";
     acceptTerms = true;
   };
 
