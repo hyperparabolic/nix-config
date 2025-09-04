@@ -1,0 +1,20 @@
+{config, ...}: {
+  services.cloudflared = {
+    enable = true;
+    tunnels."11019326-9f73-4021-95c4-03bcd7e6389e" = {
+      credentialsFile = config.sops.secrets.cf-tunnel-cred.path;
+      default = "http_status:404";
+      # individual services configure ingress
+    };
+    certificateFile = config.sops.secrets.cf-tunnel-cert.path;
+  };
+
+  sops.secrets = {
+    cf-tunnel-cert = {
+      sopsFile = ../secrets.yaml;
+    };
+    cf-tunnel-cred = {
+      sopsFile = ../secrets.yaml;
+    };
+  };
+}
