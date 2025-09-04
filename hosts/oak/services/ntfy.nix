@@ -49,6 +49,8 @@
           "nix-ntfy:alert:rw"
           "nix-ntfy:notification:rw"
         ];
+        smtp-server-listen = ":1025";
+        smtp-server-domain = "ntfy.decent.id";
       };
     };
     cloudflared.tunnels."11019326-9f73-4021-95c4-03bcd7e6389e" = {
@@ -79,6 +81,15 @@
 
   systemd.services.ntfy-sh = {
     serviceConfig.EnvironmentFile = config.sops.secrets.ntfy-server.path;
+  };
+
+  # smtp server for email sent notifications is only accessible by vpn or on loopback
+  networking.firewall.interfaces."tailscale0" = {
+    allowedTCPPorts = [
+      (lib.strings.toInt
+        (lib.lists.last
+          (lib.strings.splitString ":" config.services.ntfy-sh.settings.smtp-server-listen)))
+    ];
   };
 
   environment.persistence = {
