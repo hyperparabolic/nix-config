@@ -1,21 +1,21 @@
-{
-  pkgs,
-  config,
-  ...
-}: {
-  /*
-  Sets up sending notifications via notify. This sends to whatever
-  providers are specifed in the sops secrets file. Usage:
+{config, ...}: {
+  # CLI only, sub config and service enablement in desktop
+  hyperparabolic.ntfy = {
+    enable = true;
+    environmentFile = config.sops.secrets.ntfy-client.path;
+    settings = {
+      default-host = "https://ntfy.oak.decent.id";
+    };
+  };
 
-  notify -bulk -provider-config /run/secrets/notify-provider-config
+  sops.secrets.ntfy-client = {
+    sopsFile = ../secrets.yaml;
+    mode = "0440";
+    owner = config.users.users.spencer.name;
+    group = config.users.users.spencer.group;
+  };
 
-  TODO: make this a module so nix can validate it is present. It's
-  just held together by convention for now.
-  */
-  environment.systemPackages = [
-    pkgs.notify
-  ];
-
+  # TODO: migrate zed notifications and remove secret
   sops.secrets.notify-provider-config = {
     sopsFile = ../secrets.yaml;
     mode = "0440";
