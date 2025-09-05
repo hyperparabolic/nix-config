@@ -20,6 +20,8 @@
         auth-access = [
           "nix-ntfy:alert:rw"
           "nix-ntfy:notification:rw"
+          "webhook:alert:wo"
+          "webhook:notification:wo"
         ];
         smtp-server-listen = ":1025";
         smtp-server-domain = "ntfy.decent.id";
