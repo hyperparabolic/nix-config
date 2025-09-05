@@ -4,7 +4,7 @@
     enable = true;
     environmentFile = config.sops.secrets.ntfy-client.path;
     settings = {
-      default-host = "https://ntfy.decent.id";
+      default-host = "https://ntfy.oak.decent.id";
     };
   };
 

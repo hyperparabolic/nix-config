@@ -11,6 +11,8 @@ in {
   options.hyperparabolic.ntfy = {
     enable = lib.mkEnableOption "Install ntfy package and wrapper scripts";
 
+    enableUserService = lib.mkEnableOption "Enable ntfy subscribe user service";
+
     environmentFile = lib.mkOption {
       type = lib.types.nullOr lib.types.path;
       default = null;
@@ -74,5 +76,24 @@ in {
         package-ntfy-notify
         package-ntfy-alert
       ];
+
+      systemd.user.services.ntfy-client = lib.mkIf cfg.enableUserService {
+        description = "ntfy-client";
+        wantedBy = ["graphical-session.target"];
+        wants = ["graphical-session.target" "network.target"];
+        after = ["graphical-session.target" "network.target"];
+        path = with pkgs; [
+          bashNonInteractive
+          libnotify
+        ];
+        serviceConfig = {
+          Type = "simple";
+          EnvironmentFile = cfg.environmentFile;
+          ExecStart = "${lib.getExe pkgs.ntfy-sh} subscribe -c ${configuration} --from-config";
+          Restart = "on-failure";
+          RestartSec = 1;
+          TimeoutStopSec = 10;
+        };
+      };
     };
 }
