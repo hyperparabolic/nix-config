@@ -7,6 +7,7 @@
       listenHost = "localhost";
       useSubstitutes = true;
       buildMachinesFiles = ["/etc/nix/machines"];
+      smtpHost = "localhost:1025";
       extraConfig = ''
         queue_runner_metrics_address = 0.0.0.0:9198
         <hydra_notify>
