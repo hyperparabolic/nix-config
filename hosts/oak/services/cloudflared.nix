@@ -4,7 +4,9 @@
     tunnels."11019326-9f73-4021-95c4-03bcd7e6389e" = {
       credentialsFile = config.sops.secrets.cf-tunnel-cred.path;
       default = "http_status:404";
-      # individual services configure ingress
+      ingress = {
+        "ntfy.decent.id" = config.services.nginx.virtualHosts."ntfy.oak.decent.id".locations."/".proxyPass;
+      };
     };
     certificateFile = config.sops.secrets.cf-tunnel-cert.path;
   };
