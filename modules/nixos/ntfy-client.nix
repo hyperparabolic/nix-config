@@ -77,6 +77,11 @@ in {
         package-ntfy-alert
       ];
 
+      hyperparabolic.ntfy = {
+        package-notify = lib.mkDefault package-ntfy-notify;
+        package-alert = lib.mkDefault package-ntfy-alert;
+      };
+
       systemd.user.services.ntfy-client = lib.mkIf cfg.enableUserService {
         description = "ntfy-client";
         wantedBy = ["graphical-session.target"];

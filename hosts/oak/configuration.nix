@@ -80,8 +80,8 @@
         ];
       };
       zedMailTo = "root"; # value doesn't matter, not using email, just needs to not be null;
-      zedMailCommand = "${pkgs.notify}/bin/notify";
-      zedMailCommandOptions = "-bulk -provider-config /run/secrets/notify-provider-config";
+      zedMailCommand = lib.getExe config.hyperparabolic.ntfy.package-notify;
+      zedMailCommandOptions = "--topic \"ZFS ZED Notification\"";
     };
   };
 
