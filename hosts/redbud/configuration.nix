@@ -62,6 +62,14 @@
     };
   };
 
+  services = {
+    # retired laptop server
+    logind.settings.Login = {
+      HandleLidSwitch = "ignore";
+      IdleAction = "ignore";
+    };
+  };
+
   system.autoUpgradeHydra = {
     # canary system, update early and automatically reboot
     dates = "*-*-* 00:00:00 America/Chicago";
