@@ -1,4 +1,8 @@
-{config, ...}: {
+{
+  config,
+  lib,
+  ...
+}: {
   # CLI only, sub config and service enablement in desktop
   hyperparabolic.ntfy = {
     enable = true;
@@ -21,5 +25,29 @@
     mode = "0440";
     owner = config.users.users.spencer.name;
     group = config.users.users.spencer.group;
+  };
+
+  # configure any native ntfy support services
+  services = {
+    zfs.zed = {
+      settings = {
+        ZED_NTFY_TOPIC = "notification";
+        ZED_NTFY_URL = "https://ntfy.oak.decent.id";
+
+        ZED_NOTIFY_INTERVAL_SECS = lib.mkDefault 3600;
+        ZED_NOTIFY_VERBOSE = lib.mkDefault true;
+        ZED_USE_ENCLOSURE_LEDS = lib.mkDefault true;
+        ZED_SCRUB_AFTER_RESILVER = lib.mkDefault true;
+      };
+    };
+  };
+  systemd.services = {
+    zfs-zed = {
+      serviceConfig.EnvironmentFile = config.sops.secrets.zed-ntfy-env.path;
+    };
+  };
+
+  sops.secrets.zed-ntfy-env = {
+    sopsFile = ../secrets.yaml;
   };
 }
