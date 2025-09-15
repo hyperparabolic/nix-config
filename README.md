@@ -1,6 +1,6 @@
 # nix-config
 
-My configs for nixos and continued exploration into security conscious, low maintenance, higly reproducible, bare metal linux servers.
+My configs for nixos and continued exploration into security conscious, low maintenance, higly reproducible, linux systems.
 
 This config can't really be deployed elsewhere or copied directly. Feel free to take whatever you want out of it, or to give me any feedback on it, but the default configs include references to services deployed by this config.
 
@@ -27,6 +27,7 @@ High level overview:
 - [vanity](https://github.com/hyperparabolic/vanity) custom desktop shell built with [astal](https://github.com/Aylur/astal)
 - Custom [install / debug usb](https://github.com/hyperparabolic/nix-config/tree/main/hosts/iso), along with [bootstrap, installation, and dubugging scripts](https://github.com/hyperparabolic/nix-config/tree/main/scripts)
 - Local DNS along with Let's Encrypt certificate protected services at `https://<service>.<host>.decent.id/`.
+- Cloudflare tunnels for public services at `https://<service>.decent.id/`.
 
 ## Repo structure
 
@@ -40,6 +41,7 @@ High level overview:
     - `cache.oak.decent.id`: `nix-serve` binary cache for other less beefy machines.
     - `hydra.oak.decent.id`: `hydra` continuous integration and continuous delivery.
     - `jellyfin.oak.decent.id`: `jellyfin` media server.
+    - `ntfy.oak.decent.id` / `ntfy.decent.id`: `ntfy` pub-sub / push notification service.
     - `rss.oak.decent.id`: `miniflux` rss feed reader and browser app.
   - `redbud`: Retired laptop. Headless server acting as a RAOP (AirPlay) audio receiver and metrics server.
     - `dash.redbud.decent.id`: `grafana` Dashboard and data visualization service.
