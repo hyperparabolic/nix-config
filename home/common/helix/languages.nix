@@ -9,7 +9,7 @@
       lib.map lazy-app.override [
         # docker / docker compose
         {
-          pkg = dockerfile-language-server-nodejs;
+          pkg = dockerfile-language-server;
           exe = "docker-langserver";
         }
         {
