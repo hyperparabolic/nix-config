@@ -1,16 +1,88 @@
 {
   inputs,
   config,
+  pkgs,
   ...
-}: {
+}: let
+  settingsFormat = pkgs.formats.toml {};
+in {
   imports = [
     inputs.walker.homeManagerModules.default
   ];
 
+  xdg.configFile = {
+    "elephant/websearch.toml" = {
+      source = settingsFormat.generate "websearch.toml" {
+        entries = [
+          {
+            default = true;
+            name = "DuckDuckGo";
+            url = "https://duckduckgo.com/?q=%TERM%";
+          }
+          {
+            prefix = "#";
+            name = "NixOS Options";
+            url = "https://search.nixos.org/options?channel=unstable&query=%TERM%";
+          }
+          {
+            prefix = "$";
+            name = "NixOS Packages";
+            url = "https://search.nixos.org/packages?channel=unstable&query=%TERM%";
+          }
+          {
+            prefix = "%";
+            name = "Google";
+            url = "https://www.google.com/search?q=%TERM%";
+          }
+        ];
+      };
+    };
+  };
+
   programs.walker = {
     enable = true;
+    runAsService = true;
     config = {
-      app_launch_prefix = "uwsm app -- ";
+      providers = {
+        default = [
+          "desktopapplications"
+          "calc"
+          "menus"
+        ];
+        prefixes = [
+          {
+            provider = "files";
+            prefix = "/";
+          }
+          {
+            provider = "providerlist";
+            prefix = "_";
+          }
+          {
+            provider = "runner";
+            prefix = "$";
+          }
+          {
+            provider = "symbols";
+            prefix = ":";
+          }
+          {
+            provider = "todo";
+            prefix = "!";
+          }
+          {
+            provider = "unicode";
+            prefix = "%";
+          }
+          {
+            provider = "websearch";
+            prefix = "@";
+          }
+        ];
+      };
+    };
+    elephant = {
+      installService = true;
     };
 
     theme.style = ''
@@ -35,163 +107,151 @@
       @define-color color14 #${config.lib.stylix.colors.base14};
       @define-color color15 #${config.lib.stylix.colors.base15};
 
-      #window,
-      #box,
-      #aiScroll,
-      #aiList,
-      #search,
-      #password,
-      #input,
-      #prompt,
-      #clear,
-      #typeahead,
-      #list,
-      child,
-      scrollbar,
-      slider,
-      #item,
-      #text,
-      #label,
-      #bar,
-      #sub,
-      #activationlabel {
+      * {
         all: unset;
       }
 
-      #cfgerr {
-        background: rgba(255, 0, 0, 0.4);
-        margin-top: 20px;
-        padding: 8px;
-        font-size: 1.2em;
+      .normal-icons {
+        -gtk-icon-size: 16px;
       }
 
-      #window {
-        color: @foreground;
+      .large-icons {
+        -gtk-icon-size: 32px;
       }
 
-      #box {
-        border-radius: 2px;
-        background: @background;
-        padding: 64px;
-        border: 1px solid lighter(@background);
-        box-shadow:
-          0 19px 38px rgba(0, 0, 0, 0.3),
-          0 15px 12px rgba(0, 0, 0, 0.22);
-      }
-
-      #search {
-        box-shadow:
-          0 1px 3px rgba(0, 0, 0, 0.1),
-          0 1px 2px rgba(0, 0, 0, 0.22);
-        background: lighter(@background);
-        padding: 8px;
-      }
-
-      #prompt {
-        margin-left: 4px;
-        margin-right: 12px;
-        color: @foreground;
-        opacity: 0.2;
-      }
-
-      #clear {
-        color: @foreground;
-        opacity: 0.8;
-      }
-
-      #password,
-      #input,
-      #typeahead {
-        border-radius: 2px;
-      }
-
-      #input {
-        background: none;
-      }
-
-      #password {
-      }
-
-      #spinner {
-        padding: 8px;
-      }
-
-      #typeahead {
-        color: @foreground;
-        opacity: 0.8;
-      }
-
-      #input placeholder {
-        opacity: 0.5;
-      }
-
-      #list {
-      }
-
-      child {
-        padding: 8px;
-      }
-
-      child:selected #icon,
-      child:hover #icon {
-        background: alpha(@color1, 0.2);
-      }
-
-      #item {
-      }
-
-      #icon {
-        padding: 10px;
-        border-radius: 50%;
-      }
-
-      #text {
-      }
-
-      #label {
-        font-weight: 500;
-      }
-
-      #sub {
-        opacity: 0.5;
-        font-size: 0.8em;
-      }
-
-      #activationlabel {
+      scrollbar {
         opacity: 0;
       }
 
-      #bar {
+      .box-wrapper {
+        box-shadow:
+          0 19px 38px rgba(0, 0, 0, 0.3),
+          0 15px 12px rgba(0, 0, 0, 0.22);
+        background: @window_bg_color;
+        padding: 20px;
+        border-radius: 20px;
+        border: 1px solid darker(@accent_bg_color);
       }
 
-      .barentry {
+      .preview-box,
+      .elephant-hint,
+      .placeholder {
+        color: @theme_fg_color;
       }
 
-      .activation #activationlabel {
-        opacity: 1;
+      .box {
       }
 
-      .activation #text,
-      .activation #icon,
-      .activation #search {
+      .search-container {
+        border-radius: 10px;
+      }
+
+      .input placeholder {
         opacity: 0.5;
       }
 
-      .aiItem {
+      .input {
+        caret-color: @theme_fg_color;
+        background: lighter(@window_bg_color);
         padding: 10px;
-        border-radius: 2px;
-        color: @foreground;
-        background: @background;
+        color: @theme_fg_color;
       }
 
-      .aiItem.user {
-        padding-left: 0;
-        padding-right: 0;
+      .input:focus,
+      .input:active {
       }
 
-      .aiItem.assistant {
-        background: lighter(@background);
+      .content-container {
+      }
+
+      .placeholder {
+      }
+
+      .scroll {
+      }
+
+      .list {
+        color: @theme_fg_color;
+      }
+
+      child {
+      }
+
+      .item-box {
+        border-radius: 10px;
+        padding: 10px;
+      }
+
+      .item-quick-activation {
+        margin-left: 10px;
+        background: alpha(@accent_bg_color, 0.25);
+        border-radius: 5px;
+        padding: 10px;
+      }
+
+      child:hover .item-box,
+      child:selected .item-box {
+        background: alpha(@accent_bg_color, 0.25);
+      }
+
+      .item-text-box {
+      }
+
+      .item-text {
+      }
+
+      .item-subtext {
+        font-size: 12px;
+        opacity: 0.5;
+      }
+
+      .item-image {
+        margin-right: 10px;
+      }
+
+      .keybind-hints {
+        font-size: 12px;
+        opacity: 0.5;
+        color: @theme_fg_color;
+      }
+
+      .preview {
+        border: 1px solid alpha(@accent_bg_color, 0.25);
+        padding: 10px;
+        border-radius: 10px;
+        color: @theme_fg_color;
+      }
+
+      .calc .item-text {
+        font-size: 24px;
+      }
+
+      .calc .item-subtext {
+      }
+
+      .symbols .item-image {
+        font-size: 24px;
+      }
+
+      .todo.done .item-text-box {
+        opacity: 0.25;
+      }
+
+      .todo.urgent {
+        font-size: 24px;
+      }
+
+      .todo.active {
+        font-weight: bold;
+      }
+
+      .preview .large-icons {
+        -gtk-icon-size: 64px;
       }
     '';
   };
+
+  home.persistence."/persist/home/spencer".directories = [
+    ".cache/elephant/"
+  ];
 }

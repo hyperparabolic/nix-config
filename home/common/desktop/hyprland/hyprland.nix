@@ -37,7 +37,6 @@ in {
         # "uwsm app -- xwaylandvideobridge"
         "uwsm app -s s -- wl-paste --type text --watch cliphist store"
         "uwsm app -s s -- wl-paste --type image --watch cliphist store"
-        "uwsm app -s s -- walker --gapplication-service"
         "uwsm app -- easyeffects -l input_filter"
         "uwsm app -- slack"
         "uwsm app -- vesktop"
@@ -176,6 +175,8 @@ in {
         "$MODSHIFT, S, exec, grimblast --notify copysave area"
         "$MOD, S, exec, grimblast --notify copy area"
         "$MODSHIFT, P, exec, hyprpicker -a"
+
+        "$MOD, T, exec, uwsm app -- ghostty"
 
         "$MOD, R, exec, walker"
         "$MOD, C, exec, walker -m clipboard"
