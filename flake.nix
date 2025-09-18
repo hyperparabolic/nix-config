@@ -52,7 +52,10 @@
 
     walker = {
       url = "github:abenz1267/walker?ref=1.0.0";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        elephant.url = "github:abenz1267/elephant?ref=1.0.0";
+        nixpkgs.follows = "nixpkgs";
+      };
     };
   };
 
