@@ -1,7 +1,4 @@
-{
-  inputs,
-  ...
-}: {
+{inputs, ...}: {
   # Each attribute here is an overlay function that is applied
   # globally to nixpkgs.overlays in system and home configs.
 
