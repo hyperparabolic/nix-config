@@ -106,7 +106,7 @@
     hydraJobs = {
       hosts =
         lib.mapAttrs (_: cfg: cfg.config.system.build.toplevel)
-        (lib.attrsets.filterAttrs (n: v: !builtins.elem n ["iso"]) outputs.nixosConfigurations);
+        (lib.attrsets.filterAttrs (n: _v: !builtins.elem n ["iso"]) outputs.nixosConfigurations);
     };
 
     # NixOS configuration entrypoint

@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{
   hyperparabolic.ntfy = {
     enableUserService = true;
     settings = {

@@ -1,11 +1,7 @@
 {
-  config,
   lib,
-  pkgs,
   ...
-}: let
-  inherit (lib) getExe';
-in {
+}: {
   imports = [
     ./common
     ./common/desktop

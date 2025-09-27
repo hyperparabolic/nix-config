@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}: let
-in {
+}: {
   services.greetd = {
     enable = true;
     settings = {
