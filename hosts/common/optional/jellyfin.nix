@@ -5,10 +5,8 @@
     package = pkgs.stable.jellyfin;
   };
 
-  environment.persistence = {
-    "/persist".directories = [
-      "/var/lib/jellyfin"
-      "/var/cache/jellyfin"
-    ];
-  };
+  environment.persistence."/persist".directories = [
+    "/var/lib/jellyfin"
+    "/var/cache/jellyfin"
+  ];
 }

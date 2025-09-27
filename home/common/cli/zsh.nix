@@ -44,7 +44,5 @@
     '';
   };
 
-  home.persistence = {
-    "/persist/home/spencer".directories = [".local/share/zsh"];
-  };
+  home.persistence."/persist".directories = [".local/share/zsh"];
 }

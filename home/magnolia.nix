@@ -25,13 +25,7 @@
     }
   ];
 
-  home.persistence = {
-    "/persist/home/spencer" = {
-      directories = [
-        "src"
-      ];
-    };
-  };
+  home.persistence."/persist".directories = ["src"];
 
   # suspend after 6 minutes
   services.hypridle.settings.listener = [

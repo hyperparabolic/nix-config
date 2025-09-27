@@ -54,9 +54,5 @@
     ];
   };
 
-  environment.persistence = {
-    "/persist".directories = [
-      "/var/lib/private/ntfy-sh"
-    ];
-  };
+  environment.persistence."/persist".directories = ["/var/lib/private/ntfy-sh"];
 }

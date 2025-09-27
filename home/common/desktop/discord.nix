@@ -6,10 +6,8 @@
 
   stylix.targets.vesktop.enable = true;
 
-  home.persistence = {
-    "/persist/home/spencer".directories = [
-      ".config/discord"
-      ".config/vesktop"
-    ];
-  };
+  home.persistence."/persist".directories = [
+    ".config/discord"
+    ".config/vesktop"
+  ];
 }

@@ -15,8 +15,5 @@
     };
   };
 
-  # persist tuigreet state
-  environment.persistence."/persist".directories = [
-    "/var/cache/tuigreet"
-  ];
+  environment.persistence."/persist".directories = ["/var/cache/tuigreet"];
 }

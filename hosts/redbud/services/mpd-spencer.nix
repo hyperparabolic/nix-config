@@ -111,9 +111,5 @@
     };
   };
 
-  environment.persistence = {
-    "/persist".directories = [
-      "/var/lib/mpd"
-    ];
-  };
+  environment.persistence."/persist".directories = ["/var/lib/mpd"];
 }

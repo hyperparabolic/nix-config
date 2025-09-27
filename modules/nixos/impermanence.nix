@@ -59,6 +59,6 @@ in {
 
   config = {
     environment.persistence."/persist".enable = cfg.enable;
-    home-manager.users.spencer.home.persistence."/persist/home/spencer".enable = cfg.enable;
+    home-manager.users.spencer.home.persistence."/persist".enable = cfg.enable;
   };
 }

@@ -5,7 +5,5 @@
     "x-scheme-handler/slack" = "slack.desktop";
   };
 
-  home.persistence = {
-    "/persist/home/spencer".directories = [".config/Slack"];
-  };
+  home.persistence."/persist".directories = [".config/Slack"];
 }

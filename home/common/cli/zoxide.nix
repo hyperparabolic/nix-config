@@ -9,5 +9,5 @@
     ];
   };
 
-  home.persistence."/persist/home/spencer".directories = [".local/share/zoxide"];
+  home.persistence."/persist".directories = [".local/share/zoxide"];
 }

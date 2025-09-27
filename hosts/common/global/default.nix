@@ -70,17 +70,12 @@ in {
     fwupd.enable = true;
   };
 
-  # global persistence
-  environment.persistence = {
-    "/persist" = {
-      directories = [
-        "/var/lib/systemd"
-        "/var/lib/nixos"
-        "/var/log"
-        "/srv"
-      ];
-    };
-  };
+  environment.persistence."/persist".directories = [
+    "/var/lib/systemd"
+    "/var/lib/nixos"
+    "/var/log"
+    "/srv"
+  ];
 
   programs = {
     dconf.enable = true;

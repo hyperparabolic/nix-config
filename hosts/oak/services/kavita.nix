@@ -21,9 +21,5 @@
     sopsFile = ../secrets.yaml;
   };
 
-  environment.persistence = {
-    "/persist".directories = [
-      "/var/lib/kavita"
-    ];
-  };
+  environment.persistence."/persist".directories = ["/var/lib/kavita"];
 }

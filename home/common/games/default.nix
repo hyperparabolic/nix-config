@@ -3,15 +3,11 @@
     packages = [
       pkgs.gamescope
     ];
-    persistence = {
-      "/persist/home/spencer" = {
-        directories = [
-          "Games"
-          ".factorio"
-          ".local/share/Steam"
-          ".local/share/Tabletop Simulator"
-        ];
-      };
-    };
+    persistence."/persist".directories = [
+      "Games"
+      ".factorio"
+      ".local/share/Steam"
+      ".local/share/Tabletop Simulator"
+    ];
   };
 }

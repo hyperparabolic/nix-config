@@ -28,7 +28,5 @@ in {
     };
   };
 
-  home.persistence = {
-    "/persist/home/spencer".directories = [".ssh"];
-  };
+  home.persistence."/persist".directories = [".ssh"];
 }

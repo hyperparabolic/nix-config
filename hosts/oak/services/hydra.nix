@@ -46,9 +46,5 @@
     ];
   };
 
-  environment.persistence = {
-    "/persist".directories = [
-      "/var/lib/hydra"
-    ];
-  };
+  environment.persistence."/persist".directories = ["/var/lib/hydra"];
 }
