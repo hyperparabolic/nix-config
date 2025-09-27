@@ -15,9 +15,5 @@
     };
   };
 
-  environment.persistence = {
-    "/persist".directories = [
-      "/var/lib/private/AdGuardHome/"
-    ];
-  };
+  environment.persistence."/persist".directories = ["/var/lib/private/AdGuardHome/"];
 }

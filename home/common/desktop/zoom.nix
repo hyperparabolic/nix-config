@@ -7,9 +7,5 @@
     "x-scheme-handler/zoommtg" = "Zoom.desktop";
   };
 
-  home.persistence = {
-    "/persist/home/spencer".directories = [
-      ".zoom"
-    ];
-  };
+  home.persistence."/persist".directories = [".zoom"];
 }

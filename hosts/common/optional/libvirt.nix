@@ -28,12 +28,5 @@
     virt-manager
   ];
 
-  # persist libvirt state management
-  environment.persistence = {
-    "/persist" = {
-      directories = [
-        "/var/lib/libvirt/qemu"
-      ];
-    };
-  };
+  environment.persistence."/persist".directories = ["/var/lib/libvirt/qemu"];
 }

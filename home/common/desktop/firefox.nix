@@ -4,9 +4,7 @@
     package = pkgs.firefox-bin;
   };
 
-  home.persistence = {
-    "/persist/home/spencer".directories = [".mozilla/firefox"];
-  };
+  home.persistence."/persist".directories = [".mozilla/firefox"];
 
   xdg.mimeApps.defaultApplications = {
     "text/html" = ["firefox.desktop"];

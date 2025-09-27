@@ -260,7 +260,5 @@ in {
     };
   };
 
-  home.persistence."/persist/home/spencer".directories = [
-    ".cache/elephant/"
-  ];
+  home.persistence."/persist".directories = [".cache/elephant/"];
 }

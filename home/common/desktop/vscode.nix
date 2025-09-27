@@ -9,11 +9,5 @@
     ];
   };
 
-  home.persistence = {
-    "/persist/home/spencer" = {
-      directories = [
-        ".vscode"
-      ];
-    };
-  };
+  home.persistence."/persist".directories = [".vscode"];
 }

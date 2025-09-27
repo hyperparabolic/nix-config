@@ -35,9 +35,5 @@
     nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
   };
 
-  environment.persistence = {
-    "/persist".directories = [
-      "/root/.local/share/nix"
-    ];
-  };
+  environment.persistence."/persist".directories = ["/root/.local/share/nix"];
 }

@@ -1,5 +1,5 @@
 {
-  home.persistence."/persist/home/spencer" = {
+  home.persistence."/persist" = {
     directories = [
       ".bun"
       ".cache/deno"

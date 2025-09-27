@@ -29,7 +29,5 @@
     };
   };
 
-  home.persistence."/persist/home/spencer".directories = [
-    ".password-store"
-  ];
+  home.persistence."/persist".directories = [".password-store"];
 }

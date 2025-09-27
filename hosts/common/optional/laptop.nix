@@ -12,10 +12,5 @@
     brightnessctl
   ];
 
-  # persist wifi connections
-  environment.persistence = {
-    "/persist".directories = [
-      "/etc/NetworkManager/system-connections"
-    ];
-  };
+  environment.persistence."/persist".directories = ["/etc/NetworkManager/system-connections"];
 }

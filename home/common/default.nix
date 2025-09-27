@@ -7,7 +7,7 @@
 }: {
   imports =
     [
-      inputs.impermanence.nixosModules.home-manager.impermanence
+      inputs.impermanence.homeManagerModules.impermanence
       inputs.stylix.homeModules.stylix
       ./cli
       ./dev
@@ -39,20 +39,15 @@
     stateVersion = lib.mkDefault "22.05";
     sessionPath = ["$HOME/.local/bin"];
 
-    persistence = {
-      "/persist/home/spencer" = {
-        directories = [
-          "Documents"
-          "Downloads"
-          "Pictures"
-          "Videos"
-          ".local/bin"
-          ".local/share/nix"
-          ".nix-config"
-        ];
-        allowOther = true;
-      };
-    };
+    persistence."/persist".directories = [
+      "Documents"
+      "Downloads"
+      "Pictures"
+      "Videos"
+      ".local/bin"
+      ".local/share/nix"
+      ".nix-config"
+    ];
   };
 
   # Nicely reload system units when changing configs

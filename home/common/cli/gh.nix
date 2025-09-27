@@ -9,7 +9,5 @@
       git_protocol = "ssh";
     };
   };
-  home.persistence."/persist/home/spencer".files = [
-    ".config/gh/hosts.yml"
-  ];
+  home.persistence."/persist".files = [".config/gh/hosts.yml"];
 }

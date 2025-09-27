@@ -58,7 +58,5 @@
     };
   };
 
-  environment.persistence = {
-    "/persist".directories = ["/var/lib/loki"];
-  };
+  environment.persistence."/persist".directories = ["/var/lib/loki"];
 }
