@@ -251,14 +251,5 @@ in {
     '';
   };
 
-  systemd.user.services = {
-    # elephant gets started too early for uwsm managed wayland sessions, ensure
-    # starts after WAYLAND_DISPLAY is available
-    # TODO: remove if https://github.com/abenz1267/elephant/pull/39 merged
-    elephant = {
-      Unit.After = ["graphical-session.target"];
-    };
-  };
-
   home.persistence."/persist".directories = [".cache/elephant/"];
 }
