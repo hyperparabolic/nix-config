@@ -61,5 +61,6 @@
       uris = ["qemu:///system"];
       autoconnect = ["qemu:///system"];
     };
+    "/org/virt-manager/virt-manager/xmleditor-enabled" = true;
   };
 }
