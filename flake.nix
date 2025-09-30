@@ -88,10 +88,10 @@
     nixosModules = import ./modules/nixos;
     homeManagerModules = import ./modules/home-manager;
 
+    formatter = forEachSystem (pkgs: pkgs.alejandra);
+    hydraJobs = import ./hydra.nix {inherit inputs outputs;};
     overlays = import ./overlays {inherit inputs outputs;};
     templates = import ./templates;
-
-    formatter = forEachSystem (pkgs: pkgs.alejandra);
 
     # bootstrapping and repo tooling
     devShells = forEachSystem (pkgs: {
@@ -109,12 +109,6 @@
         ];
       };
     });
-
-    hydraJobs = {
-      hosts =
-        lib.mapAttrs (_: cfg: cfg.config.system.build.toplevel)
-        (lib.attrsets.filterAttrs (n: _v: !builtins.elem n ["iso"]) outputs.nixosConfigurations);
-    };
 
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#oak'
