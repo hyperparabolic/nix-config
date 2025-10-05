@@ -58,9 +58,9 @@
     vanity.url = "github:hyperparabolic/vanity";
 
     walker = {
-      url = "github:abenz1267/walker?ref=1.0.0";
+      url = "github:abenz1267/walker?ref=2.0.0";
       inputs = {
-        elephant.url = "github:abenz1267/elephant?ref=1.0.0";
+        elephant.url = "github:abenz1267/elephant?ref=2.0.0";
         nixpkgs.follows = "nixpkgs";
       };
     };
