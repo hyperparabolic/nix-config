@@ -9,15 +9,6 @@
       runAsRoot = false;
       # software TPM for guests
       swtpm.enable = true;
-      ovmf = {
-        enable = true;
-        packages = with pkgs; [
-          (OVMFFull.override {
-            secureBoot = true;
-            tpmSupport = true;
-          }).fd
-        ];
-      };
     };
   };
 
