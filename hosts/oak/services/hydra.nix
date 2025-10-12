@@ -19,8 +19,6 @@
         </hydra_notify>
       '';
       extraEnv = {
-        # until done debugging, force email
-        HYDRA_FORCE_SEND_MAIL = "1";
         EMAIL_SENDER_TRANSPORT_port = "1025";
       };
     };
