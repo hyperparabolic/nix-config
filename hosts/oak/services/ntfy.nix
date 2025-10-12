@@ -19,9 +19,13 @@
         # users provisioned by env file
         auth-access = [
           "nix-ntfy:alert:rw"
+          "nix-ntfy:email:rw"
           "nix-ntfy:notification:rw"
           "webhook:alert:wo"
           "webhook:notification:wo"
+          # email topic is blocked by cloudflared / nginx config, can only send
+          # to this topic with localhost access or via VPN accessible SMTP publishing
+          "*:email:wo"
         ];
         smtp-server-listen = ":1025";
         smtp-server-domain = "ntfy.decent.id";
@@ -30,9 +34,20 @@
     nginx.virtualHosts."ntfy.oak.decent.id" = {
       forceSSL = true;
       useACMEHost = "oak.decent.id";
-      locations."/" = {
-        proxyPass = "http://localhost:${lib.lists.last (lib.strings.splitString ":" config.services.ntfy-sh.settings.listen-http)}";
-        proxyWebsockets = true;
+      locations = {
+        # email topic publishing blocked
+        "/email" = {
+          return = "404";
+        };
+        # email topic read permitted
+        "~ /email/(json|sse|raw|ws)" = {
+          proxyPass = "http://localhost:${lib.lists.last (lib.strings.splitString ":" config.services.ntfy-sh.settings.listen-http)}";
+          proxyWebsockets = true;
+        };
+        "/" = {
+          proxyPass = "http://localhost:${lib.lists.last (lib.strings.splitString ":" config.services.ntfy-sh.settings.listen-http)}";
+          proxyWebsockets = true;
+        };
       };
     };
   };

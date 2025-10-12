@@ -5,7 +5,11 @@
       credentialsFile = config.sops.secrets.cf-tunnel-cred.path;
       default = "http_status:404";
       ingress = {
-        "ntfy.decent.id" = config.services.nginx.virtualHosts."ntfy.oak.decent.id".locations."/".proxyPass;
+        "ntfy.decent.id" = {
+          # only route to authenticated topics
+          path = "^/(notification|alert)";
+          service = config.services.nginx.virtualHosts."ntfy.oak.decent.id".locations."/".proxyPass;
+        };
       };
     };
     certificateFile = config.sops.secrets.cf-tunnel-cert.path;
