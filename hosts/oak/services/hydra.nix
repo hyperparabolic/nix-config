@@ -7,8 +7,9 @@
       listenHost = "localhost";
       useSubstitutes = true;
       buildMachinesFiles = ["/etc/nix/machines"];
-      smtpHost = "localhost:1025";
+      smtpHost = "localhost";
       extraConfig = ''
+        email_notification = 1
         queue_runner_metrics_address = 0.0.0.0:9198
         <hydra_notify>
           <prometheus>
@@ -17,6 +18,11 @@
           </prometheus>
         </hydra_notify>
       '';
+      extraEnv = {
+        # until done debugging, force email
+        HYDRA_FORCE_SEND_MAIL = "1";
+        EMAIL_SENDER_TRANSPORT_port = "1025";
+      };
     };
     nginx.virtualHosts."hydra.oak.decent.id" = {
       forceSSL = true;
