@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: {
   # CLI only, sub config and service enablement in desktop
@@ -44,6 +45,9 @@
   systemd.services = {
     zfs-zed = {
       serviceConfig.EnvironmentFile = config.sops.secrets.zed-ntfy-env.path;
+      path = with pkgs; [
+        curl
+      ];
     };
   };
 
