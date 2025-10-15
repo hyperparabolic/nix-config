@@ -2,7 +2,7 @@ keys:
   # users
   - &spencer C4DCAD1C91E50F606D1622F1C809ED22329061CE
   # hosts
-  - &magnolia age1mljt7tad3jkuju45m2np9vlq8qesy83403u49qm9pax4x5wwudjqvftuvy
+  - &magnolia age147zuupl27ypec5868s84lvwqxat4fkv45r5nn66v6qcgglp5nvesakhc6k
   - &oak age1rjdsmpycnvte7aw8s8v5z3y7qgpc0aujs350pr54yeq6d077qg3se4zs05
   - &redbud age14w3xdtk9008g35r6rgrnwk03wevu88e6tfn0qfur449avhynjeps3znnud
   - &warden age1w68rhqzqykfary5acq89w868pz7nyttpe39k588a00dz5fhhd3lq9fgh7s
