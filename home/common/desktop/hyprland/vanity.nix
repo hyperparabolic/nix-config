@@ -59,7 +59,7 @@ in {
 
   wayland.windowManager.hyprland.settings = {
     bind = lib.mkAfter [
-      "$MOD, E, exec, ags request -i 'vanity' 'menu:toggle'"
+      "$MOD, E, exec, vanity --toggle-menu"
     ];
   };
 

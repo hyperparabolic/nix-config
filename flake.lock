@@ -896,11 +896,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1760254847,
-        "narHash": "sha256-QQdp2+jjU/jO00gQZWmty+Z2y4UXSRZosC6VSn8Lwe4=",
+        "lastModified": 1760482035,
+        "narHash": "sha256-8/Mo5Dbl0jm7DUPxYIdGaiiMI9f1c4QgAUWqcd3y9U4=",
         "owner": "hyperparabolic",
         "repo": "vanity",
-        "rev": "b12fcd54909915ad37972066950920485598b4d0",
+        "rev": "480a6bae5f71081fa684dc78aaf458749b2a5950",
         "type": "github"
       },
       "original": {
