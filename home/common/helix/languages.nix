@@ -68,6 +68,17 @@
 
         nixd = {
           command = lib.getExe pkgs.nixd;
+          args = ["--semantic-tokens=true"];
+          config.nixd = let
+            myFlake = "(builtins.getFlake (toString /home/spencer/.nix-config))";
+            nixosOpts = "${myFlake}.nixosConfigurations.oak.options";
+          in {
+            nixpkgs.expr = "import ${myFlake}.inputs.nixpkgs { }";
+            options = {
+              nixos.expr = nixosOpts;
+              home-manager.expr = "${nixosOpts}.home-manager.users.type.getSubOptions []";
+            };
+          };
         };
 
         rust-analyzer = {
