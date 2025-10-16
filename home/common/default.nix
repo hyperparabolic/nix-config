@@ -5,16 +5,12 @@
   pkgs,
   ...
 }: {
-  imports =
-    [
-      inputs.impermanence.homeManagerModules.impermanence
-      inputs.stylix.homeModules.stylix
-      ./cli
-      ./dev
-      ./helix
-      ./stylix.nix
-    ]
-    ++ (builtins.attrValues outputs.homeManagerModules);
+  imports = [
+    ./cli
+    ./dev
+    ./helix
+    ./stylix.nix
+  ];
 
   nixpkgs = {
     overlays = builtins.attrValues outputs.overlays;

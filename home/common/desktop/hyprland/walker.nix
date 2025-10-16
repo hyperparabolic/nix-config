@@ -6,10 +6,6 @@
 }: let
   settingsFormat = pkgs.formats.toml {};
 in {
-  imports = [
-    inputs.walker.homeManagerModules.default
-  ];
-
   xdg.configFile = {
     "elephant/websearch.toml" = {
       source = settingsFormat.generate "websearch.toml" {
