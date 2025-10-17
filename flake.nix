@@ -75,13 +75,17 @@
     flake-parts,
     systems,
     ...
-  } @ inputs:
+  } @ inputs: let
+    inherit (inputs.nixpkgs) lib;
+    importNixFiles = dir:
+      lib.filesystem.listFilesRecursive dir
+      |> builtins.filter (f: lib.hasSuffix ".nix" (builtins.toString f));
+  in
     flake-parts.lib.mkFlake {inherit inputs;} ({...}: {
-      # expose flake-parts options for nixd
-      debug = true;
+      imports =
+        importNixFiles ./modules
+        |> builtins.filter (f: !lib.hasPrefix "_" (builtins.toString f));
 
-      imports = [
-      ];
       systems = [
         "aarch64-linux"
         "x86_64-linux"
