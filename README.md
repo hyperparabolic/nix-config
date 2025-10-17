@@ -58,7 +58,7 @@ High level overview:
 
 Hosts all utilize ZFS for root partitions.
 
-I've made a scheme that allows systems to have a single self contained ZFS zpool that offers both native ZFS encryption and LUKS key management and unlock options. If you're interested in this I have a blog post getting into more detail about it [here](https://blog.decent.id/post/lower-compromises-zfs-encryption/), and it is managed by my [zfs module](https://github.com/hyperparabolic/nix-config/blob/main/modules/nixos/zfs.nix).
+I've made a scheme that allows systems to have a single self contained ZFS zpool that offers both native ZFS encryption and LUKS key management and unlock options. If you're interested in this I have a blog post getting into more detail about it [here](https://blog.decent.id/post/lower-compromises-zfs-encryption/), and it is managed by my [zfs module](https://github.com/hyperparabolic/nix-config/blob/main/legacyModules/nixos/zfs.nix).
 
 ZFS is extremely stateful. It's the one place where I didn't try to declaratively manage things with NixOS. Instead it is treated like a layer that NixOS builds on top of.
 

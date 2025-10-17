@@ -100,8 +100,8 @@
         forEachSystem = f: lib.genAttrs (import systems) (system: f pkgsFor.${system});
       in {
         inherit lib;
-        nixosModules = import ./modules/nixos;
-        homeManagerModules = import ./modules/home-manager;
+        nixosModules = import ./legacyModules/nixos;
+        homeManagerModules = import ./legacyModules/home-manager;
 
         formatter = forEachSystem (pkgs: pkgs.alejandra);
         hydraJobs = import ./hydra.nix {inherit inputs outputs;};
