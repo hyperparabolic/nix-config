@@ -77,6 +77,9 @@
     ...
   } @ inputs:
     flake-parts.lib.mkFlake {inherit inputs;} ({...}: {
+      # expose flake-parts options for nixd
+      debug = true;
+
       imports = [
       ];
       systems = [

@@ -77,6 +77,8 @@
             options = {
               nixos.expr = nixosOpts;
               home-manager.expr = "${nixosOpts}.home-manager.users.type.getSubOptions []";
+              flake-parts.expr = "${myFlake}.debug.options";
+              flake-parts2.expr = "${myFlake}.currentSystem.options";
             };
           };
         };
