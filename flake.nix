@@ -72,75 +72,86 @@
     self,
     nixpkgs,
     home-manager,
+    flake-parts,
     systems,
     ...
-  } @ inputs: let
-    inherit (self) outputs;
-    lib = nixpkgs.lib // home-manager.lib;
-    pkgsFor = lib.genAttrs (import systems) (
-      system:
-        import inputs.nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
-        }
-    );
-    forEachSystem = f: lib.genAttrs (import systems) (system: f pkgsFor.${system});
-  in {
-    inherit lib;
-    nixosModules = import ./modules/nixos;
-    homeManagerModules = import ./modules/home-manager;
+  } @ inputs:
+    flake-parts.lib.mkFlake {inherit inputs;} ({...}: {
+      imports = [
+      ];
+      systems = [
+        "aarch64-linux"
+        "x86_64-linux"
+      ];
 
-    formatter = forEachSystem (pkgs: pkgs.alejandra);
-    hydraJobs = import ./hydra.nix {inherit inputs outputs;};
-    overlays = import ./overlays {inherit inputs outputs;};
-    templates = import ./templates;
+      flake = let
+        inherit (self) outputs;
+        lib = nixpkgs.lib // home-manager.lib;
+        pkgsFor = lib.genAttrs (import systems) (
+          system:
+            import inputs.nixpkgs {
+              inherit system;
+              config.allowUnfree = true;
+            }
+        );
+        forEachSystem = f: lib.genAttrs (import systems) (system: f pkgsFor.${system});
+      in {
+        inherit lib;
+        nixosModules = import ./modules/nixos;
+        homeManagerModules = import ./modules/home-manager;
 
-    # bootstrapping and repo tooling
-    devShells = forEachSystem (pkgs: {
-      default = pkgs.mkShell {
-        NIX_CONFIG = "extra-experimental-features = nix-command flakes";
-        buildInputs = with pkgs; [
-          nix
-          nix-diff
-          git
-          sops
-          ssh-to-age
-          gnupg
-          age
-          yq-go
-          sbctl
-        ];
+        formatter = forEachSystem (pkgs: pkgs.alejandra);
+        hydraJobs = import ./hydra.nix {inherit inputs outputs;};
+        overlays = import ./overlays {inherit inputs outputs;};
+        templates = import ./templates;
+
+        # bootstrapping and repo tooling
+        devShells = forEachSystem (pkgs: {
+          default = pkgs.mkShell {
+            NIX_CONFIG = "extra-experimental-features = nix-command flakes";
+            buildInputs = with pkgs; [
+              nix
+              nix-diff
+              git
+              sops
+              ssh-to-age
+              gnupg
+              age
+              yq-go
+              sbctl
+            ];
+          };
+        });
+
+        # NixOS configuration entrypoint
+        # Available through 'nixos-rebuild --flake .#oak'
+        nixosConfigurations = {
+          magnolia = lib.nixosSystem {
+            specialArgs = {inherit inputs outputs;};
+            modules = [./hosts/magnolia/configuration.nix];
+          };
+          oak = lib.nixosSystem {
+            specialArgs = {inherit inputs outputs;};
+            modules = [./hosts/oak/configuration.nix];
+          };
+          redbud = lib.nixosSystem {
+            specialArgs = {inherit inputs outputs;};
+            modules = [./hosts/redbud/configuration.nix];
+          };
+          warden = lib.nixosSystem {
+            specialArgs = {inherit inputs outputs;};
+            modules = [./hosts/warden/configuration.nix];
+          };
+
+          # iso debugging / bootstrapping
+          iso = lib.nixosSystem {
+            specialArgs = {inherit inputs outputs;};
+            modules = [
+              ./hosts/iso/configuration.nix
+              "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+            ];
+          };
+        };
       };
     });
-
-    # NixOS configuration entrypoint
-    # Available through 'nixos-rebuild --flake .#oak'
-    nixosConfigurations = {
-      magnolia = lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-        modules = [./hosts/magnolia/configuration.nix];
-      };
-      oak = lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-        modules = [./hosts/oak/configuration.nix];
-      };
-      redbud = lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-        modules = [./hosts/redbud/configuration.nix];
-      };
-      warden = lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-        modules = [./hosts/warden/configuration.nix];
-      };
-
-      # iso debugging / bootstrapping
-      iso = lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-        modules = [
-          ./hosts/iso/configuration.nix
-          "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-        ];
-      };
-    };
-  };
 }
