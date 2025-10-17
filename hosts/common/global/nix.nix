@@ -13,7 +13,7 @@
         "cache.oak.decent.id:rf560rkaTPzpc8cg56bnPmmgqro8Lbn624jJSDF5YyY="
       ];
       trusted-users = ["root" "@wheel"];
-      experimental-features = "nix-command flakes";
+      experimental-features = "nix-command flakes pipe-operators";
       auto-optimise-store = true;
     };
 

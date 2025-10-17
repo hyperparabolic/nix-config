@@ -1,7 +1,7 @@
 {
-  description = "Your new nix config";
-
   nixConfig = {
+    abort-on-warn = true;
+    allow-import-from-derivation = false;
     extra-substituters = ["https://cache.oak.decent.id"];
     extra-trusted-public-keys = ["cache.oak.decent.id:rf560rkaTPzpc8cg56bnPmmgqro8Lbn624jJSDF5YyY="];
   };
