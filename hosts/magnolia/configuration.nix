@@ -11,7 +11,6 @@
     ../common/global
     ../common/optional/fingerprint.nix
     ../common/optional/hyprland.nix
-    ../common/optional/laptop.nix
     ../common/optional/ntfy-client.nix
     ../common/optional/pipewire.nix
     ../common/optional/pipewire-raop.nix
