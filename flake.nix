@@ -108,7 +108,6 @@
         homeManagerModules = import ./legacyModules/home-manager;
 
         formatter = forEachSystem (pkgs: pkgs.alejandra);
-        hydraJobs = import ./hydra.nix {inherit inputs outputs;};
         overlays = import ./overlays {inherit inputs outputs;};
         templates = import ./templates;
 
