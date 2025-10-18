@@ -2,7 +2,6 @@
   imports = [
     ./bash.nix
     ./direnv.nix
-    ./fish.nix
     ./gh.nix
     ./git.nix
     ./gpg.nix
