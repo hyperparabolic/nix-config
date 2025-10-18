@@ -70,8 +70,6 @@
 
   outputs = {
     self,
-    nixpkgs,
-    home-manager,
     flake-parts,
     ...
   } @ inputs: let
@@ -80,14 +78,13 @@
       lib.filesystem.listFilesRecursive dir
       |> builtins.filter (f: lib.hasSuffix ".nix" (builtins.toString f));
   in
-    flake-parts.lib.mkFlake {inherit inputs;} ({config, ...}: {
+    flake-parts.lib.mkFlake {inherit inputs;} ({...}: {
       imports =
         importNixFiles ./modules
         |> builtins.filter (f: !lib.hasPrefix "_" (builtins.toString f));
 
       flake = let
         inherit (self) outputs;
-        lib = nixpkgs.lib // home-manager.lib;
       in {
         inherit lib;
         nixosModules = import ./legacyModules/nixos;
@@ -95,40 +92,6 @@
 
         overlays = import ./overlays {inherit inputs outputs;};
         templates = import ./templates;
-
-        # NixOS configuration entrypoint
-        # Available through 'nixos-rebuild --flake .#oak'
-        nixosConfigurations = let
-          commonModules = with config.flake.modules.nixos; [
-            core
-          ];
-        in {
-          magnolia = lib.nixosSystem {
-            specialArgs = {inherit inputs outputs;};
-            modules = [./hosts/magnolia/configuration.nix] ++ commonModules;
-          };
-          oak = lib.nixosSystem {
-            specialArgs = {inherit inputs outputs;};
-            modules = [./hosts/oak/configuration.nix] ++ commonModules;
-          };
-          redbud = lib.nixosSystem {
-            specialArgs = {inherit inputs outputs;};
-            modules = [./hosts/redbud/configuration.nix] ++ commonModules;
-          };
-          warden = lib.nixosSystem {
-            specialArgs = {inherit inputs outputs;};
-            modules = [./hosts/warden/configuration.nix] ++ commonModules;
-          };
-
-          # iso debugging / bootstrapping
-          iso = lib.nixosSystem {
-            specialArgs = {inherit inputs outputs;};
-            modules = [
-              ./hosts/iso/configuration.nix
-              "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-            ];
-          };
-        };
       };
     });
 }
