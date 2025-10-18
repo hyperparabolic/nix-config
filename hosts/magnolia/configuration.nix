@@ -25,16 +25,6 @@
     overlays = [];
   };
 
-  networking = {
-    # required for ZFS
-    hostId = "15e99f7b";
-    hostName = "magnolia";
-    nameservers = [
-      "9.9.9.9"
-      "149.112.112.112"
-    ];
-  };
-
   zramSwap = {
     enable = true;
     memoryPercent = 50;
