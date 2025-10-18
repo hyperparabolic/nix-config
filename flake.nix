@@ -86,11 +86,6 @@
         importNixFiles ./modules
         |> builtins.filter (f: !lib.hasPrefix "_" (builtins.toString f));
 
-      systems = [
-        "aarch64-linux"
-        "x86_64-linux"
-      ];
-
       flake = let
         inherit (self) outputs;
         lib = nixpkgs.lib // home-manager.lib;
