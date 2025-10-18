@@ -81,7 +81,7 @@
       lib.filesystem.listFilesRecursive dir
       |> builtins.filter (f: lib.hasSuffix ".nix" (builtins.toString f));
   in
-    flake-parts.lib.mkFlake {inherit inputs;} ({...}: {
+    flake-parts.lib.mkFlake {inherit inputs;} ({config, ...}: {
       imports =
         importNixFiles ./modules
         |> builtins.filter (f: !lib.hasPrefix "_" (builtins.toString f));
@@ -132,22 +132,26 @@
 
         # NixOS configuration entrypoint
         # Available through 'nixos-rebuild --flake .#oak'
-        nixosConfigurations = {
+        nixosConfigurations = let
+          commonModules = with config.flake.modules.nixos; [
+            core
+          ];
+        in {
           magnolia = lib.nixosSystem {
             specialArgs = {inherit inputs outputs;};
-            modules = [./hosts/magnolia/configuration.nix];
+            modules = [./hosts/magnolia/configuration.nix] ++ commonModules;
           };
           oak = lib.nixosSystem {
             specialArgs = {inherit inputs outputs;};
-            modules = [./hosts/oak/configuration.nix];
+            modules = [./hosts/oak/configuration.nix] ++ commonModules;
           };
           redbud = lib.nixosSystem {
             specialArgs = {inherit inputs outputs;};
-            modules = [./hosts/redbud/configuration.nix];
+            modules = [./hosts/redbud/configuration.nix] ++ commonModules;
           };
           warden = lib.nixosSystem {
             specialArgs = {inherit inputs outputs;};
-            modules = [./hosts/warden/configuration.nix];
+            modules = [./hosts/warden/configuration.nix] ++ commonModules;
           };
 
           # iso debugging / bootstrapping

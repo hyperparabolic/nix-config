@@ -59,8 +59,6 @@ in {
       ++ (builtins.attrValues outputs.homeManagerModules);
   };
 
-  time.timeZone = lib.mkDefault "America/Chicago";
-
   environment = {
     enableAllTerminfo = true;
     wordlist.enable = true;
