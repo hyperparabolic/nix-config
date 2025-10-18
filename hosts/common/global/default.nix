@@ -83,7 +83,6 @@ in {
   ];
 
   programs = {
-    dconf.enable = true;
     fuse.userAllowOther = true;
   };
 
