@@ -102,7 +102,6 @@
         nixosModules = import ./legacyModules/nixos;
         homeManagerModules = import ./legacyModules/home-manager;
 
-        formatter = forEachSystem (pkgs: pkgs.alejandra);
         overlays = import ./overlays {inherit inputs outputs;};
         templates = import ./templates;
 
