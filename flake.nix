@@ -73,7 +73,6 @@
     nixpkgs,
     home-manager,
     flake-parts,
-    systems,
     ...
   } @ inputs: let
     inherit (inputs.nixpkgs) lib;
@@ -89,14 +88,6 @@
       flake = let
         inherit (self) outputs;
         lib = nixpkgs.lib // home-manager.lib;
-        pkgsFor = lib.genAttrs (import systems) (
-          system:
-            import inputs.nixpkgs {
-              inherit system;
-              config.allowUnfree = true;
-            }
-        );
-        forEachSystem = f: lib.genAttrs (import systems) (system: f pkgsFor.${system});
       in {
         inherit lib;
         nixosModules = import ./legacyModules/nixos;
@@ -104,24 +95,6 @@
 
         overlays = import ./overlays {inherit inputs outputs;};
         templates = import ./templates;
-
-        # bootstrapping and repo tooling
-        devShells = forEachSystem (pkgs: {
-          default = pkgs.mkShell {
-            NIX_CONFIG = "extra-experimental-features = nix-command flakes";
-            buildInputs = with pkgs; [
-              nix
-              nix-diff
-              git
-              sops
-              ssh-to-age
-              gnupg
-              age
-              yq-go
-              sbctl
-            ];
-          };
-        });
 
         # NixOS configuration entrypoint
         # Available through 'nixos-rebuild --flake .#oak'
