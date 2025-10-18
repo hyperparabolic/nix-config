@@ -31,6 +31,10 @@ High level overview:
 
 ## Repo structure
 
+🚧 Under construction 🚧
+
+Currently migrating to a (dendritic)[https://github.com/mightyiam/dendritic] nix pattern. Below details the old structure. Details on new structure are light until I finalize more repo patterns.
+
 - `flake.nix`: Flake entrypoint for hosts and dev shell.
 - `hosts`: NixOS configurations (`nixos-rebuild switch --flake .#<host> --sudo`).
   - `common`: Reusable config components.  Some apply to all hosts, some are optional and opt-in.
@@ -52,7 +56,7 @@ High level overview:
     - `ha.warden.decent.id`: `Home Assistant` home automation service.
 - `home`: Home-manager configuration. Not currently deployed directly, but imported via the primary NixOS config.
   - Generally, I try to keep as much of my system as possible in user space. User space programs and configurations are managed here.
-- `modules`: My own derivations. Most of these are just containers for re-usable config. However some (zfs) implement more complex parameterized config behavior.
+- `legacyModules`: My own derivations. Most of these are just containers for re-usable config. However some (zfs) implement more complex parameterized config behavior.
 
 ## Filesystem features
 
