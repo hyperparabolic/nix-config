@@ -38,14 +38,6 @@ in {
     ]
     ++ (builtins.attrValues outputs.nixosModules);
 
-  nixpkgs = {
-    # only global overlays
-    overlays = builtins.attrValues outputs.overlays;
-    config = {
-      allowUnfree = true;
-    };
-  };
-
   home-manager = {
     extraSpecialArgs = {inherit inputs outputs;};
     sharedModules =

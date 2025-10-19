@@ -1,10 +1,18 @@
 {
   flake.modules.nixos.core = {
     inputs,
-    config,
+    outputs,
     lib,
     ...
   }: {
+    nixpkgs = {
+      # only global overlays
+      overlays = builtins.attrValues outputs.overlays;
+      config = {
+        allowUnfree = true;
+      };
+    };
+
     nix = {
       settings = {
         substituters = [
