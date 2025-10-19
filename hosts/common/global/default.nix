@@ -25,7 +25,6 @@ in {
       ./bluetooth.nix
       ./gamemode.nix
       ./networking.nix
-      ./nix.nix
       ./nixos-hydra-upgrade.nix
       ./notify.nix
       ./openssh.nix
