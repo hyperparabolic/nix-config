@@ -37,6 +37,7 @@ jobs:
           gpg-private-key: ${{ secrets.BOT_GPG_PRIVATE_KEY }}
           gpg-fingerprint: ${{ secrets.BOT_GPG_FINGERPRINT }}
           gpg-passphrase: ${{ secrets.BOT_GPG_PASSPHRASE }}
+          nix-options: --extra-experimental-features pipe-operators
 
   nix-flake-check:
     name: Check flake
