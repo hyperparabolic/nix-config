@@ -24,13 +24,8 @@
         options = "--delete-older-than 8d";
       };
 
-      # Adds each flake input as a registry
-      # To make nix3 commands consistent with your flake
+      # Adds each flake input to nix registry
       registry = lib.mapAttrs (_: value: {flake = value;}) inputs;
-
-      # Additionally add your inputs to the system's legacy channels
-      # Making legacy nix commands consistent.
-      nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
     };
 
     environment.persistence."/persist".directories = ["/root/.local/share/nix"];
@@ -42,12 +37,12 @@
     pkgs,
     ...
   }: {
+    home.sessionVariables.FLAKE = lib.mkDefault "~/.nix-config";
+
     nixpkgs = {
       overlays = builtins.attrValues outputs.overlays;
       config = {
         allowUnfree = true;
-        # Workaround for https://github.com/nix-community/home-manager/issues/2942
-        allowUnfreePredicate = _: true;
       };
     };
 
