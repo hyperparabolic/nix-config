@@ -19,12 +19,9 @@
       };
 
       gc = {
-        # delete generations older than a week once a week.
-        # tune this down to a # of generations eventually.
-        # just changing things a lot right now, manual cleanup until then.
         automatic = true;
-        dates = "weekly";
-        options = "--delete-older-than 7d";
+        dates = "*-*-* 03:00:00 America/Chicago";
+        options = "--delete-older-than 8d";
       };
 
       # Adds each flake input as a registry
