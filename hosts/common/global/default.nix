@@ -23,7 +23,6 @@ in {
       inputs.nixos-hydra-upgrade.nixosModules.nixos-hydra-upgrade
       ./acme.nix
       ./bluetooth.nix
-      ./fish.nix
       ./gamemode.nix
       ./networking.nix
       ./nix.nix
@@ -59,8 +58,6 @@ in {
       ++ (builtins.attrValues outputs.homeManagerModules);
   };
 
-  time.timeZone = lib.mkDefault "America/Chicago";
-
   environment = {
     enableAllTerminfo = true;
     wordlist.enable = true;
@@ -85,7 +82,6 @@ in {
   ];
 
   programs = {
-    dconf.enable = true;
     fuse.userAllowOther = true;
   };
 

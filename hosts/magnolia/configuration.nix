@@ -11,7 +11,6 @@
     ../common/global
     ../common/optional/fingerprint.nix
     ../common/optional/hyprland.nix
-    ../common/optional/laptop.nix
     ../common/optional/ntfy-client.nix
     ../common/optional/pipewire.nix
     ../common/optional/pipewire-raop.nix
@@ -23,16 +22,6 @@
   nixpkgs = {
     # host specific overlays
     overlays = [];
-  };
-
-  networking = {
-    # required for ZFS
-    hostId = "15e99f7b";
-    hostName = "magnolia";
-    nameservers = [
-      "9.9.9.9"
-      "149.112.112.112"
-    ];
   };
 
   zramSwap = {

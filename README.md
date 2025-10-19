@@ -31,6 +31,10 @@ High level overview:
 
 ## Repo structure
 
+🚧 Under construction 🚧
+
+Currently migrating to a (dendritic)[https://github.com/mightyiam/dendritic] nix pattern. Below details the old structure. Details on new structure are light until I finalize more repo patterns.
+
 - `flake.nix`: Flake entrypoint for hosts and dev shell.
 - `hosts`: NixOS configurations (`nixos-rebuild switch --flake .#<host> --sudo`).
   - `common`: Reusable config components.  Some apply to all hosts, some are optional and opt-in.
@@ -52,13 +56,13 @@ High level overview:
     - `ha.warden.decent.id`: `Home Assistant` home automation service.
 - `home`: Home-manager configuration. Not currently deployed directly, but imported via the primary NixOS config.
   - Generally, I try to keep as much of my system as possible in user space. User space programs and configurations are managed here.
-- `modules`: My own derivations. Most of these are just containers for re-usable config. However some (zfs) implement more complex parameterized config behavior.
+- `legacyModules`: My own derivations. Most of these are just containers for re-usable config. However some (zfs) implement more complex parameterized config behavior.
 
 ## Filesystem features
 
 Hosts all utilize ZFS for root partitions.
 
-I've made a scheme that allows systems to have a single self contained ZFS zpool that offers both native ZFS encryption and LUKS key management and unlock options. If you're interested in this I have a blog post getting into more detail about it [here](https://blog.decent.id/post/lower-compromises-zfs-encryption/), and it is managed by my [zfs module](https://github.com/hyperparabolic/nix-config/blob/main/modules/nixos/zfs.nix).
+I've made a scheme that allows systems to have a single self contained ZFS zpool that offers both native ZFS encryption and LUKS key management and unlock options. If you're interested in this I have a blog post getting into more detail about it [here](https://blog.decent.id/post/lower-compromises-zfs-encryption/), and it is managed by my [zfs module](https://github.com/hyperparabolic/nix-config/blob/main/legacyModules/nixos/zfs.nix).
 
 ZFS is extremely stateful. It's the one place where I didn't try to declaratively manage things with NixOS. Instead it is treated like a layer that NixOS builds on top of.
 
