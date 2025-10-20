@@ -1,22 +1,24 @@
 {
-  pkgs,
-  lib,
-  ...
-}: {
-  home.packages = with pkgs; [
-    yubikey-touch-detector
-  ];
+  flake.modules.homeManager.desktop-applications = {
+    pkgs,
+    lib,
+    ...
+  }: {
+    home.packages = with pkgs; [
+      yubikey-touch-detector
+    ];
 
-  systemd.user.services = {
-    yubikey-touch-detector = {
-      Unit = {
-        Description = "YubiKey touch detector";
-        PartOf = "graphical-session.target";
+    systemd.user.services = {
+      yubikey-touch-detector = {
+        Unit = {
+          Description = "YubiKey touch detector";
+          PartOf = "graphical-session.target";
+        };
+        Service = {
+          ExecStart = "${lib.getExe pkgs.yubikey-touch-detector} --dbus --no-socket";
+        };
+        Install.WantedBy = ["graphical-session.target"];
       };
-      Service = {
-        ExecStart = "${lib.getExe pkgs.yubikey-touch-detector} --dbus --no-socket";
-      };
-      Install.WantedBy = ["graphical-session.target"];
     };
   };
 }

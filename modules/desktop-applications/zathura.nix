@@ -1,14 +1,16 @@
 {
-  programs.zathura = {
-    enable = true;
-    options = {
-      selection-clipboard = "clipboard";
+  flake.modules.homeManager.desktop-applications = {...}: {
+    programs.zathura = {
+      enable = true;
+      options = {
+        selection-clipboard = "clipboard";
+      };
     };
-  };
 
-  stylix.targets.zathura.enable = true;
+    stylix.targets.zathura.enable = true;
 
-  xdg.mimeApps.defaultApplications = {
-    "application/pdf" = ["zathura.desktop"];
+    xdg.mimeApps.defaultApplications = {
+      "application/pdf" = ["zathura.desktop"];
+    };
   };
 }

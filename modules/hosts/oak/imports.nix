@@ -3,6 +3,7 @@
     imports = with config.flake.modules.nixos;
       [
         core
+
         ../../../hosts/oak/configuration.nix
       ]
       ++ [
@@ -10,6 +11,8 @@
           home-manager.users.spencer = {
             imports = with config.flake.modules.homeManager; [
               core
+
+              desktop-applications
             ];
           };
         }

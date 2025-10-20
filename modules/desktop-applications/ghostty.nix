@@ -1,23 +1,25 @@
 {
-  programs.ghostty = {
-    enable = true;
-    enableFishIntegration = true;
-    settings = {
-      "scrollback-limit" = 4294967295;
-      "window-decoration" = false;
-      "window-padding-x" = 20;
-      "window-padding-y" = 20;
+  flake.modules.homeManager.desktop-applications = {...}: {
+    programs.ghostty = {
+      enable = true;
+      enableFishIntegration = true;
+      settings = {
+        "scrollback-limit" = 4294967295;
+        "window-decoration" = false;
+        "window-padding-x" = 20;
+        "window-padding-y" = 20;
+      };
     };
-  };
 
-  stylix.targets.ghostty.enable = true;
+    stylix.targets.ghostty.enable = true;
 
-  xdg.mimeApps = {
-    associations.added = {
-      "x-scheme-handler/terminal" = "com.mitchellh.ghostty.desktop";
-    };
-    defaultApplications = {
-      "x-scheme-handler/terminal" = "com.mitchellh.ghostty.desktop";
+    xdg.mimeApps = {
+      associations.added = {
+        "x-scheme-handler/terminal" = "com.mitchellh.ghostty.desktop";
+      };
+      defaultApplications = {
+        "x-scheme-handler/terminal" = "com.mitchellh.ghostty.desktop";
+      };
     };
   };
 }
