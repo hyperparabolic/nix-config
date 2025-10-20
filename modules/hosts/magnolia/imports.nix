@@ -11,6 +11,7 @@
           home-manager.users.spencer = {
             imports = with config.flake.modules.homeManager; [
               core
+              desktop-applications
             ];
           };
         }

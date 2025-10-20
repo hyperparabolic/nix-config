@@ -25,27 +25,16 @@ in {
       ./bluetooth.nix
       ./gamemode.nix
       ./networking.nix
-      ./nix.nix
       ./nixos-hydra-upgrade.nix
       ./notify.nix
       ./openssh.nix
       ./podman.nix
-      ./prometheus-node-exporter.nix
-      ./promtail.nix
       ./sops.nix
       ./tailscale.nix
       ./yubikey.nix
       ./zsh.nix
     ]
     ++ (builtins.attrValues outputs.nixosModules);
-
-  nixpkgs = {
-    # only global overlays
-    overlays = builtins.attrValues outputs.overlays;
-    config = {
-      allowUnfree = true;
-    };
-  };
 
   home-manager = {
     extraSpecialArgs = {inherit inputs outputs;};
