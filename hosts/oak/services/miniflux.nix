@@ -2,7 +2,7 @@
   listenAddress = "localhost:24762";
 in {
   sops.secrets.miniflux-admin = {
-    sopsFile = ../secrets.yaml;
+    sopsFile = ../../../secrets/oak/secrets-miniflux.yaml;
   };
 
   services = {

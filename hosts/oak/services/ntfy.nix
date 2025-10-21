@@ -53,7 +53,7 @@
   };
 
   sops.secrets.ntfy-server = {
-    sopsFile = ../secrets.yaml;
+    sopsFile = ../../../secrets/oak/secrets-ntfy-server.yaml;
   };
 
   systemd.services.ntfy-sh = {

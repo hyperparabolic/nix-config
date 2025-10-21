@@ -7,25 +7,25 @@ keys:
   - &redbud age14w3xdtk9008g35r6rgrnwk03wevu88e6tfn0qfur449avhynjeps3znnud
   - &warden age1w68rhqzqykfary5acq89w868pz7nyttpe39k588a00dz5fhhd3lq9fgh7s
 creation_rules:
-  - path_regex: hosts/oak/secrets.ya?ml$
+  - path_regex: ^secrets/oak/secrets([A-Za-z0-9_-])*.ya?ml$
     key_groups:
       - age:
           - *oak
         pgp:
           - *spencer
-  - path_regex: hosts/redbud/secrets.ya?ml$
+  - path_regex: ^secrets/redbud/secrets([A-Za-z0-9_-])*.ya?ml$
     key_groups:
       - age:
           - *redbud
         pgp:
           - *spencer
-  - path_regex: hosts/warden/secrets.ya?ml$
+  - path_regex: ^secrets/warden/secrets([A-Za-z0-9_-])*.ya?ml$
     key_groups:
       - age:
           - *warden
         pgp:
           - *spencer
-  - path_regex: hosts/common/secrets.ya?ml$
+  - path_regex: ^secrets/common/secrets([A-Za-z0-9_-])*.ya?ml$
     key_groups:
       - age:
           - *magnolia

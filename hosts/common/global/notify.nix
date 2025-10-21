@@ -14,7 +14,7 @@
   };
 
   sops.secrets.ntfy-client = {
-    sopsFile = ../secrets.yaml;
+    sopsFile = ../../../secrets/common/secrets-ntfy.yaml;
     mode = "0440";
     owner = config.users.users.spencer.name;
     group = config.users.users.spencer.group;
@@ -22,7 +22,7 @@
 
   # TODO: migrate zed notifications and remove secret
   sops.secrets.notify-provider-config = {
-    sopsFile = ../secrets.yaml;
+    sopsFile = ../../../secrets/common/secrets-zed.yaml;
     mode = "0440";
     owner = config.users.users.spencer.name;
     group = config.users.users.spencer.group;
@@ -52,6 +52,6 @@
   };
 
   sops.secrets.zed-ntfy-env = {
-    sopsFile = ../secrets.yaml;
+    sopsFile = ../../../secrets/common/secrets-zed.yaml;
   };
 }

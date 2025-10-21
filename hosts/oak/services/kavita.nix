@@ -18,7 +18,7 @@
   };
 
   sops.secrets.kavita-token-key = {
-    sopsFile = ../secrets.yaml;
+    sopsFile = ../../../secrets/oak/secrets-kavita.yaml;
   };
 
   environment.persistence."/persist".directories = ["/var/lib/kavita"];

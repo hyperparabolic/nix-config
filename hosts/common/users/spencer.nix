@@ -33,7 +33,7 @@ in {
   };
 
   sops.secrets.spencer-password = {
-    sopsFile = ../secrets.yaml;
+    sopsFile = ../../../secrets/common/secrets-spencer.yaml;
     neededForUsers = true;
   };
 
