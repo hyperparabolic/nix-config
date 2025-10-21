@@ -43,7 +43,7 @@
       enable = true;
       publicKeys = [
         {
-          source = ../../gpg-0x37CE23CFC62D8A49-2025-05-19.asc;
+          source = ../../../secrets/gpg-0x37CE23CFC62D8A49-2025-05-19.asc;
           trust = 5;
         }
       ];

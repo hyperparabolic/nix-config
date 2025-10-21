@@ -1,6 +1,6 @@
 {config, ...}: {
   sops.secrets.cf-dns-token = {
-    sopsFile = ../secrets.yaml;
+    sopsFile = ../../../secrets/warden/secrets-cf.yaml;
   };
 
   security.acme.certs = {

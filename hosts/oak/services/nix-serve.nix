@@ -1,6 +1,6 @@
 {config, ...}: {
   sops.secrets.cache-private-key = {
-    sopsFile = ../secrets.yaml;
+    sopsFile = ../../../secrets/oak/secrets-nix-serve.yaml;
   };
 
   services = {

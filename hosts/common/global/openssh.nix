@@ -7,7 +7,7 @@
   inherit (config.networking) hostName;
   excludeHosts = ["iso"];
   hosts = lib.attrsets.filterAttrs (n: _v: !builtins.elem n excludeHosts) outputs.nixosConfigurations;
-  pubKey = host: ../../${host}/ssh_host_ed25519_key.pub;
+  pubKey = host: ../../../secrets/${host}/ssh_host_ed25519_key.pub;
 
   # Keys are used here by sops-nix before impermanence can make
   # links. Must just use `/persist` keys directly if impermanence.

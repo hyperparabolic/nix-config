@@ -17,10 +17,10 @@
 
   sops.secrets = {
     cf-tunnel-cert = {
-      sopsFile = ../secrets.yaml;
+      sopsFile = ../../../secrets/oak/secrets-cf.yaml;
     };
     cf-tunnel-cred = {
-      sopsFile = ../secrets.yaml;
+      sopsFile = ../../../secrets/oak/secrets-cf.yaml;
     };
   };
 }

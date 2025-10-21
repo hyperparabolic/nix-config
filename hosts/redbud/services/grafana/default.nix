@@ -1,7 +1,7 @@
 {config, ...}: {
   sops.secrets = {
     grafana-spencer-password = {
-      sopsFile = ../../secrets.yaml;
+      sopsFile = ../../../../secrets/redbud/secrets-grafana.yaml;
       owner = "grafana";
     };
   };

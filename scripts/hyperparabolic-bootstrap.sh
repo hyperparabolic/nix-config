@@ -84,24 +84,24 @@ function main() {
   info "generating ssh keys on remote host ..."
   # this creates keys in /home/spencer/*, but owned by the root user
   $SSH_CMD "sudo ssh-keygen -t ed25519 -N \"\" -C \"root@${ARG_HOSTNAME}\" -f ~/ssh_host_ed25519_key"
-  $SSH_CMD "cat ~/ssh_host_ed25519_key.pub" > ~/.nix-config/hosts/"$ARG_HOSTNAME"/ssh_host_ed25519_key.pub
+  $SSH_CMD "cat ~/ssh_host_ed25519_key.pub" > ~/.nix-config/secrets/"$ARG_HOSTNAME"/ssh_host_ed25519_key.pub
   info "public key:"
-  cat ~/.nix-config/hosts/"$ARG_HOSTNAME"/ssh_host_ed25519_key.pub
-  AGE_KEY=$(ssh-to-age -i ~/.nix-config/hosts/"$ARG_HOSTNAME"/ssh_host_ed25519_key.pub)
+  cat ~/.nix-config/secrets/"$ARG_HOSTNAME"/ssh_host_ed25519_key.pub
+  AGE_KEY=$(ssh-to-age -i ~/.nix-config/secrets/"$ARG_HOSTNAME"/ssh_host_ed25519_key.pub)
   info "age key:"
   echo "${AGE_KEY}"
 
   # update sops
   info "Updating sops keys ..."
   TEMP_SOPS=$(mktemp)
-  yq ".keys += (\"${AGE_KEY}\" | . anchor = \"${ARG_HOSTNAME}\") | (.creation_rules[] | select(.path_regex == \"hosts/common/secrets.*$\")).key_groups[0].age += ((.keys[-1] | anchor) | . alias |= .)" ~/.nix-config/.sops.yaml > "$TEMP_SOPS" && mv "$TEMP_SOPS" ~/.nix-config/.sops.yaml
+  yq ".keys += (\"${AGE_KEY}\" | . anchor = \"${ARG_HOSTNAME}\") | (.creation_rules[] | select(.path_regex == \"secrets/common/secrets.*$\")).key_groups[0].age += ((.keys[-1] | anchor) | . alias |= .)" ~/.nix-config/.sops.yaml > "$TEMP_SOPS" && mv "$TEMP_SOPS" ~/.nix-config/.sops.yaml
   cat ~/.nix-config/.sops.yaml
   info "Does this look right? There may be extraneous config if reprovisioning."
   if ! ask_yn "Answer no to open this file for edits"; then
     hx ~/.nix-config/.sops.yaml
   fi
   info "Updating sops secrets ..."
-  sops updatekeys ~/.nix-config/hosts/*/secrets.yaml
+  sops updatekeys ~/.nix-config/secrets/*/secrets*.yaml
 
 
   # prepare stripped repo

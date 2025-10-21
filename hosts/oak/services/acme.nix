@@ -1,6 +1,6 @@
 {config, ...}: {
   sops.secrets.cf-dns-token = {
-    sopsFile = ../secrets.yaml;
+    sopsFile = ../../../secrets/oak/secrets-cf.yaml;
   };
 
   security.acme.certs = {
