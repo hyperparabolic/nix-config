@@ -33,12 +33,19 @@
     XDG_SESSION_TYPE = "wayland";
   };
 
-  stylix.targets = {
-    gtk.enable = true;
-    hyprland.enable = true;
-    hyprland.hyprpaper.enable = true;
-    nixos-icons.enable = true;
-    qt.enable = true;
+  stylix = {
+    image = pkgs.fetchurl {
+      name = "leaves.png";
+      url = "https://i.imgur.com/9EAejof.png";
+      hash = "sha256-k3nLKUCmjrUAkM7NJev/LNSCC5Kx6jWBXyngAb/MZXU=";
+    };
+    targets = {
+      gtk.enable = true;
+      hyprland.enable = true;
+      hyprland.hyprpaper.enable = true;
+      nixos-icons.enable = true;
+      qt.enable = true;
+    };
   };
 
   xdg.mimeApps.enable = true;

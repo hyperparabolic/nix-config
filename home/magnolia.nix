@@ -1,7 +1,6 @@
 {pkgs, ...}: {
   imports = [
     ./common
-    ./common/desktop
     ./common/desktop/hyprland
     ./common/games
   ];
