@@ -6,10 +6,15 @@
   programs.git = {
     enable = true;
     package = pkgs.gitAndTools.gitFull;
-    userName = "Spencer Balogh";
-    userEmail = "spbalogh@gmail.com";
-    aliases = {
-      last = "log -1 HEAD --stat";
+    settings = {
+      alias = {
+        last = "log -1 HEAD --stat";
+      };
+      init.defaultBranch = "main";
+      user = {
+        name = "Spencer Balogh";
+        email = "spbalogh@gmail.com";
+      };
     };
     signing = {
       signer = "${config.programs.gpg.package}/bin/gpg2";
@@ -19,8 +24,5 @@
     ignores = [
       ".direnv"
     ];
-    extraConfig = {
-      init.defaultBranch = "main";
-    };
   };
 }
