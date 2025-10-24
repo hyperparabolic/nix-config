@@ -50,10 +50,8 @@ in {
   environment = {
     enableAllTerminfo = true;
     wordlist.enable = true;
-    systemPackages = with pkgs; [
+    systemPackages = [
       hyperparabolic-bootstrap
-
-      helix
     ];
   };
 

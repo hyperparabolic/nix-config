@@ -2,7 +2,6 @@
   imports = [
     ./cli
     ./dev
-    ./helix
     ./stylix.nix
   ];
 
