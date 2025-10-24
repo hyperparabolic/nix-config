@@ -8,7 +8,6 @@
     enable = true;
     enableExtraSocket = true;
     enableSshSupport = true;
-    enableZshIntegration = true;
     enableFishIntegration = true;
     maxCacheTtl = 120;
     pinentry.package =
@@ -37,7 +36,6 @@
     # ensure gpg is running and card aware in .bashrc / .zlogin, sometimes it isn't on ssh or boot.
     bash.profileExtra = launchGpg;
     fish.loginShellInit = launchGpg;
-    zsh.loginExtra = launchGpg;
 
     gpg = {
       enable = true;

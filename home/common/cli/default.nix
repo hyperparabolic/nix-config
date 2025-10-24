@@ -9,7 +9,6 @@
     ./starship.nix
     ./yazi.nix
     ./zoxide.nix
-    ./zsh.nix
   ];
   # zero config packages
   home.packages = with pkgs;

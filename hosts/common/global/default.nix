@@ -26,7 +26,6 @@ in {
       ./notify.nix
       ./openssh.nix
       ./yubikey.nix
-      ./zsh.nix
     ]
     ++ (builtins.attrValues outputs.nixosModules);
 
