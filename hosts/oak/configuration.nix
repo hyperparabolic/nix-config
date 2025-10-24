@@ -115,33 +115,6 @@
     ];
   };
 
-  # tweak default audio device priority
-  services.pipewire = {
-    wireplumber.extraConfig = {
-      "60-dac-priority" = {
-        "monitor.alsa.rules" = [
-          {
-            matches = [
-              {
-                "node.name" = "alsa_input.usb-Focusrite_Scarlett_2i2_USB_Y86BTH519C4572-00.HiFi__Mic1__source";
-              }
-              {
-                "node.name" = "alsa_output.usb-Focusrite_Scarlett_2i2_USB_Y86BTH519C4572-00.HiFi__Line1__sink";
-              }
-            ];
-            actions = {
-              update-props = {
-                # normal input priority is sequential starting at 2000
-                "priority.driver" = "3000";
-                "priority.session" = "3000";
-              };
-            };
-          }
-        ];
-      };
-    };
-  };
-
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.05";
 }
