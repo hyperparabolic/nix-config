@@ -5,6 +5,7 @@
         core
 
         bluetooth
+        fingerprint
         laptop
         ../../../hosts/magnolia/configuration.nix
       ]
