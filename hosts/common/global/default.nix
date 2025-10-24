@@ -61,10 +61,6 @@ in {
     "/srv"
   ];
 
-  programs = {
-    fuse.userAllowOther = true;
-  };
-
   # increase file handle limits for sudoers
   security.pam.loginLimits = [
     {
