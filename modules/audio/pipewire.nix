@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.audio = {pkgs, ...}: {
+  flake.modules.nixos.audio = {...}: {
     security.rtkit.enable = true;
     services.pipewire = {
       enable = true;
@@ -31,9 +31,5 @@
         };
       };
     };
-
-    environment.systemPackages = with pkgs; [
-      qpwgraph
-    ];
   };
 }

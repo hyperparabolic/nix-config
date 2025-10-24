@@ -6,6 +6,9 @@
         gnome-randr
         wlr-randr
 
+        # pipewire graph editor
+        qpwgraph
+
         vlc
       ]
       # less frequently used apps are realized lazily
