@@ -1,9 +1,11 @@
-{lib, ...}: {
-  services.tailscale = {
-    enable = true;
-    openFirewall = true;
-    useRoutingFeatures = lib.mkDefault "client";
-  };
+{
+  flake.modules.nixos.core = {lib, ...}: {
+    services.tailscale = {
+      enable = true;
+      openFirewall = true;
+      useRoutingFeatures = lib.mkDefault "client";
+    };
 
-  environment.persistence."/persist".directories = ["/var/lib/tailscale"];
+    environment.persistence."/persist".directories = ["/var/lib/tailscale"];
+  };
 }

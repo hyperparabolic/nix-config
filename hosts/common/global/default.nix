@@ -23,13 +23,8 @@ in {
       inputs.nixos-hydra-upgrade.nixosModules.nixos-hydra-upgrade
       ./acme.nix
       ./gamemode.nix
-      ./networking.nix
-      ./nixos-hydra-upgrade.nix
       ./notify.nix
       ./openssh.nix
-      ./podman.nix
-      ./sops.nix
-      ./tailscale.nix
       ./yubikey.nix
       ./zsh.nix
     ]
