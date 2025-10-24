@@ -1,5 +1,0 @@
-{
-  boot.plymouth = {
-    enable = true;
-  };
-}
