@@ -3,6 +3,8 @@
     imports = with config.flake.modules.nixos;
       [
         core
+
+        bluetooth
         laptop
         ../../../hosts/redbud/configuration.nix
       ]

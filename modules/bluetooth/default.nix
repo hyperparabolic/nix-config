@@ -1,12 +1,14 @@
-{pkgs, ...}: {
-  hardware.bluetooth = {
-    enable = true;
+{
+  flake.modules.nixos.bluetooth = {pkgs, ...}: {
+    hardware.bluetooth = {
+      enable = true;
+    };
+
+    # bluetooth tui
+    environment.systemPackages = with pkgs; [
+      bluetuith
+    ];
+
+    environment.persistence."/persist".directories = ["/var/lib/bluetooth"];
   };
-
-  # bluetooth tui
-  environment.systemPackages = with pkgs; [
-    bluetuith
-  ];
-
-  environment.persistence."/persist".directories = ["/var/lib/bluetooth"];
 }

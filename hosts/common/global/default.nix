@@ -22,7 +22,6 @@ in {
     [
       inputs.nixos-hydra-upgrade.nixosModules.nixos-hydra-upgrade
       ./acme.nix
-      ./bluetooth.nix
       ./gamemode.nix
       ./networking.nix
       ./nixos-hydra-upgrade.nix
