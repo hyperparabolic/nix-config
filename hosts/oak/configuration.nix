@@ -17,7 +17,6 @@
     ../common/optional/hyprland.nix
     ../common/optional/libvirt.nix
     ../common/optional/ntfy-client.nix
-    ../common/optional/pipewire-raop.nix
     ../common/optional/secureboot.nix
     ../common/users/spencer.nix
   ];

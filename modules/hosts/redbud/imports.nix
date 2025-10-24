@@ -7,6 +7,7 @@
         audio
         bluetooth
         laptop
+        pipewire-raop
         ../../../hosts/redbud/configuration.nix
       ]
       ++ [
