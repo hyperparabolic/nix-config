@@ -4,6 +4,7 @@
       [
         core
 
+        audio
         bluetooth
         laptop
         ../../../hosts/redbud/configuration.nix

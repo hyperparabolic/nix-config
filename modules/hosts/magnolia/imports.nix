@@ -4,6 +4,7 @@
       [
         core
 
+        audio
         bluetooth
         fingerprint
         laptop
