@@ -22,15 +22,9 @@ in {
     [
       inputs.nixos-hydra-upgrade.nixosModules.nixos-hydra-upgrade
       ./acme.nix
-      ./bluetooth.nix
       ./gamemode.nix
-      ./networking.nix
-      ./nixos-hydra-upgrade.nix
       ./notify.nix
       ./openssh.nix
-      ./podman.nix
-      ./sops.nix
-      ./tailscale.nix
       ./yubikey.nix
       ./zsh.nix
     ]
@@ -50,10 +44,8 @@ in {
   environment = {
     enableAllTerminfo = true;
     wordlist.enable = true;
-    systemPackages = with pkgs; [
+    systemPackages = [
       hyperparabolic-bootstrap
-
-      helix
     ];
   };
 

@@ -4,6 +4,7 @@
       [
         core
 
+        bluetooth
         ../../../hosts/oak/configuration.nix
       ]
       ++ [

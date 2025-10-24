@@ -3,6 +3,8 @@
     imports = with config.flake.modules.nixos;
       [
         core
+
+        bluetooth
         ../../../hosts/warden/configuration.nix
       ]
       ++ [
