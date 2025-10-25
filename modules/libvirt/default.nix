@@ -1,23 +1,33 @@
-{pkgs, ...}: {
-  # This will have to be made a module if I start running VMs
-  # on an intel host, too. Fine for now.
-  boot.kernelModules = ["kvm-amd"];
-
-  virtualisation.libvirtd = {
-    enable = true;
-    qemu = {
-      runAsRoot = false;
-      # software TPM for guests
-      swtpm.enable = true;
+{
+  flake.modules.nixos.libvirt = {...}: {
+    virtualisation.libvirtd = {
+      enable = true;
+      qemu = {
+        runAsRoot = false;
+        # software TPM for guests
+        swtpm.enable = true;
+      };
     };
+
+    # polkit is used for libvirt permissions
+    security.polkit.enable = true;
+
+    environment.persistence."/persist".directories = ["/var/lib/libvirt/qemu"];
   };
 
-  # polkit is used for libvirt permissions
-  security.polkit.enable = true;
+  flake.modules.homeManager.libvirt = {pkgs, ...}: {
+    home.packages = with pkgs; [
+      virt-manager
+    ];
 
-  environment.systemPackages = with pkgs; [
-    virt-manager
-  ];
-
-  environment.persistence."/persist".directories = ["/var/lib/libvirt/qemu"];
+    dconf.settings = {
+      "org/virt-manager/virt-manager" = {
+        xmleditor-enabled = true;
+      };
+      "org/virt-manager/virt-manager/connections" = {
+        uris = ["qemu:///system"];
+        autoconnect = ["qemu:///system"];
+      };
+    };
+  };
 }

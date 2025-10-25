@@ -15,7 +15,6 @@
     ./virtualization
     ../common/global
     ../common/optional/hyprland.nix
-    ../common/optional/libvirt.nix
     ../common/optional/ntfy-client.nix
     ../common/users/spencer.nix
   ];

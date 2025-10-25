@@ -6,6 +6,7 @@
 
         audio
         bluetooth
+        libvirt
         reverse-proxy
         secureboot
         ../../../hosts/oak/configuration.nix
@@ -17,6 +18,7 @@
               core
 
               desktop-applications
+              libvirt
             ];
           };
         }
