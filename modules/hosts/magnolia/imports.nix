@@ -4,8 +4,11 @@
       [
         core
 
+        audio
         bluetooth
+        fingerprint
         laptop
+        secureboot
         ../../../hosts/magnolia/configuration.nix
       ]
       ++ [

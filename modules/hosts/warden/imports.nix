@@ -5,6 +5,8 @@
         core
 
         bluetooth
+        reverse-proxy
+        secureboot
         ../../../hosts/warden/configuration.nix
       ]
       ++ [
