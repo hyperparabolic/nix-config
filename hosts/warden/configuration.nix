@@ -33,14 +33,9 @@
 
   boot = {
     kernelModules = ["igb"];
-    loader = {
-      efi.canTouchEfiVariables = true;
-      systemd-boot.enable = true;
-    };
     initrd = {
       kernelModules = ["igb"];
       systemd = {
-        enable = true;
         network = {
           enable = false;
           networks.enp2s0 = {
