@@ -11,7 +11,6 @@
     ../common/global
     ../common/optional/hyprland.nix
     ../common/optional/ntfy-client.nix
-    ../common/optional/secureboot.nix
     ../common/optional/steam.nix
     ../common/users/spencer.nix
   ];

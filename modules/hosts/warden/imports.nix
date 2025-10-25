@@ -5,6 +5,7 @@
         core
 
         bluetooth
+        secureboot
         ../../../hosts/warden/configuration.nix
       ]
       ++ [

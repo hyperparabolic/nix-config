@@ -6,6 +6,7 @@
 
         audio
         bluetooth
+        secureboot
         ../../../hosts/oak/configuration.nix
       ]
       ++ [

@@ -10,7 +10,6 @@
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     ./hardware-configuration.nix
     ../common/global
-    ../common/optional/secureboot.nix
     ../common/users/spencer.nix
     ./services
   ];

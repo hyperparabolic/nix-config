@@ -8,6 +8,7 @@
         bluetooth
         laptop
         pipewire-raop
+        secureboot
         ../../../hosts/redbud/configuration.nix
       ]
       ++ [

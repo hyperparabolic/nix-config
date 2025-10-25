@@ -11,7 +11,6 @@
     ./hardware-configuration.nix
     ../common/global
     ../common/optional/smokeping-prometheus-exporter.nix
-    ../common/optional/secureboot.nix
     ../common/optional/tailscale-exit-node.nix
     ../common/users/spencer.nix
     ./services
