@@ -29,14 +29,6 @@
     memoryPercent = 50;
   };
 
-  boot = {
-    initrd.systemd.enable = true;
-    loader = {
-      efi.canTouchEfiVariables = true;
-      systemd-boot.enable = true;
-    };
-  };
-
   hyperparabolic = {
     impermanence = {
       enable = true;

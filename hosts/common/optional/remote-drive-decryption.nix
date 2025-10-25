@@ -1,17 +1,18 @@
-{config, ...}: {
+{
+  config,
+  lib,
+  ...
+}: {
   # Remote drive decryption and ssh debugging.
   # systemd stage1 networking must be separately configured, and
   # the ssh key below must be provisioned.
   boot = {
-    loader = {
-      systemd-boot.enable = true;
-    };
     initrd = {
       secrets = {
         "/persist/boot/ssh/ssh_host_ed25519_key" = "/persist/boot/ssh/ssh_host_ed25519_key";
       };
       systemd = {
-        enable = true;
+        enable = lib.mkForce true;
         services.remote-unlock = {
           description = "Prepare for remote drive decryption";
           wantedBy = ["initrd.target"];

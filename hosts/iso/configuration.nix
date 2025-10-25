@@ -37,13 +37,6 @@ in {
     squashfsCompression = "zstd -Xcompression-level 3";
   };
 
-  boot = {
-    loader = {
-      efi.canTouchEfiVariables = true;
-      systemd-boot.enable = true;
-    };
-  };
-
   systemd = {
     services.sshd.wantedBy = lib.mkForce ["multi-user.target"];
     targets = {

@@ -149,25 +149,28 @@ in {
 
     (mkIf (enableImpermanenceRollback && cfg.impermanenceRollbackSnapshot != null) {
       # rollback root fs to blank snapshot
-      boot.initrd.systemd.services.zfs-rollback = {
-        description = "Rollback ZFS root dataset to blank snapshot";
-        wantedBy = [
-          "initrd.target"
-        ];
-        after = [
-          "zfs-import-rpool.service"
-        ];
-        before = [
-          "sysroot.mount"
-        ];
-        path = with pkgs; [
-          zfs
-        ];
-        unitConfig.DefaultDependencies = "no";
-        serviceConfig.Type = "oneshot";
-        script = ''
-          zfs rollback -r ${cfg.impermanenceRollbackSnapshot} && echo "zfs rollback complete"
-        '';
+      boot.initrd.systemd = {
+        enable = lib.mkForce true;
+        services.zfs-rollback = {
+          description = "Rollback ZFS root dataset to blank snapshot";
+          wantedBy = [
+            "initrd.target"
+          ];
+          after = [
+            "zfs-import-rpool.service"
+          ];
+          before = [
+            "sysroot.mount"
+          ];
+          path = with pkgs; [
+            zfs
+          ];
+          unitConfig.DefaultDependencies = "no";
+          serviceConfig.Type = "oneshot";
+          script = ''
+            zfs rollback -r ${cfg.impermanenceRollbackSnapshot} && echo "zfs rollback complete"
+          '';
+        };
       };
     })
 
@@ -203,6 +206,7 @@ in {
         # creates systemd-cryptsetup@secretsroot
         luks.devices.secretsroot.device = "/dev/zvol/rpool/volumes/bootsecrets-part1";
         systemd = {
+          enable = lib.mkForce true;
           mounts = [
             {
               # fileSystems.<name> doesn't really support mounting files in initrd that aren't

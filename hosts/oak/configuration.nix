@@ -40,14 +40,9 @@
   boot = {
     kernelPackages = lib.mkForce pkgs.linuxKernel.packages.linux_6_12;
     kernelModules = ["igb"];
-    loader = {
-      efi.canTouchEfiVariables = true;
-      systemd-boot.enable = true;
-    };
     initrd = {
       kernelModules = ["igb"];
       systemd = {
-        enable = true;
         network = {
           enable = false;
           networks.enp68s0 = {
