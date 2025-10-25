@@ -8,6 +8,7 @@
         bluetooth
         laptop
         pipewire-raop
+        reverse-proxy
         secureboot
         ../../../hosts/redbud/configuration.nix
       ]

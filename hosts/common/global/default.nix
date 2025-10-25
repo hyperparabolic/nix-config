@@ -21,7 +21,6 @@ in {
   imports =
     [
       inputs.nixos-hydra-upgrade.nixosModules.nixos-hydra-upgrade
-      ./acme.nix
       ./gamemode.nix
       ./notify.nix
       ./openssh.nix

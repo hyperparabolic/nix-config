@@ -6,6 +6,7 @@
 
         audio
         bluetooth
+        reverse-proxy
         secureboot
         ../../../hosts/oak/configuration.nix
       ]
