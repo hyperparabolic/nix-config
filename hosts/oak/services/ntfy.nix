@@ -7,7 +7,7 @@
     ntfy-sh = {
       enable = true;
       settings = {
-        base-url = "https://ntfy.decent.id";
+        base-url = "https://ntfy.oak.decent.id";
         listen-http = ":6839";
         # just disable web interface entirely. Hopefully take the edge
         # off scraping / probing traffic.
