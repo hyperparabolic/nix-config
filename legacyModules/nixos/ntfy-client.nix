@@ -51,16 +51,16 @@ in {
 
   config = let
     configuration = settingsFormat.generate "client.yml" cfg.settings;
-    # read from stdin if no args. Expects a piped, null terminated string,
-    # times out to empty notification after 1 second.
+    # Lone arg "-" indicates to read from stdin. Expects pipe, so times out quickly.
+    # Otherwise send all args.
     readInput = ''
       INPUT=""
-      if [ "$#" -gt 0 ]; then
-        INPUT+="$*"
-      else
+      if [ "$*" == "-" ]; then
         line=""
         IFS= read -d \'\' -t 1 -r line || true
         INPUT+="$line"
+      else
+        INPUT+="$*"
       fi
     '';
     package-ntfy-notify = pkgs.writeShellApplication {
