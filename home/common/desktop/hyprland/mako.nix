@@ -10,6 +10,7 @@
       outer-margin = "30,0,0,0";
       padding = 15;
       width = 800;
+      height = 1000;
     };
   };
   stylix.targets.mako.enable = true;
