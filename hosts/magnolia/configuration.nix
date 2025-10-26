@@ -1,8 +1,4 @@
-{
-  inputs,
-  pkgs,
-  ...
-}: {
+{inputs, ...}: {
   imports = [
     inputs.impermanence.nixosModules.impermanence
     # https://github.com/NixOS/nixos-hardware/tree/master/framework/13-inch/7040-amd
@@ -10,6 +6,7 @@
     ./hardware-configuration.nix
     ../common/global
     ../common/optional/hyprland.nix
+    ../common/optional/notify.nix
     ../common/optional/ntfy-client.nix
     ../common/optional/steam.nix
     ../common/users/spencer.nix
@@ -38,9 +35,6 @@
         enable = true;
         backingDevices = ["dev-nvme0n1p2.device"];
       };
-      zedMailTo = "root"; # value doesn't matter, not using email, just needs to not be null;
-      zedMailCommand = "${pkgs.notify}/bin/notify";
-      zedMailCommandOptions = "-bulk -provider-config /run/secrets/notify-provider-config";
     };
   };
 

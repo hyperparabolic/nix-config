@@ -15,6 +15,7 @@
     ./virtualization
     ../common/global
     ../common/optional/hyprland.nix
+    ../common/optional/notify.nix
     ../common/optional/ntfy-client.nix
     ../common/users/spencer.nix
   ];
@@ -67,9 +68,6 @@
           "dev-nvme2n1p1.device"
         ];
       };
-      zedMailTo = "root"; # value doesn't matter, not using email, just needs to not be null;
-      zedMailCommand = "${pkgs.notify}/bin/notify";
-      zedMailCommandOptions = "-bulk -provider-config /run/secrets/notify-provider-config";
     };
   };
 

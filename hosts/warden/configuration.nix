@@ -1,8 +1,4 @@
-{
-  inputs,
-  pkgs,
-  ...
-}: {
+{inputs, ...}: {
   imports = [
     inputs.impermanence.nixosModules.impermanence
     inputs.nixos-hardware.nixosModules.common-cpu-intel
@@ -10,6 +6,7 @@
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     ./hardware-configuration.nix
     ../common/global
+    ../common/optional/notify.nix
     ../common/optional/smokeping-prometheus-exporter.nix
     ../common/optional/tailscale-exit-node.nix
     ../common/users/spencer.nix
@@ -60,9 +57,6 @@
         enable = true;
         backingDevices = ["dev-nvme0n1p1.device"];
       };
-      zedMailTo = "root"; # value doesn't matter, not using email, just needs to not be null;
-      zedMailCommand = "${pkgs.notify}/bin/notify";
-      zedMailCommandOptions = "-bulk -provider-config /run/secrets/notify-provider-config";
     };
   };
 

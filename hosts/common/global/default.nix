@@ -22,7 +22,6 @@ in {
     [
       inputs.nixos-hydra-upgrade.nixosModules.nixos-hydra-upgrade
       ./gamemode.nix
-      ./notify.nix
       ./openssh.nix
       ./yubikey.nix
     ]
