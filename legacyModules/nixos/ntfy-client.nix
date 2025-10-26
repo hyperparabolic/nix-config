@@ -51,13 +51,26 @@ in {
 
   config = let
     configuration = settingsFormat.generate "client.yml" cfg.settings;
+    # read from stdin if no args. Expects a piped, null terminated string,
+    # times out to empty notification after 1 second.
+    readInput = ''
+      INPUT=""
+      if [ "$#" -gt 0 ]; then
+        INPUT+="$*"
+      else
+        line=""
+        IFS= read -d \'\' -t 1 -r line || true
+        INPUT+="$line"
+      fi
+    '';
     package-ntfy-notify = pkgs.writeShellApplication {
       name = "notify";
       runtimeInputs = with pkgs; [ntfy-sh];
       text = ''
         # shellcheck source=/dev/null
         source ${cfg.environmentFile}
-        NTFY_TOPIC=notification ntfy publish -c ${configuration} -k "$NTFY_TOKEN" "$@"
+        ${readInput}
+        NTFY_TOPIC=notification ntfy publish -c ${configuration} -k "$NTFY_TOKEN" "$INPUT"
       '';
     };
     package-ntfy-alert = pkgs.writeShellApplication {
@@ -66,7 +79,8 @@ in {
       text = ''
         # shellcheck source=/dev/null
         source ${cfg.environmentFile}
-        NTFY_TOPIC=alert ntfy publish -c ${configuration} -k "$NTFY_TOKEN" "$@"
+        ${readInput}
+        NTFY_TOPIC=alert ntfy publish -c ${configuration} -k "$NTFY_TOKEN" "$INPUT"
       '';
     };
   in
