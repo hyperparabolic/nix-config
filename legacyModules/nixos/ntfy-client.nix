@@ -85,6 +85,10 @@ in {
     };
   in
     lib.mkIf cfg.enable {
+      # only set defaults if enabled, otherwise likely not configured and will not function
+      hyperparabolic.ntfy.package-alert = lib.mkDefault package-ntfy-alert;
+      hyperparabolic.ntfy.package-notify = lib.mkDefault package-ntfy-notify;
+
       environment.systemPackages = with pkgs; [
         ntfy-sh
         package-ntfy-notify
