@@ -22,7 +22,6 @@
     wl-clipboard
 
     # utils
-    kdePackages.xwaylandvideobridge
     wlogout
   ];
 

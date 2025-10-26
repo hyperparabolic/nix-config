@@ -34,7 +34,6 @@ in {
         "hyprctl dispatch workspace 8"
         "hyprctl dispatch workspace 1"
 
-        # "uwsm app -- xwaylandvideobridge"
         "uwsm app -s s -- wl-paste --type text --watch cliphist store"
         "uwsm app -s s -- wl-paste --type image --watch cliphist store"
         "uwsm app -- easyeffects -l input_filter"
@@ -255,15 +254,6 @@ in {
 
         # support zoom popups
         "stayfocused, class:^(zoom)$, title:^(menu window)$"
-
-        # hide xwaylandvideobridge
-        "opacity 0.0 override, class:^(xwaylandvideobridge)$"
-        "noanim, class:^(xwaylandvideobridge)$"
-        "noinitialfocus, class:^(xwaylandvideobridge)$"
-        "maxsize 1 1, class:^(xwaylandvideobridge)$"
-        "noblur, class:^(xwaylandvideobridge)$"
-        "nofocus, class:^(xwaylandvideobridge)$"
-        "workspace 4, class:^(xwaylandvideobridge)$"
 
         # auth prompt animations
         "animation popin, class:gcr-prompter"
