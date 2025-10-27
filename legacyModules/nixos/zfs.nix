@@ -275,7 +275,7 @@ in {
               unitConfig.DefaultDependencies = "no";
               serviceConfig.Type = "oneshot";
               script = ''
-                systemctl disable --now systemd-cryptsetup@secretsroot.service
+                systemd-cryptsetup detach secretsroot
                 systemctl mask systemd-cryptsetup@secretsroot.service
               '';
             };
