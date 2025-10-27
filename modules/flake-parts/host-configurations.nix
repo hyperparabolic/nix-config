@@ -32,11 +32,7 @@
       # iso debugging / bootstrapping
       iso = lib.nixosSystem {
         inherit specialArgs;
-        modules =
-          config.flake.modules.nixos.hosts-warden.imports
-          ++ [
-            "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-          ];
+        modules = config.flake.modules.nixos.hosts-iso.imports;
       };
     };
   };
