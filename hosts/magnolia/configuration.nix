@@ -43,12 +43,6 @@
     enable32Bit = true;
   };
 
-  programs.steam.gamescopeSession.args = [
-    "--output-width 2256"
-    "--output-height 1504"
-    "--prefer-output eDP-1"
-  ];
-
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.05";
 }
