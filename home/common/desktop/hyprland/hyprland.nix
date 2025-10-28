@@ -67,7 +67,7 @@ in {
       };
 
       monitor =
-        if builtins.length config.monitors > 0
+        if builtins.length config.this.monitors > 0
         # if monitors are configured, map to exact config
         then
           map (
@@ -84,19 +84,19 @@ in {
               then "${transform}"
               else ""
             }"
-          ) (config.monitors)
+          ) (config.this.monitors)
         # if monitors are not configured, do your best prioritizing resolution
         else [",highres,auto,1"];
 
       workspace =
-        if builtins.length config.monitors > 0
+        if builtins.length config.this.monitors > 0
         then
           lib.flatten (map (
             m:
               map (
                 mw: "${mw},monitor:${m.name},persistent:true"
               ) (m.workspaces)
-          ) (config.monitors))
+          ) (config.this.monitors))
         else [
           "1,persistent:true"
           "2,persistent:true"

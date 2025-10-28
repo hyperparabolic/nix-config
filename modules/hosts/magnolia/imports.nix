@@ -3,6 +3,8 @@
     imports = with config.flake.modules.nixos;
       [
         core
+        this
+        this-share-home
 
         audio
         bluetooth

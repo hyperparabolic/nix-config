@@ -4,6 +4,9 @@
       [
         "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
         core
+        this
+        this-share-home
+
         ../../../hosts/iso/configuration.nix
       ]
       ++ [
