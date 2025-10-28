@@ -60,10 +60,14 @@
 
     vanity.url = "github:hyperparabolic/vanity";
 
+    elephant = {
+      url = "github:hyperparabolic/elephant?ref=nix-provider-configs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     walker = {
       url = "github:abenz1267/walker?ref=2.0.0";
       inputs = {
-        elephant.url = "github:abenz1267/elephant?ref=2.0.0";
+        elephant.follows = "elephant";
         nixpkgs.follows = "nixpkgs";
       };
     };
