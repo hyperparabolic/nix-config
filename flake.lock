@@ -154,11 +154,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1761676449,
-        "narHash": "sha256-9X1v13abZjNDe8Yt2u0ge/na4liRgVrFFgGx8rDuaK8=",
+        "lastModified": 1761756335,
+        "narHash": "sha256-y5iVUhhQ8kdJcWoZccnRSF1jovkENxbJTVDSjIS2FC0=",
         "owner": "hyperparabolic",
         "repo": "elephant",
-        "rev": "b0d213f4af5ca1d50ece3064b3b68a343ba90d80",
+        "rev": "ff34e3de6f84a196da3143e8ca4565edd46bf9ba",
         "type": "github"
       },
       "original": {

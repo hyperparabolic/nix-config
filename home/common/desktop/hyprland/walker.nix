@@ -7,36 +7,33 @@
         # explicit default to validate upstream module changes, TODO: delete me
         auth_detect_launch_prefix = true;
       };
-      providerSettings = [
-        {
-          name = "websearch";
-          settings = {
-            entries = [
-              {
-                default = true;
-                name = "DuckDuckGo";
-                url = "https://duckduckgo.com/?q=%TERM%";
-              }
-              {
-                name = "NixOS Options";
-                url = "https://search.nixos.org/options?channel=unstable&query=%TERM%";
-              }
-              {
-                name = "NixOS Packages";
-                url = "https://search.nixos.org/packages?channel=unstable&query=%TERM%";
-              }
-              {
-                name = "Home Manager Options";
-                url = "https://home-manager-options.extranix.com/?release=master&query=%TERM%";
-              }
-              {
-                name = "Google";
-                url = "https://www.google.com/search?q=%TERM%";
-              }
-            ];
-          };
-        }
-      ];
+      provider = {
+        websearch.settings = {
+          entries = [
+            {
+              default = true;
+              name = "DuckDuckGo";
+              url = "https://duckduckgo.com/?q=%TERM%";
+            }
+            {
+              name = "NixOS Options";
+              url = "https://search.nixos.org/options?channel=unstable&query=%TERM%";
+            }
+            {
+              name = "NixOS Packages";
+              url = "https://search.nixos.org/packages?channel=unstable&query=%TERM%";
+            }
+            {
+              name = "Home Manager Options";
+              url = "https://home-manager-options.extranix.com/?release=master&query=%TERM%";
+            }
+            {
+              name = "Google";
+              url = "https://www.google.com/search?q=%TERM%";
+            }
+          ];
+        };
+      };
     };
     walker = {
       enable = true;
