@@ -1,5 +1,7 @@
 {
-  programs.bash = {
-    enable = true;
+  flake.modules.homeManager.core = {...}: {
+    programs.bash = {
+      enable = true;
+    };
   };
 }
