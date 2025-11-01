@@ -10,6 +10,7 @@
         reverse-proxy
         secureboot
         user-spencer
+        tailscale-exit-node
         ../../../hosts/warden/configuration.nix
       ]
       ++ [
