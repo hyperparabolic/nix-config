@@ -1,6 +1,5 @@
 {pkgs, ...}: {
   imports = [
-    ./common
     ./common/desktop/hyprland
   ];
 
