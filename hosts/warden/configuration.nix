@@ -7,7 +7,6 @@
     ./hardware-configuration.nix
     ../common/global
     ../common/optional/notify.nix
-    ../common/optional/smokeping-prometheus-exporter.nix
     ../common/users/spencer.nix
     ./services
   ];
