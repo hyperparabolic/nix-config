@@ -8,7 +8,6 @@
     ../common/optional/hyprland.nix
     ../common/optional/notify.nix
     ../common/optional/ntfy-client.nix
-    ../common/users/spencer.nix
   ];
 
   nixpkgs = {

@@ -30,4 +30,7 @@
       }
     ];
   };
+
+  flake.modules.homeManager.hosts-oak = {lib, ...}: {
+  };
 }

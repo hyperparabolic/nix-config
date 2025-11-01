@@ -11,6 +11,7 @@
         libvirt
         reverse-proxy
         secureboot
+        user-spencer
         ../../../hosts/oak/configuration.nix
       ]
       ++ [
@@ -21,6 +22,7 @@
 
               desktop-applications
               libvirt
+              user-spencer
             ];
           };
         }
