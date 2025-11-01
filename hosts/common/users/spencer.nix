@@ -22,6 +22,7 @@ in {
           "wheel"
         ]
         ++ ifGroupExists [
+          "gamemode"
           "networkmanager"
           "pipewire"
         ];
