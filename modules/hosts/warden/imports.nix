@@ -9,6 +9,7 @@
         bluetooth
         reverse-proxy
         secureboot
+        tailscale-exit-node
         ../../../hosts/warden/configuration.nix
       ]
       ++ [

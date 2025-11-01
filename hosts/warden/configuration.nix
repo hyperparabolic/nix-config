@@ -8,7 +8,6 @@
     ../common/global
     ../common/optional/notify.nix
     ../common/optional/smokeping-prometheus-exporter.nix
-    ../common/optional/tailscale-exit-node.nix
     ../common/users/spencer.nix
     ./services
   ];
