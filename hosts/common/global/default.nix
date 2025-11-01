@@ -21,7 +21,6 @@ in {
   imports =
     [
       inputs.nixos-hydra-upgrade.nixosModules.nixos-hydra-upgrade
-      ./gamemode.nix
       ./openssh.nix
       ./yubikey.nix
     ]

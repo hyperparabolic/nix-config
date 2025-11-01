@@ -1,13 +1,15 @@
-{pkgs, ...}: {
-  home = {
-    packages = [
-      pkgs.gamescope
-    ];
-    persistence."/persist".directories = [
-      "Games"
-      ".factorio"
-      ".local/share/Steam"
-      ".local/share/Tabletop Simulator"
-    ];
+{
+  flake.modules.homeManager.games = {pkgs, ...}: {
+    home = {
+      packages = [
+        pkgs.gamescope
+      ];
+      persistence."/persist".directories = [
+        "Games"
+        ".factorio"
+        ".local/share/Steam"
+        ".local/share/Tabletop Simulator"
+      ];
+    };
   };
 }

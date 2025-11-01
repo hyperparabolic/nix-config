@@ -9,6 +9,7 @@
         audio
         bluetooth
         fingerprint
+        games
         laptop
         secureboot
         ../../../hosts/magnolia/configuration.nix
@@ -20,6 +21,7 @@
               core
 
               desktop-applications
+              games
             ];
           };
         }

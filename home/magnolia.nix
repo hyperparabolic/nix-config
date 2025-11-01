@@ -2,7 +2,6 @@
   imports = [
     ./common
     ./common/desktop/hyprland
-    ./common/games
   ];
 
   home.persistence."/persist".directories = ["src"];
