@@ -12,7 +12,6 @@
     ./hardware-configuration.nix
     ./services
     ./virtualization
-    ../common/global
     ../common/optional/hyprland.nix
     ../common/optional/notify.nix
     ../common/optional/ntfy-client.nix

@@ -2,8 +2,22 @@
   flake.modules.nixos.core = {
     inputs,
     outputs,
+    pkgs,
     ...
-  }: {
+  }: let
+    hyperparabolic-bootstrap = pkgs.writeShellApplication {
+      name = "hyperparabolic-bootstrap";
+      runtimeInputs = with pkgs; [
+        rsync
+
+        age
+        ssh-to-age
+        sops
+        yq-go
+      ];
+      text = builtins.readFile ../../scripts/hyperparabolic-bootstrap.sh;
+    };
+  in {
     imports =
       [
         inputs.home-manager.nixosModules.home-manager
@@ -23,7 +37,28 @@
         ++ (builtins.attrValues outputs.homeManagerModules);
     };
 
+    environment = {
+      enableAllTerminfo = true;
+      wordlist.enable = true;
+      systemPackages = [
+        hyperparabolic-bootstrap
+      ];
+    };
+
+    services = {
+      dbus.implementation = "broker";
+      # firmware updates: `fwupdmgr update`
+      fwupd.enable = true;
+    };
+
     users.mutableUsers = false;
+
+    environment.persistence."/persist".directories = [
+      "/var/lib/systemd"
+      "/var/lib/nixos"
+      "/var/log"
+      "/srv"
+    ];
   };
 
   flake.modules.homeManager.core = {lib, ...}: {

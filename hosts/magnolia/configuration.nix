@@ -3,7 +3,6 @@
     # https://github.com/NixOS/nixos-hardware/tree/master/framework/13-inch/7040-amd
     inputs.nixos-hardware.nixosModules.framework-13-7040-amd
     ./hardware-configuration.nix
-    ../common/global
     ../common/optional/hyprland.nix
     ../common/optional/notify.nix
     ../common/optional/ntfy-client.nix

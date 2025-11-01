@@ -22,11 +22,6 @@
     text = builtins.readFile ../../scripts/hyperparabolic-install.sh;
   };
 in {
-  imports = [
-    # disabled, but still required or config is invalid
-    ../common/global
-  ];
-
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   isoImage = {

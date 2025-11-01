@@ -4,7 +4,6 @@
     inputs.nixos-hardware.nixosModules.common-pc-laptop
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     ./hardware-configuration.nix
-    ../common/global
     ../common/optional/notify.nix
     ./services
   ];
