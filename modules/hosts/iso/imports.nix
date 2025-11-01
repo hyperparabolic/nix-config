@@ -6,6 +6,7 @@
         core
         this
         this-share-home
+        user-spencer
 
         ../../../hosts/iso/configuration.nix
       ]
@@ -14,6 +15,8 @@
           home-manager.users.spencer = {
             imports = with config.flake.modules.homeManager; [
               core
+
+              user-spencer
             ];
           };
         }

@@ -9,8 +9,10 @@
         audio
         bluetooth
         fingerprint
+        games
         laptop
         secureboot
+        user-spencer
         ../../../hosts/magnolia/configuration.nix
       ]
       ++ [
@@ -20,6 +22,9 @@
               core
 
               desktop-applications
+              dev-js
+              games
+              user-spencer
             ];
           };
         }

@@ -1,7 +1,4 @@
 {
-  imports = [
-    ./common
-  ];
   # mcp client kiosk styling
   stylix.targets.gtk.enable = true;
 

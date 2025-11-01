@@ -6,18 +6,15 @@
   ...
 }: {
   imports = [
-    inputs.impermanence.nixosModules.impermanence
     inputs.nixos-hardware.nixosModules.common-hidpi
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     inputs.nixos-hardware.nixosModules.system76
     ./hardware-configuration.nix
     ./services
     ./virtualization
-    ../common/global
     ../common/optional/hyprland.nix
     ../common/optional/notify.nix
     ../common/optional/ntfy-client.nix
-    ../common/users/spencer.nix
   ];
 
   nixpkgs = {

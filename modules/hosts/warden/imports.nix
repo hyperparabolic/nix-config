@@ -9,6 +9,8 @@
         bluetooth
         reverse-proxy
         secureboot
+        user-spencer
+        tailscale-exit-node
         ../../../hosts/warden/configuration.nix
       ]
       ++ [
@@ -16,6 +18,8 @@
           home-manager.users.spencer = {
             imports = with config.flake.modules.homeManager; [
               core
+
+              user-spencer
             ];
           };
         }
