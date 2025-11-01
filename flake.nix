@@ -61,11 +61,11 @@
     vanity.url = "github:hyperparabolic/vanity";
 
     elephant = {
-      url = "github:hyperparabolic/elephant?ref=nix-provider-configs";
+      url = "github:abenz1267/elephant";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     walker = {
-      url = "github:abenz1267/walker?ref=2.0.0";
+      url = "github:abenz1267/walker";
       inputs = {
         elephant.follows = "elephant";
         nixpkgs.follows = "nixpkgs";
