@@ -24,6 +24,9 @@ in {
         This environment is sourced as a part of systemd user services and as a part of
         wrapper scripts. This should be provided by sops-nix, agenix or similar, and owned
         by the users group. Specify ntfy config as environment variables here.
+
+        If this is null, NTFY_TOKEN must be manually provided for any cli wrapper or client
+        use.
       '';
     };
 
@@ -51,6 +54,14 @@ in {
 
   config = let
     configuration = settingsFormat.generate "client.yml" cfg.settings;
+    # only source envfile if it exists
+    sourceEnv =
+      if cfg.environmentFile != null
+      then ''
+        # shellcheck source=/dev/null
+        source ${cfg.environmentFile}
+      ''
+      else "";
     # Lone arg "-" indicates to read from stdin. Expects pipe, so times out quickly.
     # Otherwise send all args.
     readInput = ''
@@ -67,8 +78,7 @@ in {
       name = "notify";
       runtimeInputs = with pkgs; [ntfy-sh];
       text = ''
-        # shellcheck source=/dev/null
-        source ${cfg.environmentFile}
+        ${sourceEnv}
         ${readInput}
         NTFY_TOPIC=notification ntfy publish -c ${configuration} -k "$NTFY_TOKEN" "$INPUT"
       '';
@@ -77,8 +87,7 @@ in {
       name = "alert";
       runtimeInputs = with pkgs; [ntfy-sh];
       text = ''
-        # shellcheck source=/dev/null
-        source ${cfg.environmentFile}
+        ${sourceEnv}
         ${readInput}
         NTFY_TOPIC=alert ntfy publish -c ${configuration} -k "$NTFY_TOKEN" "$INPUT"
       '';
