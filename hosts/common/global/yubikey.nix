@@ -5,6 +5,4 @@
     yubico-piv-tool
     yubioath-flutter
   ];
-
-  services.pcscd.enable = true;
 }
