@@ -4,7 +4,6 @@
     ./gh.nix
     ./git.nix
     ./pass.nix
-    ./ssh.nix
     ./starship.nix
     ./yazi.nix
     ./zoxide.nix

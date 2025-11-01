@@ -21,7 +21,6 @@ in {
   imports =
     [
       inputs.nixos-hydra-upgrade.nixosModules.nixos-hydra-upgrade
-      ./openssh.nix
       ./yubikey.nix
     ]
     ++ (builtins.attrValues outputs.nixosModules);
