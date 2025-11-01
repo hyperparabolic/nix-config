@@ -12,6 +12,7 @@
         games
         laptop
         secureboot
+        user-spencer
         ../../../hosts/magnolia/configuration.nix
       ]
       ++ [
@@ -22,6 +23,7 @@
 
               desktop-applications
               games
+              user-spencer
             ];
           };
         }

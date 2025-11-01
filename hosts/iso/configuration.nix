@@ -26,7 +26,6 @@ in {
     # disabled, but still required or config is invalid
     inputs.impermanence.nixosModules.impermanence
     ../common/global
-    ../common/users/spencer.nix
   ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
