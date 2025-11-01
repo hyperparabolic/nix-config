@@ -1,9 +1,4 @@
-{
-  inputs,
-  outputs,
-  pkgs,
-  ...
-}: let
+{pkgs, ...}: let
   hyperparabolic-bootstrap = pkgs.writeShellApplication {
     name = "hyperparabolic-bootstrap";
     runtimeInputs = with pkgs; [
@@ -17,23 +12,6 @@
     text = builtins.readFile ../../../scripts/hyperparabolic-bootstrap.sh;
   };
 in {
-  imports =
-    [
-      inputs.nixos-hydra-upgrade.nixosModules.nixos-hydra-upgrade
-    ]
-    ++ (builtins.attrValues outputs.nixosModules);
-
-  home-manager = {
-    extraSpecialArgs = {inherit inputs outputs;};
-    sharedModules =
-      [
-        inputs.impermanence.homeManagerModules.impermanence
-        inputs.stylix.homeModules.stylix
-        inputs.walker.homeManagerModules.default
-      ]
-      ++ (builtins.attrValues outputs.homeManagerModules);
-  };
-
   environment = {
     enableAllTerminfo = true;
     wordlist.enable = true;

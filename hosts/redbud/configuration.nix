@@ -1,6 +1,5 @@
 {inputs, ...}: {
   imports = [
-    inputs.impermanence.nixosModules.impermanence
     inputs.nixos-hardware.nixosModules.common-cpu-intel
     inputs.nixos-hardware.nixosModules.common-pc-laptop
     inputs.nixos-hardware.nixosModules.common-pc-ssd

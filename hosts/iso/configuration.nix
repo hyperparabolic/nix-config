@@ -24,7 +24,6 @@
 in {
   imports = [
     # disabled, but still required or config is invalid
-    inputs.impermanence.nixosModules.impermanence
     ../common/global
   ];
 
