@@ -22,6 +22,7 @@
               core
 
               desktop-applications
+              dev-js
               games
               user-spencer
             ];

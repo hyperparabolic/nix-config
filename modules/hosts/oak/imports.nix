@@ -21,6 +21,7 @@
               core
 
               desktop-applications
+              dev-js
               libvirt
               user-spencer
             ];
