@@ -7,7 +7,7 @@
 with lib; let
   cfg = config.hyperparabolic.zfs;
   devNodes = config.boot.zfs.devNodes;
-  enableImpermanenceRollback = config.hyperparabolic.impermanence.enableRollback;
+  enableImpermanenceRollback = config.this.impermanence.enableRollback;
   zfsPkg = config.boot.zfs.package;
 
   # get latest zfs compatible kernel
@@ -57,7 +57,7 @@ in {
       example = "rpool/local/root@empty";
       description = mdDoc ''
         Empty zfs root filesystem dataset@snapshot. If provided, and
-        hyperparabolic.impermanance.enableRoolback, then this will roll back
+        this.impermanance.enableRoolback, then this will roll back
         to the specified snapshot immediately after mounting the zfs pool
         rpool.
       '';
