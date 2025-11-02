@@ -1,5 +1,4 @@
-topLevel: let
-  inherit (topLevel) lib;
+{lib, ...}: let
   monitorOptions = lib.types.submodule {
     options = {
       name = lib.mkOption {
@@ -107,8 +106,7 @@ in {
       ];
 
       home-manager = {
-        sharedModules = with topLevel.config.flake.modules.homeManager; [
-          this
+        sharedModules = [
           {
             this.monitors = config.this.monitors;
           }
