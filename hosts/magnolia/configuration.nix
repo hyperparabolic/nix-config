@@ -19,10 +19,6 @@
   };
 
   hyperparabolic = {
-    impermanence = {
-      enable = true;
-      enableRollback = true;
-    };
     zfs = {
       enable = true;
       autoSnapshot = true;
