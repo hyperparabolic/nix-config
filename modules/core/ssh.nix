@@ -12,7 +12,7 @@
 
     # Keys are used here by sops-nix before impermanence can make
     # links. Must just use `/persist` keys directly if impermanence.
-    hasPersistDir = config.hyperparabolic.impermanence.enable;
+    hasPersistDir = config.this.impermanence.enable;
   in {
     services.openssh = {
       enable = true;
