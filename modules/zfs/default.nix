@@ -6,11 +6,8 @@
     ...
   }:
     with lib; let
-      impermanenceRollbackSnapshot = "rpool/crypt/local/root@blank";
-
       cfg = config.this.zfs;
       devNodes = config.boot.zfs.devNodes;
-      enableImpermanenceRollback = config.this.impermanence.enableRollback;
       zfsPkg = config.boot.zfs.package;
 
       # get latest zfs compatible kernel
@@ -114,33 +111,6 @@
             };
           };
         }
-
-        (mkIf enableImpermanenceRollback {
-          # rollback root fs to blank snapshot
-          boot.initrd.systemd = {
-            enable = lib.mkForce true;
-            services.zfs-rollback = {
-              description = "Rollback ZFS root dataset to blank snapshot";
-              wantedBy = [
-                "initrd.target"
-              ];
-              after = [
-                "zfs-import-rpool.service"
-              ];
-              before = [
-                "sysroot.mount"
-              ];
-              path = with pkgs; [
-                zfs
-              ];
-              unitConfig.DefaultDependencies = "no";
-              serviceConfig.Type = "oneshot";
-              script = ''
-                zfs rollback -r ${impermanenceRollbackSnapshot} && echo "zfs rollback complete"
-              '';
-            };
-          };
-        })
 
         (mkIf (cfg.zedMailTo != null) {
           services.zfs = {
