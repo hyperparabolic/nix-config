@@ -1,8 +1,4 @@
-{
-  config,
-  lib,
-  ...
-}: {
+{config, ...}: {
   # CLI only, sub config and service enablement in desktop
   hyperparabolic = {
     ntfy = {
@@ -11,13 +7,6 @@
       settings = {
         default-host = "https://ntfy.oak.decent.id";
       };
-    };
-  };
-  this = {
-    zfs = {
-      zedMailTo = "root"; # value doesn't matter, not using email, just needs to not be null;
-      zedMailCommand = lib.getExe config.hyperparabolic.ntfy.package-notify;
-      zedMailCommandOptions = "-";
     };
   };
 

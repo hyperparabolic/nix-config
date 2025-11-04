@@ -49,34 +49,6 @@
             names assigned by udev.
           '';
         };
-        zedMailTo = mkOption {
-          type = types.nullOr types.str;
-          default = null;
-          example = "me@example.com";
-          description = mdDoc ''
-            Mail recipient for zed mail notifications. Even if your program is
-            not an email requirement this is required, as zed will not send send
-            mail notifications without it being configured. Leave null to skip
-            mail notifications.
-          '';
-        };
-        zedMailCommand = mkOption {
-          type = types.str;
-          default = "mail";
-          example = "mail";
-          description = mdDoc ''
-            Executable zed will use to send zfs health notifications.
-            This executable must accept input from stdin.
-          '';
-        };
-        zedMailCommandOptions = mkOption {
-          type = types.str;
-          default = "";
-          example = "'@SUBJECT@' @ADDRESS@";
-          description = mdDoc ''
-            CLI args for the zedMailCommand.
-          '';
-        };
       };
 
       config = mkMerge [
@@ -112,31 +84,7 @@
           };
         }
 
-        (mkIf (cfg.zedMailTo != null) {
-          services.zfs = {
-            zed = {
-              # Bit of a misnomer I think? I believe this enables linux local mail
-              # (think /var/spool/mail). zed will still send email with this false,
-              # and does not require recompilation.
-              enableMail = false;
-
-              settings = {
-                ZED_DEBUG_LOG = "/tmp/zed.debug.log";
-                ZED_EMAIL_ADDR = [cfg.zedMailTo];
-                ZED_EMAIL_PROG = cfg.zedMailCommand;
-                ZED_EMAIL_OPTS = cfg.zedMailCommandOptions;
-
-                ZED_NOTIFY_INTERVAL_SECS = 3600;
-                ZED_NOTIFY_VERBOSE = true;
-
-                ZED_USE_ENCLOSURE_LEDS = true;
-                ZED_SCRUB_AFTER_RESILVER = true;
-              };
-            };
-          };
-        })
-
-        # mounting services
+        # luksOnZfs mounting services
         {
           boot.initrd = {
             # /bootsecrets is an ext4 filesystem
