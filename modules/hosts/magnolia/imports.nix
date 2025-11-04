@@ -22,6 +22,7 @@
           home-manager.users.spencer = {
             imports = with config.flake.modules.homeManager; [
               core
+              hosts-magnolia
 
               desktop
               desktop-applications
@@ -33,4 +34,6 @@
         }
       ];
   };
+
+  flake.modules.homeManager.hosts-magnolia = {...}: {};
 }

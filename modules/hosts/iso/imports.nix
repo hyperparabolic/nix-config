@@ -15,6 +15,7 @@
           home-manager.users.spencer = {
             imports = with config.flake.modules.homeManager; [
               core
+              hosts-iso
 
               user-spencer
             ];
@@ -22,4 +23,6 @@
         }
       ];
   };
+
+  flake.modules.homeManager.hosts-iso = {...}: {};
 }

@@ -19,6 +19,7 @@
           home-manager.users.spencer = {
             imports = with config.flake.modules.homeManager; [
               core
+              hosts-warden
 
               user-spencer
             ];
@@ -26,4 +27,6 @@
         }
       ];
   };
+
+  flake.modules.homeManager.hosts-warden = {...}: {};
 }

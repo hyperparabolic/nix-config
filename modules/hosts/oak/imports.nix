@@ -21,6 +21,7 @@
           home-manager.users.spencer = {
             imports = with config.flake.modules.homeManager; [
               core
+              hosts-oak
 
               desktop
               desktop-applications
@@ -32,4 +33,6 @@
         }
       ];
   };
+
+  flake.modules.homeManager.hosts-oak = {...}: {};
 }
