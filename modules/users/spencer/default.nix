@@ -31,8 +31,6 @@
       sopsFile = ../../../secrets/common/secrets-spencer.yaml;
       neededForUsers = true;
     };
-
-    home-manager.users.spencer = import ../../../home/${config.networking.hostName}.nix;
   };
 
   flake.modules.homeManager.user-spencer = {...}: {
