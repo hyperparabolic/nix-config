@@ -15,10 +15,7 @@
       enableSshSupport = true;
       enableFishIntegration = true;
       maxCacheTtl = 120;
-      pinentry.package =
-        if config.gtk.enable
-        then pkgs.pinentry-gnome3
-        else pkgs.pinentry-curses;
+      pinentry.package = lib.mkDefault pkgs.pinentry-pinentry-curses;
       sshKeys = [
         "3E59A131928FD9DC54EA050B6B97EC8F3B199A2C"
       ];
