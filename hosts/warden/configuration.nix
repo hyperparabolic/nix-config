@@ -39,18 +39,6 @@
     };
   };
 
-  hyperparabolic = {
-    zfs = {
-      enable = true;
-      autoSnapshot = true;
-      impermanenceRollbackSnapshot = "rpool/crypt/local/root@blank";
-      luksOnZfs = {
-        enable = true;
-        backingDevices = ["dev-nvme0n1p1.device"];
-      };
-    };
-  };
-
   services.thermald.enable = true;
 
   system.autoUpgradeHydra = {

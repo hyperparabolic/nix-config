@@ -18,18 +18,6 @@
     memoryPercent = 50;
   };
 
-  hyperparabolic = {
-    zfs = {
-      enable = true;
-      autoSnapshot = true;
-      impermanenceRollbackSnapshot = "rpool/crypt/local/root@blank";
-      luksOnZfs = {
-        enable = true;
-        backingDevices = ["dev-nvme0n1p2.device"];
-      };
-    };
-  };
-
   hardware.graphics = {
     enable = true;
     enable32Bit = true;

@@ -16,26 +16,10 @@
   boot.kernelModules = ["kvm-amd"];
   boot.extraModulePackages = [];
 
-  fileSystems."/" = {
-    device = "rpool/crypt/local/root";
-    fsType = "zfs";
-  };
-
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/BF87-D3A9";
     fsType = "vfat";
     options = ["umask=0077"];
-  };
-
-  fileSystems."/nix" = {
-    device = "rpool/crypt/local/nix";
-    fsType = "zfs";
-  };
-
-  fileSystems."/persist" = {
-    device = "rpool/crypt/safe/persist";
-    fsType = "zfs";
-    neededForBoot = true;
   };
 
   swapDevices = [];
