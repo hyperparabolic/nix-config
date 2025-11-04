@@ -13,7 +13,6 @@
     ./services
     ./virtualization
     ../common/optional/hyprland.nix
-    ../common/optional/ntfy-client.nix
   ];
 
   nixpkgs = {

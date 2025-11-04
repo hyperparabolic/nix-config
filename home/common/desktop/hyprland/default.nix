@@ -1,14 +1,4 @@
 {pkgs, ...}: {
-  imports = [
-    ./hypridle.nix
-    ./hyprland.nix
-    ./hyprlock.nix
-    ./mako.nix
-    ./vanity.nix
-    ./walker.nix
-    ./wlsunset.nix
-  ];
-
   home.packages = with pkgs; [
     # screenshot, screen recording, color picker
     grim

@@ -1,9 +1,4 @@
 {pkgs, ...}: {
-  imports = [
-    ./greetd.nix
-    ./pam-u2f.nix
-  ];
-
   programs = {
     dconf.enable = true;
     hyprland = {
