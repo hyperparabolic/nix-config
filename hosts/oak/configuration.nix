@@ -12,7 +12,6 @@
     ./hardware-configuration.nix
     ./services
     ./virtualization
-    ../common/optional/hyprland.nix
   ];
 
   nixpkgs = {
