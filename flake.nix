@@ -86,7 +86,7 @@
     flake-parts.lib.mkFlake {inherit inputs;} ({...}: {
       imports =
         importNixFiles ./modules
-        |> builtins.filter (f: !lib.hasPrefix "_" (builtins.toString f));
+        |> builtins.filter (f: !lib.hasInfix "/_" (builtins.toString f));
 
       flake = let
         inherit (self) outputs;
