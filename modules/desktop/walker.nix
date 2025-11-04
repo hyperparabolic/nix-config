@@ -4,10 +4,6 @@
       elephant = {
         enable = true;
         installService = true;
-        settings = {
-          # explicit default to validate upstream module changes, TODO: delete me
-          auth_detect_launch_prefix = true;
-        };
         provider = {
           websearch.settings = {
             entries = [

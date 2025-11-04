@@ -9,11 +9,6 @@
     playerctl = "${pkgs.playerctl}/bin/playerctl";
     wpctl = "${pkgs.wireplumber}/bin/wpctl";
   in {
-    # wayland compatibility environment variables
-    home.sessionVariables = {
-      MOZ_ENABLE_WAYLAND = 1;
-    };
-
     wayland.windowManager.hyprland = {
       enable = true;
       # utilizing uwsm for systemd units
@@ -169,7 +164,6 @@
 
         bind = [
           # Additional shell binds are in ./vanity.nix
-          "$MODSHIFT, Escape, exec, wlogout -p layer-shell"
           ", Print, exec, grimblast --notify copysave screen"
           "ALT, Print, exec, grimblast --notify copysave output"
           "$MODSHIFT, S, exec, grimblast --notify copysave area"
