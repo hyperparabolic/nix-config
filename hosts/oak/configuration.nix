@@ -12,8 +12,6 @@
     ./hardware-configuration.nix
     ./services
     ./virtualization
-    ../common/optional/hyprland.nix
-    ../common/optional/ntfy-client.nix
   ];
 
   nixpkgs = {
@@ -71,15 +69,6 @@
         ''
       );
     };
-  };
-
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
-    extraPackages = [
-      # hardware accelerated media conversion
-      pkgs.vpl-gpu-rt
-    ];
   };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion

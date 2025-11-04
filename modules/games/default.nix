@@ -1,4 +1,11 @@
 {
+  flake.modules.nixos.games = {...}: {
+    hardware.graphics = {
+      enable = true;
+      enable32Bit = true;
+    };
+  };
+
   flake.modules.homeManager.games = {pkgs, ...}: {
     home = {
       packages = [

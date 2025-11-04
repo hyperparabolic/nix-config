@@ -8,6 +8,7 @@
 
         audio
         bluetooth
+        desktop
         fingerprint
         games
         laptop
@@ -22,6 +23,7 @@
             imports = with config.flake.modules.homeManager; [
               core
 
+              desktop
               desktop-applications
               dev-js
               games

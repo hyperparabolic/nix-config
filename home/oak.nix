@@ -1,5 +1,2 @@
 {
-  imports = [
-    ./common/desktop/hyprland
-  ];
 }

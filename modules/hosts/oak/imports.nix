@@ -8,6 +8,7 @@
 
         audio
         bluetooth
+        desktop
         libvirt
         reverse-proxy
         secureboot
@@ -21,6 +22,7 @@
             imports = with config.flake.modules.homeManager; [
               core
 
+              desktop
               desktop-applications
               dev-js
               libvirt

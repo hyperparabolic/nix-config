@@ -4,6 +4,7 @@
       logind.settings.Login = {
         HandleLidSwitchExternalPower = "lock";
         HandleLidSwitchDocked = "ignore";
+        HandlePowerKey = "suspend";
       };
       upower.enable = true;
     };
