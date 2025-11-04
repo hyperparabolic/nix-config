@@ -9,18 +9,6 @@
   };
 
   services = {
-    geoclue2 = {
-      enable = true;
-      geoProviderUrl = "https://api.beacondb.net/v1/geolocate";
-      appConfig = {
-        "com.github.hyperparabolic.vanity" = {
-          isAllowed = true;
-          isSystem = false;
-          users = ["1000"];
-        };
-      };
-    };
-
     gnome.gnome-keyring.enable = true;
 
     logind.settings.Login = {

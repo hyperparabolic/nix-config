@@ -1,4 +1,16 @@
 {
+  flake.modules.nixos.desktop = {...}: {
+    services.geoclue2 = {
+      appConfig = {
+        "com.github.hyperparabolic.vanity" = {
+          isAllowed = true;
+          isSystem = false;
+          users = ["1000"];
+        };
+      };
+    };
+  };
+
   flake.modules.homeManager.desktop = {
     inputs,
     config,
