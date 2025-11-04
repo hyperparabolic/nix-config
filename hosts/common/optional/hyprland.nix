@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{
   programs = {
     dconf.enable = true;
     hyprland = {
@@ -11,18 +11,6 @@
   services = {
     logind.settings.Login = {
       HandlePowerKey = "suspend";
-    };
-  };
-
-  xdg.portal = {
-    enable = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-hyprland
-      xdg-desktop-portal-gtk
-    ];
-    configPackages = [pkgs.hyprland];
-    config.hyprland = {
-      "org.freedesktop.impl.portal.ScreenCast" = "hyprland";
     };
   };
 }
