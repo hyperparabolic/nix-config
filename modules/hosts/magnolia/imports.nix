@@ -13,6 +13,7 @@
         laptop
         secureboot
         user-spencer
+        zfs
         ../../../hosts/magnolia/configuration.nix
       ]
       ++ [

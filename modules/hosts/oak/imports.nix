@@ -12,6 +12,7 @@
         reverse-proxy
         secureboot
         user-spencer
+        zfs
         ../../../hosts/oak/configuration.nix
       ]
       ++ [
