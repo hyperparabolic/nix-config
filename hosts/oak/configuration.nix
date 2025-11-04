@@ -49,21 +49,6 @@
     };
   };
 
-  hyperparabolic = {
-    zfs = {
-      enable = true;
-      autoSnapshot = true;
-      impermanenceRollbackSnapshot = "rpool/crypt/local/root@blank";
-      luksOnZfs = {
-        enable = true;
-        backingDevices = [
-          "dev-nvme0n1p1.device"
-          "dev-nvme2n1p1.device"
-        ];
-      };
-    };
-  };
-
   # there are some issues with non-legacymount datasets imported via boot.zfs.extraPools
   # mainly that pools imported this way mount all datasets including canmount=noauto
   # I don't want these mounted on boot, so this service mounts them instead

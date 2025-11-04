@@ -6,7 +6,9 @@
     ...
   }:
     with lib; let
-      cfg = config.hyperparabolic.zfs;
+      impermanenceRollbackSnapshot = "rpool/crypt/local/root@blank";
+
+      cfg = config.this.zfs;
       devNodes = config.boot.zfs.devNodes;
       enableImpermanenceRollback = config.this.impermanence.enableRollback;
       zfsPkg = config.boot.zfs.package;
@@ -31,60 +33,24 @@
         lib.last
       ];
     in {
-      /*
-      Base system configuration for zfs. I don't want to duplicate this config
-      for every machine, but I can already see places I will change it on other
-      machines (not every machine needs encryption, libnotify is enough for some
-      machines but some are too tucked away, some machines don't have enough state
-      to care about snapshots, etc.).
-
-      This plays nicely with systemdboot, boot drives that are NOT zfs, but does
-      support a zfs root filesystem supporting ephemeral root.
-
-      This does not recompile zed with mail support, so the provided zedMailCommand
-      must be sufficient without that.
-      */
-
-      options.hyperparabolic.zfs = {
-        enable = mkEnableOption "Enable zfs";
+      # This implements an opinionated ZFS structure, luksOnZfs. Custom mounting
+      # services decrypt a self contained LUKS volume containing native ZFS encryption
+      # key files.
+      options.this.zfs = {
         autoSnapshot = mkOption {
           type = types.bool;
           default = true;
           example = false;
         };
-        impermanenceRollbackSnapshot = mkOption {
-          type = types.nullOr types.str;
-          default = null;
-          example = "rpool/local/root@empty";
+        backingDevices = mkOption {
+          type = types.listOf types.str;
+          default = [];
+          example = ["dev-nvme0n1p2.device"];
           description = mdDoc ''
-            Empty zfs root filesystem dataset@snapshot. If provided, and
-            this.impermanance.enableRoolback, then this will roll back
-            to the specified snapshot immediately after mounting the zfs pool
-            rpool.
+            Names of the systemd .device units that back the rpool. These
+            units are automatically generated for devices based on their
+            names assigned by udev.
           '';
-        };
-        luksOnZfs = mkOption {
-          description = mdDoc ''
-            Options related to luks on zfs. This is an opinionated zpool structure
-            with support for impermanence and luks key management and unlock options,
-            installed via `hyperparabolic-install`.
-          '';
-          type = types.submodule {
-            options = {
-              enable = mkEnableOption "Enable services for luks on zfs";
-              backingDevices = mkOption {
-                type = types.listOf types.str;
-                default = [];
-                example = ["dev-nvme0n1p2.device"];
-                description = mdDoc ''
-                  Names of the systemd .device units that back the rpool. These
-                  units are automatically generated for devices based on their
-                  names assigned by udev.
-                '';
-              };
-            };
-          };
-          default = {};
         };
         zedMailTo = mkOption {
           type = types.nullOr types.str;
@@ -116,13 +82,14 @@
         };
       };
 
-      config = mkIf cfg.enable (mkMerge [
+      config = mkMerge [
+        # base config
         {
           environment.systemPackages = with pkgs; [
             sanoid
           ];
           boot = {
-            kernelPackages = latestZfsCompatibleLinuxPackages;
+            kernelPackages = lib.mkDefault latestZfsCompatibleLinuxPackages;
             supportedFilesystems = ["zfs"];
 
             zfs = {
@@ -148,7 +115,7 @@
           };
         }
 
-        (mkIf (enableImpermanenceRollback && cfg.impermanenceRollbackSnapshot != null) {
+        (mkIf enableImpermanenceRollback {
           # rollback root fs to blank snapshot
           boot.initrd.systemd = {
             enable = lib.mkForce true;
@@ -169,7 +136,7 @@
               unitConfig.DefaultDependencies = "no";
               serviceConfig.Type = "oneshot";
               script = ''
-                zfs rollback -r ${cfg.impermanenceRollbackSnapshot} && echo "zfs rollback complete"
+                zfs rollback -r ${impermanenceRollbackSnapshot} && echo "zfs rollback complete"
               '';
             };
           };
@@ -199,7 +166,8 @@
           };
         })
 
-        (mkIf cfg.luksOnZfs.enable {
+        # mounting services
+        {
           boot.initrd = {
             # /bootsecrets is an ext4 filesystem
             supportedFilesystems = ["ext4"];
@@ -233,8 +201,8 @@
                   # and just repeatedly mounts and polls status).
                   description = "Import rpool before cryptsetup.target";
                   # device dependencies allow us to avoid systemd-udev-settle.service
-                  wants = cfg.luksOnZfs.backingDevices;
-                  after = cfg.luksOnZfs.backingDevices;
+                  wants = cfg.backingDevices;
+                  after = cfg.backingDevices;
                   wantedBy = [
                     "cryptsetup.target"
                     ''dev-zvol-rpool-volumes-bootsecrets\x2dpart1.device''
@@ -283,7 +251,7 @@
               };
             };
           };
-        })
-      ]);
+        }
+      ];
     };
 }
