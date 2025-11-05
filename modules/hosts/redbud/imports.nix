@@ -14,7 +14,6 @@
         secureboot
         user-spencer
         zfs
-        ../../../hosts/redbud/configuration.nix
       ]
       ++ [
         {
