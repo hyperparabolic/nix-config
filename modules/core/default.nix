@@ -3,7 +3,6 @@
     inputs,
     outputs,
     pkgs,
-    modulesPath,
     ...
   }: let
     hyperparabolic-bootstrap = pkgs.writeShellApplication {
@@ -21,7 +20,6 @@
   in {
     imports =
       [
-        (modulesPath + "/installer/scan/not-detected.nix")
         inputs.home-manager.nixosModules.home-manager
         inputs.impermanence.nixosModules.impermanence
         inputs.nixos-hydra-upgrade.nixosModules.nixos-hydra-upgrade
@@ -46,6 +44,8 @@
         hyperparabolic-bootstrap
       ];
     };
+
+    hardware.enableRedistributableFirmware = true;
 
     services = {
       dbus.implementation = "broker";
