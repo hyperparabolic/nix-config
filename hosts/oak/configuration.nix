@@ -17,32 +17,7 @@
     overlays = [];
   };
 
-  networking = {
-    # required for ZFS
-    hostId = "d86c4730";
-    hostName = "oak";
-    nameservers = [
-      "192.168.1.1"
-    ];
-  };
-
-  boot = {
-    kernelPackages = lib.mkForce pkgs.linuxKernel.packages.linux_6_12;
-    kernelModules = ["igb"];
-    initrd = {
-      kernelModules = ["igb"];
-      systemd = {
-        network = {
-          enable = false;
-          networks.enp68s0 = {
-            enable = true;
-            name = "enp68s0";
-            DHCP = "yes";
-          };
-        };
-      };
-    };
-  };
+  boot.kernelPackages = lib.mkForce pkgs.linuxKernel.packages.linux_6_12;
 
   # there are some issues with non-legacymount datasets imported via boot.zfs.extraPools
   # mainly that pools imported this way mount all datasets including canmount=noauto
