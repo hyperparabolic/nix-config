@@ -10,8 +10,6 @@
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     inputs.nixos-hardware.nixosModules.system76
     ./hardware-configuration.nix
-    ./services
-    ./virtualization
   ];
 
   nixpkgs = {
