@@ -1,5 +1,18 @@
 {
-  flake.modules.nixos.hosts-magnolia = {...}: {
+  flake.modules.nixos.hosts-magnolia = {inputs, ...}: {
+    imports = [
+      # https://github.com/NixOS/nixos-hardware/tree/master/framework/13-inch/7040-amd
+      inputs.nixos-hardware.nixosModules.framework-13-7040-amd
+    ];
+
+    boot = {
+      initrd.availableKernelModules = ["nvme" "xhci_pci" "thunderbolt" "usb_storage" "usbhid" "sd_mod"];
+      kernelModules = ["kvm-amd"];
+    };
+
+    nixpkgs.hostPlatform = "x86_64-linux";
+    hardware.cpu.amd.updateMicrocode = true;
+
     this.monitors = [
       {
         name = "eDP-1";
@@ -18,6 +31,14 @@
         ];
       }
     ];
+
+    zramSwap = {
+      enable = true;
+      memoryPercent = 50;
+    };
+
+    # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
+    system.stateVersion = "23.05";
   };
 
   flake.modules.homeManager.hosts-magnolia = {pkgs, ...}: {
