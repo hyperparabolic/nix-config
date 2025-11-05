@@ -12,7 +12,6 @@
         user-spencer
         tailscale-exit-node
         zfs
-        ../../../hosts/warden/configuration.nix
       ]
       ++ [
         {
