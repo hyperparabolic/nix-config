@@ -40,6 +40,9 @@
       };
     };
 
+    # doesn't have key to decrypt, supply via env if wanted in future
+    hyperparabolic.ntfy.environmentFile = lib.mkForce null;
+
     users.users.spencer = {
       # This is fine. Only included for sudo operations, and is not included
       # in final install.  Still requires physical access or yubikey during
