@@ -25,7 +25,10 @@
     };
 
     swapDevices = [
-      {device = "/dev/disk/by-uuid/575e049d-8188-48bc-afa0-8b054faea885";}
+      {
+        device = "/dev/disk/by-partuuid/2bd4266a-bbf5-48c3-a25c-483f576eeba7";
+        randomEncryption.enable = true;
+      }
     ];
 
     # there are some issues with non-legacymount datasets imported via boot.zfs.extraPools
