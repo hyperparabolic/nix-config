@@ -7,8 +7,6 @@
         this
         this-share-home
         user-spencer
-
-        ../../../hosts/iso/configuration.nix
       ]
       ++ [
         {
