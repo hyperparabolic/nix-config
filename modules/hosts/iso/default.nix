@@ -7,19 +7,19 @@
     hyperparabolic-export = pkgs.writeShellApplication {
       name = "hyperparabolic-export";
       runtimeInputs = [];
-      text = builtins.readFile ../../scripts/hyperparabolic-export.sh;
+      text = builtins.readFile ../../../scripts/hyperparabolic-export.sh;
     };
     hyperparabolic-import = pkgs.writeShellApplication {
       name = "hyperparabolic-import";
       runtimeInputs = [];
-      text = builtins.readFile ../../scripts/hyperparabolic-import.sh;
+      text = builtins.readFile ../../../scripts/hyperparabolic-import.sh;
     };
     hyperparabolic-install = pkgs.writeShellApplication {
       name = "hyperparabolic-install";
       runtimeInputs = [
         hyperparabolic-export
       ];
-      text = builtins.readFile ../../scripts/hyperparabolic-install.sh;
+      text = builtins.readFile ../../../scripts/hyperparabolic-install.sh;
     };
   in {
     nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
