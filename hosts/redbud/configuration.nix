@@ -11,15 +11,6 @@
     overlays = [];
   };
 
-  networking = {
-    # required for ZFS
-    hostId = "55fbb629";
-    hostName = "redbud";
-    nameservers = [
-      "192.168.1.1"
-    ];
-  };
-
   services = {
     # retired laptop server
     logind.settings.Login = {
