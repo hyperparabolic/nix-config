@@ -26,6 +26,10 @@
         egrep = "egrep --color=auto";
         fgrep = "fgrep --color=auto";
         grep = "grep --color=auto";
+        st = "systemctl status";
+        sr = "systemctl restart";
+        stu = "systemctl --user status";
+        sru = "systemctl --user restart";
       };
     };
 
