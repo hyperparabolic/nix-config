@@ -4,7 +4,7 @@
     home.packages = with pkgs;
       [
         bat # cat alternative with auto pager
-        du-dust # du alternative
+        dust # du alternative
         eza # ls alternative
         fselect # file finder with sql-ish syntax
         glances # system monitor

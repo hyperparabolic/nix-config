@@ -6,7 +6,7 @@
   }: {
     programs.git = {
       enable = true;
-      package = pkgs.gitAndTools.gitFull;
+      package = pkgs.gitFull;
       settings = {
         alias = {
           last = "log -1 HEAD --stat";
