@@ -74,11 +74,7 @@
     };
   };
 
-  outputs = {
-    self,
-    flake-parts,
-    ...
-  } @ inputs: let
+  outputs = {flake-parts, ...} @ inputs: let
     inherit (inputs.nixpkgs) lib;
     importNixFiles = dir:
       lib.filesystem.listFilesRecursive dir
@@ -88,16 +84,5 @@
       imports =
         importNixFiles ./modules
         |> builtins.filter (f: !lib.hasInfix "/_" (builtins.toString f));
-
-      flake = let
-        inherit (self) outputs;
-      in {
-        inherit lib;
-        nixosModules = import ./legacyModules/nixos;
-        homeManagerModules = import ./legacyModules/home-manager;
-
-        overlays = import ./overlays {inherit inputs outputs;};
-        templates = import ./templates;
-      };
     });
 }

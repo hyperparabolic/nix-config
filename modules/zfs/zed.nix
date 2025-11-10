@@ -4,7 +4,7 @@
     lib,
     ...
   }: {
-    services.zfs = lib.mkIf config.hyperparabolic.ntfy.enable {
+    services.zfs = lib.mkIf config.hyperparabolic.ntfy-client.enable {
       zed = {
         # Bit of a misnomer I think? I believe this enables linux local mail
         # (think /var/spool/mail). zed will still send email with this false,
@@ -14,7 +14,7 @@
         settings = {
           # value doesn't matter, not using email, just needs to not be null
           ZED_EMAIL_ADDR = ["root"];
-          ZED_EMAIL_PROG = lib.getExe config.hyperparabolic.ntfy.package-notify;
+          ZED_EMAIL_PROG = lib.getExe config.hyperparabolic.ntfy-client.package-notify;
           ZED_EMAIL_OPTS = "-";
 
           ZED_NOTIFY_INTERVAL_SECS = 3600;

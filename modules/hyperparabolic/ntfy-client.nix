@@ -1,0 +1,128 @@
+{
+  flake.modules.nixos.hyperparabolic = {
+    config,
+    lib,
+    pkgs,
+    ...
+  }: let
+    cfg = config.hyperparabolic.ntfy-client;
+    settingsFormat = pkgs.formats.yaml {};
+  in {
+    # ntfy script wrappers and user service
+    options.hyperparabolic.ntfy-client = {
+      enable = lib.mkEnableOption "Install ntfy package and wrapper scripts";
+
+      enableUserService = lib.mkEnableOption "Enable ntfy subscribe user service";
+
+      environmentFile = lib.mkOption {
+        type = lib.types.nullOr lib.types.path;
+        default = null;
+        description = ''
+          Environment file (see {manpage}`systemd.exec(5)`
+          "EnvironmentFile=" section for the syntax) to define service environment variables.
+          This option may be used to safely include secrets without exposure in the nix store.
+
+          This environment is sourced as a part of systemd user services and as a part of
+          wrapper scripts. This should be provided by sops-nix, agenix or similar, and owned
+          by the users group. Specify ntfy config as environment variables here.
+
+          If this is null, NTFY_TOKEN must be manually provided for any cli wrapper or client
+          use.
+        '';
+      };
+
+      settings = lib.mkOption {
+        description = ''
+          (YAML) settings file as described at https://docs.ntfy.sh/config/#config-options and
+          https://docs.ntfy.sh/subscribe/cli/.
+        '';
+      };
+
+      package-notify = lib.mkOption {
+        type = lib.types.package;
+        description = ''
+          Wrapper script, publishes to notify topic with auth.
+        '';
+      };
+
+      package-alert = lib.mkOption {
+        type = lib.types.package;
+        description = ''
+          Wrapper script, publishes to alert topic with auth.
+        '';
+      };
+    };
+
+    config = let
+      configuration = settingsFormat.generate "client.yml" cfg.settings;
+      # only source envfile if it exists
+      sourceEnv =
+        if cfg.environmentFile != null
+        then ''
+          # shellcheck source=/dev/null
+          source ${cfg.environmentFile}
+        ''
+        else "";
+      # Lone arg "-" indicates to read from stdin. Expects pipe, so times out quickly.
+      # Otherwise send all args.
+      readInput = ''
+        INPUT=""
+        if [ "$*" == "-" ]; then
+          line=""
+          IFS= read -d \'\' -t 1 -r line || true
+          INPUT+="$line"
+        else
+          INPUT+="$*"
+        fi
+      '';
+      package-ntfy-notify = pkgs.writeShellApplication {
+        name = "notify";
+        runtimeInputs = with pkgs; [ntfy-sh];
+        text = ''
+          ${sourceEnv}
+          ${readInput}
+          NTFY_TOPIC=notification ntfy publish -c ${configuration} -k "$NTFY_TOKEN" "$INPUT"
+        '';
+      };
+      package-ntfy-alert = pkgs.writeShellApplication {
+        name = "alert";
+        runtimeInputs = with pkgs; [ntfy-sh];
+        text = ''
+          ${sourceEnv}
+          ${readInput}
+          NTFY_TOPIC=alert ntfy publish -c ${configuration} -k "$NTFY_TOKEN" "$INPUT"
+        '';
+      };
+    in
+      lib.mkIf cfg.enable {
+        # only set defaults if enabled, otherwise likely not configured and will not function
+        hyperparabolic.ntfy-client.package-alert = lib.mkDefault package-ntfy-alert;
+        hyperparabolic.ntfy-client.package-notify = lib.mkDefault package-ntfy-notify;
+
+        environment.systemPackages = with pkgs; [
+          ntfy-sh
+          package-ntfy-notify
+          package-ntfy-alert
+        ];
+
+        systemd.user.services.ntfy-client = lib.mkIf cfg.enableUserService {
+          description = "ntfy-client";
+          wantedBy = ["graphical-session.target"];
+          wants = ["graphical-session.target" "network.target"];
+          after = ["graphical-session.target" "network.target"];
+          path = with pkgs; [
+            bashNonInteractive
+            libnotify
+          ];
+          serviceConfig = {
+            Type = "simple";
+            EnvironmentFile = cfg.environmentFile;
+            ExecStart = "${lib.getExe pkgs.ntfy-sh} subscribe -c ${configuration} --from-config";
+            Restart = "on-failure";
+            RestartSec = 1;
+            TimeoutStopSec = 10;
+          };
+        };
+      };
+  };
+}

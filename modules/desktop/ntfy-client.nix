@@ -1,6 +1,6 @@
 {
   flake.modules.nixos.desktop = {...}: {
-    hyperparabolic.ntfy = {
+    hyperparabolic.ntfy-client = {
       enableUserService = true;
       settings = {
         subscribe = [
