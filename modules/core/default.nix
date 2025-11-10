@@ -18,23 +18,19 @@
       text = builtins.readFile ../../scripts/hyperparabolic-bootstrap.sh;
     };
   in {
-    imports =
-      [
-        inputs.home-manager.nixosModules.home-manager
-        inputs.impermanence.nixosModules.impermanence
-        inputs.nixos-hydra-upgrade.nixosModules.nixos-hydra-upgrade
-      ]
-      ++ (builtins.attrValues outputs.nixosModules);
+    imports = [
+      inputs.home-manager.nixosModules.home-manager
+      inputs.impermanence.nixosModules.impermanence
+      inputs.nixos-hydra-upgrade.nixosModules.nixos-hydra-upgrade
+    ];
 
     home-manager = {
       extraSpecialArgs = {inherit inputs outputs;};
-      sharedModules =
-        [
-          inputs.impermanence.homeManagerModules.impermanence
-          inputs.stylix.homeModules.stylix
-          inputs.walker.homeManagerModules.default
-        ]
-        ++ (builtins.attrValues outputs.homeManagerModules);
+      sharedModules = [
+        inputs.impermanence.homeManagerModules.impermanence
+        inputs.stylix.homeModules.stylix
+        inputs.walker.homeManagerModules.default
+      ];
     };
 
     environment = {
