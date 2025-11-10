@@ -3,7 +3,7 @@
     # CLI only, sub config and service enablement in desktop
     # `notify` and `alert` commands
     hyperparabolic = {
-      ntfy = {
+      ntfy-client = {
         enable = true;
         environmentFile = config.sops.secrets.ntfy-client.path;
         settings = {

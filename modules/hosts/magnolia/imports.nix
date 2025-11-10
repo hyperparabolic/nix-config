@@ -3,6 +3,7 @@
     imports = with config.flake.modules.nixos;
       [
         core
+        hyperparabolic
         this
         this-share-home
 

@@ -4,6 +4,7 @@
       [
         "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
         core
+        hyperparabolic
         this
         this-share-home
         user-spencer
