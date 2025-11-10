@@ -18,8 +18,8 @@
     lib,
     ...
   }: let
-    agsPackages = inputs.ags.packages.${pkgs.system};
-    vanityPackages = inputs.vanity.packages.${pkgs.system};
+    agsPackages = inputs.ags.packages.${pkgs.stdenv.hostPlatform.system};
+    vanityPackages = inputs.vanity.packages.${pkgs.stdenv.hostPlatform.system};
   in {
     home.packages = with pkgs; [
       agsPackages.default
