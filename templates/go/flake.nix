@@ -1,5 +1,5 @@
 {
-  description = "TODO go nix flake";
+  description = "TEMPLATE go nix flake";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -14,7 +14,7 @@
     forEachSystem = nixpkgs.lib.genAttrs (import systems);
     pkgsFor = forEachSystem (system: import nixpkgs {inherit system;});
 
-    pname = "TODO";
+    pname = "TEMPLATE";
   in {
     devShells = forEachSystem (system: let
       pkgs = pkgsFor.${system};
