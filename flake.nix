@@ -84,9 +84,5 @@
       imports =
         importNixFiles ./modules
         |> builtins.filter (f: !lib.hasInfix "/_" (builtins.toString f));
-
-      flake = {
-        templates = import ./templates;
-      };
     });
 }
