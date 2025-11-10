@@ -93,9 +93,6 @@
         inherit (self) outputs;
       in {
         inherit lib;
-        nixosModules = import ./legacyModules/nixos;
-        homeManagerModules = import ./legacyModules/home-manager;
-
         overlays = import ./overlays {inherit inputs outputs;};
         templates = import ./templates;
       };
