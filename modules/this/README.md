@@ -1,6 +1,6 @@
 # module `this`
 
-Options starting with `this` are options defined by this flake for consumption by this flake. These options rely on conventions defined in this repo, and aren't really meaningful for use elsewhere.
+Options starting with `this` are options defined by this repo's flake for consumption by this repo's flake. These options rely on conventions defined in this repo, and aren't really meaningful for use elsewhere.
 
 Modules defined in this directory do not modify config. Instead they are just config containers that define options for use in other modules. Since they can't conflict, `this` is consumed as a global module.
 

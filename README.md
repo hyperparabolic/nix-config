@@ -31,32 +31,31 @@ High level overview:
 
 ## Repo structure
 
-🚧 Under construction 🚧
+This repo implements the [dendritic](https://github.com/mightyiam/dendritic) nix pattern. I have a blog post about why I migrated to this pattern and my thoughts about it [here](https://blog.decent.id/post/flake-parts-and-dendritic-nix/).
 
-Currently migrating to a (dendritic)[https://github.com/mightyiam/dendritic] nix pattern. Below details the old structure. Details on new structure are light until I finalize more repo patterns.
+The TLDR is that every file in the modules directory is a flake-parts module, and they are all recursively imported in flake.nix.
 
-- `flake.nix`: Flake entrypoint for hosts and dev shell.
-- `hosts`: NixOS configurations (`nixos-rebuild switch --flake .#<host> --sudo`).
-  - `common`: Reusable config components.  Some apply to all hosts, some are optional and opt-in.
-  - `%hostname%`: System specific config. Anything referencing specific hardware or hardware ids will be nested in these folders.
-  - `magnolia`: Laptop, runs no services, mobile work only.
-  - `oak`: Desktop workstation, extensive libvirt / QEMU config with hardware passthrough.
-    - `books.oak.decent.id`: `kavita` ebook library.
-    - `cache.oak.decent.id`: `nix-serve` binary cache for other less beefy machines.
-    - `hydra.oak.decent.id`: `hydra` continuous integration and continuous delivery.
-    - `jellyfin.oak.decent.id`: `jellyfin` media server.
-    - `ntfy.oak.decent.id` / `ntfy.decent.id`: `ntfy` pub-sub / push notification service.
-    - `rss.oak.decent.id`: `miniflux` rss feed reader and browser app.
-  - `redbud`: Retired laptop. Headless server acting as a RAOP (AirPlay) audio receiver and metrics server.
-    - `dash.redbud.decent.id`: `grafana` Dashboard and data visualization service.
-    - `logs.redbud.decent.id`: `loki` log aggregation service.
-    - `metrics.redbud.decent.id`: `prometheus` monitoring and alerting service.
-  - `warden`: NUC mini-pc, headless, tailscale exit node.
-    - `adguard.warden.decent.id`: `AdGuardHome` DNS level adblocker and DNS server.
-    - `ha.warden.decent.id`: `Home Assistant` home automation service.
-- `home`: Home-manager configuration. Not currently deployed directly, but imported via the primary NixOS config.
-  - Generally, I try to keep as much of my system as possible in user space. User space programs and configurations are managed here.
-- `legacyModules`: My own derivations. Most of these are just containers for re-usable config. However some (zfs) implement more complex parameterized config behavior.
+More information on individual modules can be found in the modules directory.
+
+## Hosts and hosted services overview
+
+- `magnolia`: Laptop, runs no services, mobile work only.
+- `oak`: Desktop workstation, extensive libvirt / QEMU config with hardware passthrough.
+  - `books.oak.decent.id`: `kavita` ebook library.
+  - `cache.oak.decent.id`: `nix-serve` binary cache for other less beefy machines.
+  - `hydra.oak.decent.id`: `hydra` continuous integration and continuous delivery.
+  - `jellyfin.oak.decent.id`: `jellyfin` media server.
+  - `ntfy.oak.decent.id` / `ntfy.decent.id`: `ntfy` pub-sub / push notification service.
+  - `rss.oak.decent.id`: `miniflux` rss feed reader and browser app.
+- `redbud`: Retired laptop. Headless server acting as a RAOP (AirPlay) audio receiver and metrics server.
+  - `dash.redbud.decent.id`: `grafana` Dashboard and data visualization service.
+  - `logs.redbud.decent.id`: `loki` log aggregation service.
+  - `metrics.redbud.decent.id`: `prometheus` monitoring and alerting service.
+- `warden`: NUC mini-pc, headless, tailscale exit node.
+  - `adguard.warden.decent.id`: `AdGuardHome` DNS level adblocker and DNS server.
+  - `ha.warden.decent.id`: `Home Assistant` home automation service.
+
+All of these `<service>.<host>.decent.id` hostnames are only defined in local DNS, and are only accessible locally or by VPN connection.
 
 ## Filesystem features
 
