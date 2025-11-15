@@ -56,6 +56,14 @@
             command = "${lib.getExe (pkgs.lazy-app.override {pkg = pkgs.nodePackages.bash-language-server;})}";
           };
 
+          codebook = {
+            command = "${lib.getExe (pkgs.lazy-app.override {
+              pkg = pkgs.codebook;
+              exe = "codebook-lsp";
+            })}";
+            args = ["serve"];
+          };
+
           deno-lsp = {
             command = "${lib.getExe (pkgs.lazy-app.override {pkg = pkgs.deno;})}";
             args = ["lsp"];
@@ -118,6 +126,10 @@
             language-servers = ["deno-lsp" "typescript-language-server"];
             file-types = ["ts" "tsx"];
             roots = ["deno.json" "deno.jsonc" "package.json" "tsconfig.json"];
+          }
+          {
+            name = "markdown";
+            language-servers = ["marksman" "codebook"];
           }
           {
             name = "nix";
