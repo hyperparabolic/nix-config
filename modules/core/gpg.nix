@@ -21,9 +21,6 @@
       ];
     };
 
-    # gnome pinentry also requires gcr
-    home.packages = lib.optional config.gtk.enable pkgs.gcr;
-
     programs = let
       launchGpg =
         /*
