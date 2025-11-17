@@ -21,6 +21,26 @@
       ];
     };
 
+    home.packages = [
+      (
+        pkgs.writeShellApplication {
+          name = "gpgrefresh";
+          runtimeInputs = with pkgs; [
+            gnupg
+            systemd
+          ];
+          text = ''
+            gpgconf --kill gpg-agent
+            gpgconf --launch gpg-agent
+            gpg --card-status
+            ${lib.optionalString
+              (config.systemd.user.services ? yubikey-touch-detector)
+              "systemctl --user restart yubikey-touch-detector.service"}
+          '';
+        }
+      )
+    ];
+
     programs = let
       launchGpg =
         /*
