@@ -151,5 +151,10 @@
         ];
       };
     };
+
+    home.persistence."/persist".directories = [
+      # system level dictionary
+      ".config/codebook"
+    ];
   };
 }
