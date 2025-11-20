@@ -8,14 +8,15 @@
   inherit (self) outputs;
   specialArgs = {inherit inputs outputs;};
   hostModulePrefix = "hosts-";
-  hosts =
-    builtins.readDir "${self}/modules/hosts"
-    |> lib.filterAttrs (_n: v: v == "directory")
-    |> builtins.attrNames;
 in {
-  flake.nixosConfigurations = lib.genAttrs hosts (name:
-    lib.nixosSystem {
-      inherit specialArgs;
-      modules = config.flake.modules.nixos."${hostModulePrefix}${name}".imports;
+  flake.nixosConfigurations =
+    config.flake.modules.nixos
+    |> lib.filterAttrs (name: _: lib.hasPrefix hostModulePrefix name)
+    |> lib.mapAttrs' (name: module: {
+      name = lib.removePrefix hostModulePrefix name;
+      value = lib.nixosSystem {
+        inherit specialArgs;
+        modules = [module];
+      };
     });
 }
