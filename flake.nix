@@ -1,7 +1,6 @@
 {
   nixConfig = {
-    # TODO: re-enable once warnings from lazy-apps resolved
-    # abort-on-warn = true;
+    abort-on-warn = true;
     allow-import-from-derivation = false;
     extra-experimental-features = "pipe-operators";
     extra-substituters = ["https://cache.oak.decent.id"];
