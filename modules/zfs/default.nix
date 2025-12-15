@@ -91,7 +91,10 @@
             supportedFilesystems = ["ext4"];
 
             # creates systemd-cryptsetup@secretsroot
-            luks.devices.secretsroot.device = "/dev/zvol/rpool/volumes/bootsecrets-part1";
+            luks.devices.secretsroot = {
+              crypttabExtraOpts = ["nofail" "noauto" "readonly" "x-initrd.attach"];
+              device = "/dev/zvol/rpool/volumes/bootsecrets-part1";
+            };
             systemd = {
               enable = lib.mkForce true;
               mounts = [
@@ -101,7 +104,7 @@
                   description = "Secrets storage for stage 1 boot";
                   where = "/bootsecrets";
                   what = "/dev/mapper/secretsroot";
-                  options = "nofail,noauto,noexec,ro";
+                  options = "nofail,noauto,noexec,ro,x-initrd.mount";
                   bindsTo = [
                     "systemd-cryptsetup@secretsroot.service"
                   ];
@@ -139,34 +142,19 @@
                     ${lib.getExe' zfsPkg "zpool"} import -d ${devNodes} rpool
                   '';
                 };
-                mask-bootsecrets = {
-                  description = "Clean up bootsecrets";
-                  after = ["zfs-import-rpool.service"];
-                  wantedBy = ["initrd-switch-root.target"];
-                  before = ["initrd-switch-root.target"];
-                  unitConfig.DefaultDependencies = "no";
-                  serviceConfig.Type = "oneshot";
-                  script = ''
-                    systemctl disable --now bootsecrets.mount
-                    systemctl mask bootsecrets.mount
-                  '';
-                };
-                mask-secretsroot = {
-                  description = "Clean up secretsroot";
-                  after = [
-                    "zfs-import-rpool.service"
-                    "mask-bootsecrets.service"
-                  ];
-                  wantedBy = ["initrd-switch-root.target"];
-                  before = ["initrd-switch-root.target"];
-                  unitConfig.DefaultDependencies = "no";
-                  serviceConfig.Type = "oneshot";
-                  script = ''
-                    systemd-cryptsetup detach secretsroot
-                    systemctl mask systemd-cryptsetup@secretsroot.service
-                  '';
-                };
               };
+            };
+          };
+          systemd.services = {
+            stop-secretsroot = {
+              description = "Clean up secretsroot";
+              wantedBy = ["sysinit.target"];
+              before = ["sysinit.target"];
+              unitConfig.DefaultDependencies = "no";
+              serviceConfig.Type = "oneshot";
+              script = ''
+                systemd-cryptsetup detach secretsroot
+              '';
             };
           };
         }
