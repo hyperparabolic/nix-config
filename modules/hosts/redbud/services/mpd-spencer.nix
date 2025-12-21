@@ -19,21 +19,25 @@
           listenAddress = "any";
           port = 6600;
         };
-        extraConfig = ''
-          default_permissions "read,add,control"
-          restore_paused "yes"
-          input {
-            plugin "curl"
-          }
-          input {
-            plugin "alsa"
-            default_device "hw:1,0"
-          }
-          audio_output {
-            type "pipewire"
-            name "pipewire output"
-          }
-        '';
+        settings = {
+          default_permissions = "read,add,control";
+          restore_paused = "yes";
+          input = [
+            {
+              plugin = "curl";
+            }
+            {
+              plugin = "alsa";
+              default_device = "hw:1,0";
+            }
+          ];
+          audio_output = [
+            {
+              type = "pipewire";
+              name = "pipewire output";
+            }
+          ];
+        };
       };
       # caged mpd client kiosk on tty1 for local control
       cage = {
