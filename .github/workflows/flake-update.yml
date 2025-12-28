@@ -3,7 +3,7 @@ name: "nix flake update"
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 10 * * 0' # Sundays at 10:00 UTC
+    - cron: '0 10 * * 6' # Saturdays at 10:00 UTC
 jobs:
   nix-flake-update:
     name: Update flake
