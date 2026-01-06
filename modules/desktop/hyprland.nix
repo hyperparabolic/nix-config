@@ -202,7 +202,7 @@
           "$MOD, mouse_down, workspace, m-1"
           "$MOD, mouse_up, workspace, m+1"
           "${builtins.concatStringsSep "\n" (builtins.genList (x: let
-              ws = let c = (x + 1) / 10; in builtins.toString (x + 1 - (c * 10));
+              ws = let c = (x + 1) / 10; in toString (x + 1 - (c * 10));
             in ''
               bind = $MOD, ${ws}, workspace, ${toString (x + 1)}
               bind = $MODSHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}
@@ -231,28 +231,49 @@
         ];
 
         layerrule = [
-          "animation popin, (osd-.*)"
-          "abovelock, (osd-.*)"
+          "animation fade, match:namespace hyprpaper"
+          "animation fade, match:namespace hyprpicker"
+          "animation fade, match:namespace selection"
+
+          # always take priority at edge of screen
+          "order 99, match:namespace ^(bar-.*)$"
+
+          "no_screen_share true, match:namespace menu"
+
+          "no_screen_share true, match:namespace notifications"
+
+          "animation popin, match:namespace ^(osd-.*)$"
+          "above_lock 1, match:namespace ^(osd-.*)$"
+          "no_screen_share true true, match:namespace ^(osd-.*)$"
+
+          "no_screen_share true, match:namespace walker"
         ];
 
-        windowrulev2 = [
-          "opaque,class:^(krita)$"
+        windowrule = [
+          "opaque true, match:class ^(krita)$"
 
-          "idleinhibit fullscreen, class:^(firefox)$"
+          "idle_inhibit fullscreen, match:class ^(firefox)$"
 
-          "workspace 4, class:^(Slack)$"
-          "noinitialfocus, class:^(Slack)$"
-          "workspace 4, class:^(discord)$"
-          "noinitialfocus, class:^(discord)$"
-          "workspace 4, class:^(vesktop)$"
-          "noinitialfocus, class:^(vesktop)$"
+          "workspace 4, match:class ^(Slack)$"
+          "no_initial_focus true, match:class ^(Slack)$"
+          "workspace 4, match:class ^(discord)$"
+          "no_initial_focus true, match:class ^(discord)$"
+          "workspace 4, match:class ^(vesktop)$"
+          "no_initial_focus true, match:class ^(vesktop)$"
 
           # support zoom popups
-          "stayfocused, class:^(zoom)$, title:^(menu window)$"
+          "stay_focused true, match:class ^(zoom)$, match:title ^(menu window)$"
 
-          # auth prompt animations
-          "animation popin, class:gcr-prompter"
-          "animation popin, class:polkit-gnome-authentication-agent-1"
+          # auth popups
+          "animation popin, match:class gcr-prompter"
+          "no_screen_share true, match:class gcr-prompter"
+          "stay_focused true, match:class gcr-prompter"
+          "dim_around true, match:class gcr-prompter"
+
+          "animation popin, match:class polkit-gnome-authentication-agent-1"
+          "no_screen_share true, match:class polkit-gnome-authentication-agent-1"
+          "stay_focused true, match:class polkit-gnome-authentication-agent-1"
+          "dim_around true, match:class polkit-gnome-authentication-agent-1"
         ];
 
         xwayland.force_zero_scaling = true;
