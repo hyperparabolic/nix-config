@@ -231,28 +231,28 @@
         ];
 
         layerrule = [
-          "animation popin, (osd-.*)"
-          "abovelock, (osd-.*)"
+          "animation popin, match:namespace (osd-.*)"
+          "above_lock 1, match:namespace (osd-.*)"
         ];
 
-        windowrulev2 = [
-          "opaque,class:^(krita)$"
+        windowrule = [
+          "opaque true, match:class ^(krita)$"
 
-          "idleinhibit fullscreen, class:^(firefox)$"
+          "idle_inhibit fullscreen, match:class ^(firefox)$"
 
-          "workspace 4, class:^(Slack)$"
-          "noinitialfocus, class:^(Slack)$"
-          "workspace 4, class:^(discord)$"
-          "noinitialfocus, class:^(discord)$"
-          "workspace 4, class:^(vesktop)$"
-          "noinitialfocus, class:^(vesktop)$"
+          "workspace 4, match:class ^(Slack)$"
+          "no_initial_focus true, match:class ^(Slack)$"
+          "workspace 4, match:class ^(discord)$"
+          "no_initial_focus true, match:class ^(discord)$"
+          "workspace 4, match:class ^(vesktop)$"
+          "no_initial_focus true, match:class ^(vesktop)$"
 
           # support zoom popups
-          "stayfocused, class:^(zoom)$, title:^(menu window)$"
+          "stay_focused true, match:class ^(zoom)$, match:title ^(menu window)$"
 
           # auth prompt animations
-          "animation popin, class:gcr-prompter"
-          "animation popin, class:polkit-gnome-authentication-agent-1"
+          "animation popin, match:class gcr-prompter"
+          "animation popin, match:class polkit-gnome-authentication-agent-1"
         ];
 
         xwayland.force_zero_scaling = true;
