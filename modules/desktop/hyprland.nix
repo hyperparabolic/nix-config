@@ -202,7 +202,7 @@
           "$MOD, mouse_down, workspace, m-1"
           "$MOD, mouse_up, workspace, m+1"
           "${builtins.concatStringsSep "\n" (builtins.genList (x: let
-              ws = let c = (x + 1) / 10; in builtins.toString (x + 1 - (c * 10));
+              ws = let c = (x + 1) / 10; in toString (x + 1 - (c * 10));
             in ''
               bind = $MOD, ${ws}, workspace, ${toString (x + 1)}
               bind = $MODSHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}
@@ -231,8 +231,22 @@
         ];
 
         layerrule = [
-          "animation popin, match:namespace (osd-.*)"
-          "above_lock 1, match:namespace (osd-.*)"
+          "animation fade, match:namespace hyprpaper"
+          "animation fade, match:namespace hyprpicker"
+          "animation fade, match:namespace selection"
+
+          # always take priority at edge of screen
+          "order 99, match:namespace ^(bar-.*)$"
+
+          "no_screen_share true, match:namespace menu"
+
+          "no_screen_share true, match:namespace notifications"
+
+          "animation popin, match:namespace ^(osd-.*)$"
+          "above_lock 1, match:namespace ^(osd-.*)$"
+          "no_screen_share true true, match:namespace ^(osd-.*)$"
+
+          "no_screen_share true, match:namespace walker"
         ];
 
         windowrule = [
@@ -250,9 +264,16 @@
           # support zoom popups
           "stay_focused true, match:class ^(zoom)$, match:title ^(menu window)$"
 
-          # auth prompt animations
+          # auth popups
           "animation popin, match:class gcr-prompter"
+          "no_screen_share true, match:class gcr-prompter"
+          "stay_focused true, match:class gcr-prompter"
+          "dim_around true, match:class gcr-prompter"
+
           "animation popin, match:class polkit-gnome-authentication-agent-1"
+          "no_screen_share true, match:class polkit-gnome-authentication-agent-1"
+          "stay_focused true, match:class polkit-gnome-authentication-agent-1"
+          "dim_around true, match:class polkit-gnome-authentication-agent-1"
         ];
 
         xwayland.force_zero_scaling = true;
