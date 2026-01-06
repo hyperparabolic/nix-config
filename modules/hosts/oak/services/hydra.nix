@@ -1,7 +1,13 @@
 {
-  flake.modules.nixos.hosts-oak = {config, ...}: {
+  flake.modules.nixos.hosts-oak = {
+    config,
+    pkgs,
+    ...
+  }: {
     services = {
       hydra = {
+        # TODO: revert to unstable once gcc15 migrations complete, currently borked
+        package = pkgs.stable.hydra;
         enable = true;
         hydraURL = "https://hydra.oak.decent.id";
         notificationSender = "hydra@localhost";
