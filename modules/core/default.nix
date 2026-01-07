@@ -27,7 +27,6 @@
     home-manager = {
       extraSpecialArgs = {inherit inputs outputs;};
       sharedModules = [
-        inputs.impermanence.homeManagerModules.impermanence
         inputs.stylix.homeModules.stylix
         inputs.walker.homeManagerModules.default
       ];
