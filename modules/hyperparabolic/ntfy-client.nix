@@ -66,13 +66,13 @@
       # Lone arg "-" indicates to read from stdin. Expects pipe, so times out quickly.
       # Otherwise send all args.
       readInput = ''
-        INPUT=""
+        INPUT=()
         if [ "$*" == "-" ]; then
           line=""
           IFS= read -d \'\' -t 1 -r line || true
-          INPUT+="$line"
+          INPUT+=("$line")
         else
-          INPUT+="$*"
+          INPUT+=("$@")
         fi
       '';
       package-ntfy-notify = pkgs.writeShellApplication {
@@ -81,7 +81,7 @@
         text = ''
           ${sourceEnv}
           ${readInput}
-          NTFY_TOPIC=notification ntfy publish -c ${configuration} -k "$NTFY_TOKEN" "$INPUT"
+          NTFY_TOPIC=notification ntfy publish -c ${configuration} -k "$NTFY_TOKEN" "''${INPUT[@]}"
         '';
       };
       package-ntfy-alert = pkgs.writeShellApplication {
@@ -90,7 +90,7 @@
         text = ''
           ${sourceEnv}
           ${readInput}
-          NTFY_TOPIC=alert ntfy publish -c ${configuration} -k "$NTFY_TOKEN" "$INPUT"
+          NTFY_TOPIC=alert ntfy publish -c ${configuration} -k "$NTFY_TOKEN" "''${INPUT[@]}"
         '';
       };
     in
