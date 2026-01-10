@@ -8,5 +8,10 @@
     packages-stable = final: _: {
       stable = inputs.nixpkgs-stable.legacyPackages.${final.stdenv.hostPlatform.system};
     };
+
+    # TODO: remove after gcc15 breakages are ironed out
+    packages-gcc14 = final: _: {
+      gcc14 = inputs.nixpkgs-gcc14.legacyPackages.${final.stdenv.hostPlatform.system};
+    };
   };
 }
