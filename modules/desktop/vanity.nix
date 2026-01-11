@@ -55,7 +55,7 @@
         Unit = {
           Description = "vanity desktop shell";
           PartOf = "graphical-session.target";
-          After = "wayland-wm@Hyprland.service";
+          After = "wayland-wm@hyprland.desktop.service";
           Wants = ["file-state@wlsunset.service"];
         };
         Service = {
