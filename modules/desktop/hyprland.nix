@@ -153,7 +153,6 @@
         ];
 
         misc = {
-          animate_mouse_windowdragging = true;
           disable_hyprland_logo = true;
           disable_splash_rendering = true;
           # `hyprctl reload` to reload
