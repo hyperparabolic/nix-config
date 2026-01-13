@@ -32,7 +32,7 @@
 
           "uwsm app -s s -- wl-paste --type text --watch cliphist store"
           "uwsm app -s s -- wl-paste --type image --watch cliphist store"
-          "uwsm app -- easyeffects -l input_filter"
+          "uwsm app -- easyeffects -l input_filter_voice"
           "uwsm app -- slack"
           "uwsm app -- vesktop"
         ];
