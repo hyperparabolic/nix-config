@@ -1,4 +1,11 @@
 {
+  flake.modules.nixos.core = {pkgs, ...}: {
+    fonts.packages = with pkgs; [
+      nerd-fonts.fira-code
+      fira
+    ];
+  };
+
   flake.modules.homeManager.core = {pkgs, ...}: {
     stylix = {
       enable = true;
