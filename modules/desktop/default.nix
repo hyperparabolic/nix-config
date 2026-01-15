@@ -31,6 +31,8 @@
       XDG_SESSION_TYPE = "wayland";
     };
 
+    services.hyprpaper.settings.splash = false;
+
     stylix = {
       image = pkgs.fetchurl {
         name = "leaves.png";

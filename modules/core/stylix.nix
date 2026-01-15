@@ -5,6 +5,7 @@
       autoEnable = false;
       polarity = "dark";
       base16Scheme = {
+        # 0A (blue) and 0D (yellow) swapped for  yellow accents
         name = "Catppuccin Macchiato (Yellow)";
         author = "https://github.com/catppuccin/catppuccin";
         base00 = "24273a";
