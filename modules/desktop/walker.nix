@@ -6,27 +6,33 @@
         installService = true;
         provider = {
           websearch.settings = {
+            icon = "firefox";
             entries = [
               {
                 default = true;
                 name = "DuckDuckGo";
                 url = "https://duckduckgo.com/?q=%TERM%";
+                prefix = "1";
               }
               {
                 name = "NixOS Options";
                 url = "https://search.nixos.org/options?channel=unstable&query=%TERM%";
+                prefix = "2";
               }
               {
                 name = "NixOS Packages";
                 url = "https://search.nixos.org/packages?channel=unstable&query=%TERM%";
+                prefix = "3";
               }
               {
                 name = "Home Manager Options";
                 url = "https://home-manager-options.extranix.com/?release=master&query=%TERM%";
+                prefix = "4";
               }
               {
                 name = "Google";
                 url = "https://www.google.com/search?q=%TERM%";
+                prefix = "5";
               }
             ];
           };
