@@ -6,8 +6,8 @@
       settings = {
         copy_command = "wl-copy";
         scroll_buffer_size = 4294967295;
-        show_release_notes = true;
-        show_startup_tips = true;
+        show_release_notes = false;
+        show_startup_tips = false;
 
         keybinds = {
           "shared_except \"locked\"" = {
