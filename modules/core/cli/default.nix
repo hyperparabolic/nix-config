@@ -14,6 +14,7 @@
         yq-go # yaml parsing / editing
 
         alejandra # nix formatter
+        dix # nix profile diffing
         nixd # nix lsp
 
         mpc # mpd cli client
