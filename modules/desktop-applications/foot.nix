@@ -13,5 +13,14 @@
     stylix.targets.foot = {
       enable = true;
     };
+
+    xdg.mimeApps = {
+      associations.added = {
+        "x-scheme-handler/terminal" = "foot.desktop";
+      };
+      defaultApplications = {
+        "x-scheme-handler/terminal" = "foot.desktop";
+      };
+    };
   };
 }

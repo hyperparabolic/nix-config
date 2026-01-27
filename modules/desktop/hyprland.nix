@@ -169,7 +169,7 @@
           "$MOD, S, exec, grimblast --notify copy area"
           "$MODSHIFT, P, exec, hyprpicker -a"
 
-          "$MOD, T, exec, uwsm app -- ghostty"
+          "$MOD, T, exec, uwsm app -- foot"
 
           "$MOD, R, exec, walker"
           "$MOD, C, exec, walker -m clipboard"
