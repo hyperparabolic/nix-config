@@ -1,6 +1,6 @@
 # nix-config
 
-My configs for nixos and continued exploration into security conscious, low maintenance, higly reproducible, linux systems.
+My configs for nixos and continued exploration into security conscious, low maintenance, highly reproducible, linux systems.
 
 This config can't really be deployed elsewhere or copied directly. Feel free to take whatever you want out of it, or to give me any feedback on it, but the default configs include references to services deployed by this config.
 
@@ -8,7 +8,7 @@ This config is security conscious, but I wouldn't recommend this as any sort of 
 
 High level overview:
 
-- Flake based config with NiOS and Home-Manager for multiple hosts
+- Flake based config with NixOS and Home-Manager for multiple hosts
 - Encrypted secrets with `sops-nix`
 - YubiKey for portable signing / encryption / auth via GPG and FIDO/U2F for:
   - login
@@ -75,7 +75,7 @@ NixOS boots as long as it has access to `/boot` and `/nix`. If `hyperparabolic.z
 
 #### Impermanence benefits
 
-This is huge for reproducibility. All state needs to be explicitly declared.
+This is huge for reproducibility. All state needs to be explicitly declared. Only explicitly declared exceptions can have mutable state that persists through reboots.
 
 My mind compares it to the idea of container images and volumes. Your root filesystem is the container image, impermanence persisted filesystems are overlaryed on top of the root filesystem acting as volumes.
 
@@ -91,6 +91,8 @@ This makes it trivially easy to explore changes that packages and services make 
 
 Stateful changes to a systems are also stored in a specific dataset. All of the systems I maintain have been re-imaged in place utilizing ZFS snapshots to persist data between instances of the same host.
 
+Together, all of this brings a lot of the benefits of immutable infrastructure to systems that are stateful and messy.
+
 ### Automatic maintenance and reporting
 
 `zpool scrub` performed on all zpools weekly. Automatic trim runs continuously.
@@ -99,7 +101,7 @@ Auto-snapshotting can be configured on a dataset by dataset basis. The `local` a
 
 `zfs allow` enables non-root users to `zfs send` backups from systems without disk redundancy to systems with raidz or mirrored zpools for backups.
 
-Any degradation detected during these automatic operations is automatically reported to a centralized location via webhooks using ZED. Usage metrics are reported to Grafana dashbards.
+Any degradation detected during these automatic operations is automatically reported to a centralized location via webhooks using ZED. Usage metrics are reported to Grafana dashboards.
 
 ## Secrets management
 
