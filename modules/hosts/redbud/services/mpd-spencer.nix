@@ -13,13 +13,15 @@
       mpd = {
         enable = true;
         user = "spencer";
-        network = {
+        # TODO: would like to remove this, but module outputs warnings on manually
+        # configuring firewall rules that don't expose on every interface
+        # https://github.com/NixOS/nixpkgs/issues/484912
+        openFirewall = true;
+        settings = {
+          port = 6600;
           # mpd module does not open firewall ports. Listen on any interface,
           # but only open vpn interface ports below
-          listenAddress = "any";
-          port = 6600;
-        };
-        settings = {
+          bind_to_address = "0.0.0.0";
           default_permissions = "read,add,control";
           restore_paused = "yes";
           input = [
@@ -68,7 +70,7 @@
 
     # remote access only permitted via vpn
     networking.firewall.interfaces."tailscale0" = {
-      allowedTCPPorts = [config.services.mpd.network.port];
+      allowedTCPPorts = [config.services.mpd.settings.port];
     };
 
     services.pipewire = {
