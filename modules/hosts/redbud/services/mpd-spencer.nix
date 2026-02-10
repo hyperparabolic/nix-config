@@ -13,10 +13,8 @@
       mpd = {
         enable = true;
         user = "spencer";
-        # TODO: would like to remove this, but module outputs warnings on manually
-        # configuring firewall rules that don't expose on every interface
-        # https://github.com/NixOS/nixpkgs/issues/484912
-        openFirewall = true;
+        # explicitly false to suppress port warnings
+        openFirewall = false;
         settings = {
           port = 6600;
           # mpd module does not open firewall ports. Listen on any interface,
