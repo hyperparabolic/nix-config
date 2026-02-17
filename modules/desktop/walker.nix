@@ -10,8 +10,8 @@
             entries = [
               {
                 default = true;
-                name = "DuckDuckGo";
-                url = "https://duckduckgo.com/?q=%TERM%";
+                name = "decent search";
+                url = "https://search.oak.decent.id/search?q=%TERM%";
                 prefix = "1";
               }
               {
