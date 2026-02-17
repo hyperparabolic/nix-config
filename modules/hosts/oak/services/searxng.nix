@@ -38,8 +38,5 @@
     sops.secrets.searxng = {
       sopsFile = ../../../../secrets/oak/secrets-searxng.yaml;
     };
-
-    environment.persistence."/persist".directories = [
-    ];
   };
 }
