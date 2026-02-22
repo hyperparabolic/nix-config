@@ -5,6 +5,10 @@
         sopsFile = ../../../../../secrets/redbud/secrets-grafana.yaml;
         owner = "grafana";
       };
+      grafana-secret-key = {
+        sopsFile = ../../../../../secrets/redbud/secrets-grafana.yaml;
+        owner = "grafana";
+      };
     };
 
     services = {
@@ -25,6 +29,7 @@
             admin_user = "spencer";
             admin_password = "$__file{${config.sops.secrets.grafana-spencer-password.path}}";
             cookie_secure = true;
+            secret_key = "$__file{${config.sops.secrets.grafana-secret-key.path}}";
           };
         };
         provision = {
