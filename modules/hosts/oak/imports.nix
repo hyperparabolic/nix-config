@@ -26,6 +26,7 @@
               desktop
               desktop-applications
               dev-js
+              guitar-pro
               libvirt
               user-spencer
             ];
