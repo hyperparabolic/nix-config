@@ -21,6 +21,7 @@
   */
   flake.modules.homeManager.guitar-pro = {
     config,
+    lib,
     pkgs,
     ...
   }: let
@@ -73,6 +74,30 @@
       bottles
       gp-arg-wrap
     ];
+
+    programs.yazi.settings = lib.mkIf config.programs.yazi.enable {
+      opener = {
+        guitarpro = [
+          {
+            desc = "Guitar Pro";
+            run = "gp-arg-wrap %S";
+            orphan = true;
+          }
+        ];
+      };
+      open = {
+        prepend_rules = [
+          {
+            url = "*.gpx";
+            use = "guitarpro";
+          }
+          {
+            url = "*.gp";
+            use = "guitarpro";
+          }
+        ];
+      };
+    };
 
     xdg = {
       dataFile = {
