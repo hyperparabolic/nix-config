@@ -486,11 +486,11 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1769890802,
-        "narHash": "sha256-e/2+pIOoT1KUa9ZjVcXzlPpNg5yq+3Wygp3+mHvLtCA=",
+        "lastModified": 1772644566,
+        "narHash": "sha256-vJlmZYPeIY5HxeyUpg2RVCGdnDoK1gFdqzlp6Zl6Vw8=",
         "owner": "hyperparabolic",
         "repo": "nixos-hydra-upgrade",
-        "rev": "3046e4add16027b3244f86c9a9658c016840ae6b",
+        "rev": "a15dae1faeac53882582f171e9eed6c3be468b69",
         "type": "github"
       },
       "original": {
