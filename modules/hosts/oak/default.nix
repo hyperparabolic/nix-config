@@ -13,7 +13,7 @@
     boot = {
       initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
       kernelModules = ["kvm-amd"];
-      kernelPackages = pkgs.linuxKernel.packages.linux_6_12;
+      kernelPackages = pkgs.linuxKernel.packages.linux_6_18;
     };
 
     hardware.cpu.amd.updateMicrocode = true;
