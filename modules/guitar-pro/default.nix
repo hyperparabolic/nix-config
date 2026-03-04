@@ -107,7 +107,7 @@
           text = ''
             <?xml version="1.0" encoding="UTF-8"?>
             <mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
-              <mime-type type="application/x-gtp">
+              <mime-type type="application/x-gtp">k
                 <comment>Guitar Pro file</comment>
                 <glob pattern="*.gtp"/>
                 <glob pattern="*.gp3"/>
@@ -148,11 +148,20 @@
       };
 
       mimeApps = {
+        # xdg-mime does not seem to respect <magic> or <sub-class-of>
+        # and still resolves types from `shared-mime-info`. I don't use
+        # gnuplot or gps exchange, so just overwriting them as well.
+        # Those don't seem necessary with many file-manager mimetype
+        # implementations.
         associations.added = {
           "application/x-gtp" = "guitar-pro.desktop";
+          "application/x-gnuplot" = "guitar-pro.desktop";
+          "application/gpx+xml" = "guitar-pro.desktop";
         };
         defaultApplications = {
           "application/x-gtp" = "guitar-pro.desktop";
+          "application/x-gnuplot" = "guitar-pro.desktop";
+          "application/gpx+xml" = "guitar-pro.desktop";
         };
       };
     };
