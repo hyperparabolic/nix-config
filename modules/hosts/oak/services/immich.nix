@@ -3,10 +3,6 @@
     services = {
       immich = {
         enable = true;
-        database = {
-          enableVectors = false;
-          enableVectorChord = true;
-        };
         mediaLocation = "/tank/immich";
         settings.server.externalDomain = "https://imgs.oak.decent.id";
       };
