@@ -8,6 +8,7 @@
         scroll_buffer_size = 4294967295;
         show_release_notes = false;
         show_startup_tips = false;
+        theme = "catppuccin-macchiato";
         ui.pane_frames.rounded_corners = true;
 
         keybinds = {
@@ -27,7 +28,5 @@
         };
       };
     };
-
-    stylix.targets.zellij.enable = true;
   };
 }
