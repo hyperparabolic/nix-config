@@ -6,7 +6,11 @@
     ];
   };
 
-  flake.modules.homeManager.core = {pkgs, ...}: {
+  flake.modules.homeManager.core = {
+    config,
+    pkgs,
+    ...
+  }: {
     stylix = {
       enable = true;
       autoEnable = false;
@@ -61,5 +65,7 @@
         package = pkgs.papirus-icon-theme;
       };
     };
+
+    gtk.gtk4.theme = config.gtk.theme;
   };
 }

@@ -19,6 +19,7 @@
       };
       signing = {
         signer = "${config.programs.gpg.package}/bin/gpg2";
+        format = "openpgp";
         key = "766F3DDF324B5355";
         signByDefault = true;
       };
