@@ -53,7 +53,7 @@
       languages = {
         language-server = {
           bash-language-server = {
-            command = "${lib.getExe (pkgs.lazy-app.override {pkg = pkgs.nodePackages.bash-language-server;})}";
+            command = "${lib.getExe (pkgs.lazy-app.override {pkg = pkgs.bash-language-server;})}";
           };
 
           codebook = {
@@ -107,7 +107,7 @@
           };
 
           typescript-language-server = {
-            command = "${lib.getExe (pkgs.lazy-app.override {pkg = pkgs.nodePackages.typescript-language-server;})}";
+            command = "${lib.getExe (pkgs.lazy-app.override {pkg = pkgs.typescript-language-server;})}";
             required-root-patterns = ["package.json" "tsconfig.json"];
           };
         };
