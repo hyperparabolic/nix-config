@@ -100,6 +100,7 @@
         hyperparabolic.ntfy-client.package-notify = lib.mkDefault package-ntfy-notify;
 
         environment.systemPackages = with pkgs; [
+          libnotify
           ntfy-sh
           package-ntfy-notify
           package-ntfy-alert
