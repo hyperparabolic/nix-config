@@ -41,7 +41,7 @@
     };
 
     # doesn't have key to decrypt, supply via env if wanted in future
-    hyperparabolic.ntfy.environmentFile = lib.mkForce null;
+    hyperparabolic.ntfy-client.environmentFile = lib.mkForce null;
 
     users.users.spencer = {
       # This is fine. Only included for sudo operations, and is not included
@@ -60,9 +60,9 @@
       nameservers = [
         "192.168.1.1"
       ];
-      wireless.enable = false;
+      wireless.enable = lib.mkForce false;
     };
-    services.resolved.fallbackDns = ["9.9.9.9" "2620:fe::fe"];
+    services.resolved.settings.Resolve.FallbackDNS = ["9.9.9.9" "2620:fe::fe"];
 
     environment.systemPackages = with pkgs; [
       hyperparabolic-export
