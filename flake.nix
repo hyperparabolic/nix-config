@@ -1,6 +1,7 @@
 {
   nixConfig = {
-    abort-on-warn = true;
+    # TODO: re-enable, home-manager currently is currently referencing deprecated hostPlatform
+    # abort-on-warn = true;
     allow-import-from-derivation = false;
     extra-experimental-features = "pipe-operators";
     extra-substituters = ["https://cache.oak.decent.id"];
