@@ -924,11 +924,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1774969782,
-        "narHash": "sha256-yjI5/u6oo3AedJ1EvOA+YuQmCWIqSeFBSIpjBK7WFMI=",
+        "lastModified": 1775691392,
+        "narHash": "sha256-oV/9eWPhI2DtsR7bX679aMab0by+um9+eaWRmsiB+uE=",
         "owner": "hyperparabolic",
         "repo": "vanity",
-        "rev": "0c182687d490af5b116462444ab97fbaff4a63ef",
+        "rev": "e606611baa9c8ad1316d634f6c48746835cc5170",
         "type": "github"
       },
       "original": {
