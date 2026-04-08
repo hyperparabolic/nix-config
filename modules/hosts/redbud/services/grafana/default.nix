@@ -65,6 +65,7 @@
         useACMEHost = "redbud.decent.id";
         locations."/" = {
           proxyPass = "http://localhost:${toString config.services.grafana.settings.server.http_port}";
+          proxyWebsockets = true;
         };
       };
     };
