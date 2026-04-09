@@ -73,7 +73,8 @@
     wayland.windowManager.hyprland.settings = {
       bind = lib.mkAfter [
         "$MOD, E, exec, vanity --toggle-menu"
-        "$MOD, I, exec, vanity --toggle-menu"
+        "$MOD, I, exec, vanity --toggle-idle"
+        "$MOD, N, exec, vanity --toggle-notifications"
         "$MOD, A, exec, vanity --notify-activate"
         "$MOD, D, exec, vanity --notify-dismiss"
       ];
