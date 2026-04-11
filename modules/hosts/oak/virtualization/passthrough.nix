@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.hosts-oak = {
+  flake.modules.nixos.oak-passthrough = {
     pkgs,
     lib,
     ...

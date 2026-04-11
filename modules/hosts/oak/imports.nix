@@ -7,6 +7,8 @@
         this
         this-share-home
 
+        oak-passthrough
+
         audio
         bluetooth
         desktop
