@@ -4,6 +4,13 @@ topLevel: let
   impermanenceOptions = {
     enable = lib.mkEnableOption "Enable impermanence for /persist persistence directory";
     enableRollback = lib.mkEnableOption "Enable impermanence rollback to blank snapshot on boot.";
+    # override impermanence root directories for specific use cases
+    dirs = {
+      games = lib.mkOption {
+        type = lib.types.str;
+        default = "/persist";
+      };
+    };
   };
 in {
   flake.modules.nixos.this = {...}: {

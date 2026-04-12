@@ -6,12 +6,16 @@
     };
   };
 
-  flake.modules.homeManager.games = {pkgs, ...}: {
+  flake.modules.homeManager.games = {
+    config,
+    pkgs,
+    ...
+  }: {
     home = {
       packages = [
         pkgs.gamescope
       ];
-      persistence."/persist".directories = [
+      persistence."${config.this.impermanence.dirs.games}".directories = [
         "Games"
         ".factorio"
         ".local/share/Steam"
