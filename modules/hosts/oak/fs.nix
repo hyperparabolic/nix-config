@@ -9,6 +9,9 @@
       impermanence = {
         enable = true;
         enableRollback = true;
+        dirs = {
+          games = "/wiz";
+        };
       };
       zfs = {
         backingDevices = [
@@ -18,10 +21,24 @@
       };
     };
 
+    boot.initrd.supportedFilesystems = ["ext4"];
+
     fileSystems."/boot" = {
       device = "/dev/disk/by-uuid/42D2-A7B0";
       fsType = "vfat";
       options = ["umask=0077"];
+    };
+
+    fileSystems."/wiz" = {
+      device = "/dev/disk/by-uuid/eb811c42-85f8-4844-a3fc-8639696ff253";
+      fsType = "ext4";
+      neededForBoot = true;
+      options = [
+        "nofail"
+        "x-systemd.device-timeout=1"
+        "noatime"
+        "commit=300"
+      ];
     };
 
     swapDevices = [

@@ -10,6 +10,7 @@
         audio
         bluetooth
         desktop
+        games
         libvirt
         nvidia
         reverse-proxy
@@ -27,6 +28,7 @@
               desktop
               desktop-applications
               dev-js
+              games
               guitar-pro
               libvirt
               user-spencer
