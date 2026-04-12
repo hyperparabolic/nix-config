@@ -7,12 +7,11 @@
         this
         this-share-home
 
-        oak-passthrough
-
         audio
         bluetooth
         desktop
         libvirt
+        nvidia
         reverse-proxy
         secureboot
         user-spencer

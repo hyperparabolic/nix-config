@@ -24,7 +24,7 @@
 
     this.monitors = [
       {
-        name = "HDMI-A-1";
+        name = "DP-1";
         width = 3840;
         height = 2160;
         x = 0;
@@ -37,7 +37,7 @@
         ];
       }
       {
-        name = "DVI-D-1";
+        name = "DP-2";
         width = 1920;
         height = 1080;
         x = 3840;
