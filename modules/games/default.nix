@@ -6,15 +6,8 @@
     };
   };
 
-  flake.modules.homeManager.games = {
-    config,
-    pkgs,
-    ...
-  }: {
+  flake.modules.homeManager.games = {config, ...}: {
     home = {
-      packages = [
-        pkgs.gamescope
-      ];
       persistence."${config.this.impermanence.dirs.games}".directories = [
         "Games"
         ".factorio"
