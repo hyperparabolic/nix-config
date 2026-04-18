@@ -45,8 +45,10 @@ More information on individual modules can be found in the modules directory.
   - `cache.oak.decent.id`: `nix-serve` binary cache for other less beefy machines.
   - `hydra.oak.decent.id`: `hydra` continuous integration and continuous delivery.
   - `jellyfin.oak.decent.id`: `jellyfin` media server.
+  - `links.oak.decent.id`: `linkwarden` 
   - `ntfy.oak.decent.id` / `ntfy.decent.id`: `ntfy` pub-sub / push notification service.
   - `rss.oak.decent.id`: `miniflux` rss feed reader and browser app.
+  - `search.oak.decent.id`: `searxng` meta-search.
 - `redbud`: Retired laptop. Headless server acting as a RAOP (AirPlay) audio receiver and metrics server.
   - `dash.redbud.decent.id`: `grafana` Dashboard and data visualization service.
   - `logs.redbud.decent.id`: `loki` log aggregation service.
@@ -108,6 +110,11 @@ Any degradation detected during these automatic operations is automatically repo
 Secrets are stored encrypted in this repo. `sops` is used to encrypt secrets using my YubiKey stored PGP key in addition to each hosts' SSH host keys utilizing age keys. `sops-nix` decrypts these secrets at activation time, keeping them encrypted even in the nix store.
 
 ## Virtualization
+
+> [!NOTE]
+> I'm currently experimenting with not using windows at all. It's probably all still functional config, but the VFIO passthrough it isn't currently in use. It'll probably be removed along with references to it soon.
+>
+> I wrote some notes about how all of this setup works [on my blog](https://blog.decent.id/post/windows-vm-tweaks/), but also some thoughts about why I'm moving away from it there.
 
 The host `oak` includes configuration to run VMs with the following features:
 
