@@ -3,6 +3,8 @@
     services = {
       immich = {
         enable = true;
+        accelerationDevices = ["/dev/dri/renderD128"];
+        machine-learning.enable = true;
         mediaLocation = "/tank/immich";
         settings.server.externalDomain = "https://imgs.oak.decent.id";
       };
