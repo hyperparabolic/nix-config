@@ -13,5 +13,13 @@
     packages-gcc14 = final: _: {
       gcc14 = inputs.nixpkgs-gcc14.legacyPackages.${final.stdenv.hostPlatform.system};
     };
+
+    # The 32 bit openldap build used in wine has flaky tests, disable
+    # tests. Can be removed once fixed upstream.
+    openldap32-disable-tests = _: prev: {
+      openldap = prev.openldap.overrideAttrs {
+        doCheck = !prev.stdenv.hostPlatform.isi686;
+      };
+    };
   };
 }
