@@ -62,10 +62,9 @@
             supportedFilesystems = ["zfs"];
 
             zfs = {
-              # default, but keep even if default changes
-              allowHibernation = false;
               # does not play nicely with old systems, may require zfs_force=1 kernel parameter
               forceImportRoot = false;
+              unsafeAllowHibernation = false;
             };
           };
 
