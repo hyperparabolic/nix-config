@@ -28,7 +28,5 @@ jobs:
           # helps with github pull rate limiting
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
 
-      # hydraJobs is just a double-evaluation of hosts, disable it here to cut check time in half
-      # disallow IFD to ensure hydraJobs.hosts is still actually happy.
       - name: Check flake
-        run: nix flake check --no-build hydra --option allow-import-from-derivation false
+        run: nix flake check --option allow-import-from-derivation false
