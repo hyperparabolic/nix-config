@@ -1,0 +1,15 @@
+{
+  flake.modules.nixos.core = {pkgs, ...}: {
+    # TODO: remove once dirty frag patches are upstreamed
+    boot.extraModprobeConfig = ''
+      install esp4 ${pkgs.coreutils}/bin/false
+      install esp6 ${pkgs.coreutils}/bin/false
+      install rxrpc ${pkgs.coreutils}/bin/false
+    '';
+    boot.blacklistedKernelModules = [
+      "esp4"
+      "esp6"
+      "rxrpc"
+    ];
+  };
+}
