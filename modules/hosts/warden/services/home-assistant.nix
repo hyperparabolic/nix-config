@@ -19,7 +19,7 @@
           "/var/run/avahi-daemon/socket:/var/run/avahi-daemon/socket"
         ];
         environment.TZ = "America/Chicago";
-        image = "ghcr.io/home-assistant/home-assistant:2025.10";
+        image = "ghcr.io/home-assistant/home-assistant:2026.5";
         extraOptions = [
           "--cap-add=CAP_NET_ADMIN"
           "--cap-add=CAP_NET_RAW"
