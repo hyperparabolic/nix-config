@@ -29,4 +29,4 @@ jobs:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Check flake
-        run: nix flake check --option allow-import-from-derivation false
+        run: nix flake check --option allow-import-from-derivation false --extra-experimental-features pipe-operators
