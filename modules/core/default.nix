@@ -33,7 +33,8 @@
     };
 
     environment = {
-      enableAllTerminfo = true;
+      # TODO: revert when PR#522784 lands in unstable
+      # enableAllTerminfo = true;
       wordlist.enable = true;
       systemPackages = [
         hyperparabolic-bootstrap
