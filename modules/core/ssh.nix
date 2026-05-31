@@ -57,23 +57,25 @@
     };
   };
 
-  flake.modules.homeManager.core = {outputs, ...}: let
+  flake.modules.homeManager.core = {
+    outputs,
+    lib,
+    ...
+  }: let
     hostnames = builtins.attrNames outputs.nixosConfigurations;
   in {
     programs.ssh = {
       enable = true;
       enableDefaultConfig = false;
-      matchBlocks = {
-        net = {
-          host = builtins.concatStringsSep " " hostnames;
-          forwardAgent = true;
-          remoteForwards = [
+      settings = {
+        "Host ${builtins.concatStringsSep " " hostnames}" = lib.hm.dag.entryBefore ["Host *"] {
+          ForwardAgent = "yes";
+          RemoteForward = [
             {
               # static socket locations set up in gpg.nix
               bind.address = ''/%d/.gnupg-sockets/S.gpg-agent'';
               host.address = ''/%d/.gnupg-sockets/S.gpg-agent'';
             }
-
             {
               # static socket locations set up in gpg.nix
               bind.address = ''/%d/.gnupg-sockets/S.gpg-agent.ssh'';
@@ -81,8 +83,8 @@
             }
           ];
         };
-        "*" = {
-          addKeysToAgent = "no";
+        "Host *" = {
+          AddKeysToAgent = "no";
         };
       };
     };
