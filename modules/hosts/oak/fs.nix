@@ -60,8 +60,8 @@
           options = "bind";
           type = "none";
           unitConfig.DefaultDependencies = "no";
+          wantedBy = ["user@1000.service"];
           wants = [
-            "user@1000.service"
             "zfs-mount-tank.service"
           ];
           after = [
@@ -70,13 +70,13 @@
           ];
         }
         {
-          what = "/tank/net/src";
+          what = "/tank/src";
           where = "/home/spencer/src";
           options = "bind";
           type = "none";
           unitConfig.DefaultDependencies = "no";
+          wantedBy = ["user@1000.service"];
           wants = [
-            "user@1000.service"
             "zfs-mount-tank.service"
           ];
           after = [
@@ -90,8 +90,8 @@
           options = "bind";
           type = "none";
           unitConfig.DefaultDependencies = "no";
+          wantedBy = ["user@1000.service"];
           wants = [
-            "user@1000.service"
             "zfs-mount-tank.service"
           ];
           after = [
