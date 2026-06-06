@@ -22,7 +22,83 @@
         rules = ./rules.lua;
         startup = ./startup.lua;
       };
-      extraConfig =
+      extraConfig = let
+        hasMonitorsConfig = builtins.length config.this.monitors > 0;
+
+        # if no this.monitors, default to these configs
+        defaultMonitors =
+          /*
+          lua
+          */
+          ''
+            hl.monitor({
+              output = "",
+              mode = "preferred",
+              position = "auto",
+              scale = 1,
+            })
+          '';
+        defaultWorkspaces =
+          /*
+          lua
+          */
+          ''
+            for i = 1, 8, 1 do
+              local ws = tostring(i)
+              hl.workspace_rule({ workspace = ws, persistent = true })
+            end
+          '';
+
+        makeMonitor = mon: let
+          mode = "${toString mon.width}x${toString mon.height}@${toString mon.refreshRate}";
+          position = "${toString mon.x}x${toString mon.y}";
+        in
+          /*
+          lua
+          */
+          ''
+            hl.monitor({
+              output = "${mon.name}",
+              mode = "${mode}",
+              position = "${position}",
+              scale = 1,
+              transform = ${toString mon.transform},
+            })
+          '';
+
+        monitors =
+          if !hasMonitorsConfig
+          then defaultMonitors
+          else
+            config.this.monitors
+            |> map makeMonitor
+            |> lib.strings.join "";
+
+        # make all workspace configs for a monitor
+        makeWorkspaces = mon:
+          map (ws:
+            /*
+            lua
+            */
+            ''
+              hl.workspace_rule({
+                workspace = "${ws}",
+                monitor = "${mon.name}",
+                persistent = true,
+              })
+            '') (mon.workspaces);
+
+        workspaces =
+          if !hasMonitorsConfig
+          then defaultWorkspaces
+          else
+            config.this.monitors
+            |> map makeWorkspaces
+            # array of array of strings
+            |> lib.flatten
+            # array of strings
+            |> lib.strings.join "";
+      in
         /*
         lua
         */
@@ -36,84 +112,10 @@
           hl.permission({ binary = "${pkgs.xdg-desktop-portal-hyprland}/libexec/.xdg-desktop-portal-hyprland-wrapped", type = "screencopy", mode = "allow" })
 
           -- monitors config
-          ${
-            lib.strings.join "\n" (
-              if builtins.length config.this.monitors > 0
-              # if monitors are configured, map to exact config
-              then
-                map (
-                  m: let
-                    resolution = "${toString m.width}x${toString m.height}@${toString m.refreshRate}";
-                    position = "${toString m.x}x${toString m.y}";
-                  in
-                    /*
-                    lua
-                    */
-                    ''
-                      hl.monitor({
-                        output = "${m.name}",
-                        mode = "${resolution}",
-                        position = "${position}",
-                        scale = 1,
-                        transform = ${toString m.transform},
-                      })
-                    ''
-                ) (config.this.monitors)
-              # if monitors are not configured, do your best prioritizing resolution
-              else [
-                /*
-                lua
-                */
-                ''
-                  hl.monitor({
-                    output = "",
-                    mode = "preferred",
-                    position = "auto",
-                    scale = 1,
-                  })
-                ''
-              ]
-            )
-          }
+          ${monitors}
 
           -- workspaces config
-          ${
-            lib.strings.join "\n" (
-              if builtins.length config.this.monitors > 0
-              then
-                lib.flatten (map (
-                  m:
-                    map (
-                      mw:
-                      /*
-                      lua
-                      */
-                      ''
-                        hl.workspace_rule({
-                          workspace = "${mw}",
-                          monitor = "${m.name}",
-                          persistent = true,
-                        })
-                      ''
-                    ) (m.workspaces)
-                ) (config.this.monitors))
-              else [
-                /*
-                lua
-                */
-                ''
-                  hl.workspace_rule({ workspace = "1", persistent = true })
-                  hl.workspace_rule({ workspace = "2", persistent = true })
-                  hl.workspace_rule({ workspace = "3", persistent = true })
-                  hl.workspace_rule({ workspace = "4", persistent = true })
-                  hl.workspace_rule({ workspace = "5", persistent = true })
-                  hl.workspace_rule({ workspace = "6", persistent = true })
-                  hl.workspace_rule({ workspace = "7", persistent = true })
-                  hl.workspace_rule({ workspace = "8", persistent = true })
-                ''
-              ]
-            )
-          }
+          ${workspaces}
         '';
     };
   };
