@@ -36,6 +36,9 @@
               }
             ];
           };
+          windows.settings = {
+            show_workspaces = false;
+          };
         };
       };
       walker = {
@@ -47,12 +50,23 @@
             default = [
               "desktopapplications"
               "calc"
-              "menus"
+              "windows"
+            ];
+            empty = [
+              "windows"
             ];
             prefixes = [
               {
                 provider = "bluetooth";
                 prefix = "&";
+              }
+              {
+                provider = "calc";
+                prefix = "=";
+              }
+              {
+                provider = "desktopapplications";
+                prefix = "`";
               }
               {
                 provider = "files";
@@ -61,6 +75,10 @@
               {
                 provider = "providerlist";
                 prefix = "_";
+              }
+              {
+                provider = "playerctl";
+                prefix = ">";
               }
               {
                 provider = "runner";
@@ -81,6 +99,15 @@
               {
                 provider = "websearch";
                 prefix = "@";
+              }
+              {
+                provider = "windows";
+                prefix = "#";
+              }
+              # unused, but override default configs to avoid conflicts
+              {
+                provider = "bookmarks";
+                prefix = "☃";
               }
             ];
           };
