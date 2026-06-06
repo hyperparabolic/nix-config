@@ -6,8 +6,7 @@
   }: {
     services = {
       hydra = {
-        # TODO: revert to unstable once gcc15 migrations complete, currently borked
-        package = pkgs.gcc14.hydra;
+        package = pkgs.hydra;
         enable = true;
         hydraURL = "https://hydra.oak.decent.id";
         notificationSender = "hydra@localhost";
