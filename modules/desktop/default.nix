@@ -21,6 +21,9 @@
       # clipboard and utils
       cliphist
       wl-clipboard
+
+      brightnessctl
+      playerctl
     ];
 
     # wayland compat
