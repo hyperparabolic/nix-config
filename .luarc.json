@@ -1,0 +1,10 @@
+{
+  "workspace.library": [
+    "${env:HYPRLAND_LUA_STUBS}"
+  ],
+  "diagnostics": {
+    "globals": [
+      "hl"
+    ]
+  }
+}
