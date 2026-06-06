@@ -65,7 +65,5 @@
         package = pkgs.papirus-icon-theme;
       };
     };
-
-    gtk.gtk4.theme = config.gtk.theme;
   };
 }
