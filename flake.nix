@@ -11,7 +11,6 @@
   inputs = {
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-gcc14.url = "github:nixos/nixpkgs/3e2499d5539c16d0d173ba53552a4ff8547f4539?narHash=sha256-QEhk0eXgyIqTpJ/ehZKg9IKS7EtlWxF3N7DXy42zPfU%3D";
 
     systems.url = "github:nix-systems/default-linux";
 
