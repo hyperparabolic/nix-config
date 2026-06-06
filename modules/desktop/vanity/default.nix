@@ -70,14 +70,10 @@
       wlsunset.Unit.Wants = ["file-state@wlsunset.service"];
     };
 
-    wayland.windowManager.hyprland.settings = {
-      bind = lib.mkAfter [
-        "$MOD, E, exec, vanity --toggle-menu"
-        "$MOD, I, exec, vanity --toggle-idle"
-        "$MOD, N, exec, vanity --toggle-notifications"
-        "$MOD, A, exec, vanity --notify-activate"
-        "$MOD, D, exec, vanity --notify-dismiss"
-      ];
+    wayland.windowManager.hyprland = {
+      extraLuaFiles = {
+        vanity = ./vanity.lua;
+      };
     };
 
     # desktop file needed for geoclue
