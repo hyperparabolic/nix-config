@@ -4,7 +4,7 @@
       jellyfin = {
         enable = true;
         openFirewall = true;
-        package = pkgs.stable.jellyfin;
+        package = pkgs.jellyfin;
       };
       nginx.virtualHosts."jellyfin.oak.decent.id" = {
         forceSSL = true;

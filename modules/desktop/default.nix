@@ -16,7 +16,7 @@
       grimblast
       slurp
       hyprpicker
-      stable.wl-screenrec
+      wl-screenrec
 
       # clipboard and utils
       cliphist
