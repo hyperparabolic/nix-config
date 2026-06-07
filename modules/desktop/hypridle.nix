@@ -7,23 +7,28 @@
   }: {
     services.hypridle = {
       enable = true;
-      settings = {
+      settings = let
+        hyprctl = lib.getExe' config.wayland.windowManager.hyprland.package "hyprctl";
+        hyprlock = lib.getExe config.programs.hyprlock.package;
+        loginctl = lib.getExe' pkgs.systemd "loginctl";
+        pidof = lib.getExe' pkgs.procps "pidof";
+      in {
         general = {
           # lock if hyprlock process doesn't exist, or turn off monitor if repeated
-          lock_cmd = "${lib.getExe' pkgs.procps "pidof"} -q hyprlock && ${lib.getExe' pkgs.coreutils-full "sleep"} 1 && ${lib.getExe' config.wayland.windowManager.hyprland.package "hyprctl"} dispatch dpms off || ${lib.getExe config.programs.hyprlock.package}";
-          before_sleep_cmd = "${lib.getExe' pkgs.procps "pidof"} hyprlock || ${lib.getExe config.programs.hyprlock.package} --immediate --no-fade-in";
-          after_sleep_cmd = "${lib.getExe' config.wayland.windowManager.hyprland.package "hyprctl"} dispatch dpms on";
+          lock_cmd = "${pidof} -q hyprlock || ${hyprlock}";
+          before_sleep_cmd = "${pidof} -q hyprlock || ${hyprlock} --immediate --no-fade-in";
+          after_sleep_cmd = "${hyprctl} dispatch 'hl.dsp.dpms({ action = \"enable\" })'";
         };
 
         listener = [
           {
             timeout = 300;
-            on-timeout = "${lib.getExe' pkgs.systemd "loginctl"} lock-session";
+            on-timeout = "${loginctl} lock-session";
           }
           {
             timeout = 330;
-            on-resume = "${lib.getExe' config.wayland.windowManager.hyprland.package "hyprctl"} dispatch dpms on";
-            on-timeout = "${lib.getExe' config.wayland.windowManager.hyprland.package "hyprctl"} dispatch dpms off";
+            on-resume = "${hyprctl} dispatch 'hl.dsp.dpms({ action = \"enable\" })'";
+            on-timeout = "${hyprctl} dispatch 'hl.dsp.dpms({ action = \"disable\" })'";
           }
         ];
       };

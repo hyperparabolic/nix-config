@@ -9,7 +9,19 @@ hl.bind("SUPER + SHIFT + P", hl.dsp.exec_cmd("hyprpicker -a"))
 hl.bind("SUPER + R", hl.dsp.exec_cmd("walker"))
 hl.bind("SUPER + C", hl.dsp.exec_cmd("walker -m clipboard"))
 
+-- lock and double tap for screen off
 hl.bind("SUPER + Escape", hl.dsp.exec_cmd("loginctl lock-session"), { locked = true })
+hl.bind("SUPER + Escape", hl.dsp.submap("lock"), { locked = true, release = true })
+
+hl.define_submap("lock", "reset", function()
+  hl.bind("SUPER + Escape", function()
+    -- delay so releasing button doesn't wake screens
+    hl.timer(function()
+      hl.dispatch(hl.dsp.dpms({ action = "disable" }))
+    end, { timeout = 500, type = "oneshot" })
+  end, { locked = true })
+  hl.bind("catchall", hl.dsp.submap("reset"))
+end)
 
 -- window management
 hl.bind("SUPER + Q", hl.dsp.window.close())
