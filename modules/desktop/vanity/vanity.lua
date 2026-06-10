@@ -9,19 +9,19 @@ hl.bind("SUPER + D", hl.dsp.exec_cmd("vanity --notify-dismiss"))
 
 -- layer rules
 hl.layer_rule({
-  match = { namespace = "match:namespace ^(bar-.*)$" },
+  match = { namespace = "^(bar-.*)$" },
   order = 99,
 })
 hl.layer_rule({
-  match = { namespace = "match:namespace menu" },
+  match = { namespace = "menu" },
   no_screen_share = true,
 })
 hl.layer_rule({
-  match = { namespace = "match:namespace notifications" },
+  match = { namespace = "notifications" },
   no_screen_share = true,
 })
 hl.layer_rule({
-  match = { namespace = "match:namespace ^(osd-.*)$" },
+  match = { namespace = "^(osd-.*)$" },
   animation = "popin",
   above_lock = 1,
   no_screen_share = true,

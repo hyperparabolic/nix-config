@@ -1,17 +1,17 @@
 hl.layer_rule({
-  match = { namespace = "match:namespace hyprpaper" },
+  match = { namespace = "hyprpaper" },
   animation = "fade",
 })
 hl.layer_rule({
-  match = { namespace = "match:namespace hyprpicker" },
+  match = { namespace = "hyprpicker" },
   animation = "fade",
 })
 hl.layer_rule({
-  match = { namespace = "match:namespace selection" },
+  match = { namespace = "selection" },
   animation = "fade",
 })
 hl.layer_rule({
-  match = { namespace = "match:namespace walker" },
+  match = { namespace = "walker" },
   no_screen_share = true,
 })
 
