@@ -78,11 +78,11 @@
     inherit (inputs.nixpkgs) lib;
     importNixFiles = dir:
       lib.filesystem.listFilesRecursive dir
-      |> builtins.filter (f: lib.hasSuffix ".nix" (builtins.toString f));
+      |> builtins.filter (f: lib.hasSuffix ".nix" (toString f));
   in
     flake-parts.lib.mkFlake {inherit inputs;} ({...}: {
       imports =
         importNixFiles ./modules
-        |> builtins.filter (f: !lib.hasInfix "/_" (builtins.toString f));
+        |> builtins.filter (f: !lib.hasInfix "/_" (toString f));
     });
 }
