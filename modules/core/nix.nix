@@ -36,18 +36,17 @@
       registry = lib.mapAttrs (_: value: {flake = value;}) inputs;
     };
 
-    # Limit memory use for nix daemon processes. This permits short bursts, but
-    # will kill processes if >20s above limit memory use in build processes.
+    # dedicated slice for nix-daemon resource management
     systemd = {
       slices."nix-daemon".sliceConfig = {
-        ManagedOOMMemoryPressure = "kill";
-        ManagedOOMMemoryPressureLimit = "50%";
+        CPUWeight = "10";
+        MemoryMax = "80%";
+        MemorySwapMax = "0";
+        MemoryZSwapMax = "0";
       };
       services."nix-daemon".serviceConfig = {
         Slice = "nix-daemon.slice";
-
-        # Kernel level backup, strongly prefer killing nix daemon processes
-        # just in case there is other heavy memory use concurrent to builds.
+        OOMPolicy = "continue";
         OOMScoreAdjust = 1000;
       };
     };
