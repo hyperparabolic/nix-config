@@ -22,7 +22,6 @@ High level overview:
 - Hydra CI/CD automatically pre-populates `nix-serve` binary cache.
   - Automatic dependency update [workflows](./.github/workflows)
   - Automatic upgrades from CI / cache with [nixos-hydra-upgrade](https://github.com/hyperparabolic/nixos-hydra-upgrade)
-- VMs with PCI device passthrough via OVMF
 - `hyprland` wayland desktop environment
 - [vanity](https://github.com/hyperparabolic/vanity) custom desktop shell built with [astal](https://github.com/Aylur/astal)
 - Custom [install / debug usb](https://github.com/hyperparabolic/nix-config/tree/main/hosts/iso), along with [bootstrap, installation, and dubugging scripts](https://github.com/hyperparabolic/nix-config/tree/main/scripts)
@@ -40,7 +39,7 @@ More information on individual modules can be found in the modules directory.
 ## Hosts and hosted services overview
 
 - `magnolia`: Laptop, runs no services, mobile work only.
-- `oak`: Desktop workstation, extensive libvirt / QEMU config with hardware passthrough.
+- `oak`: Desktop workstation.
   - `books.oak.decent.id`: `kavita` ebook library.
   - `cache.oak.decent.id`: `nix-serve` binary cache for other less beefy machines.
   - `hydra.oak.decent.id`: `hydra` continuous integration and continuous delivery.
@@ -108,21 +107,6 @@ Any degradation detected during these automatic operations is automatically repo
 ## Secrets management
 
 Secrets are stored encrypted in this repo. `sops` is used to encrypt secrets using my YubiKey stored PGP key in addition to each hosts' SSH host keys utilizing age keys. `sops-nix` decrypts these secrets at activation time, keeping them encrypted even in the nix store.
-
-## Virtualization
-
-> [!NOTE]
-> I'm currently experimenting with not using windows at all. It's probably all still functional config, but the VFIO passthrough it isn't currently in use. It'll probably be removed along with references to it soon.
->
-> I wrote some notes about how all of this setup works [on my blog](https://blog.decent.id/post/windows-vm-tweaks/), but also some thoughts about why I'm moving away from it there.
-
-The host `oak` includes configuration to run VMs with the following features:
-
-- Hardware passthrough, including GPU passthrough via OVMF for near native graphics performance
-- Seamless host / vm audio device sharing via pipewire with user sessions
-- Evdev input device passthrough (left-ctrl + right-ctrl to transition mouse and keyboard between host and vm)
-- CPU pinning and process isolation for performance and security
-- All running as a non-root user
 
 ## Inspired by
 

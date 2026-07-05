@@ -1,9 +1,5 @@
 {
-  flake.modules.nixos.hosts-oak = {
-    inputs,
-    pkgs,
-    ...
-  }: {
+  flake.modules.nixos.hosts-oak = {inputs, ...}: {
     imports = [
       inputs.nixos-hardware.nixosModules.common-hidpi
       inputs.nixos-hardware.nixosModules.common-pc-ssd
@@ -13,7 +9,6 @@
     boot = {
       initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
       kernelModules = ["kvm-amd"];
-      kernelPackages = pkgs.linuxKernel.packages.linux_6_18;
     };
 
     hardware.cpu.amd.updateMicrocode = true;
