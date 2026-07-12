@@ -45,6 +45,13 @@
     services = {
       # firmware updates: `fwupdmgr update`
       fwupd.enable = true;
+      journald = {
+        storage = "volatile";
+        extraConfig = ''
+          SystemMaxFileSize=5M
+          SystemMaxUse=50M
+        '';
+      };
     };
 
     users.mutableUsers = false;
