@@ -54,6 +54,14 @@
       };
     };
 
+    systemd.coredump = {
+      enable = true;
+      settings.Coredump = {
+        Storage = "none";
+        MaxUse = "0";
+      };
+    };
+
     users.mutableUsers = false;
 
     environment.persistence."/persist".directories = [
