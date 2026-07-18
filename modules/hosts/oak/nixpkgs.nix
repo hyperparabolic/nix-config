@@ -29,14 +29,6 @@
         #       ${oldAttrs.preConfigure or ""}
         #     '';
         #   });
-        onnxruntime = pkgs.onnxruntime.overrideAttrs (oldAttrs: {
-          # RAM use building this package with optimizations is
-          # wild. -j8 to avoid slowdown due to RAM limits.
-          preBuild = ''
-            NIX_BUILD_CORES=8
-            ${oldAttrs.preBuild or ""}
-          '';
-        });
       };
     };
   };

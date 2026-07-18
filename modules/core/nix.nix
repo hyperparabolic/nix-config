@@ -24,6 +24,7 @@
         trusted-users = ["root" "@wheel"];
         experimental-features = "nix-command flakes pipe-operators";
         auto-optimise-store = true;
+        cores = 8;
       };
 
       gc = {
