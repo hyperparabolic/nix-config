@@ -6,11 +6,8 @@
     ];
   };
 
-  flake.modules.homeManager.core = {
-    config,
-    pkgs,
-    ...
-  }: {
+  flake.modules.homeManager.core = {pkgs, ...}: {
+    home.pointerCursor.enable = true;
     stylix = {
       enable = true;
       autoEnable = false;
