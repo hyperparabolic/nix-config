@@ -1,5 +1,6 @@
 {
   flake.modules.nixos.hosts-oak = {
+    config,
     pkgs,
     lib,
     ...
@@ -65,6 +66,18 @@
               };
             };
           };
+          peers = {
+            openrouter = {
+              proxy = "https://openrouter.ai/api";
+              apiKey = "\${env.OPENROUTER_API_KEY}";
+              models = [
+                "deepseek/deepseek-v4-flash"
+                "nvidia/nemotron-3-ultra-550b-a55b:free"
+                "tencent/hy3"
+                "xiaomi/mimo-v2.5"
+              ];
+            };
+          };
         };
       };
       nginx.virtualHosts."llm.oak.decent.id" = {
@@ -77,9 +90,16 @@
       };
     };
 
+    sops.secrets.llama-swap = {
+      sopsFile = ../../../../secrets/oak/secrets-llama-swap.yaml;
+    };
+
     systemd.services.llama-swap = {
       environment.XDG_CACHE_HOME = "/var/cache/llama-swap";
-      serviceConfig.CacheDirectory = "llama-swap";
+      serviceConfig = {
+        CacheDirectory = "llama-swap";
+        EnvironmentFile = config.sops.secrets.llama-swap.path;
+      };
     };
 
     environment.persistence."/persist".directories = ["/var/cache/private/llama-swap"];
