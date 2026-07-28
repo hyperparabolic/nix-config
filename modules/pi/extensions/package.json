@@ -1,0 +1,13 @@
+{
+  "name": "pi-extensions",
+  "version": "unstable",
+  "private": "true",
+  "type": "module",
+  "scripts": {},
+  "dependencies": {
+    "@earendil-works/gondolin": "0.12.0"
+  },
+  "allowScripts": {
+    "ssh2@1.17.0": true
+  }
+}

@@ -31,6 +31,7 @@
               games
               guitar-pro
               libvirt
+              pi
               user-spencer
             ];
           };
