@@ -27,10 +27,6 @@
         login.rules.auth.u2f = {
           control = lib.mkForce "required";
         };
-        greetd.u2fAuth = true;
-        greetd.rules.auth.u2f = {
-          control = lib.mkForce "required";
-        };
         sudo.u2fAuth = true;
         # prefer u2f over rssh for machines with direct usb access
         sudo.rules.auth.u2f.order = config.security.pam.services.sudo.rules.auth.rssh.order - 10;
