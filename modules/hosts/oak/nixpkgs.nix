@@ -1,8 +1,26 @@
 {
-  flake.modules.nixos.hosts-oak = {...}: {
+  flake.modules.nixos.hosts-oak = {lib, ...}: {
     nixpkgs.config = {
       cudaSupport = true;
       packageOverrides = pkgs: {
+        # TODO: remove once https://github.com/NixOS/nixpkgs/pull/549747 merged
+        frei0r = pkgs.frei0r.overrideAttrs (oldAttrs: {
+          nativeBuildInputs = with pkgs;
+            [
+              cudaPackages.cuda_nvcc
+            ]
+            ++ oldAttrs.nativeBuildInputs;
+          buildInputs = with pkgs;
+            [
+              gavl
+            ]
+            ++ oldAttrs.buildInputs;
+          cmakeFlags = with pkgs;
+            (oldAttrs.cmakeFlags or [])
+            ++ [
+              (lib.cmakeFeature "CUDAToolkit_ROOT" "${lib.getBin cudaPackages.cuda_nvcc}")
+            ];
+        });
         # experimenting with enabling CPU optimizations, disabled for now,
         # core dumps for some models at the moment.
         #
