@@ -4,8 +4,14 @@
     # abort-on-warn = true;
     allow-import-from-derivation = false;
     extra-experimental-features = "pipe-operators";
-    extra-substituters = ["https://cache.oak.decent.id"];
-    extra-trusted-public-keys = ["cache.oak.decent.id:rf560rkaTPzpc8cg56bnPmmgqro8Lbn624jJSDF5YyY="];
+    extra-substituters = [
+      "https://cache.oak.decent.id"
+      "https://cache.nixos-cuda.org"
+    ];
+    extra-trusted-public-keys = [
+      "cache.oak.decent.id:rf560rkaTPzpc8cg56bnPmmgqro8Lbn624jJSDF5YyY="
+      "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
+    ];
   };
 
   inputs = {

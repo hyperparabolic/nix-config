@@ -17,9 +17,11 @@
       settings = {
         substituters = [
           "https://cache.oak.decent.id"
+          "https://cache.nixos-cuda.org"
         ];
         trusted-public-keys = [
           "cache.oak.decent.id:rf560rkaTPzpc8cg56bnPmmgqro8Lbn624jJSDF5YyY="
+          "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
         ];
         trusted-users = ["root" "@wheel"];
         experimental-features = "nix-command flakes pipe-operators";

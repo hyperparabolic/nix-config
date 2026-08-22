@@ -42,7 +42,7 @@
         if [ ! -f /root/.local/share/nix/trusted-settings.json ]; then
             echo "{}" > /root/.local/share/nix/trusted-settings.json
         fi
-        echo "$(jq '. += {"abort-on-warn":{"true":true},"allow-import-from-derivation":{"false":true},"extra-experimental-features":{"pipe-operators":true},"extra-substituters":{"https://cache.oak.decent.id":true},"extra-trusted-public-keys":{"cache.oak.decent.id:rf560rkaTPzpc8cg56bnPmmgqro8Lbn624jJSDF5YyY=":true}}' /root/.local/share/nix/trusted-settings.json)" > /root/.local/share/nix/trusted-settings.json
+        echo "$(jq '. += {"abort-on-warn":{"true":true},"allow-import-from-derivation":{"false":true},"extra-experimental-features":{"pipe-operators":true},"extra-substituters":{"https://cache.oak.decent.id":true,"https://cache.nixos-cuda.org":true},"extra-trusted-public-keys":{"cache.oak.decent.id:rf560rkaTPzpc8cg56bnPmmgqro8Lbn624jJSDF5YyY=":true,"cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M=":true}}' /root/.local/share/nix/trusted-settings.json)" > /root/.local/share/nix/trusted-settings.json
       '';
     };
   };
