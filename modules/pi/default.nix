@@ -32,6 +32,7 @@
                 {id = "qwen3.6:27b-q4";}
                 {id = "deepseek/deepseek-v4-flash";}
                 {id = "nvidia/nemotron-3-ultra-550b-a55b:free";}
+                {id = "stealth/ox-alpha";}
                 {id = "tencent/hy3";}
                 {id = "xiaomi/mimo-v2.5";}
               ];
@@ -45,6 +46,7 @@
             "llama-swap/qwen3.6:27b-q4"
             "llama-swap/deepseek/deepseek-v4-flash"
             "llama-swap/nvidia/nemotron-3-ultra-550b-a55b:free"
+            "llama-swap/stealth/ox-alpha"
             "llama-swap/tencent/hy3"
             "llama-swap/xiaomi/mimo-v2.5"
           ];
