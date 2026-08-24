@@ -13,6 +13,20 @@ Modules named:
 - `flake.modules.homeManager.<feature> = {...}:` are homeManager modules.
 Where `<feature>` describes a program, service, or functional or logical grouping, and generally matches the directory the module lives in. `<feature>` is also an import group.
 
+Import mechanics:
+- Paths containing `/_` are excluded from recursive import (escape hatch for non-module helpers).
+- Files assigning the same attrpath merge automatically (e.g. many `modules/core/*.nix` set `flake.modules.nixos.core`).
+- Hosts opt into features in `modules/hosts/<hostname>/imports.nix`: nixos via `imports = with config.flake.modules.nixos; [ ... ];`, homeManager via `home-manager.users.<user>.imports = with config.flake.modules.homeManager; [ ... ];`.
+- `core` is a bundle every host imports; any other feature must be added to each host's `imports.nix` explicitly.
+- Feature names may differ from their directory: `users/spencer` -> `user-spencer`; hosts use `hosts-<hostname>`.
+- Modules with the pattern `hosts-<hostname>` are iterated to define `nixosConfigurations` that define each host.
+
+## Conventions
+
+- Custom options under `this.*` in `modules/this/`, are pure option containers (no config, only evaluated in other modules to drive config). Use `this-share-home` to mirror nixos options into homeManager users.
+- Root filesystem is ephemeral (impermanence): services introducing stateful paths must persist them via `environment.persistence."/persist"` or `home.persistence`.
+- Prefer `lib.mkDefault` for values hosts may override.
+
 ## Directory Structure
 
 ```
@@ -49,3 +63,4 @@ Where `<feature>` describes a program, service, or functional or logical groupin
 - LF newlines.
 - 2 space indentation, no tabs.
 - Format files with alejandra, `nix fmt -- -q [files...]`. Format all changed files.
+- Nix pipe operators (`|>`) are an experimental feature used in this repo. It is the reverse of function application: `f a` == `a |> f`.
