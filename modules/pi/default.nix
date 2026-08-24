@@ -16,6 +16,13 @@
     };
 
     config = {
+      home.packages = with pkgs; [
+        # gondolin image build deps
+        cpio
+        lz4
+        e2fsprogs
+      ];
+
       programs.pi-coding-agent = {
         enable = true;
         extraPackages = [

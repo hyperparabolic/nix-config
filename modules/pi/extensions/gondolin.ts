@@ -19,8 +19,20 @@
  *   - QEMU installed (for example, `brew install qemu` on macOS)
  */
 
+import { execFile } from "node:child_process";
+import { createHash } from "node:crypto";
+import fs from "node:fs/promises";
+import os from "node:os";
 import path from "node:path";
-import { RealFSProvider, VM } from "@earendil-works/gondolin";
+import { promisify } from "node:util";
+import {
+  buildAssets,
+  listImageRefs,
+  parseBuildConfig,
+  type BuildConfig,
+  RealFSProvider,
+  VM,
+} from "@earendil-works/gondolin";
 import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-agent";
 import {
   type BashOperations,
@@ -46,6 +58,12 @@ import {
 
 const GUEST_WORKSPACE = "/workspace";
 const DEFAULT_GREP_LIMIT = 100;
+const FALLBACK_IMAGE_REF = "alpine-nix:latest";
+const SANDBOX_DIR_NAME = ".gondolin";
+const SANDBOX_SPEC_FILENAME = "gondolin-sandbox.json";
+const SPEC_STAMP_FILENAME = "spec.sha256";
+
+const execFileAsync = promisify(execFile);
 
 type TextToolResult<TDetails> = {
   content: Array<{ type: "text"; text: string }>;
@@ -312,6 +330,123 @@ async function executeGondolinGrep(
   };
 }
 
+function errorMessage(error: unknown): string {
+  return error instanceof Error ? error.message : String(error);
+}
+
+function hashSpecContent(specContent: string): string {
+  return createHash("sha256").update(specContent).digest("hex").slice(0, 16);
+}
+
+async function findGitProjectRoot(cwd: string): Promise<string | undefined> {
+  try {
+    const { stdout } = await execFileAsync("git", ["rev-parse", "--show-toplevel"], {
+      cwd,
+    });
+    return stdout.trim() || undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+/**
+ * Build `<gitRoot>/.gondolin` from a `gondolin-sandbox.json` spec using the
+ * gondolin build APIs. Returns the output directory on success.
+ *
+ * Assets are built into a unique temporary directory under the system temp
+ * dir and renamed into place only after a successful build, together with a
+ * stamp of the spec hash, so failed builds leave any existing image intact
+ * and partial output is never visible at `<gitRoot>/.gondolin`.
+ *
+ * Throws when the spec cannot be parsed or built.
+ */
+async function buildSandboxDirFromSpec(
+  gitRoot: string,
+  gondolinDir: string,
+  specContent: string,
+  specHash: string,
+  log: (message: string) => void,
+): Promise<string> {
+  let config: BuildConfig;
+  try {
+    config = parseBuildConfig(specContent);
+  } catch (error) {
+    throw new Error(`Invalid ${SANDBOX_SPEC_FILENAME}: ${errorMessage(error)}`);
+  }
+
+  const stagingDir = await fs.mkdtemp(path.join(os.tmpdir(), "gondolin-build-"));
+  log(`building Gondolin image from ${SANDBOX_SPEC_FILENAME} into ${SANDBOX_DIR_NAME}/`);
+  try {
+    await buildAssets(config, { outputDir: stagingDir, configDir: gitRoot, verbose: false });
+    await fs.writeFile(path.join(stagingDir, SPEC_STAMP_FILENAME), `${specHash}\n`, "utf8");
+    await fs.rm(gondolinDir, { recursive: true, force: true });
+    await fs.rename(stagingDir, gondolinDir);
+  } catch (error) {
+    throw new Error(
+      `Failed to build Gondolin image from ${SANDBOX_SPEC_FILENAME}: ${errorMessage(error)}`,
+    );
+  } finally {
+    await fs.rm(stagingDir, { recursive: true, force: true }).catch(() => {});
+  }
+  log(`Gondolin image built at ${gondolinDir}`);
+  return gondolinDir;
+}
+
+/**
+ * Resolve optional sandbox image options for VM.create:
+ *   1. `<git project root>/.gondolin` when its spec stamp matches the current
+ *      `gondolin-sandbox.json` (used as-is when there is no spec)
+ *   2. built from `<git project root>/gondolin-sandbox.json` when `.gondolin`
+ *      is missing or stale
+ *   3. the local `${FALLBACK_IMAGE_REF}` image ref if present in the image store
+ *   4. undefined, letting gondolin use its default image
+ */
+async function resolveSandboxOptions(
+  cwd: string,
+  log: (message: string) => void = () => {},
+): Promise<{ imagePath: string } | undefined> {
+  const gitRoot = await findGitProjectRoot(cwd);
+  if (gitRoot) {
+    const gondolinDir = path.join(gitRoot, SANDBOX_DIR_NAME);
+    let specContent: string | undefined;
+    try {
+      specContent = await fs.readFile(path.join(gitRoot, SANDBOX_SPEC_FILENAME), "utf8");
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException | undefined)?.code !== "ENOENT") {
+        throw new Error(
+          `Found ${SANDBOX_SPEC_FILENAME} but could not read it: ${errorMessage(error)}`,
+        );
+      }
+      // no sandbox spec in the project root
+    }
+    if (specContent === undefined) {
+      // no spec to validate against; a manual .gondolin directory is used as-is
+      try {
+        if ((await fs.stat(gondolinDir)).isDirectory()) return { imagePath: gondolinDir };
+      } catch {
+        // no .gondolin directory in the project root
+      }
+    } else {
+      const specHash = hashSpecContent(specContent);
+      const [stamp, dirStat] = await Promise.all([
+        fs.readFile(path.join(gondolinDir, SPEC_STAMP_FILENAME), "utf8").catch(() => ""),
+        fs.stat(gondolinDir).catch(() => null),
+      ]);
+      if (stamp.trim() === specHash && dirStat?.isDirectory()) return { imagePath: gondolinDir };
+      return {
+        imagePath: await buildSandboxDirFromSpec(gitRoot, gondolinDir, specContent, specHash, log),
+      };
+    }
+  }
+  try {
+    const refs = listImageRefs();
+    if (refs.some((ref) => ref.reference === FALLBACK_IMAGE_REF)) return { imagePath: FALLBACK_IMAGE_REF };
+  } catch {
+    // image store unreadable; fall through to defaults
+  }
+  return undefined;
+}
+
 function sanitizeEnv(env: NodeJS.ProcessEnv | undefined): Record<string, string> | undefined {
   if (!env) return undefined;
   const result: Record<string, string> = {};
@@ -378,8 +513,13 @@ export default function(pi: ExtensionAPI) {
 
   async function startVm(ctx?: ExtensionContext): Promise<VM> {
     ctx?.ui.setStatus("gondolin", ctx.ui.theme.fg("accent", `Gondolin: starting ${GUEST_WORKSPACE}`));
+    const sandboxOptions = await resolveSandboxOptions(localCwd, (message) => {
+      if (!ctx) return;
+      ctx.ui.setStatus("gondolin", ctx.ui.theme.fg("accent", `Gondolin: ${message}`));
+    });
     const created = await VM.create({
       sessionLabel: `pi ${path.basename(localCwd)}`,
+      ...(sandboxOptions && { sandbox: sandboxOptions }),
       vfs: {
         mounts: {
           [GUEST_WORKSPACE]: new RealFSProvider(localCwd),
@@ -393,7 +533,10 @@ export default function(pi: ExtensionAPI) {
       "gondolin",
       ctx.ui.theme.fg("accent", `Gondolin: ${created.id.slice(0, 8)} (${GUEST_WORKSPACE})`),
     );
-    ctx?.ui.notify(`Gondolin VM ready. ${localCwd} is mounted at ${GUEST_WORKSPACE}.`, "info");
+    ctx?.ui.notify(
+      `Gondolin VM ready. ${localCwd} is mounted at ${GUEST_WORKSPACE}. Image: ${sandboxOptions?.imagePath ?? "default"}.`,
+      "info",
+    );
     return created;
   }
 
@@ -407,8 +550,12 @@ export default function(pi: ExtensionAPI) {
     return vmStarting;
   }
 
-  pi.on("session_start", async (_event, ctx) => {
-    await ensureVm(ctx);
+  pi.on("session_start", (_event, ctx) => {
+    // Fire and forget so image resolution/builds don't block session startup;
+    // ensureVm() dedupes, so the first tool call joins the in-flight start.
+    void ensureVm(ctx).catch((error: unknown) => {
+      ctx.ui.notify(`Gondolin VM failed to start: ${errorMessage(error)}`, "error");
+    });
   });
 
   pi.on("session_shutdown", async (_event, ctx) => {
