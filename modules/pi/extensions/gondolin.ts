@@ -354,7 +354,7 @@ async function findGitProjectRoot(cwd: string): Promise<string | undefined> {
  * gondolin build APIs. Returns the output directory on success.
  *
  * Assets are built into a unique temporary directory under the system temp
- * dir and renamed into place only after a successful build, together with a
+ * dir and copied into place only after a successful build, together with a
  * stamp of the spec hash, so failed builds leave any existing image intact
  * and partial output is never visible at `<gitRoot>/.gondolin`.
  *
@@ -380,13 +380,16 @@ async function buildSandboxDirFromSpec(
     await buildAssets(config, { outputDir: stagingDir, configDir: gitRoot, verbose: false });
     await fs.writeFile(path.join(stagingDir, SPEC_STAMP_FILENAME), `${specHash}\n`, "utf8");
     await fs.rm(gondolinDir, { recursive: true, force: true });
-    await fs.rename(stagingDir, gondolinDir);
+    await fs.cp(stagingDir, gondolinDir, {
+      errorOnExist: true,
+      recursive: true,
+    });
   } catch (error) {
     throw new Error(
       `Failed to build Gondolin image from ${SANDBOX_SPEC_FILENAME}: ${errorMessage(error)}`,
     );
   } finally {
-    await fs.rm(stagingDir, { recursive: true, force: true }).catch(() => {});
+    await fs.rm(stagingDir, { recursive: true, force: true }).catch(() => { });
   }
   log(`Gondolin image built at ${gondolinDir}`);
   return gondolinDir;
@@ -403,7 +406,7 @@ async function buildSandboxDirFromSpec(
  */
 async function resolveSandboxOptions(
   cwd: string,
-  log: (message: string) => void = () => {},
+  log: (message: string) => void = () => { },
 ): Promise<{ imagePath: string } | undefined> {
   const gitRoot = await findGitProjectRoot(cwd);
   if (gitRoot) {
