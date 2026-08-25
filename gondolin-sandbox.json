@@ -17,6 +17,7 @@
       "npm",
       "uv",
       "python3",
+      "py3-html2text",
       "openssh",
       "nix"
     ],

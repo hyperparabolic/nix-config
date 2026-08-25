@@ -43,6 +43,8 @@
           "llama-swap/xiaomi/mimo-v2.5"
         ];
 
+        skills = [./skills];
+
         extensions = [
           (pkgs.buildNpmPackage {
             pname = "pi-extensions";
