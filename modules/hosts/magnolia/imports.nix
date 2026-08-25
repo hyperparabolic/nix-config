@@ -29,6 +29,7 @@
               desktop-applications
               dev-js
               games
+              pi
               user-spencer
             ];
           };
