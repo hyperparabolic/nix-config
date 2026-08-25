@@ -12,6 +12,7 @@
             autocomplete = "duckduckgo";
             default_lang = "en";
             safe_search = 0;
+            formats = ["html" "json"];
           };
           server = {
             port = 8888;
