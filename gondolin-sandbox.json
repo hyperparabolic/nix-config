@@ -23,8 +23,32 @@
     "initramfsPackages": [],
     "krunfwVersion": "v5.2.1"
   },
+  "env": {
+    "HOME": "/root",
+    "NIX_REMOTE": ""
+  },
   "rootfs": {
     "label": "gondolin-root",
-    "sizeMb": 2048
+    "sizeMb": 8192
+  },
+  "postBuild": {
+    "copy": [
+      {
+        "src": "modules/pi/guest/nix-overlay-profile.sh",
+        "dest": "/etc/profile.d/01-gondolin-runtime.sh"
+      },
+      {
+        "src": "modules/pi/guest/etc-nix.conf",
+        "dest": "/etc/nix/nix.conf"
+      },
+      {
+        "src": "modules/pi/guest/nix-remote-stub.sh",
+        "dest": "/etc/profile.d/nix-remote.sh"
+      },
+      {
+        "src": "modules/pi/guest/etc-gitconfig",
+        "dest": "/etc/gitconfig"
+      }
+    ]
   }
 }

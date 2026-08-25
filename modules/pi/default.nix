@@ -12,7 +12,7 @@
       enable = true;
       extraPackages = [
       ];
-      context = "Be a good bot.";
+      context = ./context.md;
       models = {
         providers = {
           llama-swap = {
