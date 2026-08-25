@@ -31,6 +31,7 @@ import {
   parseBuildConfig,
   type BuildConfig,
   RealFSProvider,
+  ReadonlyProvider,
   VM,
 } from "@earendil-works/gondolin";
 import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-agent";
@@ -57,6 +58,8 @@ import {
 } from "@earendil-works/pi-coding-agent";
 
 const GUEST_WORKSPACE = "/workspace";
+const HOST_NIX_STORE = "/nix/store";
+const GUEST_NIX_STORE = "/nix/.ro-store";
 const DEFAULT_GREP_LIMIT = 100;
 const FALLBACK_IMAGE_REF = "alpine-nix:latest";
 const SANDBOX_DIR_NAME = ".gondolin";
@@ -526,6 +529,7 @@ export default function(pi: ExtensionAPI) {
       vfs: {
         mounts: {
           [GUEST_WORKSPACE]: new RealFSProvider(localCwd),
+          [GUEST_NIX_STORE]: new ReadonlyProvider(new RealFSProvider(HOST_NIX_STORE)),
         },
       },
     });
