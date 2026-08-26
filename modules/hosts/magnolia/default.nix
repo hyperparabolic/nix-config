@@ -51,5 +51,7 @@
         on-timeout = "${pkgs.systemd}/bin/systemctl suspend";
       }
     ];
+
+    wayland.windowManager.hyprland.extraLuaFiles.touchpad = ./touchpad.lua;
   };
 }
