@@ -25,6 +25,7 @@
       };
       ignores = [
         ".direnv"
+        ".gondolin"
       ];
     };
   };

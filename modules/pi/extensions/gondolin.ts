@@ -1,22 +1,24 @@
 /**
- * Gondolin Tool Routing Example
+ * Gondolin Tool Routing Extension
  *
  * Runs pi's built-in tools inside a local Gondolin micro-VM. The host working
  * directory is mounted at /workspace in the guest. File changes under
  * /workspace write through to the host; other guest filesystem changes are
  * isolated to the VM.
  *
- * Setup:
- *   cd packages/coding-agent/examples/extensions/gondolin
- *   npm install --ignore-scripts
+ * Images support workspace-level "inheritance" that `gondolin build` lacks:
+ * an optional `gondolin-sandbox.json` in the git root is deep-merged over the
+ * shared BASE_IMAGE_CONFIG below before building, so post-build fixes (guest
+ * runtime files, env, rootfs sizing, packages) are maintained once here and
+ * apply to every git workspace. Workspace specs only carry their deltas;
+ * workspaces without a spec get the base image unchanged.
  *
- * Usage:
- *   cd /path/to/project
- *   pi -e /path/to/pi/packages/coding-agent/examples/extensions/gondolin
+ * The guest runtime files live in ./guest/ so they are packaged (and
+ * content-hashed into the image fingerprint) alongside this extension.
  *
  * Requirements:
  *   - Node.js >= 23.6.0 for @earendil-works/gondolin
- *   - QEMU installed (for example, `brew install qemu` on macOS)
+ *   - cpio, lz4, e2fsprogs (mke2fs) on the host for image builds
  */
 
 import { execFile } from "node:child_process";
@@ -25,6 +27,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { promisify } from "node:util";
+import { fileURLToPath } from "node:url";
 import {
   buildAssets,
   listImageRefs,
@@ -65,6 +68,76 @@ const FALLBACK_IMAGE_REF = "alpine-nix:latest";
 const SANDBOX_DIR_NAME = ".gondolin";
 const SANDBOX_SPEC_FILENAME = "gondolin-sandbox.json";
 const SPEC_STAMP_FILENAME = "spec.sha256";
+
+/** Absolute host path to a runtime file shipped alongside this extension. */
+function guestAssetPath(filename: string): string {
+  return fileURLToPath(new URL(`./guest/${filename}`, import.meta.url));
+}
+
+/**
+ * Shared base image configuration deep-merged under every workspace's
+ * optional `gondolin-sandbox.json`.
+ *
+ * Copy sources point at files packaged beside this extension (absolute paths
+ * pass through gondolin's `resolveConfigPath` untouched). Note that a present
+ * `alpine.rootfsPackages` overrides gondolin's defaults, so the full list is
+ * spelled out here.
+ */
+const BASE_IMAGE_CONFIG = {
+  arch: "x86_64",
+  distro: "alpine",
+  alpine: {
+    version: "3.23.0",
+    kernelPackage: "linux-virt",
+    kernelImage: "vmlinuz-virt",
+    krunfwVersion: "v5.2.1",
+    rootfsPackages: [
+      "linux-virt",
+      "rng-tools",
+      "bash",
+      "ca-certificates",
+      "curl",
+      "e2fsprogs",
+      "git",
+      "nodejs",
+      "npm",
+      "uv",
+      "python3",
+      "py3-html2text",
+      "openssh",
+      "nix",
+    ],
+  },
+  env: {
+    HOME: "/root",
+    NIX_REMOTE: "", // single-user root; upstream daemon export breaks here
+  },
+  rootfs: {
+    label: "gondolin-root",
+    // headroom for a writable nix store upper layer on the ephemeral rootfs
+    sizeMb: 8192,
+  },
+  postBuild: {
+    copy: [
+      {
+        src: guestAssetPath("nix-overlay-profile.sh"),
+        dest: "/etc/profile.d/01-gondolin-runtime.sh",
+      },
+      {
+        src: guestAssetPath("etc-nix.conf"),
+        dest: "/etc/nix/nix.conf",
+      },
+      {
+        src: guestAssetPath("nix-remote-stub.sh"),
+        dest: "/etc/profile.d/nix-remote.sh",
+      },
+      {
+        src: guestAssetPath("etc-gitconfig"),
+        dest: "/etc/gitconfig",
+      },
+    ],
+  },
+} satisfies BuildConfig;
 
 const execFileAsync = promisify(execFile);
 
@@ -333,12 +406,120 @@ async function executeGondolinGrep(
   };
 }
 
+/**
+ * Resolve a post-build copy source the same way gondolin does: absolute paths
+ * pass through, relative paths resolve against the config directory.
+ */
+function resolveCopySource(src: string, configDir: string): string {
+  return path.isAbsolute(src) ? src : path.resolve(configDir, src);
+}
+
+/**
+ * Copy source reduced for fingerprinting, so transient absolute locations
+ * (e.g. nix store hashes after an unrelated extension rebuild) don't
+ * invalidate otherwise-identical images.
+ */
+function fingerprintCopyEntry(entry: { src: string; dest: string }): {
+  src: string;
+  dest: string;
+} {
+  return {
+    src: path.isAbsolute(entry.src) ? path.basename(entry.src) : entry.src,
+    dest: entry.dest,
+  };
+}
+
 function errorMessage(error: unknown): string {
   return error instanceof Error ? error.message : String(error);
 }
 
-function hashSpecContent(specContent: string): string {
-  return createHash("sha256").update(specContent).digest("hex").slice(0, 16);
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+/** Deterministic JSON serialization (sorted object keys) for fingerprinting. */
+export function stableStringify(value: unknown): string {
+  if (Array.isArray(value)) return `[${value.map(stableStringify).join(",")}]`;
+  if (isPlainObject(value)) {
+    const entries = Object.keys(value)
+      .sort()
+      .map((key) => `${JSON.stringify(key)}:${stableStringify(value[key])}`);
+    return `{${entries.join(",")}}`;
+  }
+  return JSON.stringify(value) ?? "null";
+}
+
+/**
+ * Deep-merge two JSON-ish configs: objects merge recursively, arrays
+ * concatenate with base entries first (primitives deduped; duplicate objects
+ * keep both so e.g. a later copy entry clobbers an earlier one at copy time),
+ * and scalars prefer the override.
+ */
+export function mergeConfigs(base: unknown, override: unknown): unknown {
+  if (Array.isArray(base) || Array.isArray(override)) {
+    const seen = new Set<string>();
+    const merged: unknown[] = [];
+    for (const entry of [
+      ...(Array.isArray(base) ? base : []),
+      ...(Array.isArray(override) ? override : []),
+    ]) {
+      const key = isPlainObject(entry) ? null : JSON.stringify(entry);
+      if (typeof key === "string") {
+        if (seen.has(key)) continue;
+        seen.add(key);
+      }
+      merged.push(entry);
+    }
+    return merged;
+  }
+  if (isPlainObject(base) && isPlainObject(override)) {
+    const merged: Record<string, unknown> = {};
+    for (const [key, value] of Object.entries(base)) {
+      merged[key] = mergeConfigs(value, undefined);
+    }
+    for (const [key, value] of Object.entries(override)) {
+      merged[key] = key in merged ? mergeConfigs(merged[key], value) : value;
+    }
+    return merged;
+  }
+  return override !== undefined ? override : base;
+}
+
+/**
+ * Merge the shared base image config with an optional workspace spec,
+ * validate the result through gondolin's parser, and derive a fingerprint
+ * covering both the merged config and the contents of every copied file, so
+ * stale `.gondolin` dirs rebuild whenever the base or its payloads change.
+ * (Exported for testing.)
+ */
+export async function resolveImageConfig(
+  gitRoot: string,
+  specContent: string | undefined,
+): Promise<{ config: BuildConfig; fingerprint: string }> {
+  let specConfig: unknown = {};
+  if (specContent !== undefined) {
+    try {
+      specConfig = JSON.parse(specContent);
+    } catch (error) {
+      throw new Error(`Invalid ${SANDBOX_SPEC_FILENAME}: ${errorMessage(error)}`);
+    }
+  }
+  const config = parseBuildConfig(stableStringify(mergeConfigs(BASE_IMAGE_CONFIG, specConfig)));
+  const copies = config.postBuild?.copy ?? [];
+  const parts = [
+    stableStringify({
+      ...config,
+      postBuild: { ...(config.postBuild ?? {}), copy: copies.map(fingerprintCopyEntry) },
+    }),
+  ];
+  for (const entry of copies) {
+    const content = await fs.readFile(resolveCopySource(entry.src, gitRoot));
+    parts.push(`${entry.dest}:${createHash("sha256").update(content).digest("hex")}`);
+  }
+  return {
+    config,
+    fingerprint: createHash("sha256").update(parts.join("\n")).digest("hex").slice(0, 16),
+  };
 }
 
 async function findGitProjectRoot(cwd: string): Promise<string | undefined> {
@@ -353,44 +534,35 @@ async function findGitProjectRoot(cwd: string): Promise<string | undefined> {
 }
 
 /**
- * Build `<gitRoot>/.gondolin` from a `gondolin-sandbox.json` spec using the
- * gondolin build APIs. Returns the output directory on success.
+ * Build `<gitRoot>/.gondolin` from an already-merged, validated build config
+ * using the gondolin build APIs. Returns the output directory on success.
  *
  * Assets are built into a unique temporary directory under the system temp
  * dir and copied into place only after a successful build, together with a
- * stamp of the spec hash, so failed builds leave any existing image intact
- * and partial output is never visible at `<gitRoot>/.gondolin`.
+ * stamp of the config fingerprint, so failed builds leave any existing image
+ * intact and partial output is never visible at `<gitRoot>/.gondolin`.
  *
- * Throws when the spec cannot be parsed or built.
+ * Throws when the build fails.
  */
 async function buildSandboxDirFromSpec(
   gitRoot: string,
   gondolinDir: string,
-  specContent: string,
-  specHash: string,
+  config: BuildConfig,
+  fingerprint: string,
   log: (message: string) => void,
 ): Promise<string> {
-  let config: BuildConfig;
-  try {
-    config = parseBuildConfig(specContent);
-  } catch (error) {
-    throw new Error(`Invalid ${SANDBOX_SPEC_FILENAME}: ${errorMessage(error)}`);
-  }
-
   const stagingDir = await fs.mkdtemp(path.join(os.tmpdir(), "gondolin-build-"));
-  log(`building Gondolin image from ${SANDBOX_SPEC_FILENAME} into ${SANDBOX_DIR_NAME}/`);
+  log(`building Gondolin image into ${SANDBOX_DIR_NAME}/ (${fingerprint})`);
   try {
     await buildAssets(config, { outputDir: stagingDir, configDir: gitRoot, verbose: false });
-    await fs.writeFile(path.join(stagingDir, SPEC_STAMP_FILENAME), `${specHash}\n`, "utf8");
+    await fs.writeFile(path.join(stagingDir, SPEC_STAMP_FILENAME), `${fingerprint}\n`, "utf8");
     await fs.rm(gondolinDir, { recursive: true, force: true });
     await fs.cp(stagingDir, gondolinDir, {
       errorOnExist: true,
       recursive: true,
     });
   } catch (error) {
-    throw new Error(
-      `Failed to build Gondolin image from ${SANDBOX_SPEC_FILENAME}: ${errorMessage(error)}`,
-    );
+    throw new Error(`Failed to build Gondolin image: ${errorMessage(error)}`);
   } finally {
     await fs.rm(stagingDir, { recursive: true, force: true }).catch(() => { });
   }
@@ -400,57 +572,54 @@ async function buildSandboxDirFromSpec(
 
 /**
  * Resolve optional sandbox image options for VM.create:
- *   1. `<git project root>/.gondolin` when its spec stamp matches the current
- *      `gondolin-sandbox.json` (used as-is when there is no spec)
- *   2. built from `<git project root>/gondolin-sandbox.json` when `.gondolin`
- *      is missing or stale
- *   3. the local `${FALLBACK_IMAGE_REF}` image ref if present in the image store
- *   4. undefined, letting gondolin use its default image
+ *   1. `<git project root>/.gondolin` when its stamp matches the fingerprint
+ *      of the shared base config merged with the workspace's optional
+ *      `gondolin-sandbox.json`; built when missing or stale. Workspaces
+ *      without a spec get the base image unchanged.
+ *   2. the local `${FALLBACK_IMAGE_REF}` image ref if present in the image
+ *      store (non-git directories)
+ *   3. undefined, letting gondolin use its default image
  */
 async function resolveSandboxOptions(
   cwd: string,
   log: (message: string) => void = () => { },
 ): Promise<{ imagePath: string } | undefined> {
   const gitRoot = await findGitProjectRoot(cwd);
-  if (gitRoot) {
-    const gondolinDir = path.join(gitRoot, SANDBOX_DIR_NAME);
-    let specContent: string | undefined;
+  if (!gitRoot) {
     try {
-      specContent = await fs.readFile(path.join(gitRoot, SANDBOX_SPEC_FILENAME), "utf8");
-    } catch (error) {
-      if ((error as NodeJS.ErrnoException | undefined)?.code !== "ENOENT") {
-        throw new Error(
-          `Found ${SANDBOX_SPEC_FILENAME} but could not read it: ${errorMessage(error)}`,
-        );
-      }
-      // no sandbox spec in the project root
+      const refs = listImageRefs();
+      if (refs.some((ref) => ref.reference === FALLBACK_IMAGE_REF)) return { imagePath: FALLBACK_IMAGE_REF };
+    } catch {
+      // image store unreadable; fall through to defaults
     }
-    if (specContent === undefined) {
-      // no spec to validate against; a manual .gondolin directory is used as-is
-      try {
-        if ((await fs.stat(gondolinDir)).isDirectory()) return { imagePath: gondolinDir };
-      } catch {
-        // no .gondolin directory in the project root
-      }
-    } else {
-      const specHash = hashSpecContent(specContent);
-      const [stamp, dirStat] = await Promise.all([
-        fs.readFile(path.join(gondolinDir, SPEC_STAMP_FILENAME), "utf8").catch(() => ""),
-        fs.stat(gondolinDir).catch(() => null),
-      ]);
-      if (stamp.trim() === specHash && dirStat?.isDirectory()) return { imagePath: gondolinDir };
-      return {
-        imagePath: await buildSandboxDirFromSpec(gitRoot, gondolinDir, specContent, specHash, log),
-      };
-    }
+    return undefined;
   }
+  const gondolinDir = path.join(gitRoot, SANDBOX_DIR_NAME);
+  let specContent: string | undefined;
   try {
-    const refs = listImageRefs();
-    if (refs.some((ref) => ref.reference === FALLBACK_IMAGE_REF)) return { imagePath: FALLBACK_IMAGE_REF };
-  } catch {
-    // image store unreadable; fall through to defaults
+    specContent = await fs.readFile(path.join(gitRoot, SANDBOX_SPEC_FILENAME), "utf8");
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException | undefined)?.code !== "ENOENT") {
+      throw new Error(
+        `Found ${SANDBOX_SPEC_FILENAME} but could not read it: ${errorMessage(error)}`,
+      );
+    }
+    // no workspace spec; the shared base applies as-is
   }
-  return undefined;
+  log(
+    specContent === undefined
+      ? `no ${SANDBOX_SPEC_FILENAME}; applying shared base image config`
+      : `merging ${SANDBOX_SPEC_FILENAME} with shared base image config`,
+  );
+  const { config, fingerprint } = await resolveImageConfig(gitRoot, specContent);
+  const [stamp, dirStat] = await Promise.all([
+    fs.readFile(path.join(gondolinDir, SPEC_STAMP_FILENAME), "utf8").catch(() => ""),
+    fs.stat(gondolinDir).catch(() => null),
+  ]);
+  if (stamp.trim() === fingerprint && dirStat?.isDirectory()) return { imagePath: gondolinDir };
+  return {
+    imagePath: await buildSandboxDirFromSpec(gitRoot, gondolinDir, config, fingerprint, log),
+  };
 }
 
 function sanitizeEnv(env: NodeJS.ProcessEnv | undefined): Record<string, string> | undefined {

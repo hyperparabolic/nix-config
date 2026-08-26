@@ -18,8 +18,10 @@ Linux x86_64), not directly on the host. A fresh VM is created per session.
   operations. Recovery: `env NIX_REMOTE= nix store gc`.
 - Everything else is ephemeral VM disk: files outside `/workspace` die with
   the session; background processes do not survive it.
-- Baseline tools: bash, git, node/npm, python3/uv, nix, curl. Projects may
-  override the image via a `gondolin-sandbox.json` in their root. Guest nix
+- Baseline tools: bash, git, node/npm, python3/uv, nix, curl. Images get a
+  shared base config (guest runtime fixes, env, packages) from the gondolin
+  extension; a `gondolin-sandbox.json` in a project root carries only deltas,
+  deep-merged over that base. Guest nix
   enables `nix-command flakes pipe-operators` and sets `accept-flake-config`:
   nix-config sources (which use `|>`) evaluate without feature flags — on
   experimental-feature errors, adjust flags, never the syntax.
