@@ -44,6 +44,7 @@ Import mechanics:
 │   │   │   ├── imports.nix   # host module imports
 │   │   │   └── services/     # host specific services
 │   ├── hyperparabolic/       # modules structred for import in external flakes
+│   ├── pi/                   # config that defines ~/.pi
 │   └── this/                 # config container modules for re-use in this repo
 ├── scripts/                  # bootable usb stick debugging and bootstrapping bash scripts
 ├── secrets/                  # SOPS secrets, structured by hosts and services
