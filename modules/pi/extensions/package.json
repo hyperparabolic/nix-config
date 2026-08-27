@@ -1,7 +1,7 @@
 {
   "name": "pi-extensions",
   "version": "unstable",
-  "private": "true",
+  "private": true,
   "type": "module",
   "scripts": {},
   "dependencies": {
@@ -9,5 +9,11 @@
   },
   "allowScripts": {
     "ssh2@1.17.0": true
+  },
+  "pi": {
+    "extensions": [
+      "./gondolin",
+      "./searxng"
+    ]
   }
 }
