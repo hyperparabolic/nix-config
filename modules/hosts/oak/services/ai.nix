@@ -35,23 +35,9 @@
           healthCheckTimeout = 28800;
           ttl = 300;
           models = {
-            "gemma-4:31b-q4" = {
+            "qwen3.8:27b-q4" = {
               cmd = server-attr-flags {
-                hf-repo = "unsloth/gemma-4-31B-it-GGUF:UD-Q4_K_XL";
-                n-gpu-layers = "48";
-                parallel = "1";
-                threads = "8";
-                flash-attn = "on";
-                cache-type-k = "q8_0";
-                cache-type-v = "q8_0";
-                temperature = "1.0";
-                top-p = "0.95";
-                top-k = "64";
-              };
-            };
-            "qwen3.6:27b-q4" = {
-              cmd = server-attr-flags {
-                hf-repo = "unsloth/Qwen3.6-27B-MTP-GGUF";
+                hf-repo = "unsloth/Qwen3.8-27B-GGUF:UD-Q4_K_XL";
                 n-gpu-layers = "48";
                 parallel = "1";
                 threads = "8";
@@ -71,11 +57,10 @@
               proxy = "https://openrouter.ai/api";
               apiKey = "\${env.OPENROUTER_API_KEY}";
               models = [
-                "deepseek/deepseek-v4-flash"
+                "deepseek/deepseek-v4-flash-0731"
                 "nvidia/nemotron-3-ultra-550b-a55b:free"
-                "stealth/ox-alpha"
-                "tencent/hy3"
                 "xiaomi/mimo-v2.5"
+                "z-ai/glm-5.3-flash"
               ];
             };
           };

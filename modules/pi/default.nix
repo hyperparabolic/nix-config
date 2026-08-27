@@ -20,13 +20,11 @@
             api = "openai-responses";
             apiKey = "dummy";
             models = [
-              {id = "gemma-4:31b-q4";}
-              {id = "qwen3.6:27b-q4";}
-              {id = "deepseek/deepseek-v4-flash";}
+              {id = "qwen3.8:27b-q4";}
+              {id = "deepseek/deepseek-v4-flash-0731";}
               {id = "nvidia/nemotron-3-ultra-550b-a55b:free";}
-              {id = "stealth/ox-alpha";}
-              {id = "tencent/hy3";}
               {id = "xiaomi/mimo-v2.5";}
+              {id = "z-ai/glm-5.3-flash";}
             ];
           };
         };
@@ -34,13 +32,11 @@
       settings = {
         defaultModel = "llama-swap/nvidia/nemotron-3-ultra-550b-a55b:free";
         enabledModels = [
-          "llama-swap/gemma-4:31b-q4"
-          "llama-swap/qwen3.6:27b-q4"
-          "llama-swap/deepseek/deepseek-v4-flash"
+          "llama-swap/qwen3.8:27b-q4"
+          "llama-swap/deepseek/deepseek-v4-flash-0731"
           "llama-swap/nvidia/nemotron-3-ultra-550b-a55b:free"
-          "llama-swap/stealth/ox-alpha"
-          "llama-swap/tencent/hy3"
           "llama-swap/xiaomi/mimo-v2.5"
+          "llama-swap/z-ai/glm-5.3-flash"
         ];
 
         skills = [./skills];
