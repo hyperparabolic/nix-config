@@ -12,6 +12,7 @@
   },
   "pi": {
     "extensions": [
+      "./ask-user",
       "./gondolin",
       "./searxng"
     ]
