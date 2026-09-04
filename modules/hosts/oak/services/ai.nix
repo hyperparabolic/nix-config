@@ -59,6 +59,7 @@
               models = [
                 "deepseek/deepseek-v4-flash-0731"
                 "nvidia/nemotron-3-ultra-550b-a55b:free"
+                "minimax/minimax-m3:free"
                 "xiaomi/mimo-v2.5"
                 "z-ai/glm-5.3-flash"
               ];
