@@ -24,7 +24,11 @@
           "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
         ];
         trusted-users = ["root" "@wheel"];
-        experimental-features = "nix-command flakes pipe-operators";
+        experimental-features = [
+          "nix-command"
+          "flakes"
+          "pipe-operators"
+        ];
         auto-optimise-store = true;
         cores = 8;
       };
