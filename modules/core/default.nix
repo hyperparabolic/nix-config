@@ -46,11 +46,13 @@
       # firmware updates: `fwupdmgr update`
       fwupd.enable = true;
       journald = {
-        storage = "volatile";
-        extraConfig = ''
-          SystemMaxFileSize=5M
-          SystemMaxUse=50M
-        '';
+        settings = {
+          Journal = {
+            Storage = "volatile";
+            SystemMaxFileSize = "5M";
+            SystemMaxUse = "50M";
+          };
+        };
       };
     };
 
