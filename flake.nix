@@ -9,7 +9,7 @@
       "https://cache.nixos-cuda.org"
     ];
     extra-trusted-public-keys = [
-      "cache.oak.decent.id:rf560rkaTPzpc8cg56bnPmmgqro8Lbn624jJSDF5YyY="
+      "cache.oak.decent.id-1:/OgEHwbOG0pcEErkH/1t5F910BCKiZ2c3zAOr8cq440="
       "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
     ];
   };
