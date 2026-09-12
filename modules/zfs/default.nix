@@ -20,6 +20,8 @@
             (builtins.tryEval kPkgs).success
             # package is a kernel package
             && kPkgs ? kernel
+            # avoid deprecated rpi kernels emit warnings if pname is evaluate
+            && !lib.strings.hasPrefix "linux-rpi" kPkgs.kernel.name
             && kPkgs.kernel.pname == "linux"
             # zfs metadata indicates kernel version is compatible with zfs
             && !kPkgs.${pkgs.zfs.kernelModuleAttribute}.meta.broken
