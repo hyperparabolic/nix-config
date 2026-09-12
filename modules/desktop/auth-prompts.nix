@@ -22,6 +22,6 @@
 
   flake.modules.homeManager.desktop = {pkgs, ...}: {
     services.gpg-agent.pinentry.package = pkgs.pinentry-gnome3;
-    home.packages = [pkgs.gcr];
+    home.packages = [pkgs.gcr_3];
   };
 }
