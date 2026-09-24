@@ -28,7 +28,6 @@
       extraSpecialArgs = {inherit inputs outputs;};
       sharedModules = [
         inputs.stylix.homeModules.stylix
-        inputs.walker.homeManagerModules.default
       ];
     };
 
