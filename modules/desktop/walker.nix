@@ -1,50 +1,62 @@
 {
-  flake.modules.homeManager.desktop = {config, ...}: {
-    programs = {
+  flake.modules.homeManager.desktop = {
+    config,
+    pkgs,
+    ...
+  }: let
+    settingsFormat = pkgs.formats.toml {};
+  in {
+    # elephant providers are separate config files because plugin interface
+    xdg.configFile = {
+      "elephant/websearch.toml" = {
+        source = settingsFormat.generate "websearch.toml" {
+          icon = "firefox";
+          entries = [
+            {
+              default = true;
+              name = "decent search";
+              url = "https://search.oak.decent.id/search?q=%TERM%";
+              prefix = "1";
+            }
+            {
+              name = "NixOS Options";
+              url = "https://search.nixos.org/options?channel=unstable&query=%TERM%";
+              prefix = "2";
+            }
+            {
+              name = "NixOS Packages";
+              url = "https://search.nixos.org/packages?channel=unstable&query=%TERM%";
+              prefix = "3";
+            }
+            {
+              name = "Home Manager Options";
+              url = "https://home-manager-options.extranix.com/?release=master&query=%TERM%";
+              prefix = "4";
+            }
+            {
+              name = "Google";
+              url = "https://www.google.com/search?q=%TERM%";
+              prefix = "5";
+            }
+          ];
+        };
+      };
+      "elephant/windows.toml" = {
+        source = settingsFormat.generate "windows.toml" {
+          show_workspaces = false;
+        };
+      };
+    };
+
+    services = {
       elephant = {
         enable = true;
-        installService = true;
-        provider = {
-          websearch.settings = {
-            icon = "firefox";
-            entries = [
-              {
-                default = true;
-                name = "decent search";
-                url = "https://search.oak.decent.id/search?q=%TERM%";
-                prefix = "1";
-              }
-              {
-                name = "NixOS Options";
-                url = "https://search.nixos.org/options?channel=unstable&query=%TERM%";
-                prefix = "2";
-              }
-              {
-                name = "NixOS Packages";
-                url = "https://search.nixos.org/packages?channel=unstable&query=%TERM%";
-                prefix = "3";
-              }
-              {
-                name = "Home Manager Options";
-                url = "https://home-manager-options.extranix.com/?release=master&query=%TERM%";
-                prefix = "4";
-              }
-              {
-                name = "Google";
-                url = "https://www.google.com/search?q=%TERM%";
-                prefix = "5";
-              }
-            ];
-          };
-          windows.settings = {
-            show_workspaces = false;
-          };
-        };
       };
       walker = {
         enable = true;
-        runAsService = true;
-        config = {
+        enableElephantIntegration = true;
+        systemd.enable = true;
+        settings = {
           theme = "nixos";
           providers = {
             default = [
@@ -112,11 +124,8 @@
             ];
           };
         };
-        elephant = {
-          installService = true;
-        };
-
-        themes."nixos" = {
+        theme = {
+          name = "nixos";
           style = ''
             @define-color foreground #${config.lib.stylix.colors.base08};
             @define-color background #${config.lib.stylix.colors.base00};
@@ -284,7 +293,6 @@
         };
       };
     };
-
     home.persistence."/persist".directories = [".cache/elephant/"];
   };
 }
