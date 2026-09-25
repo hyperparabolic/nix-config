@@ -1,6 +1,5 @@
 {
   nixConfig = {
-    # TODO: re-enable, home-manager currently is currently referencing deprecated hostPlatform
     # abort-on-warn = true;
     allow-import-from-derivation = false;
     extra-experimental-features = "pipe-operators";
@@ -37,9 +36,15 @@
       inputs.home-manager.follows = "home-manager";
     };
 
+    # override rust-overlay, clearing up stdenv deprecation warnings
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v1.1.0";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.rust-overlay.follows = "rust-overlay";
     };
 
     lazy-apps = {
