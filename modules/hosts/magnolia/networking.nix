@@ -1,13 +1,17 @@
 {
   flake.modules.nixos.hosts-magnolia = {...}: {
     networking = {
-      hostId = "15e99f7b";
-      hostName = "magnolia";
       nameservers = [
         "9.9.9.9"
         "149.112.112.112"
       ];
-      interfaces.wlp1s0.useDHCP = true;
+    };
+
+    this.networking = {
+      hostname = "magnolia";
+      hostId = "15e99f7b";
+      defaultNetworkInterface = "wlp1s0";
+      networkInterfaces = ["wlp1s0"];
     };
   };
 }

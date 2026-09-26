@@ -24,6 +24,11 @@
   in {
     nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
+    this.networking = {
+      hostname = "iso";
+      hostId = "0ad5d70e";
+    };
+
     isoImage = {
       makeEfiBootable = true;
       makeUsbBootable = true;
@@ -56,7 +61,6 @@
     services.getty.autologinUser = lib.mkForce "spencer";
 
     networking = {
-      hostName = "iso";
       nameservers = [
         "192.168.1.1"
       ];

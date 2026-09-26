@@ -59,6 +59,8 @@
           environment.systemPackages = with pkgs; [
             sanoid
           ];
+          networking.hostId = config.this.networking.hostId;
+
           boot = {
             kernelPackages = lib.mkDefault latestZfsCompatibleLinuxPackages;
             supportedFilesystems = ["zfs"];
