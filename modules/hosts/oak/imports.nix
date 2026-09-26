@@ -12,7 +12,6 @@
         desktop
         games
         libvirt
-        nvidia
         reverse-proxy
         secureboot
         user-spencer
