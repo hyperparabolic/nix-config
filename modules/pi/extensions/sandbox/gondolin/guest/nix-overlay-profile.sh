@@ -112,3 +112,4 @@ if [ ! -e /run/gondolin-store-overlay.ready ] &&
 	fi
 	rmdir /run/gondolin-store-overlay.lock 2>/dev/null
 fi
+

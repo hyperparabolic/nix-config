@@ -1,5 +1,5 @@
 {
-  "name": "pi-extensions",
+  "name": "pi-extensions-main",
   "version": "unstable",
   "private": true,
   "type": "module",
@@ -12,9 +12,7 @@
   },
   "pi": {
     "extensions": [
-      "./ask-user",
-      "./gondolin",
-      "./searxng"
+      "./gondolin"
     ]
   }
 }

@@ -44,6 +44,8 @@
   flake.modules.homeManager.hosts-magnolia = {pkgs, ...}: {
     home.persistence."/persist".directories = ["src"];
 
+    this.pi.sandbox = false;
+
     # suspend after 6 minutes
     services.hypridle.settings.listener = [
       {
