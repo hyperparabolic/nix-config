@@ -5,7 +5,7 @@
     lib,
     ...
   }: let
-    llama-server = lib.getExe' pkgs.llama-cpp "llama-server";
+    llama-server = lib.getExe' pkgs.llama-cpp-rocm "llama-server";
     port = 55262;
     # generate cmd, mapping attribute set to CLI flags
     server-attr-flags = attr-args: "${llama-server} --port ''\${PORT} ${
@@ -16,7 +16,7 @@
     }";
   in {
     environment.systemPackages = with pkgs; [
-      llama-cpp
+      llama-cpp-rocm
     ];
 
     users = {
@@ -38,7 +38,7 @@
             "qwen3.8:27b-q4" = {
               cmd = server-attr-flags {
                 hf-repo = "unsloth/Qwen3.8-27B-GGUF:UD-Q4_K_XL";
-                n-gpu-layers = "48";
+                n-gpu-layers = "-1";
                 parallel = "1";
                 threads = "8";
                 flash-attn = "on";
