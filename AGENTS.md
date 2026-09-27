@@ -16,16 +16,28 @@ Where `<feature>` describes a program, service, or functional or logical groupin
 Import mechanics:
 - Paths containing `/_` are excluded from recursive import (escape hatch for non-module helpers).
 - Files assigning the same attrpath merge automatically (e.g. many `modules/core/*.nix` set `flake.modules.nixos.core`).
-- Hosts opt into features in `modules/hosts/<hostname>/imports.nix`: nixos via `imports = with config.flake.modules.nixos; [ ... ];`, homeManager via `home-manager.users.<user>.imports = with config.flake.modules.homeManager; [ ... ];`.
 - `core` is a bundle every host imports; any other feature must be added to each host's `imports.nix` explicitly.
 - Feature names may differ from their directory: `users/spencer` -> `user-spencer`; hosts use `hosts-<hostname>`.
-- Modules with the pattern `hosts-<hostname>` are iterated to define `nixosConfigurations` that define each host.
+- Modules with the pattern `hosts-<hostname>` are iterated to define `nixosConfigurations` that define each host. `hosts-<hostname>` modules are iterated and procedurally imported in `modules/flake-parts/host-configurations.nix`, and each of these modules imports its features in turn.
+  - Hosts opt into features in `modules/hosts/<hostname>/imports.nix`: nixos via `imports = with config.flake.modules.nixos; [ ... ];`, homeManager via `home-manager.users.<user>.imports = with config.flake.modules.homeManager; [ ... ];`.
+- Modules are evaluated twice: once in the flake-parts context, where `config.flake.modules.nixos.<feature>` is an attrset of module *functions* (not evaluated config), and again inside each host's `nixosSystem` (for modules listed in that host's `imports.nix`), where `config.flake` does not exist.
+- Feature modules must not read `config.flake.*`. Host-tunable values consumed by a feature module belong in `this.*` option containers — that is why `modules/this/` is pure options.
+- Single-host stateful services live in `modules/hosts/<host>/services/<name>.nix` as one self-contained file (service + nginx vhost + sops + persistence), picked up by recursion — no wiring in `imports.nix`. Feature modules under `modules/<feature>/` are for capabilities shared across hosts. Ask which applies before creating a new directory.
 
 ## Conventions
 
 - Custom options under `this.*` in `modules/this/`, are pure option containers (no config, only evaluated in other modules to drive config). Use `this-share-home` to mirror nixos options into homeManager users.
 - Root filesystem is ephemeral (impermanence): services introducing stateful paths must persist them via `environment.persistence."/persist"` or `home.persistence`.
 - Prefer `lib.mkDefault` for values hosts may override.
+- `config.assertions` go at the bottom of the config block, not alphabetized with primary config.
+
+## Validating with nix
+
+- `nix flake` / `nix eval` evaluate the flake's git state, not the working tree. New files must be `git add`-ed before they are visible to evaluation.
+- Full flake eval is slow (every host evaluates twice due to hydraJobs). Be specific when querying paths:
+  - For `flake.module.nixos` nixos modules query `.#nixosConfigurations.<host>.config.<path>`
+  - For `flake.module.homeManager` home-manager modules query `.#nixosConfigurations.<host>.config.home-manager.users.spencer.<path>`
+- Prefer full paths where possible, `nix eval <path> --json | jq <query>` as a second preference.
 
 ## Directory Structure
 
@@ -65,3 +77,11 @@ Import mechanics:
 - 2 space indentation, no tabs.
 - Format files with alejandra, `nix fmt -- -q [files...]`. Format all changed files.
 - Nix pipe operators (`|>`) are an experimental feature used in this repo. It is the reverse of function application: `f a` == `a |> f`.
+  - Prefer pipe operators over nesting 3+ functions for improved readability.
+
+## Commit messages
+
+Prefer semantic commits - `type(optional scope) - summary`
+- types: `feat`, `fix`, `docs`, `refactor`, `chore`, `style`.
+- scope: Usually just module, unless there are cross cutting concerns.
+- body: short and factual, what changed rather than the reasoning behind it
