@@ -12,10 +12,10 @@ nothing you'd want to quote. robots.txt is checked automatically per site.
 ## Usage
 
 ```bash
-./scripts/fetch_page.py <url> [url ...]   # converted Markdown to stdout
-./scripts/fetch_page.py <url> -o /tmp/p.md  # save large pages to a file
-./scripts/fetch_page.py <url> --raw       # original HTML instead of Markdown
-./scripts/fetch_page.py <url> --timeout 30 --max-bytes 10000000
+python3 ./scripts/fetch_page.py <url> [url ...]   # converted Markdown to stdout
+python3 ./scripts/fetch_page.py <url> -o /tmp/p.md  # save large pages to a file
+python3 ./scripts/fetch_page.py <url> --raw       # original HTML instead of Markdown
+python3 ./scripts/fetch_page.py <url> --timeout 30 --max-bytes 10000000
 ```
 
 Batch multiple URLs in one invocation — requests are sequential and honor

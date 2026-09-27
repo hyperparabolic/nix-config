@@ -25,7 +25,11 @@
 
       programs.pi-coding-agent = {
         enable = true;
-        extraPackages = [
+        extraPackages = with pkgs; [
+          (python3.withPackages (ps:
+            with ps; [
+              html2text
+            ]))
         ];
         models = {
           providers = {
