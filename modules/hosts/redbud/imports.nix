@@ -23,6 +23,7 @@
         # maybe related?:
         # https://github.com/systemd/systemd/issues/42725
         # https://github.com/systemd/systemd/commit/be8a7b418a3493ecaa1b7f36abcbd8685aa2931d
+        stage1-rescue
         stage1-ssh
       ]
       ++ [
