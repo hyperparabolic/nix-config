@@ -6,6 +6,15 @@
     ...
   }: let
     cfg = config.this.pi;
+    llamaSwapModels = [
+      # Locally hosted first, so defaultModel lands on one.
+      "qwen3.8:27b-q4"
+      "deepseek/deepseek-v4.1-flash"
+      "openai/gpt-6-luna"
+      "stealth/space-bunny-alpha"
+      "xiaomi/mimo-v2.6-flash"
+      "z-ai/glm-5.3-flash"
+    ];
   in {
     options.this.pi = {
       sandbox = lib.mkOption {
@@ -37,26 +46,13 @@
               baseUrl = "https://llm.oak.decent.id/v1";
               api = "openai-responses";
               apiKey = "dummy";
-              models = [
-                {id = "qwen3.8:27b-q4";}
-                {id = "deepseek/deepseek-v4-flash-0731";}
-                {id = "minimax/minimax-m3:free";}
-                {id = "nvidia/nemotron-3-ultra-550b-a55b:free";}
-                {id = "xiaomi/mimo-v2.5";}
-                {id = "z-ai/glm-5.3-flash";}
-              ];
+              models = llamaSwapModels |> map (id: {inherit id;});
             };
           };
         };
         settings = {
-          defaultModel = "llama-swap/qwen3.8:27b-q4";
-          enabledModels = [
-            "llama-swap/qwen3.8:27b-q4"
-            "llama-swap/deepseek/deepseek-v4-flash-0731"
-            "llama-swap/nvidia/nemotron-3-ultra-550b-a55b:free"
-            "llama-swap/xiaomi/mimo-v2.5"
-            "llama-swap/z-ai/glm-5.3-flash"
-          ];
+          defaultModel = "llama-swap/${builtins.head llamaSwapModels}";
+          enabledModels = llamaSwapModels |> map (id: "llama-swap/${id}");
 
           skills = [./skills];
 
