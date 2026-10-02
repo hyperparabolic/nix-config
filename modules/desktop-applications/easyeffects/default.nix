@@ -1,5 +1,9 @@
 {
-  flake.modules.homeManager.desktop-applications = {config, ...}: {
+  flake.modules.homeManager.desktop-applications = {
+    config,
+    lib,
+    ...
+  }: {
     xdg.dataFile.easyeffects_input_filter = {
       enable = true;
       force = true;
@@ -16,12 +20,26 @@
     services.easyeffects = {
       enable = true;
     };
-    systemd.user.services.easyeffects = {
-      Unit = {
-        X-Restart-Triggers = [
-          config.xdg.dataFile.easyeffects_input_filter.source
-          config.xdg.dataFile.easyeffects_input_filter_voice.source
-        ];
+    systemd.user.services = {
+      easyeffects.Unit.X-Restart-Triggers = [
+        config.xdg.dataFile.easyeffects_input_filter.source
+        config.xdg.dataFile.easyeffects_input_filter_voice.source
+      ];
+      # the daemon above is started headless, this is the windowed client that
+      # connects to it and loads the input preset
+      easyeffects-gui = {
+        Unit = {
+          Description = "EasyEffects client";
+          PartOf = "graphical-session.target";
+          After = [
+            "graphical-session.target"
+            "wait-for-tray.service"
+            "easyeffects.service"
+          ];
+          Requires = "wait-for-tray.service";
+        };
+        Service.ExecStart = "${lib.getExe' config.services.easyeffects.package "easyeffects"} -l input_filter_voice";
+        Install.WantedBy = ["graphical-session.target"];
       };
     };
   };
