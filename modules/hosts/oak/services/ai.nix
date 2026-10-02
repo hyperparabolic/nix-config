@@ -57,10 +57,10 @@
               proxy = "https://openrouter.ai/api";
               apiKey = "\${env.OPENROUTER_API_KEY}";
               models = [
-                "deepseek/deepseek-v4-flash-0731"
-                "nvidia/nemotron-3-ultra-550b-a55b:free"
-                "minimax/minimax-m3:free"
-                "xiaomi/mimo-v2.5"
+                "deepseek/deepseek-v4.1-flash"
+                "openai/gpt-6-luna"
+                "stealth/space-bunny-alpha"
+                "xiaomi/mimo-v2.6-flash"
                 "z-ai/glm-5.3-flash"
               ];
             };

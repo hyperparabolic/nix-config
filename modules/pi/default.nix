@@ -51,10 +51,10 @@
         settings = {
           defaultModel = "llama-swap/qwen3.8:27b-q4";
           enabledModels = [
-            "llama-swap/qwen3.8:27b-q4"
-            "llama-swap/deepseek/deepseek-v4-flash-0731"
-            "llama-swap/nvidia/nemotron-3-ultra-550b-a55b:free"
-            "llama-swap/xiaomi/mimo-v2.5"
+            "llama-swap/deepseek/deepseek-v4.1-flash"
+            "llama-swap/openai/gpt-6-luna"
+            "llama-swap/stealth/space-bunny-alpha"
+            "llama-swap/xiaomi/mimo-v2.6-flash"
             "llama-swap/z-ai/glm-5.3-flash"
           ];
 
