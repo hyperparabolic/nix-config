@@ -64,7 +64,6 @@
       No secrets are mounted in this VM (the host manages them with sops-nix). Never
       attempt to read or derive host keys, or decrypt sops content.
     '';
-    # TODO: parameterize host
     env_host = ''
       # Environment
 

@@ -34,15 +34,9 @@
       inputs.home-manager.follows = "home-manager";
     };
 
-    # override rust-overlay, clearing up stdenv deprecation warnings
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v1.1.0";
+      url = "github:nix-community/lanzaboote/v1.2.0";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.rust-overlay.follows = "rust-overlay";
     };
 
     lazy-apps = {
