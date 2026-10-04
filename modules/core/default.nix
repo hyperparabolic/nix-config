@@ -32,7 +32,8 @@
     };
 
     environment = {
-      enableAllTerminfo = true;
+      # TODO: contour / rxvt terminfo builds broken
+      # enableAllTerminfo = true;
       wordlist.enable = true;
       systemPackages = [
         hyperparabolic-bootstrap
