@@ -16,36 +16,5 @@
 
     # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
     system.stateVersion = "23.05";
-
-    this.monitors = [
-      {
-        name = "DP-1";
-        width = 3840;
-        height = 2160;
-        refreshRate = 120;
-        x = 0;
-        primary = true;
-        workspaces = [
-          "1"
-          "2"
-          "5"
-          "6"
-        ];
-      }
-      {
-        name = "DP-2";
-        width = 1920;
-        height = 1080;
-        x = 3840;
-        # vertical orientation
-        transform = 3;
-        workspaces = [
-          "3"
-          "4"
-          "7"
-          "8"
-        ];
-      }
-    ];
   };
 }
