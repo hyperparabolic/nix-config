@@ -29,6 +29,7 @@
               desktop-applications
               dev-js
               games
+              omp
               pi
               user-spencer
             ];

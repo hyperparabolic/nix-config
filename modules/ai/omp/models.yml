@@ -1,0 +1,12 @@
+%YAML 1.1
+---
+providers:
+  llama-swap:
+    api: openai-responses
+    apiKey: dummy
+    baseUrl: https://llm.oak.decent.id/v1
+    models:
+    - contextWindow: 128000
+      id: qwen3.8:27b-q4
+      maxTokens: 32000
+      name: qwen3.8:27b-q4

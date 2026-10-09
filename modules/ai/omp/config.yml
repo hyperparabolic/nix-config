@@ -1,0 +1,23 @@
+modelRoles:
+  default: llama-swap/qwen3.8:27b-q4
+web_serch:
+  enabled: true
+  endpoint: https://search.oak.decent.id/search
+  params:
+    categories:
+      - general
+      - news
+      - videos
+      - images
+      - it
+      - packages
+      - science
+    language: en
+  provider: searxng
+symbolPreset: nerd
+composer:
+  shape: band
+theme:
+  dark: titanium
+  light: light
+setupVersion: 2
