@@ -24,13 +24,14 @@
               core
               hosts-oak
 
+              ai
+              ai-pi
               desktop
               desktop-applications
               dev-js
               games
               guitar-pro
               libvirt
-              pi
               user-spencer
             ];
           };

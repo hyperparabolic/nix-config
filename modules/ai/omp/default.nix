@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.omp = {
+  flake.modules.homeManager.ai-omp = {
     config,
     pkgs,
     ...

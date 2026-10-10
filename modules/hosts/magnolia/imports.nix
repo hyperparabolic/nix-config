@@ -25,12 +25,13 @@
               core
               hosts-magnolia
 
+              ai
+              ai-omp
+              ai-pi
               desktop
               desktop-applications
               dev-js
               games
-              omp
-              pi
               user-spencer
             ];
           };

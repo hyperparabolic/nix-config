@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.pi = {
+  flake.modules.homeManager.ai-pi = {
     config,
     lib,
     pkgs,

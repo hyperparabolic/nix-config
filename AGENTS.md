@@ -49,6 +49,7 @@ Import mechanics:
 │   ├── <feature>/            # logical grouping, entire module gets imported together
 │   │   ├── default.nix       # module entrypoint and primary config
 │   │   ├── *.nix             # additional tools, software, or split config
+│   ├── ai/                   # AI harnesses: shared system prompt in common/, one module per harness
 │   ├── flake-parts/          # flake modules, define attributes of the traditional flake schema
 │   ├── hosts/                # host modules, one per nixosConfigurations
 │   │   ├── <hostname>/       # per host config (magnolia, oak, redbud, warden)
@@ -56,7 +57,6 @@ Import mechanics:
 │   │   │   ├── imports.nix   # host module imports
 │   │   │   └── services/     # host specific services
 │   ├── hyperparabolic/       # modules structred for import in external flakes
-│   ├── pi/                   # config that defines ~/.pi
 │   └── this/                 # config container modules for re-use in this repo
 ├── scripts/                  # bootable usb stick debugging and bootstrapping bash scripts
 ├── secrets/                  # SOPS secrets, structured by hosts and services
