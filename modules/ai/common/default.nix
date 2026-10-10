@@ -5,12 +5,8 @@
     ...
   }: let
     cfg = config.this.ai;
-    # Shared system prompt for AI harnesses. `args` are per-entry template
-    # arguments; harness modules pass harness-specific details through here.
-    # Known arguments:
-    # - harnessName: name of the harness this file is for (e.g. "pi"). Required.
-    # - environment: harness-specific environment section inserted between the
-    #   Tone and Working style sections.
+    # Shared system prompt for AI harnesses. Files registered under
+    # `this.ai.context` are rendered with their template arguments.
     contextTemplate = args: ''
       # Agent
 
@@ -56,39 +52,26 @@
     '';
   in {
     options.this.ai.context = lib.mkOption {
-      type = lib.types.listOf (lib.types.submodule {
-        options = {
-          file = lib.mkOption {
-            type = lib.types.str;
-            description = "Path, relative to the home directory, of the context file to write.";
-          };
-          args = lib.mkOption {
-            type = lib.types.attrs;
-            default = {};
-            description = ''
-              Template arguments that influence the rendered context. `harnessName`
-              is required; `environment` supplies the harness-specific environment
-              section. Harness modules pass their harness-specific details here.
-            '';
-          };
-        };
-      });
-      default = [];
+      type = lib.types.attrsOf lib.types.attrs;
+      default = {};
       description = ''
-        System context files for AI harnesses. Each entry renders the shared
-        system prompt template with per-entry template arguments and writes the
-        result to the given home-relative location.
+        System context files for AI harnesses. Each attribute is a path,
+        relative to the home directory, and its value is the template
+        arguments that render the shared system prompt into the file at
+        that location.
+
+        Known arguments:
+        - harnessName: name of the harness this file is for (e.g. "pi").
+          Required.
+        - environment: harness-specific environment section inserted
+          between the Tone and Working style sections.
       '';
     };
 
-    config.home.file = lib.listToAttrs (
-      cfg.context
-      |> map (ctx: {
-        name = ctx.file;
-        value = {
-          text = contextTemplate ctx.args;
-        };
-      })
-    );
+    config.home.file = lib.mapAttrs (
+      _: args: {
+        text = contextTemplate args;
+      }
+    ) cfg.context;
   };
 }

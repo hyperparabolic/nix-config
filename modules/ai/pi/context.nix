@@ -97,17 +97,12 @@
       Do not attempt to work around these limitations. Ask Spencer to do things for you if necessary.
     '';
   in {
-    this.ai.context = [
-      {
-        file = ".pi/agent/AGENTS.md";
-        args = {
-          harnessName = "pi";
-          environment =
-            if config.this.pi.sandbox
-            then env_sandbox
-            else env_host;
-        };
-      }
-    ];
+    this.ai.context.".pi/agent/AGENTS.md" = {
+      harnessName = "pi";
+      environment =
+        if config.this.pi.sandbox
+        then env_sandbox
+        else env_host;
+    };
   };
 }

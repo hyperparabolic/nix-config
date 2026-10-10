@@ -49,14 +49,9 @@
       Do not attempt to work around these limitations. Ask Spencer to do things for you if necessary.
     '';
   in {
-    this.ai.context = [
-      {
-        file = ".omp/agent/AGENTS.md";
-        args = {
-          harnessName = "omp";
-          environment = env_host;
-        };
-      }
-    ];
+    this.ai.context.".omp/agent/AGENTS.md" = {
+      harnessName = "omp";
+      environment = env_host;
+    };
   };
 }
