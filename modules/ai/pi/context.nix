@@ -79,8 +79,9 @@
 
       - `~/.nix-config` contains a flake that contains host configs.
       - `~/.nix-config/modules/ai/pi` contains the pi module that defines your extensions
-        and skills (aside from repo-specific additions); the shared system prompt lives
-        in `~/.nix-config/modules/ai/common`.
+        and skills (aside from repo-specific additions)
+      - ~/.nix-config/modules/ai/common` contains common harness aspects like context
+        templates and common skills.
 
       ## Security
 
