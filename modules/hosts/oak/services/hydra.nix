@@ -12,7 +12,6 @@
         notificationSender = "hydra@localhost";
         listenHost = "localhost";
         useSubstitutes = true;
-        buildMachinesFiles = ["/etc/nix/machines"];
         smtpHost = "localhost";
         extraConfig = ''
           email_notification = 1
@@ -36,17 +35,6 @@
         };
       };
     };
-
-    # populates /etc/nix/machines, used above
-    nix.buildMachines = [
-      {
-        hostName = "localhost";
-        protocol = null;
-        systems = ["x86_64-linux" "aarch64-linux"];
-        supportedFeatures = ["kvm" "nixos-test" "big-parallel" "benchmark"];
-        maxJobs = 8;
-      }
-    ];
 
     # expose metrics to tailscale interface only
     networking.firewall.interfaces."tailscale0" = {
