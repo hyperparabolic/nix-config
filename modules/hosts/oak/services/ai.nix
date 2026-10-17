@@ -31,6 +31,7 @@
       llama-swap = {
         inherit port;
         enable = true;
+        validateConfigFile = false;
         settings = {
           healthCheckTimeout = 28800;
           ttl = 300;
