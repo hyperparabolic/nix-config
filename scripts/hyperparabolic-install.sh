@@ -52,7 +52,11 @@ SECRETS_PART="/dev/disk/by-partlabel/${SECRETS_PART_LABEL}"
 SECRETS_LVOL_LABEL=secretsroot
 SECRETS_LVOL="/dev/mapper/${SECRETS_LVOL_LABEL}"
 
-MNT=$(mktemp -d)
+MNT="/install"
+PERSIST_HOME_DIR="${MNT}/persist/home/spencer"
+PERSIST_NIX_DIR="${MNT}/persist/home/spencer/.nix-config"
+PERSIST_SSH_DIR="${MNT}/persist/etc/ssh"
+PERSIST_BOOT_SSH_DIR="${MNT}/persist/boot/ssh"
 
 # logging
 COLOR_RESET="\033[0m"
@@ -286,19 +290,12 @@ function prepare_drives() {
 
 function prepare_config() {
   info "Generating hardware-configuration.nix ..."
-  HOSTDIR="${ARG_NIX_CONFIG_DIR}/hosts/${ARG_HOSTNAME}"
-  HARDWARE_CONFIGURATION="${HOSTDIR}/hardware-configuration.nix"
+  HOSTDIR="${ARG_NIX_CONFIG_DIR}/modules/hosts/${ARG_HOSTNAME}"
+  HARDWARE_CONFIGURATION="${HOSTDIR}/_hardware-configuration.nix"
   info "Generating ${HARDWARE_CONFIGURATION} ..."
   nixos-generate-config --root "$MNT" --show-hardware-config > "$HARDWARE_CONFIGURATION"
-  # ensure /persist directories are available for boot
-  nix fmt -- -q "$HARDWARE_CONFIGURATION"
-  sed -i '/fileSystems\.\"\/persist/aneededForBoot=true;' "$HARDWARE_CONFIGURATION"
-  nix fmt -- -q "$HARDWARE_CONFIGURATION"
-  (cd "$ARG_NIX_CONFIG_DIR" && git diff "$HARDWARE_CONFIGURATION")
-  info "Does this look right?"
-  if ! ask_yn "Answer no to open this file for edits"; then
-    hx "$HARDWARE_CONFIGURATION"
-  fi
+  cd "$ARG_NIX_CONFIG_DIR"
+  hx "$HARDWARE_CONFIGURATION"
   chown 1000:1000 "$HARDWARE_CONFIGURATION"
   info "finalized hardware-configuration.nix:"
   cat "${HARDWARE_CONFIGURATION}"
@@ -306,20 +303,25 @@ function prepare_config() {
 
 function persist_config() {
   info "persisting ssh keys and config ..."
-  mkdir -p "${MNT}/persist/etc/ssh"
-  mv "$ARG_SSH_PRIVATE_KEY" "${MNT}/persist/etc/ssh/ssh_host_ed25519_key"
-  mv "${ARG_SSH_PRIVATE_KEY}.pub" "${MNT}/persist/etc/ssh/ssh_host_ed25519_key.pub"
+  mkdir -p "$MNT"
+  chmod 755 "$MNT"
+  mkdir -p "$PERSIST_SSH_DIR"
+  mv "$ARG_SSH_PRIVATE_KEY" "${PERSIST_SSH_DIR}/ssh_host_ed25519_key"
+  mv "${ARG_SSH_PRIVATE_KEY}.pub" "${PERSIST_SSH_DIR}/ssh_host_ed25519_key.pub"
   ARG_SSH_PRIVATE_KEY="${MNT}/persist/etc/ssh/ssh_host_ed25519_key"
   (cd "$ARG_NIX_CONFIG_DIR" && git add .)
-  mkdir -p "${MNT}/persist/home/spencer"
-  chown 1000:1000 "${MNT}/persist/home/spencer"
-  mv "$ARG_NIX_CONFIG_DIR" "${MNT}/persist/home/spencer/.nix-config"
-  ARG_NIX_CONFIG_DIR="${MNT}/persist/home/spencer/.nix-config"
+  mkdir -p "$PERSIST_HOME_DIR"
+  chown 1000:1000 "$PERSIST_HOME_DIR"
+  mv "$ARG_NIX_CONFIG_DIR" "$PERSIST_NIX_DIR"
+  # provision boot ssh keys
+  mkdir -p "$PERSIST_BOOT_SSH_DIR"
+  chmod 600 "$PERSIST_BOOT_SSH_DIR"
+  sudo ssh-keygen -t ed25519 -N "" -C "root@${ARG_HOSTNAME}" -f "${PERSIST_BOOT_SSH_DIR}/ssh_host_ed25519_key"
 }
 
 function install_nixos() {
   info "Installing nixos ..."
-  nixos-install --root "$MNT" --no-root-passwd --flake "${ARG_NIX_CONFIG_DIR}#${ARG_HOSTNAME}"
+  nixos-install --root "$MNT" --no-root-passwd --flake "${PERSIST_NIX_DIR}#${ARG_HOSTNAME}"
   info "Installation complete ..."
 }
 
