@@ -13,7 +13,6 @@
         games
         libvirt
         reverse-proxy
-        secureboot
         user-spencer
         zfs
       ]

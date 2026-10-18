@@ -21,6 +21,7 @@
     imports = [
       inputs.home-manager.nixosModules.home-manager
       inputs.impermanence.nixosModules.impermanence
+      inputs.lanzaboote.nixosModules.lanzaboote
       inputs.nixos-hydra-upgrade.nixosModules.nixos-hydra-upgrade
     ];
 

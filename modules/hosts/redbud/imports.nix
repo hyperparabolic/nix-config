@@ -12,7 +12,6 @@
         laptop
         pipewire-raop
         reverse-proxy
-        secureboot
         user-spencer
         zfs
       ]

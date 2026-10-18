@@ -14,7 +14,6 @@
         games
         laptop
         libvirt
-        secureboot
         user-spencer
         zfs
       ]

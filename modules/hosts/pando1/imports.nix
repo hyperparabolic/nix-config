@@ -11,7 +11,6 @@
         bluetooth
         pipewire-raop
         reverse-proxy
-        # secureboot
         stage1-ssh
         user-spencer
         zfs

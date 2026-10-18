@@ -9,7 +9,6 @@
 
         bluetooth
         reverse-proxy
-        secureboot
         stage1-ssh
         user-spencer
         tailscale-exit-node
