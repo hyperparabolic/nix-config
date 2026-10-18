@@ -81,7 +81,8 @@ function main() {
   fi
 
   if [[ ! -d "$ARG_MOUNT_DIR" ]]; then
-    ARG_MOUNT_DIR=$(mktemp -d)
+    ARG_MOUNT_DIR="/install"
+    mkdir -p "$ARG_MOUNT_DIR"
     info "Mounting filesystem at temporary directory ${ARG_MOUNT_DIR} ..."
   fi
   MNT=$ARG_MOUNT_DIR

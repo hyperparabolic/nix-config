@@ -82,6 +82,7 @@ function main() {
 
   # provision ssh key and copy to repo
   info "generating ssh keys on remote host ..."
+  mkdir -p ~/.nix-config/secrets/"$ARG_HOSTNAME"
   # this creates keys in /home/spencer/*, but owned by the root user
   $SSH_CMD "sudo ssh-keygen -t ed25519 -N \"\" -C \"root@${ARG_HOSTNAME}\" -f ~/ssh_host_ed25519_key"
   $SSH_CMD "cat ~/ssh_host_ed25519_key.pub" > ~/.nix-config/secrets/"$ARG_HOSTNAME"/ssh_host_ed25519_key.pub
