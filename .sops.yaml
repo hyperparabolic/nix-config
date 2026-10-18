@@ -14,6 +14,12 @@ creation_rules:
           - *oak
         pgp:
           - *spencer
+  - path_regex: ^secrets/pando1/secrets([A-Za-z0-9_-])*.ya?ml$
+    key_groups:
+      - age:
+          - *pando1
+        pgp:
+          - *spencer
   - path_regex: ^secrets/redbud/secrets([A-Za-z0-9_-])*.ya?ml$
     key_groups:
       - age:
