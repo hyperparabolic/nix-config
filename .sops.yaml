@@ -5,6 +5,7 @@ keys:
   - &magnolia age147zuupl27ypec5868s84lvwqxat4fkv45r5nn66v6qcgglp5nvesakhc6k
   - &oak age1rjdsmpycnvte7aw8s8v5z3y7qgpc0aujs350pr54yeq6d077qg3se4zs05
   - &pando1 age105s6amhc5ahwmrggrs00zmhnhyvgehen2tz4xc549x2883c7fgsqx6qu0q
+  - &pando2 age1unwc08ruf7sdlxjcxa85hgf4548wzvj5msl6k4s02x5upws534aqhz8vv8
   - &redbud age14w3xdtk9008g35r6rgrnwk03wevu88e6tfn0qfur449avhynjeps3znnud
   - &warden age1w68rhqzqykfary5acq89w868pz7nyttpe39k588a00dz5fhhd3lq9fgh7s
 creation_rules:
@@ -38,6 +39,7 @@ creation_rules:
           - *magnolia
           - *oak
           - *pando1
+          - *pando2
           - *redbud
           - *warden
         pgp:
