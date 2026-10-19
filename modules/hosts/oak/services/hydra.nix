@@ -15,33 +15,42 @@
         smtpHost = "localhost";
         extraConfig = ''
           email_notification = 1
-          queue_runner_metrics_address = 0.0.0.0:9198
-          <hydra_notify>
-            <prometheus>
-              listen_address = 0.0.0.0
-              port = 9199
-            </prometheus>
-          </hydra_notify>
         '';
         extraEnv = {
           EMAIL_SENDER_TRANSPORT_port = "1025";
         };
+        queueRunner = {
+          settings = {
+            tokenPaths = [
+              config.sops.secrets.hydra-queue-runner-token.path
+            ];
+          };
+        };
       };
-      nginx.virtualHosts."hydra.oak.decent.id" = {
-        forceSSL = true;
-        useACMEHost = "oak.decent.id";
-        locations."/" = {
-          proxyPass = "http://localhost:${toString config.services.hydra.port}";
+      nginx.virtualHosts = {
+        "hydra.oak.decent.id" = {
+          forceSSL = true;
+          useACMEHost = "oak.decent.id";
+          locations = {
+            "/" = {
+              proxyPass = "http://localhost:${toString config.services.hydra.port}";
+            };
+          };
         };
       };
     };
 
-    # expose metrics to tailscale interface only
     networking.firewall.interfaces."tailscale0" = {
       allowedTCPPorts = [
-        9198 # hydra-queue-runner
-        9199 # hydra-notify
       ];
+    };
+
+    sops.secrets.hydra-queue-runner-token = {
+      sopsFile = ../../../../secrets/common/secrets-hydra.yaml;
+      key = "hydra-builder-token";
+      owner = "hydra-queue-runner";
+      mode = "0400";
+      reloadUnits = ["hydra-queue-runner.service"];
     };
 
     environment.persistence."/persist".directories = ["/var/lib/hydra"];

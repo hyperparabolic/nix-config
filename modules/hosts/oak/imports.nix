@@ -11,6 +11,7 @@
         bluetooth
         desktop
         games
+        hydra-builder
         libvirt
         reverse-proxy
         user-spencer
