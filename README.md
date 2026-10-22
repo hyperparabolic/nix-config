@@ -44,7 +44,6 @@ More information on individual modules can be found in the modules directory.
   - `cache.oak.decent.id`: `nix-serve` binary cache for other less beefy machines.
   - `hydra.oak.decent.id`: `hydra` continuous integration and continuous delivery.
   - `jellyfin.oak.decent.id`: `jellyfin` media server.
-  - `links.oak.decent.id`: `linkwarden` 
   - `ntfy.oak.decent.id` / `ntfy.decent.id`: `ntfy` pub-sub / push notification service.
   - `rss.oak.decent.id`: `miniflux` rss feed reader and browser app.
   - `search.oak.decent.id`: `searxng` meta-search.
