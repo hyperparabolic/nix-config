@@ -5,9 +5,11 @@
     extra-experimental-features = "pipe-operators";
     extra-substituters = [
       "https://cache.oak.decent.id"
+      "https://gradient.oak.decent.id/cache/main"
     ];
     extra-trusted-public-keys = [
       "cache.oak.decent.id-1:/OgEHwbOG0pcEErkH/1t5F910BCKiZ2c3zAOr8cq440="
+      "gradient.oak.decent.id-main:+4emjdCvcwlp6Pgzy0CIaCMTjvFWlFN4xpFhAvogfHo="
     ];
   };
 

@@ -42,7 +42,7 @@
         if [ ! -f /root/.local/share/nix/trusted-settings.json ]; then
             echo "{}" > /root/.local/share/nix/trusted-settings.json
         fi
-        echo "$(jq '. += {"abort-on-warn":{"true":true},"allow-import-from-derivation":{"false":true},"extra-experimental-features":{"pipe-operators":true},"extra-substituters":{"https://cache.oak.decent.id":true},"extra-trusted-public-keys":{"cache.oak.decent.id-1:/OgEHwbOG0pcEErkH/1t5F910BCKiZ2c3zAOr8cq440=":true}}' /root/.local/share/nix/trusted-settings.json)" > /root/.local/share/nix/trusted-settings.json
+        echo "$(jq '. += {"abort-on-warn":{"true":true},"allow-import-from-derivation":{"false":true},"extra-experimental-features":{"pipe-operators":true},"extra-substituters":{"https://cache.oak.decent.id":true,"https://gradient.oak.decent.id/cache/main":true},"extra-trusted-public-keys":{"cache.oak.decent.id-1:/OgEHwbOG0pcEErkH/1t5F910BCKiZ2c3zAOr8cq440=":true,"gradient.oak.decent.id-main:+4emjdCvcwlp6Pgzy0CIaCMTjvFWlFN4xpFhAvogfHo="}}' /root/.local/share/nix/trusted-settings.json)" > /root/.local/share/nix/trusted-settings.json
       '';
     };
   };
