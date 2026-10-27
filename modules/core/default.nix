@@ -32,12 +32,6 @@
       ];
     };
 
-    # TODO: remove once emudhra CA issues fixed upstream
-    security.pki.caCertificateBlacklist = [
-      "Comodo AAA Services root"
-      "emSign ECC Root CA - G3"
-    ];
-
     environment = {
       # TODO: contour / rxvt terminfo builds broken
       # enableAllTerminfo = true;
