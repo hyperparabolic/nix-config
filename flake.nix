@@ -25,8 +25,6 @@
 
     flake-parts.url = "github:hercules-ci/flake-parts";
 
-    gradient.url = "github:wavelens/gradient/latest";
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
