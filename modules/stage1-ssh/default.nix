@@ -16,7 +16,6 @@
             "/persist/boot/ssh/ssh_host_ed25519_key" = "/persist/boot/ssh/ssh_host_ed25519_key";
           };
           systemd = {
-            enable = lib.mkForce true;
             network = {
               enable = lib.mkDefault false;
               networks."${config.this.networking.defaultNetworkInterface}" = {

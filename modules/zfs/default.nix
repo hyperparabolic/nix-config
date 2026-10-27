@@ -99,7 +99,6 @@
               device = "/dev/zvol/rpool/volumes/bootsecrets-part1";
             };
             systemd = {
-              enable = lib.mkForce true;
               mounts = [
                 {
                   # fileSystems.<name> doesn't really support mounting files in initrd that aren't

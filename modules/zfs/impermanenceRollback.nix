@@ -10,7 +10,6 @@
   in {
     # rollback root fs to blank snapshot
     boot.initrd.systemd = lib.mkIf enableImpermanenceRollback {
-      enable = lib.mkForce true;
       services.zfs-rollback = {
         description = "Rollback ZFS root dataset to blank snapshot";
         wantedBy = [
