@@ -2,7 +2,7 @@
   flake.modules.nixos.hosts-oak = {
     inputs,
     config,
-    lib,
+    # lib,
     ...
   }: {
     imports = [
@@ -17,17 +17,22 @@
         postgres.enable = true;
         worker.enable = true;
         eval.maxKeep = 3;
+        reverseProxy.nginx = {
+          enable = true;
+          useACMEHost = "oak.decent.id";
+          manageTls = false;
+        };
         secrets = {
           cryptFile = config.sops.secrets.gradient-crypt.path;
           jwtFile = config.sops.secrets.gradient-jwt.path;
         };
       };
 
-      nginx.virtualHosts."gradient.oak.decent.id" = {
-        # override module acme config
-        enableACME = lib.mkForce false;
-        useACMEHost = "oak.decent.id";
-      };
+      # nginx.virtualHosts."gradient.oak.decent.id" = {
+      #   # override module acme config
+      #   enableACME = lib.mkForce false;
+      #   useACMEHost = "oak.decent.id";
+      # };
     };
 
     sops.secrets.gradient-crypt = {
