@@ -14,6 +14,7 @@
           # off scraping / probing traffic.
           web-root = "disable";
           behind-proxy = true;
+          template-dir = toString ./templates;
           # leverage upstream for apns
           upstream-base-url = "https://ntfy.sh";
           auth-default-access = "deny-all";
@@ -54,7 +55,7 @@
     };
 
     sops.secrets.ntfy-server = {
-      sopsFile = ../../../../secrets/oak/secrets-ntfy-server.yaml;
+      sopsFile = ../../../../../secrets/oak/secrets-ntfy-server.yaml;
     };
 
     systemd.services.ntfy-sh = {

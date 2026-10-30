@@ -1,0 +1,5 @@
+title: |
+  Gradient build failed: {{ .content.project | default "unknown" }} / {{ .content.task | default "unknown" }}
+message: |
+  {{ .content.derivation_path | default "(unknown entrypoint)" }}
+  https://gradient.oak.decent.id/project/{{ .content.project | default "unknown" }}/task/{{ .content.task | default "unknown" }}/log/{{ .content.evaluation_id | default "unknown" }}
