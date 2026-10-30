@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.hosts-redbud = {
+  flake.modules.nixos.hosts-pando1 = {
     config,
     lib,
     outputs,
@@ -37,12 +37,12 @@
           {
             job_name = "grafana";
             scheme = "https";
-            static_configs = [{targets = ["dash.redbud.decent.id"];}];
+            static_configs = [{targets = ["dash.pando1.decent.id"];}];
           }
           {
             job_name = "prometheus";
             scheme = "https";
-            static_configs = [{targets = ["metrics.redbud.decent.id"];}];
+            static_configs = [{targets = ["metrics.pando1.decent.id"];}];
           }
           {
             job_name = "smokeping";
@@ -51,9 +51,9 @@
           }
         ];
       };
-      nginx.virtualHosts."metrics.redbud.decent.id" = {
+      nginx.virtualHosts."metrics.pando1.decent.id" = {
         forceSSL = true;
-        useACMEHost = "redbud.decent.id";
+        useACMEHost = "pando1.decent.id";
         locations."/" = {
           proxyPass = "http://localhost:${toString config.services.prometheus.port}";
         };

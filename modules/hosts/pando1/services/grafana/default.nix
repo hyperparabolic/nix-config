@@ -1,12 +1,12 @@
 {
-  flake.modules.nixos.hosts-redbud = {config, ...}: {
+  flake.modules.nixos.hosts-pando1 = {config, ...}: {
     sops.secrets = {
       grafana-spencer-password = {
-        sopsFile = ../../../../../secrets/redbud/secrets-grafana.yaml;
+        sopsFile = ../../../../../secrets/pando1/secrets-grafana.yaml;
         owner = "grafana";
       };
       grafana-secret-key = {
-        sopsFile = ../../../../../secrets/redbud/secrets-grafana.yaml;
+        sopsFile = ../../../../../secrets/pando1/secrets-grafana.yaml;
         owner = "grafana";
       };
     };
@@ -18,7 +18,7 @@
           server = {
             http_addr = "127.0.0.1";
             http_port = 3000;
-            domain = "dash.redbud.decent.id";
+            domain = "dash.pando1.decent.id";
           };
           analytics = {
             check_for_updates = false;
@@ -46,23 +46,25 @@
                 name = "Prometheus";
                 type = "prometheus";
                 access = "proxy";
-                url = "https://metrics.redbud.decent.id";
+                url = "https://metrics.pando1.decent.id";
+                # pinned so provisioned dashboards can reference it
+                uid = "PBFA97CFB590B2093";
                 isDefault = true;
               }
               {
                 name = "Loki";
                 type = "loki";
                 access = "proxy";
-                url = "https://logs.redbud.decent.id";
+                url = "https://logs.pando1.decent.id";
               }
             ];
           };
         };
       };
 
-      nginx.virtualHosts."dash.redbud.decent.id" = {
+      nginx.virtualHosts."dash.pando1.decent.id" = {
         forceSSL = true;
-        useACMEHost = "redbud.decent.id";
+        useACMEHost = "pando1.decent.id";
         locations."/" = {
           proxyPass = "http://localhost:${toString config.services.grafana.settings.server.http_port}";
           proxyWebsockets = true;

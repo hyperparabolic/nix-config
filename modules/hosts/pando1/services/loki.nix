@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.hosts-redbud = {config, ...}: {
+  flake.modules.nixos.hosts-pando1 = {config, ...}: {
     services = {
       loki = {
         enable = true;
@@ -50,9 +50,9 @@
         };
       };
 
-      nginx.virtualHosts."logs.redbud.decent.id" = {
+      nginx.virtualHosts."logs.pando1.decent.id" = {
         forceSSL = true;
-        useACMEHost = "redbud.decent.id";
+        useACMEHost = "pando1.decent.id";
         locations."/" = {
           proxyPass = "http://localhost:${toString config.services.loki.configuration.server.http_listen_port}";
         };

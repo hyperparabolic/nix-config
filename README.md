@@ -47,10 +47,11 @@ More information on individual modules can be found in the modules directory.
   - `ntfy.oak.decent.id` / `ntfy.decent.id`: `ntfy` pub-sub / push notification service.
   - `rss.oak.decent.id`: `miniflux` rss feed reader and browser app.
   - `search.oak.decent.id`: `searxng` meta-search.
-- `redbud`: Retired laptop. Headless server acting as a RAOP (AirPlay) audio receiver and metrics server.
-  - `dash.redbud.decent.id`: `grafana` Dashboard and data visualization service.
-  - `logs.redbud.decent.id`: `loki` log aggregation service.
-  - `metrics.redbud.decent.id`: `prometheus` monitoring and alerting service.
+- `pando1`: Mini-pc. Hosts the observability stack.
+  - `dash.pando1.decent.id`: `grafana` Dashboard and data visualization service.
+  - `logs.pando1.decent.id`: `loki` log aggregation service.
+  - `metrics.pando1.decent.id`: `prometheus` monitoring and alerting service.
+- `redbud`: Retired laptop. Headless server acting as a RAOP (AirPlay) audio receiver.
 - `warden`: NUC mini-pc, headless, tailscale exit node.
   - `adguard.warden.decent.id`: `AdGuardHome` DNS level adblocker and DNS server.
   - `ha.warden.decent.id`: `Home Assistant` home automation service.

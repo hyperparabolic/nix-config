@@ -14,7 +14,7 @@
               name = "loki";
               match = "*";
 
-              host = "logs.redbud.decent.id";
+              host = "logs.pando1.decent.id";
               uri = "/loki/api/v1/push";
               port = 443;
               tls = true;
