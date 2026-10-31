@@ -20,7 +20,7 @@
     };
     sops.secrets.gradient-ntfy-token = {
       sopsFile = ../../../../../secrets/common/secrets-ntfy.yaml;
-      key = "ntfy-token";
+      key = "webhook-token";
       owner = "gradient";
       mode = "0400";
     };
@@ -96,7 +96,7 @@
             {
               config = {
                 token_file = config.sops.secrets.gradient-ntfy-token.path;
-                url = "https://ntfy.oak.decent.id/alert?template=gradient";
+                url = "https://ntfy.decent.id/alert?template=gradient";
               };
               events = [
                 "build.failed"
