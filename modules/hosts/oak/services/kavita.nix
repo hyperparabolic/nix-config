@@ -3,10 +3,10 @@
     services = {
       kavita = {
         enable = true;
-        tokenKeyFile = config.sops.secrets.kavita-token-key.path;
         settings = {
           IpAddresses = "127.0.0.1";
           Port = 26657;
+          TokenKey = config.sops.secrets.kavita-token-key.path;
         };
       };
       nginx.virtualHosts."books.oak.decent.id" = {
