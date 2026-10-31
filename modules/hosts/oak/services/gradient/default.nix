@@ -2,7 +2,6 @@
   flake.modules.nixos.hosts-oak = {
     inputs,
     config,
-    # lib,
     ...
   }: {
     imports = [
@@ -27,12 +26,6 @@
           jwtFile = config.sops.secrets.gradient-jwt.path;
         };
       };
-
-      # nginx.virtualHosts."gradient.oak.decent.id" = {
-      #   # override module acme config
-      #   enableACME = lib.mkForce false;
-      #   useACMEHost = "oak.decent.id";
-      # };
     };
 
     sops.secrets.gradient-crypt = {
