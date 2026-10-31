@@ -52,7 +52,7 @@ Import mechanics:
 │   ├── ai/                   # AI harnesses: shared system prompt in common/, one module per harness
 │   ├── flake-parts/          # flake modules, define attributes of the traditional flake schema
 │   ├── hosts/                # host modules, one per nixosConfigurations
-│   │   ├── <hostname>/       # per host config (magnolia, oak, redbud, warden)
+│   │   ├── <hostname>/       # per host config (magnolia, oak, pando1, pando2, warden)
 │   │   │   ├── default.nix   # host specific external `inputs` imports and config
 │   │   │   ├── imports.nix   # host module imports
 │   │   │   └── services/     # host specific services

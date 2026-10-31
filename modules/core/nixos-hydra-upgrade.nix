@@ -11,7 +11,8 @@
       settings = {
         healthChecks = {
           canaryHosts = [
-            "redbud"
+            "pando1"
+            "pando2"
             "warden"
           ];
         };

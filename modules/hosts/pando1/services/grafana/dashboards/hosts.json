@@ -75,12 +75,24 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "D {instance=\"redbud\", job=\"hosts\"}"
+              "options": "D {instance=\"pando1\", job=\"hosts\"}"
             },
             "properties": [
               {
                 "id": "displayName",
-                "value": "redbud"
+                "value": "pando1"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "D {instance=\"pando2\", job=\"hosts\"}"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "pando2"
               }
             ]
           },

@@ -51,7 +51,6 @@ More information on individual modules can be found in the modules directory.
   - `dash.pando1.decent.id`: `grafana` Dashboard and data visualization service.
   - `logs.pando1.decent.id`: `loki` log aggregation service.
   - `metrics.pando1.decent.id`: `prometheus` monitoring and alerting service.
-- `redbud`: Retired laptop. Headless server acting as a RAOP (AirPlay) audio receiver.
 - `warden`: NUC mini-pc, headless, tailscale exit node.
   - `adguard.warden.decent.id`: `AdGuardHome` DNS level adblocker and DNS server.
   - `ha.warden.decent.id`: `Home Assistant` home automation service.
