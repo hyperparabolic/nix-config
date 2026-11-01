@@ -6,7 +6,7 @@
     ...
   }: {
     system.autoUpgradeHydra = {
-      enable = true;
+      enable = false;
       dates = lib.mkDefault "*-*-* 03:00:00 America/Chicago";
       settings = {
         healthChecks = {
