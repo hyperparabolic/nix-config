@@ -7,8 +7,6 @@
     sops.secrets.gradient-deploy-key = {
       sopsFile = ../../secrets/common/secrets-gradient.yaml;
       key = "gradient-deploy-key";
-      owner = "gradient";
-      mode = "0400";
     };
 
     system.gradient-deploy = {
