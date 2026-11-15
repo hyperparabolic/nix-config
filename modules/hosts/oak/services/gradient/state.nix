@@ -82,7 +82,6 @@
           ];
         };
       };
-      integrations = {};
       projects = {
         nix-config = {
           created_by = "spencer";
@@ -136,7 +135,6 @@
           project = "nix-config";
           repository = "https://github.com/hyperparabolic/nix-config";
           retry_failed_builds = true;
-          sign_cache = true;
           triggers = [
             {
               active = true;
