@@ -7,7 +7,6 @@
         dust # du alternative
         eza # ls alternative
         fselect # file finder with sql-ish syntax
-        glances # system monitor
         jq # json parsing
         ouch # file compression / decompression
         ripgrep # grep alternative
