@@ -35,6 +35,8 @@
       };
       nginx.virtualHosts."ntfy.oak.decent.id" = {
         forceSSL = true;
+        # TODO: remove http2, nginx2root mitigation
+        http2 = false;
         useACMEHost = "oak.decent.id";
         locations = {
           # email topic publishing blocked
