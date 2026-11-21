@@ -268,7 +268,7 @@
     },
     "flake-utils_2": {
       "inputs": {
-        "systems": "systems_5"
+        "systems": "systems_4"
       },
       "locked": {
         "lastModified": 1731533236,
@@ -470,27 +470,6 @@
         "type": "github"
       }
     },
-    "nixos-hydra-upgrade": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "systems": "systems_2"
-      },
-      "locked": {
-        "lastModified": 1782608581,
-        "narHash": "sha256-5ByS3FUeBkjyeNQGiO9WY8MXed6xHmec82Pp3bB1Xxw=",
-        "owner": "hyperparabolic",
-        "repo": "nixos-hydra-upgrade",
-        "rev": "e2dacd272283bfaa31e1c77f30f7a2ce68c51640",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hyperparabolic",
-        "repo": "nixos-hydra-upgrade",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1789546076,
@@ -645,11 +624,10 @@
         "lanzaboote": "lanzaboote",
         "lazy-apps": "lazy-apps",
         "nixos-hardware": "nixos-hardware",
-        "nixos-hydra-upgrade": "nixos-hydra-upgrade",
         "nixpkgs": "nixpkgs_2",
         "sops-nix": "sops-nix",
         "stylix": "stylix",
-        "systems": "systems_4",
+        "systems": "systems_3",
         "vanity": "vanity"
       }
     },
@@ -707,7 +685,7 @@
           "nixpkgs"
         ],
         "nur": "nur",
-        "systems": "systems_3",
+        "systems": "systems_2",
         "tinted-kitty": "tinted-kitty",
         "tinted-schemes": "tinted-schemes",
         "tinted-tmux": "tinted-tmux",
@@ -744,21 +722,6 @@
     },
     "systems_2": {
       "locked": {
-        "lastModified": 1681028828,
-        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
-        "owner": "nix-systems",
-        "repo": "default",
-        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-systems",
-        "repo": "default",
-        "type": "github"
-      }
-    },
-    "systems_3": {
-      "locked": {
         "lastModified": 1774449309,
         "narHash": "sha256-brhZ8DmuGtzkCYHJg4HEd602amKm89Y9ytsFZ5uWD1w=",
         "owner": "nix-systems",
@@ -773,7 +736,7 @@
         "type": "github"
       }
     },
-    "systems_4": {
+    "systems_3": {
       "locked": {
         "lastModified": 1689347949,
         "narHash": "sha256-12tWmuL2zgBgZkdoB6qXZsgJEH9LR3oUgpaQq2RbI80=",
@@ -788,7 +751,7 @@
         "type": "github"
       }
     },
-    "systems_5": {
+    "systems_4": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",

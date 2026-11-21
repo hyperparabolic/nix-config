@@ -21,7 +21,6 @@ High level overview:
 - Ephemeral root file system with opt-in persistence via `impermanence`
 - Hydra CI/CD automatically pre-populates `nix-serve` binary cache.
   - Automatic dependency update [workflows](./.github/workflows)
-  - Automatic upgrades from CI / cache with [nixos-hydra-upgrade](https://github.com/hyperparabolic/nixos-hydra-upgrade)
 - `hyprland` wayland desktop environment
 - [vanity](https://github.com/hyperparabolic/vanity) custom desktop shell built with [astal](https://github.com/Aylur/astal)
 - Custom [install / debug usb](https://github.com/hyperparabolic/nix-config/tree/main/hosts/iso), along with [bootstrap, installation, and dubugging scripts](https://github.com/hyperparabolic/nix-config/tree/main/scripts)
