@@ -9,9 +9,8 @@
     llamaSwapModels = [
       # Locally hosted first, so defaultModel lands on one.
       "qwen3.8:27b-q4"
-      "deepseek/deepseek-v4.1-flash"
+      "deepseek/deepseek-v4.1-flash-1017"
       "openai/gpt-6-luna"
-      "stealth/space-bunny-alpha"
       "xiaomi/mimo-v2.6-flash"
       "z-ai/glm-5.3-flash"
     ];
