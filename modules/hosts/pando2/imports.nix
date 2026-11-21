@@ -13,6 +13,7 @@
         reverse-proxy
         stage1-ssh
         user-spencer
+        weekly-reboot
         zfs
       ]
       ++ [

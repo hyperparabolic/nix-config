@@ -12,6 +12,7 @@
         stage1-ssh
         user-spencer
         tailscale-exit-node
+        weekly-reboot
         zfs
       ]
       ++ [
