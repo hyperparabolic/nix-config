@@ -31,7 +31,7 @@
 
     services.avahi = {
       enable = true;
-      reflector = true;
+      settings.reflector.enable-reflector = true;
     };
 
     networking.firewall.allowedTCPPorts = [
