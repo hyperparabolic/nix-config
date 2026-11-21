@@ -10,7 +10,7 @@
         environmentFile = config.sops.secrets.cf-dns-token.path;
         extraDomainNames = ["*.oak.decent.id"];
         dnsProvider = "cloudflare";
-        dnsPropagationCheck = true;
+        dnsAuthoritativePropagationCheck = true;
       };
     };
 
