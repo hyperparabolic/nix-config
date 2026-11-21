@@ -19,8 +19,8 @@ High level overview:
 - ZFS root filesystems with native ZFS encryption and LUKS key management and decryption
 - Secure boot with [lanzaboote](https://github.com/nix-community/lanzaboote) and TPM LUKS unlocks
 - Ephemeral root file system with opt-in persistence via `impermanence`
-- Hydra CI/CD automatically pre-populates `nix-serve` binary cache.
-  - Automatic dependency update [workflows](./.github/workflows)
+- [Gradient](https://github.com/wavelens/gradient) CI/CD and deployment: builds all host systems and hosts pull-deploy daily.
+- Automatic dependency update [workflows](./.github/workflows)
 - `hyprland` wayland desktop environment
 - [vanity](https://github.com/hyperparabolic/vanity) custom desktop shell built with [astal](https://github.com/Aylur/astal)
 - Custom [install / debug usb](https://github.com/hyperparabolic/nix-config/tree/main/hosts/iso), along with [bootstrap, installation, and dubugging scripts](https://github.com/hyperparabolic/nix-config/tree/main/scripts)
@@ -41,7 +41,7 @@ More information on individual modules can be found in the modules directory.
 - `oak`: Desktop workstation.
   - `books.oak.decent.id`: `kavita` ebook library.
   - `cache.oak.decent.id`: `nix-serve` binary cache for other less beefy machines.
-  - `hydra.oak.decent.id`: `hydra` continuous integration and continuous delivery.
+  - `gradient.oak.decent.id`: `gradient` CI/CD, deployment orchestration, and binary cache.
   - `jellyfin.oak.decent.id`: `jellyfin` media server.
   - `ntfy.oak.decent.id` / `ntfy.decent.id`: `ntfy` pub-sub / push notification service.
   - `rss.oak.decent.id`: `miniflux` rss feed reader and browser app.

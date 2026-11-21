@@ -34,7 +34,7 @@ Import mechanics:
 ## Validating with nix
 
 - `nix flake` / `nix eval` evaluate the flake's git state, not the working tree. New files must be `git add`-ed before they are visible to evaluation.
-- Full flake eval is slow (every host evaluates twice due to hydraJobs). Be specific when querying paths:
+- Be specific when querying paths:
   - For `flake.module.nixos` nixos modules query `.#nixosConfigurations.<host>.config.<path>`
   - For `flake.module.homeManager` home-manager modules query `.#nixosConfigurations.<host>.config.home-manager.users.spencer.<path>`
 - Prefer full paths where possible, `nix eval <path> --json | jq <query>` as a second preference.

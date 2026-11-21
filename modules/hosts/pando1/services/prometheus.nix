@@ -25,16 +25,6 @@
               hosts;
           }
           {
-            job_name = "hydra-notify";
-            scheme = "http";
-            static_configs = [{targets = ["oak:9199"];}];
-          }
-          {
-            job_name = "hydra-queue-runner";
-            scheme = "http";
-            static_configs = [{targets = ["oak:9198"];}];
-          }
-          {
             job_name = "grafana";
             scheme = "https";
             static_configs = [{targets = ["dash.pando1.decent.id"];}];
