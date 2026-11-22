@@ -28,7 +28,7 @@
       wantedBy = ["timers.target"];
       timerConfig = {
         # Randomly stagger Sunday reboots across 3:30-4:30, Chicago time.
-        OnCalendar = "TZ=America/Chicago Sun *-*-* 03:30:00";
+        OnCalendar = "Sun 03:30:00 America/Chicago";
         RandomizedDelaySec = "3600";
         # Catch up if a host was down when the timer was due.
         Persistent = true;
