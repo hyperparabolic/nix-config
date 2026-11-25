@@ -40,7 +40,6 @@ More information on individual modules can be found in the modules directory.
 - `magnolia`: Laptop, runs no services, mobile work only.
 - `oak`: Desktop workstation.
   - `books.oak.decent.id`: `kavita` ebook library.
-  - `cache.oak.decent.id`: `nix-serve` binary cache for other less beefy machines.
   - `gradient.oak.decent.id`: `gradient` CI/CD, deployment orchestration, and binary cache.
   - `jellyfin.oak.decent.id`: `jellyfin` media server.
   - `ntfy.oak.decent.id` / `ntfy.decent.id`: `ntfy` pub-sub / push notification service.
