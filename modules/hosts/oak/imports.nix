@@ -11,6 +11,7 @@
         bluetooth
         desktop
         games
+        gradient-worker
         libvirt
         reverse-proxy
         user-spencer

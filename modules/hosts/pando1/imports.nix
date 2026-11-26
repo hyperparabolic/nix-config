@@ -9,6 +9,7 @@
 
         audio
         bluetooth
+        gradient-worker
         pipewire-raop
         reverse-proxy
         stage1-ssh

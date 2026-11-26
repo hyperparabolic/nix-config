@@ -159,20 +159,20 @@
           username = "spencer";
         };
       };
-      # teams = {
-      #   server = {
-      #     display_name = "Server";
-      #     members = [];
-      #     name = "server";
-      #     new_projects = {
-      #       role = null;
-      #       users = false;
-      #       workers = true;
-      #     };
-      #     oidc_group = null;
-      #     scim_group = null;
-      #   };
-      # };
+      teams = {
+        server = {
+          display_name = "Server";
+          members = [];
+          name = "server";
+          new_projects = {
+            role = null;
+            users = false;
+            workers = true;
+          };
+          oidc_group = null;
+          scim_group = null;
+        };
+      };
       # workers = {
       #   "687a8d42-4cbd-0313-c12e-6f652d42c54e" = {
       #     created_by = null;

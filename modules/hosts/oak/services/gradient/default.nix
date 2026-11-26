@@ -1,13 +1,5 @@
 {
-  flake.modules.nixos.hosts-oak = {
-    inputs,
-    config,
-    ...
-  }: {
-    imports = [
-      inputs.gradient.nixosModules.default
-    ];
-
+  flake.modules.nixos.hosts-oak = {config, ...}: {
     services = {
       gradient = {
         enable = true;
