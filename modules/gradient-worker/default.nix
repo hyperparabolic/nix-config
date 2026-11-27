@@ -62,8 +62,8 @@ in {
     sops.secrets = {
       gradient-peers-file = {
         sopsFile = ../../secrets/common/secrets-gradient.yaml;
-        key = "gradient-builder-key";
-        owner = "gradient";
+        key = "gradient-peers-file";
+        owner = "gradient-worker";
         mode = "0400";
       };
     };
